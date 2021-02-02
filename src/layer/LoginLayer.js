@@ -51,7 +51,7 @@ var LoginLayer = BaseLayer.extend({
 
     selfRender:function(){
 
-		var ports = "8001-8006";
+		var ports = "8001-8004";
 		var tmp_ports = ports.split("-");
 		var ports_str = "";
 		for (var i = parseInt(tmp_ports[0]); i <= parseInt(tmp_ports[1]); i++) {
@@ -65,13 +65,13 @@ var LoginLayer = BaseLayer.extend({
 //		if ((SyConfig.isAndroid() && SyConfig.TJD == true) || SyConfig.isIos()) {
 
 			SyConfig.TJD = false;
-			SyConfig.WS_HOST = "8.131.239.9";
-			SyConfig.WS_PORT = "8001";
-			SyConfig.REQ_URL = "http://8.131.239.9:9091/pdklogin/{0}!{1}.action";
-			SyConfig.LOGIN_URL = "http://8.131.239.9:9091/pdklogin/{0}!{1}.guajilogin";
+			SyConfig.WS_HOST = "login.5mh1oqm.cn";
+			SyConfig.WS_PORT = ports;
+			SyConfig.REQ_URL = "http://login.5mh1oqm.cn/pdklogin/{0}!{1}.action";
+			SyConfig.LOGIN_URL = "http://login.5mh1oqm.cn/pdklogin/{0}!{1}.guajilogin";
 			ServerUtil.defaultLoginUrl = SyConfig.LOGIN_URL;
 			ServerUtil.defaultReqUrl = SyConfig.REQ_URL;
-            SyConfig.LOGIN_URL_NEW = "http://8.131.239.9:9091";
+            SyConfig.LOGIN_URL_NEW = "http://login.5mh1oqm.cn";
 //		}
         var timeRound = UITools.getLocalItem("Socket_timeRound1");
         if (!timeRound || timeRound == ""){
@@ -135,6 +135,7 @@ var LoginLayer = BaseLayer.extend({
         this.uploadUpdateErrorLog();
 
         this.selected = true;
+
         this.addCustomEvent(SyEvent.SOCKET_LOGIN_SUCCESS, this, this.onLoginSuccess);
 
         this.isForceUpdate();
@@ -143,9 +144,12 @@ var LoginLayer = BaseLayer.extend({
 
         PhoneLoginModel.init();
 
-        // if (SyConfig.DEBUG) {
-        //     this.setSelectServer();
-        // }
+        if (SyConfig.DEBUG) {
+            this.setSelectServer();
+        }else{
+            //初始化网络列表
+            SocketErrorModel.init();
+        }
 
         this.addBgAni();
 
@@ -270,9 +274,6 @@ var LoginLayer = BaseLayer.extend({
         var configArr = [
             {name:"测试环境",url:"http://8.131.239.9:9091",host:"8.131.239.9",port:"8001"},
             {name:"肖攀本地服",url:"http://192.168.1.112:8381",host:"192.168.1.112",port:"8309"},
-            {name:"王文俊本地服",url:"http://192.168.1.111:8081",host:"192.168.1.111",port:"8109"},
-            {name:"刘元元本地服",url:"http://192.168.1.29:8080",host:"192.168.1.29",port:"8109"},
-            {name:"欧阳广本地服",url:"http://192.168.1.178:8080",host:"192.168.1.178",port:"8109"},
             {name:"钟电本地服",url:"http://192.168.1.49:8080",host:"192.168.1.49",port:"8109"},
             {name:"卜涛本地服",url:"http://192.168.1.110:8081",host:"192.168.1.110",port:"8109"}
         ]

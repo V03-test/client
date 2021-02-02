@@ -150,6 +150,7 @@ var HttpUrlRequestJT = cc.Class.extend({
             //if(self._timeoutl!=null)
             //    clearTimeout(self._timeoutl);
             ServerUtil.getServerFromTJD();
+            SocketErrorModel.updateLoginIndex();
             if(self._onErr)	self._onErr("");
             cc.log("NetWork error:status:"+xhr.status+" url:"+self._url+"?"+self._body);
         }

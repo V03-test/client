@@ -79,12 +79,19 @@ var AssetsManagerLoaderScene = cc.Scene.extend({
 	_popupLayer:null,
     _checkNetworkNode: null,
 	_manifestList: null,
+	_manifestIndex: 0,
+	_manifestFailCount:0,
+	_manifestMaxFailCount:6,
 	onEnter:function(){
 		this._super();
 		sy.assetsScene = this;
 		AssetsUpdateModel.init();
 		var self = this;
-		this._manifestList = ["res/project.manifest","res/project_copy1.manifest","res/project_copy2.manifest"];
+		this._manifestList = [
+			"res/project.manifest",
+			"res/project_copy1.manifest"
+		];
+		this._manifestIndex = cc.sys.localStorage.getItem("manifestIndex") || 0;
         this._checkNetworkNode = new cc.Layer();
         this.addChild(this._checkNetworkNode);
 		// this.timeId = setTimeout(function() {
@@ -137,26 +144,21 @@ var AssetsManagerLoaderScene = cc.Scene.extend({
 				if (SyConfig.IS_STARTANI) {
 					var pre_time = parseInt(cc.sys.localStorage.getItem("playVedioTime"));
 					var cur_time = new Date().getTime();
-					cc.log("cur_time....", cur_time, pre_time);
-//					if (!pre_time || self.isAcrossDay(cur_time, pre_time)) {
-						cc.sys.localStorage.setItem("playVedioTime", cur_time);
-						var starlogo = new cc.Sprite("res/starlogo/startBg.jpg");
-//						starlogo.loadTexture("res/starlogo/startBg.jpg", ccui.Widget.LOCAL_TEXTURE);
-						self.starlogo = starlogo;
-						starlogo.setPosition(winSize.width / 2, winSize.height / 2);
-						self._normalLayer.addChild(starlogo, 0);
-						self.logo.visible = false;
-						self.bgLayer.visible = false;
-						self.starlogo.runAction(cc.sequence(
-							cc.delayTime(1),
-							cc.fadeOut(1),
-							cc.delayTime(0.1),
-							cc.callFunc(function () {
-                                startEnterGame();
-							}, this)))
-//					} else {
-//						sy.assetsScene.initDt();
-//					}
+					cc.sys.localStorage.setItem("playVedioTime", cur_time);
+					var starlogo = new cc.Sprite("res/starlogo/startBg.jpg");
+					self.starlogo = starlogo;
+					starlogo.setPosition(winSize.width / 2, winSize.height / 2);
+					self._normalLayer.addChild(starlogo, 0);
+					self.logo.visible = false;
+					self.bgLayer.visible = false;
+					self.starlogo.runAction(cc.sequence(
+						cc.delayTime(1),
+						cc.fadeOut(1),
+						cc.delayTime(0.1),
+						cc.callFunc(function () {
+							startEnterGame();
+						}, this))
+					)
 				} else {
 					startEnterGame();
 				}
@@ -178,13 +180,7 @@ var AssetsManagerLoaderScene = cc.Scene.extend({
 			if(SyConfig.isAndroid())
 				jsb.reflection.callStaticMethod("net/sy599/common/SDKHelper", "sdkInit", "()V");
 			else {
-            	//if (ios_sdk_nettype() == 0) {
-            	//	this.noNetworkLabel.visible = true;
-		    	//	this._checkNetworkNode.schedule(this.checkNetworkstate.bind(this), 0.01);
-		    	//} 
-		    	//else {
-		    		this.checkUpdate();
-		    	//}
+				this.checkUpdate();
             } 
 		}
 	},
@@ -270,9 +266,10 @@ var AssetsManagerLoaderScene = cc.Scene.extend({
 		if(this._am){
 			this._am.release();
 		}
+
 		var storagePath = (jsb.fileUtils ? jsb.fileUtils.getWritablePath() : "./");
-		cc.log("this._manifestList[0]==",this._manifestList[0]);
-		this._am = new jsb.AssetsManager(""+this._manifestList[0], storagePath);
+		cc.log("this._manifestList[0]==",this._manifestIndex,this._manifestList[this._manifestIndex]);
+		this._am = new jsb.AssetsManager(""+this._manifestList[this._manifestIndex], storagePath);
 		this._am.retain();
 		if (!this._am.getLocalManifest().isLoaded()) {
 			AssetsUpdateModel.log("i4");
@@ -281,7 +278,7 @@ var AssetsManagerLoaderScene = cc.Scene.extend({
 		} else {
 			var that = this;
 			var listener = new jsb.EventListenerAssetsManager(this._am, function(event) {
-				switch (event.getEventCode()){
+				switch (event.getEventCode()) {
 					case jsb.EventAssetsManager.ERROR_NO_LOCAL_MANIFEST:
 						AssetsUpdateModel.log("e1");
 						cc.log("No local manifest file found, skip assets update.");
@@ -295,9 +292,14 @@ var AssetsManagerLoaderScene = cc.Scene.extend({
 					case jsb.EventAssetsManager.ERROR_PARSE_MANIFEST:
 						AssetsUpdateModel.log("e2");
 						cc.log("Fail to download manifest file, update skipped.");
-						if (that._manifestList && that._manifestList.length > 0){
+						that._manifestIndex++;
+						if (that._manifestIndex >= that._manifestList.length){
+							that._manifestIndex = 0;
+						}
+						that._manifestFailCount++;
+						if (that._manifestFailCount < that._manifestMaxFailCount){
 							that.checkManifest();
-						}else{
+						}else {
 							that.loadGame();
 						}
 						break;
@@ -342,8 +344,8 @@ var AssetsManagerLoaderScene = cc.Scene.extend({
 			cc.eventManager.addListener(listener, 1);
 			this._am.update();
 		}
-		this._manifestList.splice(0, 1);
-		cc.log("this._manifestList===",this._manifestList)
+		// this._manifestList.splice(0, 1);
+		// cc.log("this._manifestList===",this._manifestList)
 	},
 
 	loadGame:function(){
@@ -352,6 +354,7 @@ var AssetsManagerLoaderScene = cc.Scene.extend({
 			this.unscheduleUpdate();
 			this.updateLoadingBar(100);
 		}
+		cc.sys.localStorage.setItem("manifestIndex",this._manifestIndex);
 		AssetsUpdateModel.log("s1");
 		// jsList是jsList.js的变量，记录全部js。
 		this.scheduleOnce(function(){

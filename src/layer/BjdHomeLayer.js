@@ -1558,7 +1558,7 @@ var BjdHomeLayer = BaseLayer.extend({
             }
         }, function (data) {
             sy.scene.hideLoading();
-            FloatLabelUtil.comText(data.message || "亲友圈数据查询失败");
+            FloatLabelUtil.comText((data.message || "亲友圈数据查询失败") + SocketErrorModel._loginIndex);
         });
     },
 

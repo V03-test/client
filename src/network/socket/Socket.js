@@ -194,6 +194,7 @@ var SySocket = cc.Class.extend({
         this.socket.onerror = function(e) {
             var that = this;
             connectStr = "connect|11";
+            cc.log("url==",_this.url)
             SdkUtil.sdkLog("websocket is error.....................................3");
             if (_this.socket && _this.socket.wsid == that.wsid) {
                 PingClientModel.close();
@@ -202,6 +203,8 @@ var SySocket = cc.Class.extend({
                     connectStr = "connect|12";
                     NetErrorPop.show(true);
                 } else {
+                    SocketErrorModel.updateGameIndex();
+                    FloatLabelUtil.comText("登录失败" + SocketErrorModel._gameIndex);
                     connectStr = "connect|13";
                     sy.scene.hideLoading();
                 }

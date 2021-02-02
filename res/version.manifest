@@ -1,10 +1,10 @@
 {
-    "packageUrl":"http://hotcdn.tuishey.cn/ad316/",
-    "remoteManifestUrl":"http://hotcdn.tuishey.cn/ad316/project.manifest",
-    "remoteVersionUrl":"http://hotcdn.tuishey.cn/ad316/version.manifest",
+    "packageUrl":"http://hotcdn.1bl3z01.cn/v03/",
+    "remoteManifestUrl":"http://hotcdn.1bl3z01.cn/v03/project.manifest",
+    "remoteVersionUrl":"http://hotcdn.1bl3z01.cn/v03/version.manifest",
     "version":"1.0.0",
     "groupVersions":{
-        "1":"1.0.0"
+        "1":"1.0.1"
     },
     "engineVersion":"3.1"
 }

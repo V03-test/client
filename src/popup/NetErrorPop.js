@@ -12,6 +12,7 @@ var NetErrorPop = BasePopup.extend({
         this.connectTime = 0;
         this.connectOverTime = 10;
         this.errorTimes = 0;
+        this.errorLinkTimes = 0;
         this.isConnect = false;
         this._super("res/loadingCircle.json");
     },
@@ -70,10 +71,15 @@ var NetErrorPop = BasePopup.extend({
                     return;
                 SdkUtil.sdkLog("NetErrorPop socket error...try reconnect...1");
                 self.errorTimes+=1;
+                self.errorLinkTimes+=1;
+                if (self.errorLinkTimes > 3){
+                    self.errorLinkTimes = 0;
+                    SocketErrorModel.updateGameIndex();
+                }
                 this.timeId = setTimeout(function(){
                     var time = new Date().getTime();
                     time = UITools.formatDetailTime(time,2);
-                    var str = ("连接次数" + self.errorTimes +",ID:"+PlayerModel.userId + "\n" + time);
+                    var str = (SocketErrorModel._gameIndex + "连接次数" + self.errorTimes +",ID:"+PlayerModel.userId + "\n" + time);
                     self.setTipStr(str);
                     self.timeId = -1;
                     sySocket.connect(null,10);
@@ -103,6 +109,7 @@ var NetErrorPop = BasePopup.extend({
     onSuc:function(){
         // cc.log("onSuc===onSuc==onSuc")
         this.errorTimes=0;
+        this.errorLinkTimes = 0;
         SdkUtil.sdkLog("NetErrorPop socket has connect success...");
         sy.scene.hideLoading();
         //if(this.lmc)

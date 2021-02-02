@@ -110,7 +110,7 @@ var HttpReqModel = {
     getHttpUrlById:function(_id){
         _id = _id ? Number(_id) : 0 ;
         var _url = "";
-        cc.log("SyConfig.LOGIN_URL_NEW",SyConfig.LOGIN_URL_NEW,this._urPrefix,_id,HttpReqList[_id])
+        // cc.log("SyConfig.LOGIN_URL_NEW",SyConfig.LOGIN_URL_NEW,this._urPrefix,_id,HttpReqList[_id])
         _url = SyConfig.LOGIN_URL_NEW + this._urPrefix +  HttpReqList[_id];
         cc.log("_url====",_url);
         return _url;

@@ -89,6 +89,7 @@ var jsList = [
     "src/network/cmd/model/GoldMatchRoomModel.js",
     "src/network/cmd/model/TaskInfoModel.js",
     "src/network/cmd/model/HttpReqModel.js",
+    "src/network/cmd/model/SocketErrorModel.js",
 
     "src/network/cmd/BaseCmd.js",
     "src/network/cmd/LoginCmd.js",
