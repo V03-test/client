@@ -1,0 +1,162 @@
+{
+  "content_scale": 1.0,
+  "armature_data": [
+    {
+      "strVersion": "1.6.0.0",
+      "version": 1.6,
+      "name": "003gy",
+      "bone_data": [
+        {
+          "name": "Layer8",
+          "parent": "",
+          "dI": 0,
+          "x": 357.14288330078125,
+          "y": 381.39996337890625,
+          "z": 2,
+          "cX": 1.0,
+          "cY": 1.0,
+          "kX": 2.383215,
+          "kY": -2.383215,
+          "arrow_x": 336.503662109375,
+          "arrow_y": 3.1345407478511333E-06,
+          "effectbyskeleton": true,
+          "bl": 336,
+          "display_data": [
+            {
+              "name": "abgd.png",
+              "displayType": 0,
+              "skin_data": [
+                {
+                  "x": 43.7754822,
+                  "y": -49.342968,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 3.89997053,
+                  "kY": 2.383215
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "animation_data": [
+    {
+      "name": "003gy",
+      "mov_data": [
+        {
+          "name": "Animation1",
+          "dr": 386,
+          "lp": true,
+          "to": 0,
+          "drTW": 0,
+          "twE": 0,
+          "sc": 1.0,
+          "mov_bone_data": [
+            {
+              "name": "Layer8",
+              "dl": 0.0,
+              "frame_data": [
+                {
+                  "dI": 0,
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.623365939,
+                  "kY": -0.623365939,
+                  "fi": 0,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "bd_src": 770,
+                  "bd_dst": 772
+                },
+                {
+                  "dI": 0,
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": -0.0125956535,
+                  "kY": 0.0125956535,
+                  "fi": 155,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "color": {
+                    "a": 147,
+                    "r": 255,
+                    "g": 255,
+                    "b": 255
+                  },
+                  "bd_src": 770,
+                  "bd_dst": 772
+                },
+                {
+                  "dI": 0,
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": -0.5664976,
+                  "kY": 0.5664976,
+                  "fi": 290,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "color": {
+                    "a": 0,
+                    "r": 255,
+                    "g": 255,
+                    "b": 255
+                  },
+                  "bd_src": 770,
+                  "bd_dst": 772
+                },
+                {
+                  "dI": 0,
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": -0.5664976,
+                  "kY": 0.5664976,
+                  "fi": 385,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "color": {
+                    "a": 0,
+                    "r": 255,
+                    "g": 255,
+                    "b": 255
+                  },
+                  "bd_src": 1,
+                  "bd_dst": 771
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "texture_data": [
+    {
+      "name": "abgd",
+      "width": 1244.0,
+      "height": 964.0,
+      "pX": 0.5,
+      "pY": 0.5,
+      "plistFile": ""
+    }
+  ],
+  "config_file_path": [
+    "003gy0.plist"
+  ],
+  "config_png_path": [
+    "003gy0.png"
+  ]
+}
