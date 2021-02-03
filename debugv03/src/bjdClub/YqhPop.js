@@ -24,8 +24,8 @@ var YqhPop = BasePopup.extend({
 
         var btn_create = this.getWidget("btn_create");
         UITools.addClickEvent(btn_create,this,this.onClickCreate);
-        btn_create.setVisible(PlayerModel.canCreateClub);
-
+        // btn_create.setVisible(PlayerModel.canCreateClub);
+        btn_create.setVisible(true);
         this.labelTip = this.getWidget("label_tip");
         this.labelTip.setString("");
 
