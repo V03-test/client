@@ -78,8 +78,8 @@ var MainScene = cc.Scene.extend({
 		// cc.spriteFrameCache.addSpriteFrames(res.xpphz_cards_plist);
 		// cc.spriteFrameCache.addSpriteFrames(res.ahphz_cards_plist);
 		// cc.spriteFrameCache.addSpriteFrames(res.majiang_oldbg_plist);
-		// cc.spriteFrameCache.addSpriteFrames(res.qf_bcard_plist);
-		// cc.spriteFrameCache.addSpriteFrames(res.qf_scard_plist);
+		 cc.spriteFrameCache.addSpriteFrames(res.qf_bcard_plist);
+		 cc.spriteFrameCache.addSpriteFrames(res.qf_scard_plist);
 		//长沙麻将新资源
 		cc.spriteFrameCache.addSpriteFrames(res.majiang_zi1_plist);
 		cc.spriteFrameCache.addSpriteFrames(res.majiang_bg1_plist);
@@ -331,7 +331,7 @@ var MainScene = cc.Scene.extend({
 		xhr.onreadystatechange = function () {
 			if (xhr.readyState == 4) {
 				if(xhr.status == 200){
-					cc.log("===========getUpdateNotice============" + xhr.responseText);
+					//cc.log("===========getUpdateNotice============" + xhr.responseText);
 					var data = JSON.parse(xhr.responseText);
 					if(data.code == 0) {
 						if (data.data) {

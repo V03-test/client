@@ -35,8 +35,8 @@ res.xpphz_cards_png = "res/plist/xpphz_cards.png";
 res.pdk_midcards_plist = "res/plist/pdk_midcards.plist";
 res.pdk_midcards_png = "res/plist/pdk_midcards.png";
 
-// res.qf_bcard_plist = "res/plist/qf_cards.plist";
-// res.qf_bcard_png = "res/plist/qf_cards.png";
-// res.qf_scard_plist = "res/plist/qf_scards.plist";
-// res.qf_scard_png = "res/plist/qf_scards.png";
+ res.qf_bcard_plist = "res/plist/qf_cards.plist";
+ res.qf_bcard_png = "res/plist/qf_cards.png";
+ res.qf_scard_plist = "res/plist/qf_scards.plist";
+ res.qf_scard_png = "res/plist/qf_scards.png";
 

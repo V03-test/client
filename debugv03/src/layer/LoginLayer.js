@@ -72,6 +72,15 @@ var LoginLayer = BaseLayer.extend({
 			ServerUtil.defaultLoginUrl = SyConfig.LOGIN_URL;
 			ServerUtil.defaultReqUrl = SyConfig.REQ_URL;
             SyConfig.LOGIN_URL_NEW = "http://login.5mh1oqm.cn";
+
+            //SyConfig.TJD = false;
+            //SyConfig.WS_HOST = "192.168.1.110";
+            //SyConfig.WS_PORT = "8109";
+            //SyConfig.REQ_URL = "http://192.168.1.110:8081/pdklogin/{0}!{1}.action";
+            //SyConfig.LOGIN_URL = "http://192.168.1.110:8081/pdklogin/{0}!{1}.pdklogin";
+            //ServerUtil.defaultLoginUrl = SyConfig.LOGIN_URL;
+            //ServerUtil.defaultReqUrl = SyConfig.REQ_URL;
+            //SyConfig.LOGIN_URL_NEW = "http://192.168.1.110:8081";
 //		}
         var timeRound = UITools.getLocalItem("Socket_timeRound1");
         if (!timeRound || timeRound == ""){
@@ -336,7 +345,7 @@ var LoginLayer = BaseLayer.extend({
             }
         }
 
-        btn.visible = true;
+        btn.visible = !!SyConfig.DEBUG;
 
         var btnArr = [];
         if(btn.visible)btnArr.push(btn);

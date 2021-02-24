@@ -318,6 +318,7 @@ var PDKRoom = BaseRoom.extend({//Room
 				tipLabel.setColor(cc.color.BLUE);
 				daNiaoNode.addChild((tipLabel));
 			}
+			this.Button_tuichu.visible = false;
 		}
 	},
 

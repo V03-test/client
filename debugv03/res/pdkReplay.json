@@ -2030,7 +2030,7 @@
       "adaptScreen": false,
       "backGroundImage": null,
       "backGroundImageData": {
-        "path": "res_pdk/pdkRoom/Bgc1.jpg",
+        "path": "pkCommon/gamebg.jpg",
         "plistFile": "",
         "resourceType": 0
       },

@@ -58,12 +58,12 @@ var ClubCreditCreatePop = BasePopup.extend({
             }
             this.getWidget("Label_22").visible =
             this.getWidget("Panel_giveRange").visible =
-            this.getWidget("Image_score_start").visible = !this.isAAPay;
+            this.getWidget("Image_score_start").visible = this.isAAPay == 0;
         },this);
 
         this.getWidget("Label_22").visible =
         this.getWidget("Panel_giveRange").visible =
-        this.getWidget("Image_score_start").visible = !this.isAAPay;
+        this.getWidget("Image_score_start").visible = this.isAAPay == 0;
 
         this.inputJoin = this.getWidget("Label_join");
         this.inputExit = this.getWidget("Label_exit");

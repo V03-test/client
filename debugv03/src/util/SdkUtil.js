@@ -2,11 +2,10 @@
  * 接入SDK的util类
  */
 var SdkUtil = {
-	SHARE_URL:"https://ieqppa.id/doupjfhjis",
-	SHARE_ROOM_URL:"https://ieqppa.id/doupjfhjis",
-	//SHARE_CAED_URL:"http://dtztest.gm.52nmw.cn/pdkuposa/d9/", //测试服gm.dtz.klwgame.com
-	SHARE_CAED_URL:"https://ieqppa.id/doupjfhjis", //正式服
-	COMMON_HTTP_URL:"https://ieqppa.id/doupjfhjis", //正式服
+	SHARE_URL:"http://longlingmac.com/qy/mebh",
+	SHARE_ROOM_URL:"http://longlingmac.com/qy/mebh",
+	SHARE_CAED_URL:"http://longlingmac.com/qy/mebh",
+	COMMON_HTTP_URL:"http://longlingmac.com/qy/mebh",
 	isIosAudit:0,
 	payType:"",
 	fcNewParams:null,
