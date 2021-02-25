@@ -21,7 +21,7 @@ var PHZRoomEffects = {
         }
         var pmType = 1;//PHZSetModel.pmxz;
 
-        var endScale = 1.3;
+        var endScale = 1;
         this.phzVo = phzVo || null;
         var kuangText = "big_face"+pmType+".png";
         if(phzVo.c == 0){
@@ -60,32 +60,45 @@ var PHZRoomEffects = {
 
         //if (PHZRoomModel.wanfa == GameTypeEunmZP.AHPHZ || PHZRoomModel.wanfa == GameTypeEunmZP.YJGHZ
         //    || PHZRoomModel.wanfa == GameTypeEunmZP.NXGHZ || PHZRoomModel.wanfa == GameTypeEunmZP.YYWHZ){
-            if(actType == 1){
-                if(seq == 1){
-                    kuang.x = 0;
-                    kuang.y = 0;
-                }else if(seq == 2){
-                    kuang.x = -200;
-                    kuang.y = -20;
-                }else if(seq == 3){
-                    kuang.x = 200;
-                    kuang.y = -20;
-                }
-            }else if(actType == 2){
-                if(seq == 1){
-                    kuang.x = -550;
-                    kuang.y = -350;
-                }else if(seq == 2){
-                    kuang.x = 300;
-                    kuang.y = 150;
-                }else if(seq == 3){
-                    kuang.x = -550;
-                    kuang.y = 100;
-                }
-            }
+        //    if(actType == 1){
+        //        if(seq == 1){
+        //            kuang.x = 0;
+        //            kuang.y = 0;
+        //        }else if(seq == 2){
+        //            kuang.x = -200;
+        //            kuang.y = -20;
+        //        }else if(seq == 3){
+        //            kuang.x = 200;
+        //            kuang.y = -20;
+        //        }
+        //    }else if(actType == 2){
+        //        if(seq == 1){
+        //            kuang.x = -550;
+        //            kuang.y = -350;
+        //        }else if(seq == 2){
+        //            kuang.x = 300;
+        //            kuang.y = 150;
+        //        }else if(seq == 3){
+        //            kuang.x = -550;
+        //            kuang.y = 100;
+        //        }
+        //    }
+
+        if(renshu == 4){
             endPosX = 0;
             endPosY = 0;
-        //}
+        }else{
+            if(seq == 1){
+                endPosX = -360;
+                endPosY = 100;
+            }else if(seq == 2){
+                endPosX = -280;
+                endPosY = 220;
+            }else if(seq == 3){
+                endPosX = -80;
+                endPosY = 20;
+            }
+        }
 
         PHZRoomModel.isSelfOutCard = false;
         var endPos = cc.p(endPosX , endPosY);
@@ -139,8 +152,7 @@ var PHZRoomEffects = {
             if (root.x < oPanel.x){ //暂时先用x坐标判断
                 kuang1.x += oPanel.width;
             }
-            // kuang1.y = this.kuang.y;
-            // kuang1.x = this.kuang.x;
+
             //cc.log("this.getQiPaiStartPos==="+this.getQiPzaiStartPos(renshu,seq,actType).x + "---" + this.getQiPaiStartPos(renshu,seq,actType).y)
             oPanel.addChild(kuang1,1,321);
             //cc.log("png=========="+png)

@@ -70,13 +70,6 @@ var RuleSelect_CDTLJ = RuleSelectBase.extend({
         var zsNum = 5;
         var zsNumArr = [5,8,10];
         var temp = 0;
-        var renshu = 4;
-        //for(var i = 0;i<2;++i){
-        //    if(this.getItemByIdx(2,i).isSelected()){
-        //        renshu = 4-i;
-        //        break;
-        //    }
-        //}
 
         for(var i = 0;i<2;++i){
             var item = this.getItemByIdx(0,i);
@@ -89,14 +82,13 @@ var RuleSelect_CDTLJ = RuleSelectBase.extend({
         if(this.createRoomLayer.clubData && ClickClubModel.getClubIsOpenLeaderPay()){
             zsNum = zsNumArr[temp];
         }else{
-            if(this.getItemByIdx(1,0).isSelected()){
-                zsNum = Math.ceil(zsNumArr[temp]/renshu);
-            }else{
-                zsNum = zsNumArr[temp]
-            }
+            //if(this.getItemByIdx(1,0).isSelected()){
+            //    zsNum = Math.ceil(zsNumArr[temp]/renshu);
+            //}else{
+            //    zsNum = zsNumArr[temp]
+            //}
+            zsNum = 10;
         }
-
-        zsNum = 0;
 
         this.createRoomLayer && this.createRoomLayer.updateZsNum(zsNum);
     },

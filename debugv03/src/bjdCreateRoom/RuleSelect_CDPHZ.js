@@ -14,7 +14,7 @@ var RuleSelect_CDPHZ = RuleSelectBase.extend({
     setConfigData:function(){
         this.ruleConfig = [
             {title:"房费",type:1,content:["AA支付","房主支付"]},//0
-            {title:"局数",type:1,content:["8局","16局"]},//1
+            {title:"局数",type:1,content:["1局","8局","16局"]},//1
             {title:"人数",type:1,content:["3人","2人"]},//2
             {title:"底分",type:1,content:["1分","2分","3分","4分","5分"],col:5},//3
             {title:"分数上限",type:1,content:["无","100","200","300","500"]},//4
@@ -185,7 +185,7 @@ var RuleSelect_CDPHZ = RuleSelectBase.extend({
         }
 
         var zsNum = 5;
-        var zsNumArr = [5,10];
+        var zsNumArr = [1,5,10];
         var temp = 0;
         var renshu = 3;
         for(var i = 0;i<3;++i){
@@ -195,7 +195,7 @@ var RuleSelect_CDPHZ = RuleSelectBase.extend({
             }
         }
 
-        for(var i = 0;i<2;++i){
+        for(var i = 0;i<zsNumArr.length;++i){
             var item = this.getItemByIdx(1,i);
             if(item.isSelected()){
                 temp = i;
@@ -206,11 +206,12 @@ var RuleSelect_CDPHZ = RuleSelectBase.extend({
         if(this.createRoomLayer.clubData && ClickClubModel.getClubIsOpenLeaderPay()){
             zsNum = zsNumArr[temp];
         }else{
-            if(this.getItemByIdx(0,0).isSelected()){
-                zsNum = Math.ceil(zsNumArr[temp]/renshu);
-            }else{
-                zsNum = zsNumArr[temp];
-            }
+            //if(this.getItemByIdx(0,0).isSelected()){
+            //    zsNum = Math.ceil(zsNumArr[temp]/renshu);
+            //}else{
+            //    zsNum = zsNumArr[temp];
+            //}
+            zsNum = 10;
         }
         this.createRoomLayer && this.createRoomLayer.updateZsNum(zsNum);
     },
@@ -254,7 +255,7 @@ var RuleSelect_CDPHZ = RuleSelectBase.extend({
         }
 
         var jushu = 8;
-        var jushuArr = [8,16];
+        var jushuArr = [1,8,16];
         for(var i = 0;i<jushuArr.length;++i){
             if(this.getItemByIdx(1,i).isSelected()){
                 jushu = jushuArr[i];
@@ -452,7 +453,7 @@ var RuleSelect_CDPHZ = RuleSelectBase.extend({
     //用于俱乐部的创建
     getWanfas:function(){
         var jushu = 8;
-        var jushuArr = [8,16];
+        var jushuArr = [1,8,16];
         for(var i = 0;i<jushuArr.length;++i){
             if(this.getItemByIdx(1,i).isSelected()){
                 jushu = jushuArr[i];
@@ -487,7 +488,7 @@ var RuleSelect_CDPHZ = RuleSelectBase.extend({
         var defaultConfig = [[1],[0],[0],[0],[0],[0],[],[0],[0],[1],[0],[0],[]];
 
         defaultConfig[0][0] = params[9] == 3||params[9] == 4?0:parseInt(params[9]) - 1;//房费
-        defaultConfig[1][0] = params[0] == 8 ? 0 : 1 ;//局数
+        defaultConfig[1][0] = params[0] == 1 ? 0 : params[0] == 8 ? 1 : 2 ;//局数
         defaultConfig[2][0] = params[7] == 2?1:0;//人数
         defaultConfig[3][0] = parseInt(params[45]) - 1;//底分 1 | 2
         var scoreArr = [0,100,200,300,500];

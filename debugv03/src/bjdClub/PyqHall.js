@@ -252,7 +252,7 @@ var PyqHall = BasePopup.extend({
 
         this.panel_more.setPosition(this.root.convertToNodeSpace(cc.p(-417,0)));
         if(SdkUtil.isIphoneX()){
-            this.btn_more_club.setPositionY(this.btn_more_club.height/2);
+            this.btn_more_club.setPositionY(this.btn_more_club.height/2 - 30);
         }
 
         this.btn_shouqi = this.getWidget("btn_shouqi");
@@ -1570,6 +1570,10 @@ var PyqHall = BasePopup.extend({
     },
 
     onClickTongji:function(){
+        //var pop = new TongjiFacePop()
+        //PopupManager.addPopup(pop);
+        //return;
+
         if(ClickClubModel.getClubIsGold()){
             var pop = new GoldClubStatisticsPop()
             PopupManager.addPopup(pop);
@@ -1789,6 +1793,10 @@ var PyqHall = BasePopup.extend({
     setTableItemData:function(item,data){
         item.setVisible(true);
 
+        var imgNameArr = this.getZhuoBgFile(data.playType,data.maxCount,data.configId);
+        var zhuoBu = ccui.helper.seekWidgetByName(item,"zhuoBu");
+        zhuoBu.loadTexture(imgNameArr[1]);
+
         if(item.tempData && this.dataHandler.isDataSame(item.tempData,data)){
             return;
         }
@@ -1796,12 +1804,8 @@ var PyqHall = BasePopup.extend({
         item.tempData = data;
 
         var item_btn = item.getChildByName("btn_table");
-        var imgNameArr = this.getZhuoBgFile(data.playType,data.maxCount,data.configId);
         var tableBg = item.getChildByName("table_bg");
         tableBg.loadTexture(imgNameArr[0]);
-
-        var zhuoBu = ccui.helper.seekWidgetByName(item,"zhuoBu");
-        zhuoBu.loadTexture(imgNameArr[1]);
 
         var offsetY = 54;
         var offsetX = 5;
@@ -2045,11 +2049,11 @@ var PyqHall = BasePopup.extend({
             gameType = 3;//字牌
         }
 
-        var zhuoType = 1;
+        var zhuoType = 3;
         var buType = 0;
 
         if(this.zhuoBuCfgData[configId]){
-            zhuoType = this.zhuoBuCfgData[configId][1];
+            //zhuoType = this.zhuoBuCfgData[configId][1];
             buType = this.zhuoBuCfgData[configId][2];
         }else{
             if(gameType == 2)buType = 1;
@@ -2057,7 +2061,6 @@ var PyqHall = BasePopup.extend({
         }
         var zhuoImg = "res/ui/bjdmj/popup/pyq/zhuobu/zhuo_" + zhuoType + "_" + num + ".png";
         var buImg = "res/ui/bjdmj/popup/pyq/zhuobu/bu_" + zhuoType + "_" + buType + ".png";
-
         return [zhuoImg,buImg,zhuoType];
     },
 

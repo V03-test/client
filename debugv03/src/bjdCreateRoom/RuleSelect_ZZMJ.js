@@ -13,7 +13,7 @@ var RuleSelect_ZZMJ = RuleSelectBase.extend({
 
     setConfigData:function(){
         this.ruleConfig = [
-            {title:"局数选择",type:1,content:["8局","12局","16局"]},//0
+            {title:"局数选择",type:1,content:["1局","8局","12局","16局"]},//0
             {title:"房费",type:1,content:["AA支付","房主支付"]},//1
             {title:"人数选择",type:1,content:["4人","3人","2人"]},//2
             {title:"可选",type:2,content:["庄闲（算分）","可胡七对","可抢公杠胡","抢杠胡包三家","点炮胡","有炮必胡","流局算杠分","放杠+3分","可吃","缺一门"],col:3},//3
@@ -139,7 +139,7 @@ var RuleSelect_ZZMJ = RuleSelectBase.extend({
         }
 
         var zsNum = 5;
-        var zsNumArr = [5,8,10];
+        var zsNumArr = [1,5,8,10];
         var temp = 0;
         var renshu = 4;
         for(var i = 0;i<3;++i){
@@ -149,7 +149,7 @@ var RuleSelect_ZZMJ = RuleSelectBase.extend({
             }
         }
 
-        for(var i = 0;i<3;++i){
+        for(var i = 0;i<zsNumArr.length;++i){
             var item = this.getItemByIdx(0,i);
             if(item.isSelected()){
                 temp = i;
@@ -160,11 +160,12 @@ var RuleSelect_ZZMJ = RuleSelectBase.extend({
         if(this.createRoomLayer.clubData && ClickClubModel.getClubIsOpenLeaderPay()){
             zsNum = zsNumArr[temp];
         }else{
-            if(this.getItemByIdx(1,0).isSelected()){
-                zsNum = Math.ceil(zsNumArr[temp]/renshu);
-            }else{
-                zsNum = zsNumArr[temp]
-            }
+            //if(this.getItemByIdx(1,0).isSelected()){
+            //    zsNum = Math.ceil(zsNumArr[temp]/renshu);
+            //}else{
+            //    zsNum = zsNumArr[temp]
+            //}
+            zsNum = 10;
         }
 
         this.createRoomLayer && this.createRoomLayer.updateZsNum(zsNum);
@@ -257,10 +258,10 @@ var RuleSelect_ZZMJ = RuleSelectBase.extend({
 
     getSocketRuleData:function(){
         var data = {params:[],strParams:""};
-        var jushu = 8;
-        for(var i = 0;i<3;++i){
+        var jushu = 1;
+        for(var i = 1;i<4;++i){
             if(this.getItemByIdx(0,i).isSelected()){
-                jushu = 8 + i*4;
+                jushu = 8 + (i-1)*4;
                 break;
             }
         }
@@ -425,9 +426,10 @@ var RuleSelect_ZZMJ = RuleSelectBase.extend({
     //用于俱乐部的创建
     getWanfas:function(){
         var jushu = 4;
-        for(var i = 0;i<3;++i){
+        var jshuArr = [1,8,12,16];
+        for(var i = 0;i<jshuArr.length;++i){
             if(this.getItemByIdx(0,i).isSelected()){
-                jushu = Math.pow(2,i)*4;
+                jushu = jshuArr[i];
                 break;
             }
         }
@@ -456,7 +458,7 @@ var RuleSelect_ZZMJ = RuleSelectBase.extend({
     readSelectData:function(params){
         //cc.log("readSelectData in ZZMJ =",JSON.stringify(params));
         var defaultConfig = [[0],[1],[0],[],[0],[0],[0],[0],[0],[0],[0],[0],[]];
-        defaultConfig[0][0] = params[0] == 16?2:params[0] == 12?1:0;
+        defaultConfig[0][0] = params[0] == 16?3:params[0] == 12?2:params[0] == 8?1:0;
         defaultConfig[1][0] = params[2] == 3||params[2] == 4?0: params[2] - 1;
         defaultConfig[2][0] = params[7] == 3?1:params[7]==2?2:0;
         defaultConfig[4][0] = parseInt(params[10])/2;

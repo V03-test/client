@@ -106,11 +106,12 @@ var RuleSelect_QF = RuleSelectBase.extend({
         if(this.createRoomLayer.clubData && ClickClubModel.getClubIsOpenLeaderPay()){
             zsNum = 5;
         }else{
-            if(this.getItemByIdx(0,0).isSelected()){
-                zsNum = Math.ceil(5/renshu);
-            }else{
-                zsNum = 5;
-            }
+            //if(this.getItemByIdx(0,0).isSelected()){
+            //    zsNum = Math.ceil(5/renshu);
+            //}else{
+            //    zsNum = 5;
+            //}
+            zsNum = 10;
         }
         this.createRoomLayer && this.createRoomLayer.updateZsNum(zsNum);
     },

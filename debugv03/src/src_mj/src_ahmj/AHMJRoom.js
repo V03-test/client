@@ -234,13 +234,14 @@ var AHMJRoom = BaseRoom.extend({
 
         //this.getWidget("mPanel1").y = 10;
 
-        //this.button_wanfa =  new ccui.Button("res/res_mj/mjRoom/wanfa.png","","");
-        //this.Panel_20.addChild(this.button_wanfa);
-        //this.button_wanfa.y = this.Button_setup1.y;
-        //this.button_wanfa.x = 1710;
+        this.button_wanfa =  new ccui.Button("res/res_mj/mjRoom/wanfa.png","","");
+        this.Panel_20.addChild(this.button_wanfa);
+        this.button_wanfa.y = this.Button_setup1.y;
+        this.button_wanfa.x = 1710;
         //UITools.addClickEvent(this.button_wanfa,this,this.showWanFaImg);
         //this.initwanfaImg();
         //this.showWanFaImg();
+        this.button_wanfa.visible = false;
 
         this.button_fengDong =  new ccui.Button("res/res_mj/res_ahmj/kwmjRoom/feng.png","","");
         this.Panel_20.addChild(this.button_fengDong);

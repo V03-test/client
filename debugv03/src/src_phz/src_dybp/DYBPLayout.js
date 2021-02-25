@@ -498,7 +498,11 @@ var DYBPLayout = cc.Class.extend({
                     card.x = i*gx;
                 }
                 card.setLocalZOrder(zorder);
-                card.y = j*gy;
+                if(this.direct!=1){
+                    card.y = j*gy - 50;
+                }else{
+                    card.y = j*gy;
+                }
                 count++;
                 zorder--;
 
@@ -525,7 +529,7 @@ var DYBPLayout = cc.Class.extend({
                 initVal = 310;
             }
         }else{
-            localNum = 8;
+            localNum = 7;
             initVal=(this.direct==2) ? 300 : 10;
         }
         for(var i=0;i<this.mahjongs3.length;i++){
@@ -548,11 +552,14 @@ var DYBPLayout = cc.Class.extend({
                 }else{
                     card.x = initVal+localX*g;
                 }
-                card.y = localY * 78;
+                card.y = 156 - localY * 78;
             }else{
                 if(this.direct==3){
                     card.x = initVal+localX*g;
-                    card.y = -localY * 78;
+                    card.y = -localY * 78 + 78;
+                }else if(this.direct==2){
+                    card.x = initVal-localX*g;
+                    card.y = -localY * 78 + 78;
                 }else{
                     card.x = initVal-localX*g;
                     card.y = localY * 78;

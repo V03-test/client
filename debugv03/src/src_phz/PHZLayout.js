@@ -525,11 +525,19 @@ var PHZLayout = cc.Class.extend({
                 if(this.direct==2){
                     card.x = 142-i*gx*localScale;
                 }else{
-                    card.x = i*gx*localScale;
+                    if(this.direct==1){
+                        card.x = i*gx*localScale - 50;
+                    }else{
+                        card.x = i*gx*localScale;
+                    }
                 }
 
                 card.setLocalZOrder(zorder);
-                card.y = j*gy*localScale;
+                if(this.direct!=1){
+                    card.y = j*gy*localScale - 50;
+                }else{
+                    card.y = j*gy*localScale;
+                }
                 count++;
                 zorder--;
 
@@ -570,7 +578,7 @@ var PHZLayout = cc.Class.extend({
                 initVal = 310;
             }
         }else{
-            localNum = 8;
+            localNum = 7;
             initVal=(this.direct==2) ? 300 : 10;
         }
         for(var i=0;i<this.mahjongs3.length;i++){
@@ -610,7 +618,10 @@ var PHZLayout = cc.Class.extend({
             }else if(PHZRoomModel.renshu==3){
                 if(this.direct==3){
                     card.x = initVal+localX*g;
-                    card.y = -localY * 78;
+                    card.y = -localY * 78 + 78;
+                }else if(this.direct==2){
+                    card.x = initVal-localX*g;
+                    card.y = -localY * 78 + 78;
                 }else{
                     card.x = initVal-localX*g;
                     card.y = localY * 78;
@@ -621,7 +632,7 @@ var PHZLayout = cc.Class.extend({
                 }else{
                     card.x = initVal+localX*g;
                 }
-                card.y = localY * 78;
+                card.y = 156 - localY * 78;
             }
 
             if (i == data.length -1 ){

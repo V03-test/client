@@ -60,18 +60,19 @@ var PyqPifuSetPop = cc.Layer.extend({
             item.addTouchEventListener(this.onClickBg,this);
             this.bg_scroll.addChild(item);
             this.bgItemArr.push(item);
+            item.visible = false;
         }
 
-        this.bgKuang = new cc.Sprite("res/ui/bjdmj/popup/pyq/pifu/kuang_1.png");
-        this.bgKuang.setPosition(this.bgItemArr[0].getPosition());
-        this.bg_scroll.addChild(this.bgKuang);
+        //this.bgKuang = new cc.Sprite("res/ui/bjdmj/popup/pyq/pifu/kuang_1.png");
+        //this.bgKuang.setPosition(this.bgItemArr[0].getPosition());
+        //this.bg_scroll.addChild(this.bgKuang);
 
-        this.setSelectBg(this.bgType,1);
+        //this.setSelectBg(this.bgType,1);
 
         this.wanfa_scroll = new ccui.ScrollView();
         this.wanfa_scroll.setDirection(ccui.ScrollView.DIR_HORIZONTAL);
         this.wanfa_scroll.setContentSize(bg.width - 90,210);
-        this.wanfa_scroll.setPosition(this.bg_scroll.x,this.bg_scroll.y - 233);
+        this.wanfa_scroll.setPosition(this.bg_scroll.x,this.bg_scroll.y - 245);
         bg.addChild(this.wanfa_scroll);
 
         this.wanfaKuang = new cc.Sprite("res/ui/bjdmj/popup/pyq/pifu/kuang_2.png");
@@ -80,33 +81,39 @@ var PyqPifuSetPop = cc.Layer.extend({
         this.zhuo_scroll = new ccui.ScrollView();
         this.zhuo_scroll.setDirection(ccui.ScrollView.DIR_HORIZONTAL);
         this.zhuo_scroll.setContentSize(bg.width - 90,210);
-        this.zhuo_scroll.setPosition(this.bg_scroll.x,this.wanfa_scroll.y - 225);
+        this.zhuo_scroll.setPosition(this.bg_scroll.x,this.wanfa_scroll.y - 215);
         bg.addChild(this.zhuo_scroll);
 
 
         this.zhuoKuang = new cc.Sprite("res/ui/bjdmj/popup/pyq/pifu/kuang_3.png");
         this.zhuo_scroll.addChild(this.zhuoKuang);
 
-        var itemW = 240;
+        //var itemW = 240;
         this.zhuoArr = [];
-        for(var i = 0;i<3;++i){
-            var img = "res/ui/bjdmj/popup/pyq/pifu/set_zhuozi_" + (i + 1) + ".png";
-            var item = new ccui.Button(img,img,"");
-            item.flag = i+1;
-            item.setPosition(itemW*(i+0.5),this.zhuo_scroll.height/2);
-            item.addTouchEventListener(this.onClickZhuoZi,this);
-            this.zhuo_scroll.addChild(item);
-            this.zhuoArr.push(item);
-
-            if(i == 0){
-                this.zhuoKuang.setPosition(item.getPosition());
-            }
-        }
+        //for(var i = 0;i<3;++i){
+        //    var img = "res/ui/bjdmj/popup/pyq/pifu/set_zhuozi_" + (i + 1) + ".png";
+        //    var item = new ccui.Button(img,img,"");
+        //    item.flag = i+1;
+        //    item.setPosition(itemW*(i+0.5),this.zhuo_scroll.height/2);
+        //    item.addTouchEventListener(this.onClickZhuoZi,this);
+        //    this.zhuo_scroll.addChild(item);
+        //    this.zhuoArr.push(item);
+        //
+        //    if(i == 0){
+        //        this.zhuoKuang.setPosition(item.getPosition());
+        //    }
+        //}
+        var img = "res/ui/bjdmj/popup/pyq/pifu/set_zhuozi_3.png";
+        var item = new cc.Sprite(img);
+        item.setPosition(120,this.zhuo_scroll.height/2);
+        this.zhuo_scroll.addChild(item);
+        this.zhuoArr.push(item);
+        this.zhuoKuang.setPosition(item.getPosition());
 
         this.bu_scroll = new ccui.ScrollView();
         this.bu_scroll.setDirection(ccui.ScrollView.DIR_HORIZONTAL);
         this.bu_scroll.setContentSize(bg.width - 90,210);
-        this.bu_scroll.setPosition(this.bg_scroll.x,this.zhuo_scroll.y - 222);
+        this.bu_scroll.setPosition(this.bg_scroll.x,this.zhuo_scroll.y - 210);
         bg.addChild(this.bu_scroll);
 
 
@@ -154,6 +161,7 @@ var PyqPifuSetPop = cc.Layer.extend({
             this.wanfa_scroll.addChild(item);
 
             item.keyId = data[i].keyId;
+
             this.bagItemArr.push(item);
 
             var label_name = UICtor.cLabel((i+1) + " " + data[i].groupName,33);
@@ -166,13 +174,13 @@ var PyqPifuSetPop = cc.Layer.extend({
             label_name.setPosition(10,item.height/2);
             item.addChild(label_name);
 
-            var img_zhuo = new cc.Sprite("res/ui/bjdmj/popup/pyq/zhuobu/zhuo_1_4.png");
+            var img_zhuo = new cc.Sprite("res/ui/bjdmj/popup/pyq/zhuobu/zhuo_3_4.png");
             img_zhuo.setPosition(item.width - 45,item.height/2);
             img_zhuo.setScale(0.2);
             img_zhuo.setTag(2);
             item.addChild(img_zhuo);
 
-            var img_bu = new cc.Sprite("res/ui/bjdmj/popup/pyq/zhuobu/bu_1_0.png");
+            var img_bu = new cc.Sprite("res/ui/bjdmj/popup/pyq/zhuobu/bu_3_0.png");
             img_bu.setPosition(img_zhuo.x,img_zhuo.y + 12);
             img_bu.setScale(0.2);
             img_bu.setTag(3);
@@ -217,6 +225,7 @@ var PyqPifuSetPop = cc.Layer.extend({
     },
 
     setItemZhuoZi:function(item,type){
+        type = 3;
         var img = "res/ui/bjdmj/popup/pyq/zhuobu/zhuo_" + type + "_4.png";
         item.getChildByTag(2).initWithFile(img);
         item.ZhuoType = type;
@@ -240,7 +249,7 @@ var PyqPifuSetPop = cc.Layer.extend({
         this.wanfaKuang.setPosition(item.getPosition());
         this.curOptWanfa = item;
 
-        this.zhuoKuang.setPosition(this.zhuoArr[item.ZhuoType-1].getPosition());
+        this.zhuoKuang.setPosition(this.zhuoArr[0].getPosition());//item.ZhuoType-1
         this.buKuang.setPosition(this.buArr[item.buType].getPosition());
     },
 

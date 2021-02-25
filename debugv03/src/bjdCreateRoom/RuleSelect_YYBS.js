@@ -9,7 +9,7 @@ var RuleSelect_YYBS = RuleSelectBase.extend({
 
     setConfigData:function(){
         this.ruleConfig = [
-            {title:"局数选择",type:1,content:["5局","10局"],col:3},//0
+            {title:"局数选择",type:1,content:["1局","5局","10局"],col:3},//0
             {title:"房费",type:1,content:["AA支付","房主支付"],col:3},//1
             {title:"人数选择",type:1,content:["4人"],col:3},//2
             {title:"玩法",type:2,content:["可查牌","抽6"],col:3},//3
@@ -69,13 +69,6 @@ var RuleSelect_YYBS = RuleSelectBase.extend({
         var zsNum = 5;
         var zsNumArr = [5,8,10];
         var temp = 0;
-        var renshu = 4;
-        //for(var i = 0;i<2;++i){
-        //    if(this.getItemByIdx(2,i).isSelected()){
-        //        renshu = 4-i;
-        //        break;
-        //    }
-        //}
 
         for(var i = 0;i<2;++i){
             var item = this.getItemByIdx(0,i);
@@ -88,14 +81,13 @@ var RuleSelect_YYBS = RuleSelectBase.extend({
         if(this.createRoomLayer.clubData && ClickClubModel.getClubIsOpenLeaderPay()){
             zsNum = zsNumArr[temp];
         }else{
-            if(this.getItemByIdx(1,0).isSelected()){
-                zsNum = Math.ceil(zsNumArr[temp]/renshu);
-            }else{
-                zsNum = zsNumArr[temp]
-            }
+            //if(this.getItemByIdx(1,0).isSelected()){
+            //    zsNum = Math.ceil(zsNumArr[temp]/renshu);
+            //}else{
+            //    zsNum = zsNumArr[temp]
+            //}
+            zsNum = 10;
         }
-
-        zsNum = 0;
 
         this.createRoomLayer && this.createRoomLayer.updateZsNum(zsNum);
     },
@@ -109,9 +101,10 @@ var RuleSelect_YYBS = RuleSelectBase.extend({
 
     getSocketRuleData:function(){
         var data = {params:[],strParams:""};
-        var jushu = 5;
 
-        if(this.getItemByIdx(0,1).isSelected())jushu = 10;
+        var jushu = 1;
+        if(this.getItemByIdx(0,1).isSelected())jushu = 5;
+        else if(this.getItemByIdx(0,2).isSelected())jushu = 10;
 
         var costway = 1;
         if(this.createRoomLayer.clubData && ClickClubModel.getClubIsGold()) {
@@ -199,8 +192,9 @@ var RuleSelect_YYBS = RuleSelectBase.extend({
     //单独获取游戏类型id,支付方式选项,局数,人数的选择项
     //用于俱乐部的创建
     getWanfas:function(){
-        var jushu = 5;
-        if(this.getItemByIdx(0,1).isSelected())jushu = 10;
+        var jushu = 1;
+        if(this.getItemByIdx(0,1).isSelected())jushu = 5;
+        else if(this.getItemByIdx(0,2).isSelected())jushu = 10;
 
         var costway = 1;
         if(this.createRoomLayer.clubData && ClickClubModel.getClubIsGold()) {
@@ -226,7 +220,7 @@ var RuleSelect_YYBS = RuleSelectBase.extend({
     readSelectData:function(params){
         var defaultConfig = [[0],[1],[0],[],[0],[0],[0],[0],[1]];
 
-        defaultConfig[0][0] = params[0] == 10?1:0;
+        defaultConfig[0][0] = params[0] == 10?2:params[0] == 5?1:0;
         defaultConfig[1][0] = params[2] == 3||params[2] == 4?0:params[2] - 1;
         defaultConfig[2][0] = params[7] == 3?1:0;
 

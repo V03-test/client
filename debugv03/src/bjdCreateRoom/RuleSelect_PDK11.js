@@ -14,7 +14,7 @@ var RuleSelect_PDK11 = RuleSelectBase.extend({
         this.ruleConfig = [
             {title:"房费",type:1,content:["AA支付","房主支付"]},// 0
             {title:"人数选择",type:1,content:["3人","2人"]},// 1
-            {title:"局数选择",type:1,content:["5局","8局","10局","15局","20局"],col:5},// 2
+            {title:"局数选择",type:1,content:["1局","5局","8局","10局","15局","20局"],col:3},// 2
             {title:"红10",type:1,content:["不选红10","5分","10分","翻倍"]},// 3
             {title:"玩法选择",type:1,content:["11张(三个K,一个A,一个2)"],col:2},// 4
             {title:"四带",type:1,content:["不选四带","4带3、2、1","4带2、1"]},// 5
@@ -158,7 +158,7 @@ var RuleSelect_PDK11 = RuleSelectBase.extend({
         }
 
         var zsNum = 5;
-        var zsNumArr = [3,5,5,8,10];
+        var zsNumArr = [1,3,5,5,8,10];
         var temp = 0;
         var renshu = 3;
         for(var i = 0;i<2;++i){
@@ -168,7 +168,7 @@ var RuleSelect_PDK11 = RuleSelectBase.extend({
             }
         }
 
-        for(var i = 0;i<5;++i){
+        for(var i = 0;i<zsNumArr.length;++i){
             var item = this.getItemByIdx(2,i);
             if(item.isSelected()){
                 temp = i;
@@ -179,11 +179,12 @@ var RuleSelect_PDK11 = RuleSelectBase.extend({
         if(this.createRoomLayer.clubData && ClickClubModel.getClubIsOpenLeaderPay()){
             zsNum = zsNumArr[temp];
         }else{
-            if(this.getItemByIdx(0,0).isSelected()){
-                zsNum = Math.ceil(zsNumArr[temp]/renshu);
-            }else{
-                zsNum = zsNumArr[temp]
-            }
+            //if(this.getItemByIdx(0,0).isSelected()){
+            //    zsNum = Math.ceil(zsNumArr[temp]/renshu);
+            //}else{
+            //    zsNum = zsNumArr[temp]
+            //}
+            zsNum = 10;
         }
 
         this.createRoomLayer && this.createRoomLayer.updateZsNum(zsNum);
@@ -296,8 +297,8 @@ var RuleSelect_PDK11 = RuleSelectBase.extend({
         }
 
         var jushu = 5;
-        var jushuList = [5,8,10,15,20];
-        for(var i = 0;i<5;++i){
+        var jushuList = [1,5,8,10,15,20];
+        for(var i = 0;i<jushuList.length;++i){
             if(this.getItemByIdx(2,i).isSelected()){
                 jushu = jushuList[i];
                 break;
@@ -445,8 +446,8 @@ var RuleSelect_PDK11 = RuleSelectBase.extend({
         }
 
         var jushu = 5;
-        var jushuList = [5,8,10,15,20];
-        for(var i = 0;i<5;++i){
+        var jushuList = [1,5,8,10,15,20];
+        for(var i = 0;i<jushuList.length;++i){
             if(this.getItemByIdx(2,i).isSelected()){
                 jushu = jushuList[i];
                 break;
@@ -463,7 +464,7 @@ var RuleSelect_PDK11 = RuleSelectBase.extend({
     readSelectData:function(params){
         cc.log("===========readSelectData============" + params);
         var defaultConfig = [[0],[0],[0],[0],[0],[0],[],[0],[0],[0],[0],[0],[0],[]];
-        var jushuList = [5,8,10,15,20];
+        var jushuList = [1,5,8,10,15,20];
         var index = jushuList.indexOf(parseInt(params[0]));
         defaultConfig[0][0] = params[9] == 3||params[9] == 4?0:params[9] - 1;
         defaultConfig[1][0] = params[7] == 2 ? 1 : 0;

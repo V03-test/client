@@ -16,7 +16,7 @@ var RuleSelect_AHPHZ = RuleSelectBase.extend({
     setConfigData:function(){
         this.ruleConfig = [
             {title:"房费",type:1,content:["AA支付","房主支付"]},//0
-            {title:"局数",type:1,content:["8局","12局","20局"]},//1
+            {title:"局数",type:1,content:["1局","8局","12局","20局"]},//1
             {title:"人数",type:1,content:["3人","2人"]},//2
             {title:"抽牌",type:1,content:["不抽底牌","抽牌10张","抽牌20张"]},//3
             {title:"玩法",type:2,content:["三提五坎","爬坡"]},//4
@@ -177,8 +177,8 @@ var RuleSelect_AHPHZ = RuleSelectBase.extend({
             return;
         }
 
-        var zsNum = [[2,2,4],[3,3,5]];
-        var newArr = [5,6,10];
+        var zsNum = [[1,2,2,4],[1,3,3,5]];
+        var newArr = [1,5,6,10];
         var temp = 0;
         var renshu = 0;
         if(this.getItemByIdx(2,1).isSelected()){
@@ -186,7 +186,7 @@ var RuleSelect_AHPHZ = RuleSelectBase.extend({
         }
         var zsNumArr = zsNum[renshu];
 
-        for(var i = 0;i<3;++i){
+        for(var i = 0;i<newArr.length;++i){
             var item = this.getItemByIdx(1,i);
             if(item.isSelected()){
                 temp = i;
@@ -196,11 +196,12 @@ var RuleSelect_AHPHZ = RuleSelectBase.extend({
         if(this.createRoomLayer.clubData && ClickClubModel.getClubIsOpenLeaderPay()){
             zsNum = newArr[temp];
         }else{
-            if(this.getItemByIdx(0,0).isSelected()){
-                zsNum = zsNumArr[temp];
-            }else{
-                zsNum = newArr[temp];
-            }
+            //if(this.getItemByIdx(0,0).isSelected()){
+            //    zsNum = zsNumArr[temp];
+            //}else{
+            //    zsNum = newArr[temp];
+            //}
+            zsNum = 10;
         }
         this.createRoomLayer && this.createRoomLayer.updateZsNum(zsNum);
     },
@@ -235,8 +236,8 @@ var RuleSelect_AHPHZ = RuleSelectBase.extend({
     getSocketRuleData:function(){
         var data = {params:[],strParams:""};
         var jushu = 8;
-        var jushuArr = [8,12,20];
-        for(var i = 0;i<3;++i){
+        var jushuArr = [1,8,12,20];
+        for(var i = 0;i<jushuArr.length;++i){
             if(this.getItemByIdx(1,i).isSelected()){
                 jushu = jushuArr[i];
                 break;
@@ -393,8 +394,8 @@ var RuleSelect_AHPHZ = RuleSelectBase.extend({
     //用于俱乐部的创建
     getWanfas:function(){
         var jushu = 8;
-        var jushuArr = [8,12,20];
-        for(var i = 0;i<3;++i){
+        var jushuArr = [1,8,12,20];
+        for(var i = 0;i<jushuArr.length;++i){
             if(this.getItemByIdx(1,i).isSelected()){
                 jushu = jushuArr[i];
                 break;
@@ -428,7 +429,7 @@ var RuleSelect_AHPHZ = RuleSelectBase.extend({
         var defaultConfig = [[1],[0],[0],[0],[],[],[0],[0],[0],[0],[1],[0],[0],[]];
 
         defaultConfig[0][0] = params[9] == 3?0:params[9] == 4?1:parseInt(params[9]) - 1;//房费
-        defaultConfig[1][0] = params[0] == 8 ? 0 : params[0] == 12 ? 1 : 2;//局数
+        defaultConfig[1][0] = params[0] == 1 ? 0 : params[0] == 8 ? 1 : params[0] == 12 ? 2 : 3;//局数
         defaultConfig[2][0] = params[7] == 2?1:0;//人数
         defaultConfig[3][0] = params[14] == 0?0:(params[14] == 10 ? 1 : 2);//抽牌
         defaultConfig[6][0] = params[13] == 1 ? 1:0;//选息

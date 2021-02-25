@@ -286,6 +286,7 @@ var PDKRoom = BaseRoom.extend({//Room
 		}else{
 			this.waitPiaoImg && this.waitPiaoImg.setVisible(false);
 		}
+		this.Button_tuichu.visible = false;
 	},
 
 	showDaNiaoState:function(type){
@@ -613,6 +614,7 @@ var PDKRoom = BaseRoom.extend({//Room
 			this.Button_p1f.visible = false;
 			this.Button_p3f.visible = false;
 		}
+		this.Button_tuichu.visible = false;
 	},
 
 	OnDeskHuiKan:function(message){

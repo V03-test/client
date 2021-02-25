@@ -1530,7 +1530,7 @@ var ComResponder = BaseResponder.extend({
 				break;
 			case 4503://通知开始洗牌
 				BaseXiPaiModel.nameList = message.strParams || [];
-				BaseXiPaiModel.isNeedXiPai = true && BaseXiPaiModel.nameList.length > 0;
+				BaseXiPaiModel.isNeedXiPai = BaseXiPaiModel.nameList.length > 0;
 				SyEventManager.dispatchEvent(SyEvent.BISAI_XIPAI,message);
 				break;
 			case 4520://查询权限

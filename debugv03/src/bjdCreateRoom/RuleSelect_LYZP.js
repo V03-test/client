@@ -20,7 +20,7 @@ var RuleSelect_LYZP = RuleSelectBase.extend({
         this.ruleConfig = [
             {title:"房费",type:1,content:["AA支付","房主支付"]},//0
             {title:"人数",type:1,content:["3人","2人"]},//1
-            {title:"局数",type:1,content:["8局","16局"]},//2
+            {title:"局数",type:1,content:["1局","8局","16局"]},//2
             {title:"玩法",type:2,content:["举手做声","不带无胡","不带一点红","吃边打边"],col:4},//3
             {title:"抽牌",type:1,content:["不抽底牌","抽牌10张","抽牌20张"]},//4
             {title:"托管",type:1,content:["不托管","1分钟","2分钟","3分钟","5分钟"],col:3},//5
@@ -186,7 +186,7 @@ var RuleSelect_LYZP = RuleSelectBase.extend({
         }
 
         var zsNum = 5;
-        var zsNumArr = [4,8];
+        var zsNumArr = [1,4,8];
         var renshu = 3; 
         var temp = 0;
         for(var i = 0;i<2;++i){
@@ -195,7 +195,7 @@ var RuleSelect_LYZP = RuleSelectBase.extend({
                 break;
             }
         }
-        for(var i = 0;i<2;++i){
+        for(var i = 0;i<zsNumArr.length;++i){
             var item = this.getItemByIdx(2,i);
             if(item.isSelected()){
                 temp = i;
@@ -205,11 +205,12 @@ var RuleSelect_LYZP = RuleSelectBase.extend({
         if(this.createRoomLayer.clubData && ClickClubModel.getClubIsOpenLeaderPay()){
             zsNum = zsNumArr[temp];
         }else{
-            if(this.getItemByIdx(0,0).isSelected()){
-                zsNum = Math.ceil(zsNumArr[temp]/renshu);
-            }else{
-                zsNum = zsNumArr[temp];
-            }
+            //if(this.getItemByIdx(0,0).isSelected()){
+            //    zsNum = Math.ceil(zsNumArr[temp]/renshu);
+            //}else{
+            //    zsNum = zsNumArr[temp];
+            //}
+            zsNum = 10;
         }
 
         this.createRoomLayer && this.createRoomLayer.updateZsNum(zsNum);
@@ -262,9 +263,9 @@ var RuleSelect_LYZP = RuleSelectBase.extend({
             if(this.getItemByIdx(0,1).isSelected())costWay = 2;
         }
 
-        var jushu = 8;
-        if(this.getItemByIdx(2,1).isSelected())jushu = 16; 
-
+        var jushu = 1;
+        if(this.getItemByIdx(2,1).isSelected())jushu = 8;
+        else  if(this.getItemByIdx(2,2).isSelected())jushu = 16;
 
         var jszs = 0;
         // if(this.getItemByIdx(3,0).isSelected())jszs = 1;
@@ -377,8 +378,9 @@ var RuleSelect_LYZP = RuleSelectBase.extend({
             }
         }
 
-        var jushu = 8;
-        if(this.getItemByIdx(2,1).isSelected())jushu = 16; 
+        var jushu = 1;
+        if(this.getItemByIdx(2,1).isSelected())jushu = 8;
+        else  if(this.getItemByIdx(2,2).isSelected())jushu = 16;
 
         return [GameTypeEunmZP.LYZP,costWay,jushu,renshu];
 
@@ -390,7 +392,7 @@ var RuleSelect_LYZP = RuleSelectBase.extend({
         var defaultConfig = [[0],[0],[0],[],[0],[0],[0],[0],[0],[]];
         defaultConfig[0][0] = params[9] == 3||params[9] == 4?0:params[9] - 1;
         defaultConfig[1][0] = params[7] == 3?0:1;
-        defaultConfig[2][0] = params[0] == 16?1:0;
+        defaultConfig[2][0] = params[0] == 16?2:params[0] == 8?1:0;
         defaultConfig[4][0] = params[14] == 10 ? 1 :params[14]==20?2: 0;
         defaultConfig[5][0] = params[15]==1?1:params[15] == 300?4:params[15]/60;
         defaultConfig[6][0] = params[19]== 1 ? 0:params[19]== 2 ? 1 : 2;//单局托管/整局/三局

@@ -3171,7 +3171,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
                     isShowGuo = false;
                 }
                 isShowGuo && btnDatas.push({t:"res/res_phz/act_button/guo.png",v:5});
-                var w = 300;
+                var w = 210;//300;
                 var g = 20;
                 var len = btnDatas.length;
                 var initX = 1500;
@@ -3184,12 +3184,14 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
                     btn.loadTextureNormal(btnData.t);
                     btn.temp = btnData.v;
                     btn.x = initX - (len-i-1)*w - w/2 - (len-i-1)*g;
-                    btn.y = -50 + 100;
+                    btn.y = -50 + 150;
                     btn.state = isHu;
                     UITools.addClickEvent(btn,this,this.onPengPai);
                     var tag = (btnData.v == 6) ? this.tag_btn_chi : this.tag_btn_other;
 
                     if(btnData.v == 4)tag = this.tag_btn_liu;
+
+                    btn.scale = (btnData.v != 5) ? 0.72 : 0.64;
 
                     this.btnPanel.addChild(btn,0,tag);
                     if (i == 0){
@@ -3834,7 +3836,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
             var coord = coords[direct];
             this.Image_time.x = coord.x;
             this.Image_time.y = coord.y;
-            this.Image_time.scale = 1.2;
+            this.Image_time.scale = PHZRoomModel.renshu==2 ? 1.2 : 0.9;
 
             for(var index = 1 ; index <= PHZRoomModel.renshu ; index ++) {
                 if (this._players[index]) {
