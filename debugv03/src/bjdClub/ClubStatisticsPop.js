@@ -137,6 +137,7 @@ var ClubStatisticsPop = BasePopup.extend({
 
         this.label_ffhj = this.getWidget("label_ffhj");
 
+        this.getWidget("lbwinner").visible = ClickClubModel.isClubCreaterOrLeader();
     },
 
 
@@ -597,8 +598,6 @@ var ClubStatisticsPop = BasePopup.extend({
             bsf_num.setString("" + selfWinCredit);
             bsf_num.setColor(cc.color(217,23,37));
             zscs_num.setString(data[i].selfCommissionCount || 0);
-
-
         }
 
         for (; i < this.cytjItemArr.length; ++i) {
@@ -885,6 +884,8 @@ var ClubStatisticsPop = BasePopup.extend({
         panelItem.unfoldBtn = Button_unfold;
         UITools.addClickEvent(Button_unfold,this,this.onClickUnfold);
         UITools.addClickEvent(Button_down,this,this.onClickCheckDown);
+
+        user_consume.visible = ClickClubModel.isClubCreaterOrLeader();
     },
 
     changeLabelColor:function(newItem,changeLabelParams){

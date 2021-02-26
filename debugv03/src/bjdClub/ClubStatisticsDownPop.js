@@ -76,6 +76,8 @@ var ClubStatisticsDownPop = BasePopup.extend({
         this.addCustomEvent(SyEvent.RESET_SINGLE_TIME, this, this.changeSingleTime);
 
         this.getClubCommissionLogNextLevel(1);
+
+        this.getWidget("lbwinner").visible = ClickClubModel.isClubCreaterOrLeader();
     },
 
     onClickPageBtn:function(sender){
@@ -218,6 +220,7 @@ var ClubStatisticsDownPop = BasePopup.extend({
             user_dyjNum.setString("" + dyjNum);
             user_rcNum.setString("" + data[i].selfZjsCount || 0);
 
+            user_winNum.visible = ClickClubModel.isClubCreaterOrLeader();
         }
 
         for(;i<this.cytjItemArr.length;++i){
