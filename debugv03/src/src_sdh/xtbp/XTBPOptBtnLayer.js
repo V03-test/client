@@ -75,6 +75,7 @@ var XTBPOptBtnLayer = SDHOptBtnLayer.extend({
     handleTableData:function(type,data){
         this._super(type,data);
 
+        cc.log("type===",type)
         if(type == SDHTabelType.CreateTable){
             this.content_piao.setVisible(false);
             this.setTouXiangState();

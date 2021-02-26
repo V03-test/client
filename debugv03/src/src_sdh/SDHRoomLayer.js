@@ -264,12 +264,12 @@ var SDHRoomLayer = SDHBaseRoomLayer.extend({
     addBottomBtn:function(){
         var img = "res/res_gameCom/playerchat.png";
         this.btn_chat = new ccui.Button(img,img);
-        this.btn_chat.setPosition(cc.winSize.width - 100,590);
+        this.btn_chat.setPosition(cc.winSize.width - 100,400);
         this.addChild(this.btn_chat,2);
 
         img = "res/res_gameCom/voiceNormal.png";
         this.btn_yuyin = new ccui.Button(img,img);
-        this.btn_yuyin.setPosition(this.btn_chat.x,460);
+        this.btn_yuyin.setPosition(this.btn_chat.x,260);
         this.addChild(this.btn_yuyin,2);
 
         img = "res/res_yybs/shangyilun.png";
@@ -631,7 +631,7 @@ var SDHRoomLayer = SDHBaseRoomLayer.extend({
 
     handleTableData:function(type,data){
         //var date = new Date();
-        //cc.log("=============handleTableData=============",type,date.getSeconds(),date.getMilliseconds());
+        // cc.log("=============handleTableData=============",type,date.getSeconds(),date.getMilliseconds());
         var state = SDHRoomModel.handleTableData(type,data);
         if(!state)return;
 

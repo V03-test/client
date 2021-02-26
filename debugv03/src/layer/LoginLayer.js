@@ -209,6 +209,69 @@ var LoginLayer = BaseLayer.extend({
         // PopupManager.addPopup(mc);
 
 
+        // var message = {"closingPlayers":[{"userId":"4638347","name":"qwe","point":-48,
+        //         "totalPoint":-470,"winCount":1,"lostCount":5,
+        //         "maxPoint":32,"seat":1,"sex":1,"icon":"res/res_icon/3.png",
+        //         "bopiPoint":48,"cards":[16,52,57,50,60],"isShuXing":null,
+        //         "renewStatus":null,"firstCards":[16,52,57,50,60],
+        //         "strExt":["1","0","1","0","-47000","0"],
+        //         "winLoseCredit":{"low":-47000,"high":-1,"unsigned":false},
+        //         "commissionCredit":{"low":0,"high":0,"unsigned":false},"allHuxi":null,
+        //         "finalPoint":null,"moldCards":[],"goldFlag":0},{"userId":"2165511",
+        //         "name":"zxc","point":48,"totalPoint":470,"winCount":5,"lostCount":1,
+        //         "maxPoint":192,"seat":2,"sex":1,"icon":"res/res_icon/15.png","bopiPoint":48,
+        //         "cards":[14,74,81],"isShuXing":null,"renewStatus":null,
+        //         "firstCards":[14,74,81],"strExt":["5","4","0","2","47000","0"],
+        //         "winLoseCredit":{"low":47000,"high":0,"unsigned":false},
+        //         "commissionCredit":{"low":0,"high":0,"unsigned":false},"allHuxi":null,"finalPoint":null,
+        //         "moldCards":[],"goldFlag":0}],"isBreak":0,"wanfa":4,"ext":["527914","4638347",
+        //         "2021-02-26 14:48:33","229","0","6","1","2","14","26","9","26","0","2058","0","0","0","1","10"],
+        //     "matchExt":[],"cards":[{"action":6,"cards":[37,67,77],"huxi":0},
+        //         {"action":6,"cards":[42,47,70],"huxi":6},{"action":3,"cards":[51,61,71],"huxi":6},
+        //         {"action":3,"cards":[6,26,36],"huxi":3},{"action":6,"cards":[14,74,81],"huxi":0}],
+        //     "leftCards":[55,28,34,46,41,80,59,27,5,3,32,31,17,4,83,45,24,68,44,65,38,64,35,63,12,40,53,25,82,54],
+        //     "tun":15,"fan":2,"huxi":15,"huSeat":2,"huCard":26,"totalTun":15,"fanTypes":[10],
+        //     "isRenew":null,"renewCount":null,"pointRecord":null,"startLeftCards":[],
+        //     "groupLogId":null,"chouCards":[],"intParams":[],"allCardsCombo":[]}
+        // var players = message.closingPlayers;
+        // for(var i=0;i<players.length;i++){
+        //     var p = players[i];
+        //     if(!LoginData.isLoadIcon()){//屏蔽头像加载
+        //         p.icon = "";
+        //         cc.log("head icon has blocked, now icon url is::"+ p.icon);
+        //     }
+        //     if(WXHeadIconManager.isRemoteHeadImg(p.icon)){
+        //         p.icon = WXHeadIconManager.replaceUrl(p.icon);
+        //         if(WXHeadIconManager.hasLocalHeadImg(p.userId)){
+        //             p.icon = WXHeadIconManager.getHeadImgPath(p.userId);
+        //         }
+        //     }
+        //     p.winLoseCredit = Number(p.winLoseCredit) + Number(p.commissionCredit);
+        // }
+        // ClosingInfoModel.round = message.ext[5];
+        // ClosingInfoModel.ext = message.ext;
+        // ClosingInfoModel.isReplay = false;
+        // ClosingInfoModel.closingPlayers = message.closingPlayers;
+        // ClosingInfoModel.cards = message.cards;
+        // ClosingInfoModel.leftCards = message.leftCards;
+        // ClosingInfoModel.tun = message.tun;
+        // ClosingInfoModel.fan = message.fan;
+        // ClosingInfoModel.huxi = message.huxi;
+        // ClosingInfoModel.huSeat = message.huSeat;
+        // ClosingInfoModel.huCard = message.huCard;
+        // ClosingInfoModel.totalTun = message.totalTun;
+        // ClosingInfoModel.fanTypes = message.fanTypes;
+        // ClosingInfoModel.firstCard = message.firstCard;
+        // ClosingInfoModel.startLeftCards = message.startLeftCards || [];
+        // ClosingInfoModel.chouCards = message.chouCards || [];
+        // ClosingInfoModel.groupLogId = message.groupLogId||0;//俱乐部名片id
+        // ClosingInfoModel.intParams = PHZRoomModel.intParams || [];
+        // ClosingInfoModel.allCardsCombo = message.allCardsCombo;
+        // ClosingInfoModel.isBreak = message.isBreak;
+        // var wanfa = message.wanfa;
+        // var mc = new PHZSmallResultPop(message.closingPlayers);
+        // PopupManager.addPopup(mc);
+
 
     },
     addPlistAni:function(){

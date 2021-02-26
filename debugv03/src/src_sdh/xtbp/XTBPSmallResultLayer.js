@@ -19,6 +19,7 @@ var XTBPSmallResultLayer = SDHSmallResultLayer.extend({
     },
 
     setLayerWithData:function(){
+
         this._super();
 
         if(!this.msgData)return;

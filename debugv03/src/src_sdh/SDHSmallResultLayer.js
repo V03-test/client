@@ -393,6 +393,9 @@ var SDHSmallResultLayer = PKSmallResultPop.extend({
         if(!this.isRePlay){
             wanfaStr = ClubRecallDetailModel.getXTSDHWanfa(SDHRoomModel.intParams,true);
         }
+        if (SDHRoomModel.wanfa == GameTypeEunmPK.XTBP){
+            wanfaStr = ClubRecallDetailModel.getXTBPWanfa(SDHRoomModel.intParams,true);
+        }
         this.getWidget("Label_wanfa").setString(wanfaStr);
 
         var qyqID = "";
