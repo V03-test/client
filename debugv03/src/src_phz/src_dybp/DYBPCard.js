@@ -59,7 +59,7 @@ var DYBPCard = ccui.Widget.extend({
         if (this.numberImg){
             var color = this._cardVo.t == 1 ? "s" : "b";
             var number = this._cardVo.n;
-            var paiType = 1;//PHZSetModel.zpxz;
+            var paiType = 1;//1;
             var pngName = "big_cards" + paiType + "_" + number + color + ".png";
             var place = this._displayVo.place;
             if(place != 1){
@@ -364,7 +364,7 @@ var DYBPCard = ccui.Widget.extend({
         var same = this._cardVo.same;
         var png = "";
         var bgPng = "";
-        var paiType = 1;//PHZSetModel.zpxz;
+        var paiType = 1;//1;
         var pmType = 1;//PHZSetModel.pmxz;
         var scale = 1;
         var scaleX = 1;
@@ -530,7 +530,7 @@ var DYBPCard = ccui.Widget.extend({
     },
     getPaiPngurl:function(phzVo){
         var t = phzVo.t==1 ? "s" : "b";
-        var paiType = 1;//PHZSetModel.zpxz;
+        var paiType = 1;//1;
         var png = "big_cards" + paiType + "_" + phzVo.n + t + ".png";
         return png
     }

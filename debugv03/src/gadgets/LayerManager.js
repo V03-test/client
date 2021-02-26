@@ -169,6 +169,8 @@ var LayerFactory = {
                     layer = new DYBPRoom(name);
                 }else if(PHZRoomModel.wanfa == GameTypeEunmZP.AHPHZ){
                     layer = new AHPHZRoom(name);
+                }else if(PHZRoomModel.wanfa == GameTypeEunmZP.YZLC){
+                    layer = new YZLCRoom(name);
                 }else{
                     layer = new PHZRoom(name);
                 }
@@ -213,6 +215,8 @@ var LayerFactory = {
             case this.PHZ_REPLAY_LESS:
                 if(PHZRePlayModel.playType == GameTypeEunmZP.YJGHZ || PHZRePlayModel.playType == GameTypeEunmZP.NXGHZ || PHZRePlayModel.playType == GameTypeEunmZP.YYWHZ){
                     layer = new YJGHZReplay(name);
+                }else if(PHZRePlayModel.playType == GameTypeEunmZP.YZLC){
+                    layer = new YZLCReplay(name);
                 }else{
                     layer = new PHZReplay(name);
                 }

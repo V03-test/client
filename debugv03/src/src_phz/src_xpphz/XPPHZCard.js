@@ -298,7 +298,7 @@ var XPPHZCard = ccui.Widget.extend({
 
         var png = "";
         var bgPng = "";
-        // var paiType = PHZSetModel.zpxz == 3 ? 3 : 1;
+        // var paiType = 1 == 3 ? 3 : 1;
         var pmType = null;
         if(this._cardVo.c <= 40){//小一到小十
             if(this._cardVo.c <= 20){
@@ -443,7 +443,7 @@ var XPPHZCard = ccui.Widget.extend({
     },
     getPaiPngurl:function(phzVo){
         var t = phzVo.t==1 ? "s" : "b";
-        var paiType = PHZSetModel.zpxz;
+        var paiType = 1;
         var png = "cards_cards" + paiType + "_" + phzVo.n + t + ".png";
         return png
     }

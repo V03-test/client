@@ -257,9 +257,12 @@ var PHZBigResultPop = BasePopup.extend({
             }
             totalPoint = user.totalPoint;
             //ccui.helper.seekWidgetByName(widget,"Image_48").visible = true;
-        }else if(PHZRoomModel.wanfa == GameTypeEunmZP.WHZ || PHZRoomModel.wanfa == GameTypeEunmZP.LDS || PHZRoomModel.wanfa == GameTypeEunmZP.JHSWZ
+        }else if(PHZRoomModel.wanfa == GameTypeEunmZP.WHZ ||
+            PHZRoomModel.wanfa == GameTypeEunmZP.LDS ||
+            PHZRoomModel.wanfa == GameTypeEunmZP.JHSWZ
             || PHZRoomModel.wanfa == GameTypeEunmZP.YZCHZ){
-            totalHuxi = "" + user.allHuxi;
+            totalHuxi = user.allHuxi ? "" + user.allHuxi : "";
+            label5.setString("");
             if (user.totalPoint > 0){
                 totalPointStr = "+" + user.totalPoint;
             }else{

@@ -159,7 +159,15 @@ var CreditScoreDetailItem = ccui.Widget.extend({
         var curCredit = data.curCredit || 0;
         curCredit = MathUtil.toDecimal(curCredit/100);
         this.remainScore.setString(curCredit);
-        this.labelType.setString(data.type == 1 ? "转移擂台分" : data.type == 2 ? "奖赏分" : data.type == 4 ? "洗牌分" :"输赢分");
+        var strLabel = "输赢分";
+        if(data.type == 1){
+            strLabel = "转移擂台分";
+        }else if(data.type == 2 || data.type == 5){
+            strLabel = "奖赏分";
+        }else if(data.type == 4){
+            strLabel = "洗牌分";
+        }
+        this.labelType.setString(strLabel);
         this.timeLabel.setString(this.formatTime(data.createdTime));
         this.wanfaName.setString(data.roomName || "----");
 

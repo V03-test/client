@@ -10,7 +10,7 @@ var YZLCSmallResultCell = ccui.Widget.extend({
         var width = 80;
         var zorder = cards.length;
         if(zorder > 4){
-            width = 140;
+            width = 160;
         }
         this.setContentSize(width,320);
         for(var i=0;i<cards.length;i++){
@@ -19,12 +19,12 @@ var YZLCSmallResultCell = ccui.Widget.extend({
             var card = new YZLCCard(PHZAI.getDisplayVo(this.direct,3),vo);
             if(i < 4){
                 card.x = 6;
-                card.y = 40 + i * 39;
+                card.y = 40 + i * 45;
             }else{
-                card.x = 45;
-                card.y = 40 + (i%4) * 39;
+                card.x = 65;
+                card.y = 40 + (i%4) * 45;
             }
-            card.scale = 1.6;
+            card.scale = 1;
             this.addChild(card,zorder);
         }
     }

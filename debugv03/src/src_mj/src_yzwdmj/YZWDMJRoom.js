@@ -63,10 +63,11 @@ var YZWDMJRoom = BaseRoom.extend({
         this.jt3= this.getWidget("jt3");
         this.jt4= this.getWidget("jt4");
         this.jt.visible = false;
-        this.Image_info1 = this.getWidget("Image_info1");
-        this.Image_info2 = this.getWidget("Image_info2");
+        // this.Image_info1 = this.getWidget("Image_info1");
+        // this.Image_info2 = this.getWidget("Image_info2");
         this.Label_info_mj = this.getWidget("Label_info_mj");
-        this.Label_info_mj.setFontName("res/font/bjdmj/fzcy.TTF");
+        this.Label_jushu = this.getWidget("Label_jushu");
+        this.Label_shengyu = this.getWidget("Label_shengyu");
         
         this.Label_info0 = this.getWidget("Label_info0");//房号
         this.Panel_btn = this.getWidget("Panel_btn");//按钮panel
@@ -188,21 +189,30 @@ var YZWDMJRoom = BaseRoom.extend({
         this.Panel_hupai.height = 220;
         this.root.addChild(this.Panel_hupai,4);
 
-        var gameNameImg = new cc.Sprite("res/res_mj/res_yzwdmj/yzwdmjRoom/yzwdmj.png");
+        var gameNameImg = new cc.Sprite("res/res_mj/res_csmj/yzwdmjRoom/yzwdmj.png");
         var x = 960;
         var y = 740;
         gameNameImg.setPosition(x, y);
         this.Panel_20.addChild(gameNameImg,2);
 
 
+
         this.getWidget("mPanel1").y = 20;
+
+        this.Button_gps.visible = false;
+
+        this.tuichuBtn = this.getWidget("Button_tuichu");//退出房间
+        UITools.addClickEvent(this.tuichuBtn ,this,this.onTuiChu);
+
+        this.tuichuBtn.visible = true;
+        this.tuichuBtn.y = 520;
         
-        this.button_wanfa =  new ccui.Button("res/res_mj/mjRoom/wanfa.png","","");
-         this.Panel_20.addChild(this.button_wanfa);
-        this.button_wanfa.y = this.Button_setup1.y;
-        this.button_wanfa.x = 1710;
-        UITools.addClickEvent(this.button_wanfa,this,this.showWanFaImg);
-         this.showWanFaImg();
+        // this.button_wanfa =  new ccui.Button("res/res_mj/mjRoom/wanfa.png","","");
+        //  this.Panel_20.addChild(this.button_wanfa);
+        // this.button_wanfa.y = this.Button_setup1.y;
+        // this.button_wanfa.x = 1710;
+        // UITools.addClickEvent(this.button_wanfa,this,this.showWanFaImg);
+        //  this.showWanFaImg();
 
         this.Panel_8.x += 400;
         this.Panel_8.y -= 30;
@@ -241,7 +251,7 @@ var YZWDMJRoom = BaseRoom.extend({
             this.recordBtn.x -= tempSize - offx;
             this.Button_ting.x += tempSize - offx;
             this.getWidget("Button_52").x += tempSize - offx;
-            this.button_wanfa.x += tempSize - offx;
+            // this.button_wanfa.x += tempSize - offx;
             this.Button_setup1.x += tempSize - offx;
             this.Image_setup.x += tempSize - offx;
             this.Button_gps -= tempSize - offx;
@@ -285,6 +295,20 @@ var YZWDMJRoom = BaseRoom.extend({
                 btn_wx_invite.setPositionY(btn_wx_invite.y - 65);
             }
         }
+
+        if(!this.tuichuBtn){
+            this.tuichuBtn = this.getWidget("Button_tuichu");
+        }
+        var localX = this.btnInvite.x;
+        this.tuichuBtn.y = this.btnInvite.y;
+        if(BaseRoomModel.curRoomData && BaseRoomModel.curRoomData.roomName){
+            this.tuichuBtn.x = localX;
+        }else{
+            this.tuichuBtn.x = 960;
+        }
+        this.localTuichuX = this.tuichuBtn.x;
+        //this.btnInvite.setEnabled(false);
+        this.btnInvite.opacity = 0;
 
     },
 
@@ -944,25 +968,14 @@ var YZWDMJRoom = BaseRoom.extend({
     },
 
     onShowSetUp:function(obj,fromTimeOut){
-        var self = this;
-        if (this.Panel_20.getChildByName("wanfaImg")){
-            this.Panel_20.getChildByName("wanfaImg").setVisible(false);
+        var hasGPS = false;
+        if(SyConfig.HAS_GPS && MJRoomModel.renshu > 2){
+            if(GPSModel.getGpsData(PlayerModel.userId) != null){
+                hasGPS = true;
+            }
         }
-        if(!fromTimeOut&&this.setUpTimeId>=0){
-            clearTimeout(this.setUpTimeId);
-            this.setUpTimeId=-1;
-        }
-        if(!this.Image_setup.visible){
-            if(fromTimeOut)
-                return;
-            this.Image_setup.visible = true;
-            this.setUpTimeId = setTimeout(function(){
-                self.onShowSetUp(obj,true);
-            },10000);
-        }else{
-            this.Image_setup.visible = false;
-        }
-        // this.Button_setup1.setBright(!this.Image_setup.visible);
+        var mc = new BaseRoomSetPop(hasGPS);
+        PopupManager.addPopup(mc);
     },
 
     onPlayerInfo:function(obj){
@@ -1088,6 +1101,13 @@ var YZWDMJRoom = BaseRoom.extend({
         this.Panel_btn.visible = this.Panel_8.visible = this.btn_back.visible = false;
         this.btnReady.visible = true;
         this.btnInvite.visible = (players.length<MJRoomModel.renshu);
+        if(!this.btnInvite.visible){
+            this.tuichuBtn.x = 960;
+        }else{
+            if(this.localTuichuX){
+                this.tuichuBtn.x = this.localTuichuX;
+            }
+        }
         for(var i=0;i<players.length;i++){
             var p = players[i];
             var seq = MJRoomModel.getPlayerSeq(p.userId,MJRoomModel.mySeat, p.seat);
@@ -1121,10 +1141,15 @@ var YZWDMJRoom = BaseRoom.extend({
             }
 
             if(!isContinue){
-                if(p.status)
+                if(p.status){
                     cardPlayer.onReady();
+                    if(MJRoomModel.nowBurCount == 1 && !MJRoomModel.isStart){
+                        this.tuichuBtn.visible = true;
+                    }
+                }
             }else{//恢复牌局
                 var banker = null;
+                this.tuichuBtn.visible = false;
                 //if(p.seat==MJRoomModel.nextSeat)
                 //    banker= p.seat;
                 //this.btnLeave.visible = false;
@@ -1468,28 +1493,7 @@ var YZWDMJRoom = BaseRoom.extend({
     },
 
     updateRemain:function(){
-        this.Image_info2.removeChildByTag(999);
-        var textRenderer =  new cc.LabelTTF("剩"+MJRoomModel.remain+"张", "", 32);
-        var ele1 = [];
-        ele1.push(RichLabelVo.createTextVo("剩",cc.color("#AFD1BA"),32));
-        ele1.push(RichLabelVo.createTextVo(MJRoomModel.remain+"",cc.color("#f6c143"),32));
-        ele1.push(RichLabelVo.createTextVo("张",cc.color("#AFD1BA"),32));
-        var label = new RichLabel(cc.size(120,40));
-        label.setLabelString(ele1);
-        label.x = (this.Image_info2.width-textRenderer.getContentSize().width)/2;
-        label.y = 24;
-        this.Image_info2.addChild(label,1,999);
-        if (MJRoomModel.remain == 4) {
-            //var winSize = cc.director.getWinSize();
-            //var last4 = new cc.Sprite("res/res_mj/mjRoom/last4.png");
-            //last4.x = winSize.width/2+42;
-            //last4.y = winSize.height/2;
-            //this.root.addChild(last4,9999);
-            //last4.runAction(cc.sequence(cc.delayTime(3),cc.fadeOut(2),cc.callFunc(function() {
-            //    last4.removeFromParent(true);
-            //})));
-            FloatLabelUtil.comText("最后四张");
-        }
+        this.Label_shengyu.setString(""+MJRoomModel.remain);
     },
 
     onChangeStauts:function(event){
@@ -1503,6 +1507,33 @@ var YZWDMJRoom = BaseRoom.extend({
             me.status = params[1];
             this.btnReady.visible = false;
             this.btnInvite.visible = (ObjectUtil.size(this._players)<MJRoomModel.renshu);
+            if(!this.btnInvite.visible){
+                this.tuichuBtn.x = 960;
+            }else{
+                if(this.localTuichuX){
+                    this.tuichuBtn.x = this.localTuichuX;
+                }
+            }
+        }
+    },
+
+
+    /**
+     * 退出房间
+     * @param event
+     */
+    onExitRoom:function(event){
+        var p = event.getUserData();
+        if(this._players[p.seat])
+            this._players[p.seat].exitRoom();
+        delete this._players[p.seat];
+        this.btnInvite.visible = (ObjectUtil.size(this._players)<MJRoomModel.renshu);
+        if(!this.btnInvite.visible){
+            this.tuichuBtn.x = 960;
+        }else{
+            if(this.localTuichuX){
+                this.tuichuBtn.x = this.localTuichuX;
+            }
         }
     },
 
@@ -1528,29 +1559,9 @@ var YZWDMJRoom = BaseRoom.extend({
 
 
     updateRoomInfo:function(color){
-        var color = color || this.bgColor;
-        var fontColor = this.getFontColorByBgColor(color);
-        // this.Label_info_mj.setColor(cc.color(fontColor[1]));
         this.updateRemain();
-        var zuizi = MJRoomModel.getZuiZiName(MJRoomModel.getFuType());
-        //var wa = MJRoomModel.getHuCountName(MJRoomModel.getHuCountConf());
-        var jifen = MJRoomModel.getJiFenName(MJRoomModel.getJiFenConf());
-        var cp = MJRoomModel.getChiPengName(MJRoomModel.getChiPengConf());
-        var ting = MJRoomModel.getTingHuName(MJRoomModel.getTingHuConf());
-        var jianglei = MJRoomModel.getJiangLeiName(MJRoomModel.getJiangLeiConf());
-        var gangjiafan = MJRoomModel.getKeXuanName(1);
-        //this.Label_info_mj.setString(csvhelper.strFormat("{0} {1} {2} {3} {4} {5}",zuizi,cp,jianglei,ting,jifen,gangjiafan));
-         this.Label_info_mj.setString("");
-        this.Image_info1.removeChildByTag(999);
-        var textRenderer =  new cc.LabelTTF(MJRoomModel.nowBurCount+"/"+MJRoomModel.totalBurCount+"局", "", 32);
-        var ele1 = [];
-        ele1.push(RichLabelVo.createTextVo(MJRoomModel.nowBurCount+"",cc.color(246,193,67),32));
-        ele1.push(RichLabelVo.createTextVo("/"+MJRoomModel.totalBurCount+"局",cc.color("#AFD1BA"),32));
-        var label = new RichLabel(cc.size(300,40),1);
-        label.setLabelString(ele1);
-        label.x = (this.Image_info1.width-textRenderer.getContentSize().width)/2;
-        label.y = 24;
-        this.Image_info1.addChild(label,1,999);
+        this.Label_info_mj.setString(ClubRecallDetailModel.getSpecificWanfa(MJRoomModel.intParams,0,1,MJRoomModel.isMoneyRoom()));
+        this.Label_jushu.setString("第 "+MJRoomModel.nowBurCount+"/"+MJRoomModel.totalBurCount+" 局");
     },
 
     /**
@@ -1751,6 +1762,7 @@ var YZWDMJRoom = BaseRoom.extend({
             this.Panel_20.getChildByName("wanfaImg").setVisible(false);
         }
         this.Panel_niaoPai.removeAllChildren();
+        this.tuichuBtn.visible = false;
         // this.roomName_label.y = cc.winSize.height/2 + 300;
         //this.btnLeave.visible = false;
         this.startTime = new Date().getTime();
@@ -1782,7 +1794,7 @@ var YZWDMJRoom = BaseRoom.extend({
             }
             var mjp = this._players[i];
             if(mjp)
-                mjp.startGameAni();
+                mjp.startGame();
         }
         var isTing = false;
         //if(p.handCardIds.length%3==2)
@@ -1963,21 +1975,22 @@ var YZWDMJRoom = BaseRoom.extend({
      * @param selfAct {Array.<number>}
      */
     refreshButton:function(selfAct){
-        // cc.log("selfAct =",JSON.stringify(selfAct));
+        cc.log("selfAct =",JSON.stringify(selfAct));
         MJRoomModel.selfAct = selfAct || [];
         if(selfAct.length>0){
             this.resetBtnPanel();
             this.Panel_btn.visible = true;
             var textureMap = {
-                0:{t:"res/res_mj/res_yzwdmj/yzwdmjRoom/mj_btn_hu.png",v:1},
-                1:{t:"res/res_mj/res_yzwdmj/yzwdmjRoom/mj_btn_peng.png",v:2},
-                2:{t:"res/res_mj/res_yzwdmj/yzwdmjRoom/mj_btn_gang.png",v:3},
-                3:{t:"res/res_mj/res_yzwdmj/yzwdmjRoom/mj_btn_gang.png",v:4},
-                4:{t:"res/res_mj/res_yzwdmj/yzwdmjRoom/mj_btn_chi.png",v:6},
-                5:{t:"res/res_mj/res_yzwdmj/yzwdmjRoom/mj_btn_hu.png",v:1},
-                6:{t:"res/res_mj/res_yzwdmj/yzwdmjRoom/mj_btn_hu_wc.png",v:1101},//王闯
-                7:{t:"res/res_mj/res_yzwdmj/yzwdmjRoom/mj_btn_hu_wd.png",v:1102},//王钓
+                0:{t:"res/res_mj/mjRoom/mj_btn_hu.png",v:1},
+                1:{t:"res/res_mj/mjRoom/mj_btn_peng.png",v:2},
+                2:{t:"res/res_mj/mjRoom/mj_btn_gang.png",v:3},
+                3:{t:"res/res_mj/mjRoom/mj_btn_gang.png",v:4},
+                4:{t:"res/res_mj/mjRoom/mj_btn_chi.png",v:6},
+                5:{t:"res/res_mj/mjRoom/mj_btn_hu.png",v:1},
+                6:{t:"res/res_mj/mjRoom/mj_btn_hu_wc.png",v:1101},//王闯
+                7:{t:"res/res_mj/mjRoom/mj_btn_hu_wd.png",v:1102},//王钓
             };
+
             var rIndex=0;
             var hasHu = false;
             var btnCount = 0;
@@ -2386,6 +2399,13 @@ var YZWDMJRoom = BaseRoom.extend({
                 this._players[seats[i]].isIpSame(true);
             }
             PopupManager.addPopup(new GpsPop(MJRoomModel , MJRoomModel.renshu));
+        }
+        if(!this.btnInvite.visible){
+            this.tuichuBtn.x = 960;
+        }else{
+            if(this.localTuichuX){
+                this.tuichuBtn.x = this.localTuichuX;
+            }
         }
     },
 

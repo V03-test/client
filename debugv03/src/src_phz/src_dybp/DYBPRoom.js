@@ -561,7 +561,7 @@ var DYBPRoom = BaseLayer.extend({ //BaseLayer BaseRoom
     },
     showShizhongpai:function(root,phzVo,actType,renshu,seq){
         root.visible = true;
-        var paiType = PHZSetModel.zpxz;
+        var paiType = 1;
         var endScale = 1.3;
         var kuangText = "#big_face_1.png";
         if (paiType == 2){
@@ -590,7 +590,7 @@ var DYBPRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         var png = "cards_back.png";
         if(phzVo.c>0){
             var t = phzVo.t==1 ? "s" : "b";
-            var paiType = PHZSetModel.zpxz;
+            var paiType = 1;
             png = "big_cards" + paiType + "_" + phzVo.n + t + ".png";
             // png = this.getPaiPngurl(phzVo);
             var bg1 = cc.Sprite("#"+png);

@@ -5,7 +5,7 @@ var SdkUtil = {
 	SHARE_URL:"http://longlingmac.com/qy/mebh",
 	SHARE_ROOM_URL:"http://longlingmac.com/qy/mebh",
 	SHARE_CAED_URL:"http://longlingmac.com/qy/mebh",
-	COMMON_HTTP_URL:"http://longlingmac.com/qy/mebh",
+	COMMON_HTTP_URL:"http://login.5mh1oqm.cn",
 	isIosAudit:0,
 	payType:"",
 	fcNewParams:null,

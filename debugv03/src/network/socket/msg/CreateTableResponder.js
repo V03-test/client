@@ -440,6 +440,8 @@ var CreateTableResponder = BaseResponder.extend({
                     } else if(message.renshu == 2){
                         LayerName = LayerFactory.YZWDMJ_ROOM_TWO;
                     }
+
+                    cc.log("LayerName===",LayerName)
                     LayerManager.showLayer(LayerName);
                     var layer = LayerManager.getLayer(LayerName);
                     layer.initData();

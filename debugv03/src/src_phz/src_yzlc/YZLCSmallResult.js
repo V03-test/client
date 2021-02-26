@@ -7,10 +7,10 @@ var YZLCNewSmallResultCell = ccui.Widget.extend({
         var cards = data.cards;
         this.anchorX=0;
         this.anchorY=0;
-        var width = 70;
+        var width = 80;
         var zorder = cards.length;
         if(zorder > 4){
-            width = 130;
+            width = 160;
         }
         this.setContentSize(width,300);
         for(var i=0;i<cards.length;i++){
@@ -19,12 +19,12 @@ var YZLCNewSmallResultCell = ccui.Widget.extend({
             var card = new YZLCCard(PHZAI.getDisplayVo(this.direct,3),vo);
             if(i < 4){
                 card.x = 4;
-                card.y = 40 + i * 39;
+                card.y = 40 + i * 60;
             }else{
                 card.x = 40;
-                card.y = 40 + (i%4) * 39;
+                card.y = 40 + (i%4) * 60;
             }
-            card.scale = 1.5;
+            card.scale = 1.2;
             this.addChild(card,zorder);
         }
     }
@@ -36,14 +36,16 @@ var YZLCSmallResultPop=BasePopup.extend({
     ctor: function (data,isRePlay) {
         this.data = data;
         this.isRePlay = !!isRePlay;
-        var path = "res/phzSmallResult.json";
-        if(PHZRoomModel.is2Ren()&& PHZRoomModel.isSpecialWanfa()){
-            path = "res/phzSmallResultTwo.json";
-        }
+        var path = "res/phzNewSmallResult.json";
         this._super(path);
     },
 
     selfRender: function () {
+        this.addCustomEvent(SyEvent.SOCKET_OPENED,this,this.onSuc);
+        this.addCustomEvent(SyEvent.GET_SERVER_SUC,this,this.onChooseCallBack);
+        this.addCustomEvent(SyEvent.NOGET_SERVER_ERR,this,this.onChooseCallBack);
+
+
         var isHuang = false;
         this.winUserId = 0;
         this.data.sort(function (user1 , user2){
@@ -52,25 +54,42 @@ var YZLCSmallResultPop=BasePopup.extend({
             return  point1 < point2;
         });
         var myPoint = 0;
+        var isYk = false;
         for(var i=0;i<this.data.length;i++){
-            if(this.data[i].seat == PHZRoomModel.mySeat){
+            if(this.data[i].seat == PHZRoomModel.mySeat || (this.isRePlay && this.data[i].userId == PlayerModel.userId)){
                 myPoint = this.data[i].point;
+                isYk = true;
             }
         }
         var Image_84 = this.getWidget("Image_84");
-        var imgUrl = myPoint > 0 ? "res/res_phz/phzSmallResult/image_win.png" : "res/res_phz/phzSmallResult/image_lose.png";
-        Image_84.loadTexture(imgUrl);
+        var imgUrl = myPoint > 0 ? "res/res_gameCom/smallResult/sl.png" : "res/res_gameCom/smallResult/sb.png";
 
-        for(var i=0;i<this.data.length;i++){
-            if(this.data[i].point>0){
-                break;
-            }else if(this.data[i].point==0){
+        if(PHZRoomModel.wanfa == GameTypeEunmZP.SYBP){
+            if(ClosingInfoModel.huSeat){/**/
+
+            }else{
                 isHuang = true;
-                break;
+            }
+        }else{
+            for(var i=0;i<this.data.length;i++){
+                if(this.data[i].point>0){
+                    break;
+                }else if(this.data[i].point==0){
+                    isHuang = true;
+                    break;
+                }
             }
         }
 
-        this.getWidget("Image_HZ").visible = isHuang;
+        if(this.isRePlay && !isYk){
+            imgUrl = "res/res_gameCom/smallResult/sl.png";
+        }
+
+        if(isHuang){
+            imgUrl = "res/res_gameCom/smallResult/hj.png";
+        }
+
+        Image_84.loadTexture(imgUrl);
 
         if(this.data.length==3){
             this.getWidget("user4").visible = false;
@@ -82,11 +101,7 @@ var YZLCSmallResultPop=BasePopup.extend({
         var xingSeat = -1;
         var huSeat = -1;
         for(var i=0;i<this.data.length;i++){
-            if(this.isSpecialPHZ()){
-                this.refreshSingle(this.getWidget("user"+(i+1)),this.data[i],this.pointInfo[i] , i);
-            }else {
-                this.refreshSingle(this.getWidget("user"+(i+1)),this.data[i] , "" , i);
-            }
+            this.refreshSingle(this.getWidget("user"+(i+1)),this.data[i] , "" , i);
             if(this.data[i].seat == this.data[i].isShuXing){
                 xingSeat = i;
             }
@@ -95,90 +110,60 @@ var YZLCSmallResultPop=BasePopup.extend({
             }
         }
         this.list = this.getWidget("ListView_6");
-        this.list.width = 500;
-
-        var list = new ccui.ListView();
-        //list.setContentSize(800,800);
-        list.setTouchEnabled(true);
-        list.setDirection(ccui.ScrollView.DIR_HORIZONTAL);
-        list.width = 500;
-        list.height = this.list.height;
-        list.x = this.list.x;
-        list.y = this.list.y;
-        //list.setPosition(0,110);
-        this.list.addChild(list,1);
-        this.newListView = list;
-
         var cards = ClosingInfoModel.cards;
-        if(PHZRoomModel.is2Ren()&& PHZRoomModel.isSpecialWanfa()){
-            this.list_two = this.getWidget("ListView_6_0");
-            this.list_two.visible = true;
+
+        for(var i=0;i<cards.length;i++){
+            if(cards[i].cards.length > 4){
+                for(var t = 0;t<cards[i].cards.length/2;++t){
+                    var tempCards = cards[i].cards.slice(t*2,t*2+2);
+                    var data = ObjectUtil.deepCopy(cards[i]);
+                    data.cards = tempCards;
+                    var cell = new YZLCNewSmallResultCell(data,PHZRoomModel.wanfa);
+                    this.list.pushBackCustomItem(cell);
+                }
+            }else{
+                var cell = new YZLCNewSmallResultCell(cards[i],PHZRoomModel.wanfa);
+                this.list.pushBackCustomItem(cell);
+            }
         }
 
-        //if(PHZRoomModel.is2Ren()&& PHZRoomModel.isSpecialWanfa()){
-        //    if(ClosingInfoModel.huSeat){
-        //        if(ClosingInfoModel.allCardsCombo[0].seat != ClosingInfoModel.huSeat){
-        //            ClosingInfoModel.allCardsCombo.reverse();
-        //        }
-        //    }
-        //    for(var i=0;i < ClosingInfoModel.allCardsCombo.length;i++){
-        //        var cards = ClosingInfoModel.allCardsCombo[i].phzCard || [];
-        //        for(var j=0;j<cards.length;j++){
-        //            // cc.log("cards[i] =",JSON.stringify(cards[i]));
-        //            var cell = new YZLCSmallResultCell(cards[j],true);
-        //            if(i == 0){
-        //                if(isHuang){
-        //                    if(j === cards.length -1){
-        //                        break;
-        //                    }
-        //                }
-        //                this.list.pushBackCustomItem(cell);
-        //            }else{
-        //                if(j === cards.length -1){
-        //                    break;
-        //                }
-        //                this.list_two.pushBackCustomItem(cell);
-        //            }
-        //        }
-        //    }
-        //    if(isHuang){//如果是黄庄
-        //        var temp = ClosingInfoModel.allCardsCombo[0].phzCard;
-        //        var selfCard = temp[temp.length - 1].cards || [];
-        //        var cardVo = PHZAI.getVoArray(selfCard);//剩余的牌
-        //        var result = PHZAI.sortHandsVo(cardVo);
-        //        for(var i=0;i<result.length;i++){
-        //            var cell = new onCell(result[i]);
-        //            this.list.pushBackCustomItem(cell);
-        //        }
-        //    }
-        //    var temp = ClosingInfoModel.allCardsCombo[1].phzCard;
-        //    var otherCards = temp[temp.length - 1].cards || [];
-        //    var cardVo = PHZAI.getVoArray(otherCards);//剩余的牌
-        //    var result = PHZAI.sortHandsVo(cardVo);
-        //    for(var i=0;i<result.length;i++){
-        //        var cell = new onCell(result[i]);
-        //        this.list_two.pushBackCustomItem(cell);
-        //    }
-        //}else {
-            for(var i=0;i<cards.length;i++){
-                var cell = new YZLCNewSmallResultCell(cards[i],true);
-                this.newListView.pushBackCustomItem(cell);
-            }
-        //}
-
+        var leftCards = ClosingInfoModel.leftCards;
         var dipaiPanel = this.getWidget("Panel_dipai");
-        dipaiPanel.visible = false;
-        this.getWidget("Panel_dipai").visible = false;
-
+        var localNum = 13;
+        var offX = 62;
+        var scaleNum = 1;
+        for(var i=0;i<leftCards.length;i++){
+            var index = i;
+            var vo = PHZAI.getPHZDef(leftCards[i]);
+            if (i == 0){
+                vo.ishu = true;
+            }
+            var card = new PHZCard(PHZAI.getDisplayVo(this.direct,3),vo);
+            var diffY = card.getContentSize().height * 0.96;
+            card.scale = scaleNum;
+            var numY = Math.floor(index/localNum);
+            var numX = index%localNum;
+            card.x = 150 + numX * offX * scaleNum;
+            card.y = card.y - diffY * numY - 15;
+            dipaiPanel.addChild(card);
+        }
         var maipaiPanel = this.getWidget("Panel_maipai");
-            maipaiPanel.visible=false;
-
-        var huxi = this.getWidget("huxi");
-        var allStr = "";
-        if(ClosingInfoModel.huxi>0){
-            allStr += "戳子:"+ClosingInfoModel.huxi + "\n";
+        var maiPaiCards = ClosingInfoModel.chouCards;
+        if (maiPaiCards && maiPaiCards.length > 0){
+            maipaiPanel.y += 245;
+            maipaiPanel.visible=true;
+            localNum = 5;
+            for(var i=0;i<maiPaiCards.length;i++){
+                var card = new YZLCCard(PHZAI.getDisplayVo(this.direct,3),PHZAI.getPHZDef(maiPaiCards[i]));
+                var diffY = card.getContentSize().height *0.96;
+                var numY = Math.floor(i/localNum);
+                var numX = i%localNum;
+                card.x = 100 + numX * offX;
+                card.y = card.y - diffY * numY - 15;
+                maipaiPanel.addChild(card);
+            }
         }else{
-            this.getWidget("huxi").visible = false;
+            maipaiPanel.visible=false;
         }
 
         var str = "";
@@ -211,17 +196,17 @@ var YZLCSmallResultPop=BasePopup.extend({
         }
 
         if(ClosingInfoModel.tun > 0){
-            tunStr += "基本分"+ClosingInfoModel.tun + "\n";
+            tunStr += "基本分"+ClosingInfoModel.tun + "  ";
             if(!isHas){/** 不是黑戳红戳才显示基本分 **/
-                allStr += tunStr;
+               str += tunStr;
             }
         }
 
-        huxi.setString("");
-        var zimo = this.getWidget("zimo"); //自摸文本
-        zimo.y = huxi.y;
-        zimo.x = huxi.x;
-        zimo.setString(allStr+str);//显示所有文字
+        if(ClosingInfoModel.huxi>0){
+            str += "戳子: " + ClosingInfoModel.huxi + "  ";
+        }
+
+        this.getWidget("dataLabel").setString(str);/**  牌型显示 **/
 
         this.resultView = this.getWidget("resultView");
         this.roomView = this.getWidget("roomView");
@@ -235,39 +220,30 @@ var YZLCSmallResultPop=BasePopup.extend({
         this.Button_toResultView = this.getWidget("btnToResultView");
 
         var xipai_btn = this.getWidget("xipai_btn");
-        UITools.addClickEvent(xipai_btn, this, function () {
-            sySocket.sendComReqMsg(4501, [], "");
+        UITools.addClickEvent(xipai_btn,this,function(){
+            sySocket.sendComReqMsg(4501,[],"");
             this.issent = true;
             PopupManager.remove(this);
             this.onOk();
         });
-        if (PHZRoomModel.nowBurCount == PHZRoomModel.totalBurCount || ClosingInfoModel.ext[6] == 1) {
+        if(PHZRoomModel.nowBurCount == PHZRoomModel.totalBurCount || ClosingInfoModel.ext[6] == 1){
             xipai_btn.visible = false;
-        } else {
+        }else{
             xipai_btn.visible = PHZRoomModel.creditConfig[10] == 1;
         }
-        var xpkf = PHZRoomModel.creditXpkf.toString() || 0;
+        var xpkf = PHZRoomModel.creditXpkf ? PHZRoomModel.creditXpkf.toString() : 0;
         this.getWidget("label_xpkf").setString(xpkf);
 
         UITools.addClickEvent(this.Button_zm,this,this.onZhuoMian);
         UITools.addClickEvent(this.Button_toResultView , this, this.onJieSuan);
         this.onJieSuan();
         var btn_jiesan = this.getWidget("btn_jiesan");
-        var btn_share = this.getWidget("btn_share");
-        btn_share.visible = false;
-        UITools.addClickEvent(btn_share,this,this.onShare);
+        btn_jiesan.visible = !this.isRePlay;
+
         UITools.addClickEvent(btn_jiesan,this,this.onBreak);
 
         var btn_handXq = this.getWidget("btn_handXq");
         UITools.addClickEvent(btn_handXq,this,this.onHandCard);
-
-        btn_jiesan.visible = !this.isRePlay;
-        this.Button_zm.visible = !this.isRePlay;
-        this.Button_Ready.visible = !this.isRePlay;
-        btn_handXq.visible = !this.isRePlay;
-
-        var Image_40 = this.getWidget("Image_40"); //自摸图片
-        Image_40.visible = false;
 
         //版本号
         if(this.getWidget("Label_version")){
@@ -289,21 +265,24 @@ var YZLCSmallResultPop=BasePopup.extend({
         var wanfaStr = "";
         this.getWidget("Label_wanfa").setString(wanfaStr);
         if(this.isRePlay){
-            this.getWidget("Label_jushu").setString("第" + PHZRePlayModel.playCount + "局");
+            var str = "第" + PHZRePlayModel.playCount + "局";
+            this.getWidget("Label_jushu").setString(str);
         }
 
         if (this.isRePlay){
             this.getWidget("replay_tip").visible =  true;
+        }else{
+            this.getWidget("replay_tip").visible =  false;
         }
     },
 
-    isSpecialPHZ:function(){
-        return (ClosingInfoModel.ext[3] == 38 && ClosingInfoModel.ext[7] == 4)
+    onClickUserBg:function(event){
+        var data = event.temp;
+        var mc = new PHZUserHandCardPop(data);
+        PopupManager.addPopup(mc);
     },
 
     refreshSingle:function(widget,user,pointInfo , index){
-        // cc.log("index..." , index);
-        //user.icon = "http://wx.qlogo.cn/mmopen/25FRchib0VdkrX8DkibFVoO7jAQhMc9pbroy4P2iaROShWibjMFERmpzAKQFeEKCTdYKOQkV8kvqEW09mwaicohwiaxOKUGp3sKjc8/0";
         if(user.isShuXing){
             if(user.seat == user.isShuXing){
                 ccui.helper.seekWidgetByName(widget,"sx").visible = true;
@@ -314,15 +293,19 @@ var YZLCSmallResultPop=BasePopup.extend({
             ccui.helper.seekWidgetByName(widget,"sx").visible = false;
         }
 
+        var Button_click = ccui.helper.seekWidgetByName(widget,"Button_click");
+        Button_click.temp = user;
+        UITools.addClickEvent(Button_click,this,this.onClickUserBg);
+
         ccui.helper.seekWidgetByName(widget,"name").setString(user.name);
         ccui.helper.seekWidgetByName(widget, "uid").setString("UID:" + user.userId);
-        var defaultimg = "res/res_phz/default_m.png";
+        var icon = ccui.helper.seekWidgetByName(widget,"icon");
+        var defaultimg = "res/res_gameCom/default_m.png";
         var sprite = new cc.Sprite(defaultimg);
-        sprite.scale=0.95;
-        sprite.x = 40;
-        sprite.y = 40;
-        widget.addChild(sprite,5,345);
-        //sprite.setScale(1.05);
+        //sprite.scale=0.98;
+        sprite.x = icon.width / 2;
+        sprite.y = icon.height / 2;
+        icon.addChild(sprite,5,345);
         if(user.icon){
             cc.loader.loadImg(user.icon, {width: 75, height: 75}, function (error, img) {
                 if (!error) {
@@ -334,46 +317,32 @@ var YZLCSmallResultPop=BasePopup.extend({
         var point = ccui.helper.seekWidgetByName(widget,"point");
 
         var pointStr = "";
-        var totalPointStr = "";
+
         if (parseInt(user.point) > 0 ){
             pointStr = "+" + user.point;
         }else{
             pointStr = "" + user.point;
         }
 
-        var label = new cc.LabelTTF(pointStr, "res/font/bjdmj/fznt.ttf", 30);
-        label.setColor(cc.color(128,21,6));
-        //var label = new cc.LabelBMFont(user.point+"",fnt);
-        label.anchorX = 0;
-        label.x = 0;
-        label.y = 15;
-        point.addChild(label,6);
+        point.setString(pointStr);
 
         if (user.totalPoint != null ){
-            totalPointStr = "" + user.totalPoint;
-            var str = "累计:" + totalPointStr;
-
+            var totalPointStr = "累计:" + user.totalPoint;
             var totalPoint = ccui.helper.seekWidgetByName(widget,"totalPoint");
-            var label1 = new cc.LabelTTF(str, "res/font/bjdmj/fznt.ttf", 30);
-            label1.setColor(cc.color(128,21,6));
-            //var label = new cc.LabelBMFont(user.totalPoint+"","res/font/font_res_phz1.fnt");
-            label1.anchorX = 0;
-            //label1.anchorY = 0;
-            label1.x = 0;
-            label1.y = 15;
-            totalPoint.addChild(label1,6);
+            totalPoint.setString(totalPointStr);
+
         }
 
         //增加房主的显示
         if(user.userId == ClosingInfoModel.ext[1]){
             var fangzhu = new cc.Sprite("res/res_phz/fangzhu.png");
-            fangzhu.anchorX = fangzhu.anchorY = 0;
-            fangzhu.x = 32;
-            fangzhu.y = 30;
-            widget.addChild(fangzhu,10);
+            fangzhu.anchorX = fangzhu.anchorY = 1;
+            fangzhu.x = icon.width;
+            fangzhu.y = icon.height;
+            icon.addChild(fangzhu,10);
         }
         if (index == 0){
-            var nowPoint = this.getWidget("nowPoint");
+            var nowPoint = this.getWidget("heiji");
             nowPoint.setString("共计:" + user.point);
         }
     },
@@ -432,7 +401,7 @@ var YZLCSmallResultPop=BasePopup.extend({
     onBreak:function(){
         PHZAlertPop.show("解散房间需所有玩家同意，确定要申请解散吗？",function(){
             sySocket.sendComReqMsg(7);
-        },null,2)
+        })
     },
 
     onShare:function(){

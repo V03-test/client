@@ -60,7 +60,8 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
                 var frame = new cc.Sprite("res/res_phz/glzpCard/" + cardsFrameArr[i]).getSpriteFrame();
                 cc.spriteFrameCache.addSpriteFrame(frame, cardsFrameArr[i]);
             }
-        }else if(PHZRoomModel.wanfa == GameTypeEunmZP.LDS||PHZRoomModel.wanfa == GameTypeEunmZP.JHSWZ){//落地扫替换下王牌的资源
+        }else if(PHZRoomModel.wanfa == GameTypeEunmZP.LDS || PHZRoomModel.wanfa == GameTypeEunmZP.YZCHZ ||
+            PHZRoomModel.wanfa == GameTypeEunmZP.JHSWZ){//落地扫替换下王牌的资源
             var replaceFrameArr = ["big_cards1_11b.png","big_cards3_11b.png",
                 "cards_listencard_81b.png","phz_cphua.png","small_cards1_11b.png","small_cards3_11b.png"];
             for (var i = 0; i < replaceFrameArr.length; ++i) {
@@ -480,7 +481,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
     },
     showShizhongpai:function(root,phzVo,actType,renshu,seq){
         root.visible = true;
-        var paiType = PHZSetModel.zpxz;
+        var paiType = 1;
         var endScale = 1.3;
         var kuangText = "#big_face_1.png";
 
@@ -507,7 +508,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         var png = "cards_back.png";
         if(phzVo.c>0){
             var t = phzVo.t==1 ? "s" : "b";
-            var paiType = PHZSetModel.zpxz;
+            var paiType = 1;
             png = "big_cards" + paiType + "_" + phzVo.n + t + ".png";
             // png = this.getPaiPngurl(phzVo);
             var bg1 = cc.Sprite("#"+png);
@@ -2039,6 +2040,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
                         this.Button_sort.visible = false;
                     }
                 }
+                cc.log("p.handCardIds====",JSON.stringify(p.handCardIds))
                 this.initCards(seq,p.handCardIds, p.moldCards, p.outedIds, p.moldCards,banker,isMoPai);
 
                 if(p.outCardIds.length>1){//模拟最后一个人出牌
@@ -3102,17 +3104,23 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
                 0:{t:"res/res_phz/act_button/hu.png",v:1},2:{t:"res/res_phz/act_button/wai.png",v:3},3:{t:"res/res_phz/act_button/liu.png",v:4},1:{t:"res/res_phz/act_button/peng.png",v:2},
                 4:{t:"res/res_phz/act_button/chi.png",v:6},5:{t:"res/res_phz/act_button/pao.png",v:7}};
 
-            if(PHZRoomModel.wanfa == GameTypeEunmZP.LDS || PHZRoomModel.wanfa == GameTypeEunmZP.YZCHZ || PHZRoomModel.wanfa == GameTypeEunmZP.JHSWZ){
-                textureMap[7] = {t:"res/res_phz/wangdiao.png",v:15};
-                textureMap[8] = {t:"res/res_phz/wangchuang.png",v:16};
-                textureMap[9] = {t:"res/res_phz/wangzha.png",v:19};
-                textureMap[10] = {t:"res/res_phz/wangzha.png",v:20};
-                textureMap[11] = {t:"res/res_phz/wangchuang.png",v:18};
-                textureMap[12] = {t:"res/res_phz/wangdiao.png",v:17};
+            if(PHZRoomModel.wanfa == GameTypeEunmZP.LDS || PHZRoomModel.wanfa == GameTypeEunmZP.YZCHZ ||
+                PHZRoomModel.wanfa == GameTypeEunmZP.JHSWZ){
+                textureMap[7] = {t:"res/res_phz/act_button/wangdiao.png",v:15};
+                textureMap[8] = {t:"res/res_phz/act_button/wangchuang.png",v:16};
+                textureMap[9] = {t:"res/res_phz/act_button/wangzha.png",v:19};
+                textureMap[10] = {t:"res/res_phz/act_button/wangzha.png",v:20};
+                textureMap[11] = {t:"res/res_phz/act_button/wangchuang.png",v:18};
+                textureMap[12] = {t:"res/res_phz/act_button/wangdiao.png",v:17};
+
             }
 
             if(PHZRoomModel.wanfa == GameTypeEunmZP.AXWMQ){
                 textureMap[3] = {t:"res/res_phz/axwmq/btn_zhe_1.png",v:4};
+            }
+
+            if (PHZRoomModel.wanfa == GameTypeEunmZP.YZLC){
+                textureMap = {0:{t:"res/res_phz/act_button/hu.png",v:1}};
             }
 
             var isShowBtn = true;
@@ -4118,6 +4126,18 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
             gameTypeUrl = "res/res_phz/wanfaFront/lyzp.png";
         }else if (PHZRoomModel.wanfa == GameTypeEunmZP.HYSHK){
             gameTypeUrl = "res/res_phz/wanfaFront/hyshk.png";
+        }else if (PHZRoomModel.wanfa == GameTypeEunmZP.CZZP){
+            gameTypeUrl = "res/res_phz/wanfaFront/czzp.png";
+        }else if (PHZRoomModel.wanfa == GameTypeEunmZP.LDS){
+            gameTypeUrl = "res/res_phz/wanfaFront/qylds.png";
+        }else if (PHZRoomModel.wanfa == GameTypeEunmZP.YZCHZ){
+            gameTypeUrl = "res/res_phz/wanfaFront/yzchz.png";
+        }else if (PHZRoomModel.wanfa == GameTypeEunmZP.LSZP){
+            gameTypeUrl = "res/res_phz/wanfaFront/lszp.png";
+        }else if (PHZRoomModel.wanfa == GameTypeEunmZP.YZLC){
+            gameTypeUrl = "res/res_phz/wanfaFront/yzlc.png";
+        }else if (PHZRoomModel.wanfa == GameTypeEunmZP.JHSWZ){
+            gameTypeUrl = "res/res_phz/wanfaFront/yzswz.png";
         }
 
         this.Image_phz.loadTexture(gameTypeUrl);

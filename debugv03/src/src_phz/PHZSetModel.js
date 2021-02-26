@@ -15,7 +15,7 @@ var PHZSetModel = {
     cardTouchend:318,//出牌位置
     init:function(){
         this.kscp = parseInt(this.getLocalItem("pro003_phz_kscp"+PHZRoomModel.wanfa)) || 0;  //1,0
-        this.kqtp = parseInt(this.getLocalItem("pro003_phz_kqtp"+PHZRoomModel.wanfa)) ||this.getDefaultKqtp();  //1,0
+        this.kqtp = parseInt(this.getLocalItem("pro003_phz_kqtp"+PHZRoomModel.wanfa)) == 0 ? 0 : 1 ||this.getDefaultKqtp();  //1,0
         this.yyxz = parseInt(this.getLocalItem("pro003_phz_yyxz"+PHZRoomModel.wanfa)) || this.getDefaultYyxz();  //1,2,3
         this.cpsd = this.getLocalItem("pro003_phz_cpsd"+PHZRoomModel.wanfa) || this.getDefaultCpsd();  //1,2,3
         this.zpdx = parseInt(this.getLocalItem("pro003_phz_zpdx"+PHZRoomModel.wanfa)) || this.getDefaultZpdx();  //1,2,3
@@ -81,10 +81,10 @@ var PHZSetModel = {
         return 1;
     },
     getDefaultKqtp:function(){
-        if (PHZRoomModel.wanfa == GameTypeEunmZP.XTPHZ){
-            return 1;
-        }
-        return 0;
+        //if (PHZRoomModel.wanfa == GameTypeEunmZP.XTPHZ){
+        //    return 1;
+        //}
+        return 1;
     },
     getDefaultCpsd:function(){
         var defaultValue = 1;

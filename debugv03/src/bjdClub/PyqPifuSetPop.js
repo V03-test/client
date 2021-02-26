@@ -23,7 +23,7 @@ var PyqPifuSetPop = cc.Layer.extend({
             }.bind(this)
         }),this);
 
-        this.bgType = ClickClubModel.bgType;
+        this.bgType = ClickClubModel.bgType < 4 ? ClickClubModel.bgType : 0;
         this.curOptWanfa = null;
 
         this.initLayer();
@@ -43,31 +43,31 @@ var PyqPifuSetPop = cc.Layer.extend({
         this.bg_scroll = new ccui.ScrollView();
         this.bg_scroll.setDirection(ccui.ScrollView.DIR_HORIZONTAL);
         this.bg_scroll.setContentSize(bg.width - 90,150);
-        //this.bg_scroll.setPosition(105,bg.height - 240);
         this.bg_scroll.setPosition(45,bg.height - 240);
         bg.addChild(this.bg_scroll);
 
         var itemW = 240;
 
-        this.bg_scroll.setInnerContainerSize(cc.size(itemW*8,this.bg_scroll.height));
+        var localNum = 3;
+
+        this.bg_scroll.setInnerContainerSize(cc.size(itemW*localNum,this.bg_scroll.height));
 
         this.bgItemArr = [];
-        for(var i = 0;i<8;++i){
-            var img = "res/ui/bjdmj/popup/pyq/pifu/set_bg_" + (i + 1) + ".png";
+        for(var i = 0;i<localNum;++i){
+            var img = "res/ui/bjdmj/popup/pyq/pifu/set_bg_" + (i + 1) + ".jpg";
             var item = new ccui.Button(img,img,"");
             item.flag = i+1;
             item.setPosition(itemW*(i+0.5),this.bg_scroll.height/2);
             item.addTouchEventListener(this.onClickBg,this);
             this.bg_scroll.addChild(item);
             this.bgItemArr.push(item);
-            item.visible = false;
         }
 
-        //this.bgKuang = new cc.Sprite("res/ui/bjdmj/popup/pyq/pifu/kuang_1.png");
-        //this.bgKuang.setPosition(this.bgItemArr[0].getPosition());
-        //this.bg_scroll.addChild(this.bgKuang);
+        this.bgKuang = new cc.Sprite("res/ui/bjdmj/popup/pyq/pifu/kuang_1.png");
+        this.bgKuang.setPosition(this.bgItemArr[0].getPosition());
+        this.bg_scroll.addChild(this.bgKuang);
 
-        //this.setSelectBg(this.bgType,1);
+        this.setSelectBg(this.bgType,1);
 
         this.wanfa_scroll = new ccui.ScrollView();
         this.wanfa_scroll.setDirection(ccui.ScrollView.DIR_HORIZONTAL);

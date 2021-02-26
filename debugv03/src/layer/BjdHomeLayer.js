@@ -33,7 +33,7 @@ var BjdHomeLayer = BaseLayer.extend({
 
         //绑定按钮点击事件
         // for(var i = 1;i <= 3; i++){
-        var btn_create = this.getWidget("btn_create_1")
+        var btn_create = this.getWidget("btn_create_1");
         btn_create.setTag(1)
         UITools.addClickEvent(btn_create, this , this.onClickCreateBtn);
         // }
@@ -44,6 +44,7 @@ var BjdHomeLayer = BaseLayer.extend({
         UITools.addClickEvent(this.getWidget("btn_zhanji") , this , this.onClickZhanjiBtn);
         UITools.addClickEvent(this.getWidget("btn_set") , this , this.onClickSetBtn);
 
+        this.getWidget("btn_set").x += 50;
         // var cqBtn = this.getWidget("btn_chuanqi");
         // cqBtn.visible = false;
         // cqBtn.x = cqBtn.x+20
@@ -244,7 +245,7 @@ var BjdHomeLayer = BaseLayer.extend({
 
         var ani = new ccs.Armature("003");
         var shuiNode = this.getWidget("Image_shui");
-        //ani.setPosition(shuiNode.width/2,shuiNode.height/2);
+        ani.setPosition(-250,40);
         //ani.setPosition(shuiNode.x,shuiNode.y);
         ani.getAnimation().play("Animation1",-1,1);
         shuiNode.addChild(ani,1);
@@ -265,7 +266,7 @@ var BjdHomeLayer = BaseLayer.extend({
 
         ani = new ccs.Armature("llong");
         var rightNode = this.getWidget("Image_rightAni");
-        //ani.setPosition(rightNode.width/2,rightNode.height/2);
+        rightNode.setPosition(rightNode.x + 361,rightNode.y);
         ani.setPosition(0,-50);
         ani.getAnimation().play("Animation1",-1,1);
         rightNode.addChild(ani,1);

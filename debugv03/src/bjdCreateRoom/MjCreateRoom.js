@@ -20,9 +20,11 @@ var MjCreateRoom = BasePopup.extend({
         //         ,"AXWMQ","XPLP","XPPHZ"]
         // ];
         this.itemConfigArr = [
-            ["HZMJ","ZZMJ","CSMJ","SYMJ","AHMJ","YJMJ","TJMJ","YYMJ"],
-            ["PDK","PDK11","ERDDZ","DTZ","XTSDH","DT","QF","YYBS","CDTLJ","HSTH"],
-            ["SYBP","SYZP","DYBP","AHPHZ","YJGHZ","NXGHZ","YYWHZ","SMPHZ","CDPHZ","HSPHZ","HYLHQ","HYSHK","LYZP"]
+            ["HZMJ","ZZMJ","CSMJ","SYMJ","AHMJ","YJMJ","TJMJ","YYMJ","YZWDMJ","NYMJ"],
+            ["PDK","PDK11","ERDDZ","DTZ","XTSDH","DT","QF","YYBS","CDTLJ","HSTH","XTBP"],
+            ["SYBP","SYZP","DYBP","AHPHZ","YJGHZ","NXGHZ","YYWHZ",
+                "SMPHZ","CDPHZ","HSPHZ","HYLHQ","HYSHK","LYZP",
+                "CZZP","LDS","YZCHZ","LSZP","YZLC","JHSWZ"]
         ];
         // var isClose = false;
         // if (this.clubData){
@@ -526,9 +528,9 @@ var MjCreateRoom = BasePopup.extend({
             this.itemArr.push(item);
 
             var ceishiArr = ["XXGHZ","XXPHZ","GLZP","GDCSMJ",
-                "CXMJ","HBGZP","NSB","TCMJ","KWMJ","XTBP","SMPHZ",
-                "YYBS","XXEQS","NYMJ","NXGHZ","YYMJ","YYNXMJ","ERDDZ","YYWHZ",
-                "ZJMJ","CQXZMJ","JZMJ","ZOUMJ","CDTLJ","AXWMQ","XPLP","XPPHZ","JHSWZ"];
+                "CXMJ","HBGZP","NSB","TCMJ","KWMJ","SMPHZ",
+                "YYBS","XXEQS","NXGHZ","YYMJ","YYNXMJ","ERDDZ","YYWHZ",
+                "ZJMJ","CQXZMJ","JZMJ","ZOUMJ","CDTLJ","AXWMQ","XPLP","XPPHZ"];
             //if (ArrayUtil.indexOf(ceishiArr,curItemArr[i]) >= 0){
             //    var ceshi = new cc.Sprite("res/ui/createRoom/createroom_img_ceshi.png");
             //    ceshi.x = 60;

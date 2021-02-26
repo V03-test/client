@@ -339,7 +339,7 @@ var ZZPHSmallResultPop=BasePopup.extend({
     },
     getPaiPngurl:function(phzVo){
         var t = phzVo.t==1 ? "s" : "b";
-        var paiType = PHZSetModel.zpxz;
+        var paiType = 1;
         var png = "big_cards" + paiType + "_" + phzVo.n + t + ".png";
         return png
     },

@@ -503,20 +503,21 @@ var YZWDMahjong = ccui.Widget.extend({
         } else if(place == 2) {
             switch (direct) {
                 case 1:
+                    mjScale = 1.15;
                     break;
                 case 2:
                     hdirect = 4;
                     hplace = 3;
-                    mjScale = 0.85;
+                    mjScale = 1;
                     ziFlippedX = true;
                     break;
                 case 3:
                     hdirect = 1;
-                    mjScale = 0.67;
+                    mjScale = 0.8;
                     break;
                 case 4:
                     hplace = 3;
-                    mjScale = 0.85;
+                    mjScale = 1;
                     break;
             }
         } else if(place == 3) {
@@ -601,7 +602,7 @@ var YZWDMahjong = ccui.Widget.extend({
                 case 3:
                     zi.x = bg.width/2;
                     if(place==1) {
-                        zi.y = bg.height / 2 - 12;
+                        zi.y = bg.height / 2 - 15;
                     }
                     if(place==2)
                         zi.y = bg.height/2+15;
@@ -614,25 +615,17 @@ var YZWDMahjong = ccui.Widget.extend({
                 case 2:
                     
                 case 4:
-                    if(direct==2){
+                    zi.x = bg.width/2;
+                    zi.y = bg.height/2+12;
+                    if(direct==2) {
                         zi.setFlippedX(true);
                         zi.setFlippedY(true);
+                        zi.y = bg.height / 2 + 12;
                     }
-                    zi.x = bg.width/2;
-                    zi.y = bg.height/2+14;
-
                     break;
             }
-            if(hdirect == 4 && hplace == 3 && mjstyle != 3){
-                this._zi.scale = 0.8;
-            }else if(hdirect == 1 && hplace == 2 && mjstyle == 3){
+            if(hdirect == 1 && hplace == 3){
                 this._zi.scale = 1.3;
-            }else if(hdirect == 1 && hplace == 1 && mjstyle == 3){
-                this._zi.scale = 1.35;
-            }else if(hdirect == 1 && hplace == 1 && mjstyle == 2){
-                this._zi.scale = 1.2;
-            }else{
-                this._zi.scale = 1;
             }
             bg.addChild(zi);
         }

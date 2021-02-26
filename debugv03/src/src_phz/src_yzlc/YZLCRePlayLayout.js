@@ -208,11 +208,11 @@ var YZLCRePlayLayout = cc.Class.extend({
                     card.y = -330+j*110 * 0.8; //89
                 }else{
                     //card.setScale(0.8);
-                    card.x = this.direct==2?i*45:-50+i*45;
+                    card.x = this.direct==2?-120+i*55:-50+i*55;
                     if (this.direct == 2 && PHZRePlayModel.players.length == 2){
-                        card.x = -50+i*45;
+                        card.x = -50+i*55;
                     }
-                    card.y = -40+j*45;
+                    card.y = -40+j*48;
                 }
                 count++;
                 zorder--;
@@ -229,6 +229,7 @@ var YZLCRePlayLayout = cc.Class.extend({
     },
 
     getCardOffX:function(){
+        return 132;
         var x = parseInt(UITools.getLocalItem("sy_phz_zpdx"));
         var w = x == 1 ? 114 : 132; //75
         if (x == 3){

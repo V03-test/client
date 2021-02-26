@@ -291,10 +291,10 @@ var RuleSelect_YZCHZ = RuleSelectBase.extend({
         if(this.createRoomLayer.clubData && ClickClubModel.getClubIsOpenLeaderPay()){
             zsNum = zsNumArr[temp];
         }else{
-            if(this.getItemByIdx(1,0).isSelected()){
-                zsNum = Math.ceil(zsNumArr[temp]/renshu);
+            if(this.getItemByIdx(0,0).isSelected()){
+                zsNum = 1;
             }else{
-                zsNum = zsNumArr[temp];
+                zsNum = 10;
             }
         }
 

@@ -66,7 +66,7 @@ var YZLCCard = ccui.Widget.extend({
         if (this.numberImg){
             var color = this._cardVo.t == 1 ? "s" : "b";
             var number = this._cardVo.n;
-            var paiType = PHZSetModel.zpxz;
+            var paiType = 1;
             var pngName = "big_cards" + paiType + "_" + number + color + ".png";
             var place = this._displayVo.place;
             if(place != 1){
@@ -85,15 +85,16 @@ var YZLCCard = ccui.Widget.extend({
         if (this._bg && this.numberImg){
             var place = this._displayVo.place;
             var an = this._cardVo.a;
-            var pmType = PHZSetModel.pmxz;
-            var bgPng = "";
+            var pmType = 1;//PHZSetModel.pmxz;
+            var bgPng = "big_half_face_1.png";
             if (place == 1){
-                bgPng = PHZSetModel.zpdx == 1 ? "big_half_face_"+pmType+".png" : "big_half_face2_"+pmType+".png";
+                //bgPng = PHZSetModel.zpdx == 1 ? "big_half_face_"+pmType+".png" : "big_half_face2_"+pmType+".png";
             }else{
                 bgPng = "small_half_face_"+pmType+".png";
             }
 
             if (this._cardVo.ishu){ //当前胡的这张牌
+                scale = 0.89;
                 bgPng = "small_half_face1_"+pmType+".png"
             }
             this._bg.setSpriteFrame(bgPng);
@@ -391,29 +392,28 @@ var YZLCCard = ccui.Widget.extend({
 
         var png = "";
         var bgPng = "";
-        var paiType = PHZSetModel.zpxz;
+        var paiType = 1;
         var pmType = PHZSetModel.pmxz;
         var scale = 1;
         var scaleX = 1;
         if(an==1){
-            scale = 0.5;
-            bgPng = "cards_small_back.png";
+            //scale = 0.8;
+            bgPng = "small_half_back.png";
+            //if(PHZRoomModel.wanfa == GameTypeEunmZP.YZCHZ){
+            //    bgPng = "yzchz_small_back.png";
+            //}
         }else{
             var t = this._cardVo.t == 1 ? "s" : "b";
             if (place == 1){
-                bgPng = PHZSetModel.zpdx == 1 ? "big_half_face_"+pmType+".png" : "big_half_face2_"+pmType+".png";
+                bgPng = "big_half_face_"+pmType+".png";
+                //bgPng = PHZSetModel.zpdx == 1 ? "big_half_face_"+pmType+".png" : "big_half_face2_"+pmType+".png";
             }else{
-                scale = 0.5;
+                //scale = 0.8;
                 bgPng = "small_half_face_"+pmType+".png";
             }
             if(place == 1){
-                // cc.log("this.isLHQ_SHK_16 =",this.isLHQ_SHK_16);
-                if (PHZSetModel.zpdx == 3 || PHZSetModel.zpdx == 4){
-                    scaleX = 1.1;
-                }
                 png = "big_cards" + paiType + "_" + this._cardVo.n + t + ".png";
             }else {
-                scale = 0.5;
                 png = "small_cards" + paiType + "_" + this._cardVo.n + t + ".png";
             }
         }
@@ -443,11 +443,11 @@ var YZLCCard = ccui.Widget.extend({
             bg.y = this._bg.height*0.62;
             bgImg.addChild(bg);
             if (place == 1){
-                if (PHZSetModel.zpdx == 4){
-                    bg.scale = 1.2;
-                }else if (PHZSetModel.zpdx == 2 || PHZSetModel.zpdx == 3){
-                    bg.scale = 1.1;
-                }
+                //if (PHZSetModel.zpdx == 4){
+                //    bg.scale = 1.2;
+                //}else if (PHZSetModel.zpdx == 2 || PHZSetModel.zpdx == 3){
+                //    bg.scale = 1.1;
+                //}
             }
         }
 
@@ -557,7 +557,7 @@ var YZLCCard = ccui.Widget.extend({
     },
     getPaiPngurl:function(phzVo){
         var t = phzVo.t==1 ? "s" : "b";
-        var paiType = PHZSetModel.zpxz;
+        var paiType = 1;
         var png = "big_cards" + paiType + "_" + phzVo.n + t + ".png";
         return png
     }

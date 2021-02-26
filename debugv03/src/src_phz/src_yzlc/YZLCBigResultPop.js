@@ -7,7 +7,12 @@ var YZLCBigResultPop = BasePopup.extend({
     ctor: function (data,isDaiKai) {
         this.data = data;
         this.isDaiKai = isDaiKai || false;
-        var json = "res/phzBigResult.json";
+        var json = "res/bigResultPop.json";
+        if(this.data.length == 3){
+            json = "res/bigResultPopThree.json";
+        }else if(this.data.length == 2){
+            json = "res/bigResultPopTwo.json";
+        }
         this.json = json;
         this._super(json);
     },
@@ -19,138 +24,115 @@ var YZLCBigResultPop = BasePopup.extend({
         if (idPanel)
             idPanel.setString("ID："+user.userId);
 
-        ccui.helper.seekWidgetByName(widget,"Label_47_0").visible = false;
-        ccui.helper.seekWidgetByName(widget,"Label_47_0_1").visible = false;
-        ccui.helper.seekWidgetByName(widget,"Label_47_0_2").visible = false;
-        ccui.helper.seekWidgetByName(widget,"Label_47_0_3").visible = false;
-        ccui.helper.seekWidgetByName(widget,"Label_47_0_4").visible = false;
-        ccui.helper.seekWidgetByName(widget,"l1").visible = false;
-        ccui.helper.seekWidgetByName(widget,"l2").visible = false;
-        ccui.helper.seekWidgetByName(widget,"l3").visible = false;
-        ccui.helper.seekWidgetByName(widget,"l4").visible = false;
-        ccui.helper.seekWidgetByName(widget,"l5").visible = false;
-        ccui.helper.seekWidgetByName(widget,"Label_difen").setString("");//设置底分
-        ccui.helper.seekWidgetByName(widget,"Image_credit").visible = false;
-        /****
-         * 隐藏其他的信息，重新新建显示信息
-         */
+        var label1 = ccui.helper.seekWidgetByName(widget, "Label_title1");
+        var label2 = ccui.helper.seekWidgetByName(widget, "Label_title2");
+        var label3 = ccui.helper.seekWidgetByName(widget, "Label_title3");
+        var label4 = ccui.helper.seekWidgetByName(widget, "Label_title4");
+        var label5 = ccui.helper.seekWidgetByName(widget, "Label_title5");
+        var label6 = ccui.helper.seekWidgetByName(widget, "Label_title6");
+        label1.visible = false;
+        label2.visible = false;
+        label3.visible = false;
+        label4.visible = false;
+        label5.visible = false;
+        label6.visible = false;
 
-        var parent = ccui.helper.seekWidgetByName(widget,"Label_47_0").getParent();
+        var num1 = ccui.helper.seekWidgetByName(widget, "Label_txt1");
+        var num2 = ccui.helper.seekWidgetByName(widget, "Label_txt2");
+        var num3 = ccui.helper.seekWidgetByName(widget, "Label_txt3");
+        var num4 = ccui.helper.seekWidgetByName(widget, "Label_txt4");
+        var num5 = ccui.helper.seekWidgetByName(widget, "Label_txt5");
+        var num6 = ccui.helper.seekWidgetByName(widget, "Label_txt6");
+        num1.visible = false;
+        num2.visible = false;
+        num3.visible = false;
+        num4.visible = false;
+        num5.visible = false;
+        num6.visible = false;
+
+        var parent = ccui.helper.seekWidgetByName(widget,"Image_other").getParent();
 
         var localTemp = user.strExt.slice(11);
         //cc.log(" 取到的值 ",JSON.stringify(localTemp));
         var localArray = localTemp || [];
 
         var list = new ccui.ListView();
-        list.setContentSize(300,220);
+        list.setContentSize(450,330);
         list.setTouchEnabled(true);
-        list.setPosition(0,110);
+        list.setPosition(0,0);
         parent.addChild(list,1);
 
         for(var i = 0;i<localArray.length;++i){
             var item = new ccui.Widget();
-            item.setContentSize(300,50);
+            item.setContentSize(300,60);
 
-            var label_name = new cc.LabelTTF("第"+(i+1)+"局","Arial",36);
-            label_name.setColor(cc.color(128,51,6));
-            label_name.setPosition(80,item.height/2);
+            var label_name = new cc.LabelTTF("第"+(i+1)+"局","res/font/bjdmj/fznt.ttf",40);
+            label_name.setColor(cc.color("#fffaf0"));
+            label_name.setPosition(120,item.height/2);
             item.addChild(label_name);
 
-            var label_num = new cc.LabelTTF(String(localArray[i]),"Arial",36);
-            label_num.setColor(cc.color(128,51,6));
-            label_num.setPosition(260,item.height/2);
+            var label_num = new cc.LabelTTF(String(localArray[i]),"res/font/bjdmj/fznt.ttf",40);
+            label_num.setColor(cc.color("#ffeb7c"));
+            label_num.setPosition(345,item.height/2);
             item.addChild(label_num);
 
             list.pushBackCustomItem(item);
         }
 
-        var label_difen = ccui.helper.seekWidgetByName(widget,"Label_difen");
-        var img_credit = ccui.helper.seekWidgetByName(widget,"Image_credit");
-        label_difen.setString("");
+        var img_credit = ccui.helper.seekWidgetByName(widget,"Image_totolPoint");
+        var label_credit = ccui.helper.seekWidgetByName(widget,"totolPoint");
+        var label_credit1 = ccui.helper.seekWidgetByName(widget,"totolPoint1");
         img_credit.setVisible(false);
         if (PHZRoomModel.isCreditRoom()){
             var credit = user.winLoseCredit;
             credit = MathUtil.toDecimal(credit/100);
-
             img_credit.visible = true;
-
-            var fnt = "res/res_phz/phzBigResult/phz_jsj_font.fnt";
-            if(parseInt(credit)<0){
-                fnt = "res/res_phz/phzBigResult/phz_js_font.fnt";
+            if (credit >= 0){
+                label_credit.setString("+" + credit);
+                label_credit1.setString("");
+            }else{
+                label_credit1.setString(credit);
+                label_credit.setString("");
             }
-            var label = new cc.LabelBMFont(credit,fnt);
-            label.x = label_difen.width/2;
-            label.y = label_difen.height/2;
-            label_difen.addChild(label);
-            label.setString(credit);
-        }else if(PHZRoomModel.isClubGoldRoom()){
-            img_credit.visible = true;
-            img_credit.loadTexture("res/res_gold/goldPyqHall/img_13.png");
-
-            var num = user.winLoseCredit;
-
-            var fnt = "res/res_phz/phzBigResult/phz_jsj_font.fnt";
-            if(num < 0){
-                fnt = "res/res_phz/phzBigResult/phz_js_font.fnt";
-            }
-            if(num > 0)num = "+" + num;
-
-            var label = new cc.LabelBMFont("" + num,fnt);
-            label.setAnchorPoint(0,0.5);
-            label.x = 70;
-            label.y = label_difen.height/2;
-            label_difen.addChild(label);
-
+        }else{
+            ccui.helper.seekWidgetByName(widget,"Image_point").y -= 40;
         }
 
-
-        var totalPoint = "";
+        var totalPoint = user.finalPoint;
         var totalPointStr = "";
-       if(PHZRoomModel.wanfa == GameTypeEunmZP.YZLC){/** 永州老戳 **/
-            if (user.finalPoint > 0) {
-                totalPointStr = "+" + user.finalPoint;
-            } else {
-                totalPointStr = totalPointStr + user.finalPoint;
-            }
-            totalPoint = user.finalPoint;
+
+        if (user.finalPoint > 0) {
+            totalPointStr = "+" + user.finalPoint;
+        } else {
+            totalPointStr = totalPointStr + user.finalPoint;
         }
 
-        var pointTotal = ccui.helper.seekWidgetByName(widget,"p5");
-        var fnt = "res/res_phz/phzBigResult/phz_jsj_font.fnt";
-        if(parseInt(totalPoint)<0){
-            fnt = "res/res_phz/phzBigResult/phz_js_font.fnt";
+        var pointNode = ccui.helper.seekWidgetByName(widget,"point");
+        var pointNode1= ccui.helper.seekWidgetByName(widget,"point1");
+
+        if (parseInt(totalPoint)>=0){
+            pointNode.setString(""+totalPointStr);
+            pointNode1.setString("");
+        }else{
+            pointNode1.setString(""+totalPointStr);
+            pointNode.setString("");
         }
 
-        var label = new cc.LabelBMFont(totalPointStr,fnt);
-        label.x = pointTotal.width*0.45;
-        label.y = pointTotal.height*0.48;
-        pointTotal.addChild(label);
         var icon = ccui.helper.seekWidgetByName(widget,"icon");
-        var defaultimg = "res/res_phz/default_m.png";
+        var defaultimg = "res/res_gameCom/bigResult/txd.png";
         if(icon.getChildByTag(345))
             icon.removeChildByTag(345);
         var sprite = new cc.Sprite(defaultimg);
-        sprite.scale = 0.9;
-        sprite.x = 50;
-        sprite.y = 50;
+        sprite.x = icon.width / 2;
+        sprite.y = icon.height / 2;
         icon.addChild(sprite,5,345);
         //user.icon = "http://wx.qlogo.cn/mmopen/25FRchib0VdkrX8DkibFVoO7jAQhMc9pbroy4P2iaROShWibjMFERmpzAKQFeEKCTdYKOQkV8kvqEW09mwaicohwiaxOKUGp3sKjc8/0";
         if(user.icon){
             cc.loader.loadImg(user.icon, {width: 70, height: 70}, function (error, img) {
                 if (!error) {
                     sprite.setTexture(img);
-                    //sprite.scale = 1.05;
-                    //sprite.x = 42;
-                    //sprite.y = 38;
                 }
             });
-        }
-        var fzImg = ccui.helper.seekWidgetByName(widget,"Image_fz");//房主图片
-        fzImg.visible = false;
-        if(!this.isDaiKai){
-            if(user.userId==ClosingInfoModel.ext[1]){
-                fzImg.visible = true;
-            }
         }
     },
 
@@ -174,10 +156,8 @@ var YZLCBigResultPop = BasePopup.extend({
             if(d.totalPoint <= min){
                 min = d.totalPoint;
             }
-            //cc.log("phz打结算分数..." , d.totalPoint , d.bopiPoint)
         }
 
-        // cc.log("phz计算出的结算最大分和最小分..." , min , omax);
         for(var i=0;i<this.data.length;i++){
             var d = this.data[i];
             d.dyj = 0;
@@ -188,73 +168,48 @@ var YZLCBigResultPop = BasePopup.extend({
                 d.isMin = 1;
             this.refreshSingle(this.getWidget("user"+(i+1)),this.data[i]);
         }
-        var startX = 1200 - this.getWidget("user1").width/2;
-        if(this.data.length == 3){
-            this.getWidget("user4").visible = false;
-            this.getWidget("user1").x = startX - 700;
-            this.getWidget("user2").x = startX ;
-            this.getWidget("user3").x = startX + 700;
-        }else if(this.data.length == 2){
-            this.getWidget("user3").visible = false;
-            this.getWidget("user4").visible = false;
-            this.getWidget("user1").x = startX -450;
-            this.getWidget("user2").x = startX +450;
-        }
-        var Button_20 = this.getWidget("Button_20");
-        UITools.addClickEvent(Button_20,this,this.onShare);
-        var Button_21 = this.getWidget("Button_21");
-        UITools.addClickEvent(Button_21,this,this.onToHome);
-
-        var Button_49 = this.getWidget("Button_49"); //复制总成绩
-        UITools.addClickEvent(Button_49,this,this.onCopy);
-
-        var btn_return_hall = this.getWidget("btn_return_hall");
-        UITools.addClickEvent(btn_return_hall,this,this.onToHome);
+        var shareResult = this.getWidget("shareResult");
+        UITools.addClickEvent(shareResult,this,this.onShare);
+        var backHall = this.getWidget("backHall");
+        UITools.addClickEvent(backHall,this,this.onToHome);
 
         var btn_start_another = this.getWidget("btn_start_another");
         UITools.addClickEvent(btn_start_another,this,this.qyqStartAnother);
 
-
-        var Button_dissolution = this.getWidget("Button_dissolution");
-        Button_dissolution.visible = false;
-        UITools.addClickEvent(Button_dissolution,this,this.onDissolution);
+        var continueBtn = this.getWidget("continue");
+        UITools.addClickEvent(continueBtn,this,this.qyqStartAnother);
 
         //版本号
         if(this.getWidget("Label_version")){
             this.getWidget("Label_version").setString(SyVersion.v);
         }
-        var resultMsg = ClosingInfoModel.ext[9] || [];
-        if (resultMsg){
-            this.resultMsg = JSON.parse(resultMsg);
-            if (this.resultMsg.dissState){
-                Button_dissolution.visible = true;
-            }
-            cc.log("this.resultMsg"+JSON.stringify(this.resultMsg));
-        }
+
         if (PHZRoomModel.roomName){
-            this.getWidget("Label_roomname").setString(PHZRoomModel.roomName);
-            this.getWidget("groupid").setString("亲友苑ID:" + ClosingInfoModel.ext[13]);
+            var string = "亲友苑ID:" + ClosingInfoModel.ext[13];
+            if(PHZRoomModel.wanfa == GameTypeEunmZP.WHZ){
+                string = "亲友苑ID:" + ClosingInfoModel.ext[10];
+            }
+            this.getWidget("Label_clubID").setString(string);
         }else{
-            this.getWidget("Label_roomname").visible = false;
-            this.getWidget("groupid").visible = false;
-            btn_start_another.setVisible(false);
+            this.getWidget("Label_clubID").visible = false;
+            continueBtn.setVisible(false);
         }
 
+        this.getWidget("Label_jushu").setString("局数:"+ClosingInfoModel.ext[5]);
 
-        var ext3 = ClosingInfoModel.ext[3];
-        var str = "";
-        var dtimes = 0;
-        var dScore = 0;
-        var extStr2 = PHZRoomModel.getName(ext3);
-        this.getWidget("ext2").setString(extStr2);
-        this.getWidget("ext3").setString(ClosingInfoModel.ext[2]);
-        this.getWidget("ext4").setString("");
+        this.getWidget("Label_roomnum").setString("房号:" +ClosingInfoModel.ext[0]);
+
+        if(this.getWidget("Label_time") && ClosingInfoModel.ext[2]){
+            this.getWidget("Label_time").setString(ClosingInfoModel.ext[2]);
+        }
+
+        this.getWidget("Label_score").setString("");
+
         if (ClosingInfoModel.round){
-            this.getWidget("ext4").setString("局数:"+ClosingInfoModel.round);
+            this.getWidget("Label_jushu").setString("局数:"+ClosingInfoModel.round);
         }
 
-        this.getWidget("ext5").setString("");
-        if (PHZRoomModel.isCreditRoom()){
+        if (PHZRoomModel.isCreditRoom()) {
             //奖赏分
             //固定奖赏 大赢家 10
             //比例奖赏 所有赢家 2%
@@ -262,67 +217,31 @@ var YZLCBigResultPop = BasePopup.extend({
             var giveType = PHZRoomModel.getCreditType();
             var giveWay = PHZRoomModel.getCreditWay();
             var giveNum = PHZRoomModel.getCreditGiveNum();
-            if (giveType == 1){
-                if(!PHZRoomModel.getCreditPayWay()){
-                   giveStr = giveStr + "固定奖赏,";
-                }
-            }else{
+            if (giveType == 1) {
+                giveStr = giveStr + "固定奖赏,";
+            } else {
                 giveStr = giveStr + "比例奖赏,";
             }
-            if (giveWay == 1){
+            if (giveWay == 1) {
                 if(PHZRoomModel.getCreditPayWay()){
                     giveStr = giveStr + "AA奖赏,";
                 }else{
                     giveStr = giveStr + "大赢家,";
                 }
-            }else{
+            } else {
                 giveStr = giveStr + "所有赢家,";
             }
-            if (giveType == 1){
+            if (giveType == 1) {
                 giveStr = giveStr + giveNum;
-            }else{
+            } else {
                 giveStr = giveStr + giveNum + "%";
             }
 
-            this.getWidget("ext5").setString("底分:"+PHZRoomModel.getCreditScore() +"," + giveStr);
-        }else if(PHZRoomModel.isClubGoldRoom()){
-            this.getWidget("ext5").setString(PHZRoomModel.getClubGlodCfg());
-        }else{
-            var strLabel = this.getWidget("ext5");
-            strLabel.setAnchorPoint(0,1);
-            strLabel.setPosition(strLabel.x - 90,strLabel.y + 90);
-            strLabel.ignoreContentAdaptWithSize(false);
-            strLabel.setSize(480, 200);
-            strLabel.setString("玩法:"+PHZRoomModel.getWanFaDesc());
+            this.getWidget("Label_score").setString("底分:" + PHZRoomModel.getCreditScore() + "," + giveStr);
         }
-        str = str + "房间号:"+ClosingInfoModel.ext[0];
-        this.getWidget("ext1").setString(str);
-        this.getWidget("version").setString(SyVersion.v);
-        var Button_fxCard = this.getWidget("Button_fxCard");
-        Button_fxCard.visible = false;
-        UITools.addClickEvent(Button_fxCard,this,this.onShareCard);
-        if( PHZRoomModel.tableType == 1&&ClosingInfoModel.groupLogId){//亲友圈房间才可见;
-            Button_fxCard.visible = false;
-            Button_fxCard.scaleX= 0.9;
-            Button_21.scaleX= 0.9;
-            Button_20.scaleX= 0.9;
-            Button_49.scaleX= 0.9;
+        var wanfaStr = PHZRoomModel.getWanFaDesc();
+        this.getWidget("Label_wanfa").setString(wanfaStr);
 
-        }else{
-
-        }
-
-        if(PHZRoomModel.getIsSwitchCoin()){
-            var btn_coin_result = this.getWidget("btn_coin_result")
-            if(btn_coin_result) {
-                btn_coin_result.visible = true;
-                UITools.addClickEvent(btn_coin_result, this, this.clubCoinResult);
-            }
-        }else{
-            if(this.getWidget("btn_coin_result")){
-                this.getWidget("btn_coin_result").visible = false;
-            }
-        }
     },
 
     clubCoinResult:function(){

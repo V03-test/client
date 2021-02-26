@@ -1107,10 +1107,10 @@ var PyqPifuPop = cc.Layer.extend({
         this.btn_Close = btn_close;
 
         this.btnArr = [];
-        var offsetX = 310//375;
-        var offsetY = 170//180;
-        for(var i = 0;i<8;++i){
-            var img = "res/ui/bjdmj/popup/pyq/bg/img_set_bg_" + (i + 1) + ".png";
+        var offsetX = 310;
+        var offsetY = 170;
+        for(var i = 0;i<3;++i){
+            var img = "res/ui/bjdmj/popup/pyq/pifu/set_bg_" + (i + 1) + ".jpg";
             var btn = new ccui.Button(img,img,"");
             btn.setTag(i+1);
             btn.setPosition(bg.width/2 + (i%3 - 1)*offsetX,bg.height/2 - (Math.floor(i/3) - 1)*offsetY);
@@ -1182,6 +1182,10 @@ var PyqNewPifuPop = BasePopup.extend({
             this.clubBgType = cc.sys.localStorage.getItem("sy_club_bg_type"+ClickClubModel.getCurClubId()) || 1;
         }else{
             this.clubBgType = cc.sys.localStorage.getItem("sy_club_bg_type") || 1;
+        }
+
+        if(this.clubBgType > 3){
+            this.clubBgType = 1;
         }
 
         this.clubZbType = cc.sys.localStorage.getItem("zuozitype") || 1;

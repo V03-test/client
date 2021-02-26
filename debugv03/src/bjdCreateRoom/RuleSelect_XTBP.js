@@ -81,15 +81,8 @@ var RuleSelect_XTBP = RuleSelectBase.extend({
         if(this.createRoomLayer.clubData && ClickClubModel.getClubIsOpenLeaderPay()){
             zsNum = zsNumArr[temp];
         }else{
-            if(this.getItemByIdx(1,0).isSelected()){
-                zsNum = Math.ceil(zsNumArr[temp]/renshu);
-            }else{
-                zsNum = zsNumArr[temp]
-            }
+            zsNum = 10;
         }
-
-        zsNum = 0;
-
         this.createRoomLayer && this.createRoomLayer.updateZsNum(zsNum);
     },
 

@@ -459,17 +459,13 @@ var PyqHall = BasePopup.extend({
     },
 
     setBackImg:function(type){
-        //var imgName = "res/ui/bjdmj/popup/pyq/bg/img_club_bg_1.jpg";
-        //if(type){
-        //    imgName = "res/ui/bjdmj/popup/pyq/bg/img_club_bg_"+type+".jpg";
-        //}
-        ////if(type == 2){
-        ////    imgName = "res/ui/bjdmj/popup/pyq/beijing1.jpg";
-        ////}else if(type == 3){
-        ////    imgName = "res/ui/bjdmj/popup/pyq/di.jpg";
-        ////}
-        //imgName =  "res/res_ui/qyq/hall/bg.jpg";
-        //this.root.setBackGroundImage(imgName);
+        var imgName = "res/res_ui/qyq/hall/bg.jpg";
+        if(type == 2){
+            imgName = "res/res_ui/qyq/hall/bg2.jpg";
+        }else if(type == 3){
+            imgName = "res/res_ui/qyq/hall/bg1.jpg";
+        }
+        this.root.setBackGroundImage(imgName);
     },
 
     updateClubBg:function(event){

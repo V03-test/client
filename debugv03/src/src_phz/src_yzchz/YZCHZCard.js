@@ -63,16 +63,18 @@ var YZCHZCard = ccui.Widget.extend({
 
     refreshCardByOpenTex:function() {
         if (this.numberImg){
-            var color = this._cardVo.t == 1 ? "s" : "b";
-            var number = this._cardVo.n;
-            var paiType = PHZSetModel.zpxz;
-            var pngName = "big_cards" + paiType + "_" + number + color + ".png";
-            var place = this._displayVo.place;
-            if(place != 1){
-                pngName= "small_cards" + paiType + "_" + number + color + ".png";
-            }
-            var frame = cc.spriteFrameCache.getSpriteFrame(pngName);
-            this.numberImg.setSpriteFrame(frame);
+            //var color = this._cardVo.t == 1 ? "s" : "b";
+            //var number = this._cardVo.n;
+            //var paiType = 1 == 3?3:1;
+            //var pngName = "big_cards" + paiType + "_" + number + color + ".png";
+            //var place = this._displayVo.place;
+            //if(place != 1){
+            //    pngName= "small_cards" + paiType + "_" + number + color + ".png";
+            //}
+            //var frame = cc.spriteFrameCache.getSpriteFrame(pngName);
+            //this.numberImg.setSpriteFrame(frame);
+            this.diplay();
+
             // this.refreshCardBgByOpenTex()
         }else{
             //cc.log("this._cardVo.n::"+this._cardVo.n)
@@ -363,35 +365,30 @@ var YZCHZCard = ccui.Widget.extend({
 
         var png = "";
         var bgPng = "";
-        var paiType = PHZSetModel.zpxz;
+        var paiType = 1;
         var pmType = PHZSetModel.pmxz;
         var scale = 1;
         var scaleX = 1;
         if(an==1){
-            scale = 0.8;
-            bgPng = "yzchz_small_back.png";
+            // scale = 0.8;
+            bgPng = "small_half_back.png";
         }else{
             var t = this._cardVo.t == 1 ? "s" : "b";
             if (place == 1){
-                bgPng = PHZSetModel.zpdx == 1 ? "big_half_face_"+pmType+".png" : "big_half_face2_"+pmType+".png";
+                bgPng = "big_half_face_"+pmType+".png";
+                //bgPng = PHZSetModel.zpdx == 1 ? "big_half_face_"+pmType+".png" : "big_half_face2_"+pmType+".png";
             }else{
-                scale = 0.8;
                 bgPng = "small_half_face_"+pmType+".png";
             }
             if(place == 1){
-                // cc.log("this.isLHQ_SHK_16 =",this.isLHQ_SHK_16);
-                if (PHZSetModel.zpdx == 3 || PHZSetModel.zpdx == 4){
-                    scaleX = cc.winSize.width/SyConfig.DESIGN_WIDTH +0.06*( cc.winSize.width/SyConfig.DESIGN_WIDTH);
-                }
                 png = "big_cards" + paiType + "_" + this._cardVo.n + t + ".png";
             }else {
-                scale = 0.8;
                 png = "small_cards" + paiType + "_" + this._cardVo.n + t + ".png";
             }
         }
 
         if (this._cardVo.ishu){ //当前胡的这张牌
-            scale = 0.7;
+            scale = 0.89;
             bgPng = "small_half_face1_"+pmType+".png"
         }
 
@@ -414,16 +411,6 @@ var YZCHZCard = ccui.Widget.extend({
             bg.x = this._bg.width*0.5;
             bg.y = this._bg.height*0.62;
             bgImg.addChild(bg);
-            if (place == 1){
-                if (PHZSetModel.zpdx == 4){
-                    bg.scale = 1.2;
-                }else if (PHZSetModel.zpdx == 2 || PHZSetModel.zpdx == 3){
-                    bg.scale = 1.1;
-                }
-                // if(this.isLHQ_SHK_16){
-                //     bg.scale = 1.2;
-                // }
-            }
         }
 
         if (this._cardVo.n == 1){
@@ -531,19 +518,19 @@ var YZCHZCard = ccui.Widget.extend({
             bg1.y = kuang.height*per;
             bg1.setFlippedY(-180);
             bg1.setFlippedX(-180);
-            bg1.scale = 0.8;
+            bg1.scale = 0.7;
             kuang.addChild(bg1);
 
             var bg = this.getSprite(png);
             bg.x = kuang.width/2;
             bg.y = kuang.height*(1-per);
-            bg.scale = 0.8;
+            bg.scale = 0.7;
             kuang.addChild(bg);
         }
     },
     getPaiPngurl:function(phzVo){
         var t = phzVo.t==1 ? "s" : "b";
-        var paiType = PHZSetModel.zpxz;
+        var paiType = 1;
         var png = "big_cards" + paiType + "_" + phzVo.n + t + ".png";
         return png
     },

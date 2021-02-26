@@ -299,7 +299,7 @@ var LoginLayer = BaseLayer.extend({
             this.selectBtnArr[i] = btn;
         }
 
-        this.onClickServerBtn(this.selectBtnArr[2]);
+        this.onClickServerBtn(this.selectBtnArr[0]);
     },
 
     onClickServerBtn:function(sender){

@@ -50,6 +50,7 @@ var PHZMineLayout = {
         for(var i=0;i<ids.length;i++){
             voArray.push(PHZAI.getPHZDef(ids[i]));
         }
+        cc.log("voArray===",JSON.stringify(voArray))
         var local = this.getFromLocal(ids);
         if(local && local.tableId==PHZRoomModel.tableId&&local.jushu==PHZRoomModel.nowBurCount){
         	if(local.isSame){

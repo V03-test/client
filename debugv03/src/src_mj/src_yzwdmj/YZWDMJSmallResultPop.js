@@ -78,7 +78,7 @@ var YZWDMJSmallResultPop = BasePopup.extend({
     createMoldPais: function(widget,user) {
         var moldPais = user.moldPais;
         var count = 0;
-        this.moldInitX = 115 + 50 + 100;
+        this.moldInitX = 115 + 100 + 140;
         var lastX = 0;
         var height = 70;
         for (var i=0;i<moldPais.length;i++) {
@@ -93,11 +93,13 @@ var YZWDMJSmallResultPop = BasePopup.extend({
             if((innerAction==MJAction.AN_GANG || innerAction==MJAction.GANG) && (innerArray.length>3 || innerObject.gangVo)){
                 gangVo = innerArray.pop();
             }
-            var actionDiffX = 5;
+            var actionDiffX = 40;
             for(var j=0;j<innerArray.length;j++){
                 var innerVo = innerArray[j];
+                var dis = 5;
                 if (innerAction==MJAction.AN_GANG) {
                     innerVo.a = 1;
+                    dis = 18;
                 }
                 var card = new YZWDMahjong(MJAI.getDisplayVo(1,2),innerVo);
                 var size = card.getContentSize();
@@ -112,7 +114,7 @@ var YZWDMJSmallResultPop = BasePopup.extend({
                 if(gangVo && j==1){
                     if(!card.getChildByTag(333)){
                         var gang = new YZWDMahjong(MJAI.getDisplayVo(1,2),gangVo);
-                        gang.y += 12;
+                        gang.y += 20;
                         gang.scale = 1;
                         card.addChild(gang,1,333);
                     }
@@ -140,7 +142,7 @@ var YZWDMJSmallResultPop = BasePopup.extend({
             voArray[i].isJs = 1;
             var card = new YZWDMahjong(MJAI.getDisplayVo(1,1),voArray[i]);
             var size = card.getContentSize();
-            var _scale = 0.6;
+            var _scale = 0.5;
             card.scale = _scale;
             card.x = this.moldInitX + (size.width * _scale - 0.5) * i + localOffx;
             card.y = height;
@@ -356,14 +358,16 @@ var YZWDMJSmallResultPop = BasePopup.extend({
         }
 
         var jushuStr = "第" + MJRoomModel.nowBurCount + "/" + MJRoomModel.totalBurCount + "局";
-        var roomIdStr = "房间号：" + MJRoomModel.tableId;
-        this.getWidget("info").setString(qyqID + jushuStr + "  " + roomIdStr);
+        var roomIdStr = "房号：" + MJRoomModel.tableId;
 
         if (ClosingInfoModel.isReplay){
-            var jushuStr = "第" + MJReplayModel.nowBurCount + "/" + MJReplayModel.totalBurCount + "局";
-            var roomIdStr = "房间号：" + ClosingInfoModel.ext[1];
-            this.getWidget("info").setString(qyqID + jushuStr + "  " + roomIdStr);
+            jushuStr = "第" + MJReplayModel.nowBurCount + "/" + MJReplayModel.totalBurCount + "局";
+            roomIdStr  = "房号：" + ClosingInfoModel.ext[1];
         }
+
+        this.getWidget("info").setString(roomIdStr);
+        this.getWidget("Label_jushu").setString(jushuStr);
+        this.getWidget("Label_clubID").setString(qyqID);
 
         //版本号
         if(this.getWidget("Label_version")){

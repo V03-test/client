@@ -233,7 +233,7 @@ var ZZPHRoomEffects = {
 
     getPaiPngurl:function(phzVo){
         var t = phzVo.t==1 ? "s" : "b";
-        var paiType = PHZSetModel.zpxz;
+        var paiType = 1;
         var png = "big_cards" + paiType + "_" + phzVo.n + t + ".png";
         return png
     },
@@ -242,7 +242,7 @@ var ZZPHRoomEffects = {
         if (this.bg && this.phzVo){
             var color = this.phzVo.t == 1 ? "s" : "b";
             var number = this.phzVo.n;
-            var paiType = PHZSetModel.zpxz;
+            var paiType = 1;
             var pngName = "big_cards" + paiType + "_" + number + color + ".png";
             var frame = cc.spriteFrameCache.getSpriteFrame(pngName);
             this.bg.setSpriteFrame(frame);
@@ -254,7 +254,7 @@ var ZZPHRoomEffects = {
         if (this.bg1 && this.phzVo){
             var color = this.phzVo.t == 1 ? "s" : "b";
             var number = this.phzVo.n;
-            var paiType = PHZSetModel.zpxz;
+            var paiType = 1;
             var pngName = "big_cards" + paiType + "_" + number + color + ".png";
             var frame = cc.spriteFrameCache.getSpriteFrame(pngName);
             this.bg1.setSpriteFrame(frame);

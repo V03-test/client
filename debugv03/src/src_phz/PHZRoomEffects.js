@@ -90,7 +90,7 @@ var PHZRoomEffects = {
         }else{
             if(seq == 1){
                 endPosX = -360;
-                endPosY = 100;
+                endPosY = 240;
             }else if(seq == 2){
                 endPosX = -280;
                 endPosY = 220;
@@ -283,7 +283,7 @@ var PHZRoomEffects = {
 
     getPaiPngurl:function(phzVo){
         var t = phzVo.t==1 ? "s" : "b";
-        var paiType = 1;//PHZSetModel.zpxz;
+        var paiType = 1;//1;
         var png = "big_cards" + paiType + "_" + phzVo.n + t + ".png";
         return png
     },
@@ -292,7 +292,7 @@ var PHZRoomEffects = {
         if (this.bg && this.phzVo){
             var color = this.phzVo.t == 1 ? "s" : "b";
             var number = this.phzVo.n;
-            var paiType = 1;//PHZSetModel.zpxz;
+            var paiType = 1;//1;
             var pngName = "big_cards" + paiType + "_" + number + color + ".png";
             var frame = cc.spriteFrameCache.getSpriteFrame(pngName);
             this.bg.setSpriteFrame(frame);
@@ -301,7 +301,7 @@ var PHZRoomEffects = {
         if (this.bg1 && this.phzVo){
             var color = this.phzVo.t == 1 ? "s" : "b";
             var number = this.phzVo.n;
-            var paiType = 1;//PHZSetModel.zpxz;
+            var paiType = 1;//1;
             var pngName = "big_cards" + paiType + "_" + number + color + ".png";
             var frame = cc.spriteFrameCache.getSpriteFrame(pngName);
             this.bg1.setSpriteFrame(frame);
@@ -690,6 +690,10 @@ var PHZRoomEffects = {
         var pmType = 1;//PHZSetModel.pmxz;
         // var kuangImg = phzVo.c ==0?"#yzchz_bg_cp.png":"#big_face"+pmType+".png";
         var kuangImg = "#big_face1.png";
+        if (phzVo.c ==0 && (PHZRoomModel.wanfa == GameTypeEunmZP.JHSWZ ||
+            PHZRoomModel.wanfa == GameTypeEunmZP.LDS || PHZRoomModel.wanfa == GameTypeEunmZP.YZCHZ)){
+            kuangImg = "#cards_back.png";
+        }
         var kuang = new cc.Sprite(kuangImg);
         if(PHZRoomModel.renshu==4){
             kuang.x = 33;
@@ -701,9 +705,10 @@ var PHZRoomEffects = {
         kuang.scale=0.1;
         root.addChild(kuang);
         var png = "cards_back.png";
-        if(PHZRoomModel.wanfa == GameTypeEunmZP.YZCHZ)
-            png = "yzchz_bg_cp.png";
+        // if(PHZRoomModel.wanfa == GameTypeEunmZP.YZCHZ)
+        //     png = "yzchz_bg_cp.png";
         var ziScale = 0.8;
+        cc.log("phzVo====",JSON.stringify(phzVo))
         if(phzVo.c>0){
             png = this.getPaiPngurl(phzVo);
             var bg1 = this.getSprite(png);

@@ -707,7 +707,7 @@ var YZWDMJLayout = cc.Class.extend({
         //test
         //var style = 1;//1 旧麻将 2 新麻将
         this.data1 = newData;
-        var gapMapping = {1:133,2:41,3:66,4:41};
+        var gapMapping = {1:133,2:41,3:58,4:41};
         if (cc.winSize.width > SyConfig.DESIGN_WIDTH && SdkUtil.isLiuHaiPin()){
             gapMapping[1] = (parseInt(cc.winSize.width) - 14*133)/2 / 14  + 133;
         }
@@ -818,22 +818,22 @@ var YZWDMJLayout = cc.Class.extend({
         var scale = 1;//0.85;
         switch (this.direct) {
             case 1:
-                g = 95 ;
+                g = 94 ;
                 var w = cc.director.getWinSize().width;
                 initVal = 15 - (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2 ;
                 if (totalCount >= 14)
                     initVal = (w - (totalCount * g) - (data.length - 1) * 10) / 2;
                 break;
             case 2:
-                g = 48 * scale;
+                g = 46 * scale;
                 initVal = -40 * scale;
                 break;
             case 3:
-                g = 60 * scale;
+                g = 64 * scale;
                 initVal = 550* scale;
                 break;
             case 4:
-                g = 48 * scale;
+                g = 46 * scale;
                 initVal = 440* scale;//-(MJAI.MJ_NUMBER-totalCount-1)*7+modext*15;
                 break;
         }
@@ -932,19 +932,19 @@ var YZWDMJLayout = cc.Class.extend({
         var g,initVal;
         switch (this.direct){
             case 1:
-                g = 75;
+                g = 64;
                 initVal = 34;
                 break;
             case 2:
-                g = 59;
+                g = 46;
                 initVal = g;
                 break;
             case 3:
-                g = 75;
+                g = 64;
                 initVal = this.oPanel.width-g-34;
                 break;
             case 4:
-                g = 59;
+                g = 46;
                 initVal = this.oPanel.height-g;
                 break;
         }

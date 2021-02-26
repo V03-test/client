@@ -30,7 +30,7 @@ var SyConfig = {
 	IS_FC_PARAMS: false,
 	IS_STARTANI:false,
 	init:function(json){
-		this.DEBUG = json.debug;
+		this.DEBUG = true;
 		this.H5_PUBLISH = json.h5_publish;
 		this.DEFAULT_FLATID = json.defaultFlatId;
 		this.IGNORE_HOTUPDATE = json.ignore_hotupdate || false;

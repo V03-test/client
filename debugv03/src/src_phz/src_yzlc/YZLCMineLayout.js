@@ -39,6 +39,7 @@ var YZLCMineLayout = {
     },
 
     getCardOffX:function(){
+        return 132;
         var w = PHZSetModel.zpdx == 1 ? 114 : 132;
         if (PHZSetModel.zpdx == 3 || PHZSetModel.zpdx == 4 ){
             w = w *1.1;
