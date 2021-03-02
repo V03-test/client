@@ -105,7 +105,7 @@ var YZWDMJRoom = BaseRoom.extend({
         this.Label_jsq = this.getWidget("Label_jsq");//计时器
         //this.Label_jsq.setString("计时器\n00:00");
         this.Label_jsq.setString("");
-        this.btnInvite.y = 400;
+        this.btnInvite.y = 520;
         // this.btnInvite.setScale(1.2);
         this.roomName_label = new cc.LabelTTF("","Arial",32,cc.size(500, 40));
         this.Main.addChild(this.roomName_label);
@@ -217,6 +217,7 @@ var YZWDMJRoom = BaseRoom.extend({
         this.Panel_8.x += 400;
         this.Panel_8.y -= 30;
 
+
         if(MJRoomModel.renshu == 4){
             this.getWidget("oPanel"+3).y -= 10;
             this.getWidget("oPanel"+1).y -= 20;
@@ -242,24 +243,20 @@ var YZWDMJRoom = BaseRoom.extend({
         //this.adjustInviteBtn();
     },
 
+    onTuiChu:function(){
+        sySocket.sendComReqMsg(6);
+    },
+
     newUpdateFace:function(){//宽屏适配
         var size = cc.director.getWinSize();
         var tempSize = (size.width - SyConfig.DESIGN_WIDTH)/2;
         var offx = tempSize > 100 ? 50 : tempSize/2;
         if(size.width > SyConfig.DESIGN_WIDTH){
-            this.getWidget("Label_info0").x -= tempSize - offx;
             this.recordBtn.x -= tempSize - offx;
-            this.Button_ting.x += tempSize - offx;
             this.getWidget("Button_52").x += tempSize - offx;
-            // this.button_wanfa.x += tempSize - offx;
             this.Button_setup1.x += tempSize - offx;
-            this.Image_setup.x += tempSize - offx;
-            this.Button_gps -= tempSize - offx;
-            this.getWidget("label_version").x += tempSize - offx;
-            this.getWidget("netType").x += tempSize - offx;
-            this.getWidget("Image_19").x += tempSize - offx;
-            this.getWidget("Label_time").x += tempSize - offx;
-            this.roomName_label.x = 120 + offx;
+            this.roomName_label.x -= tempSize - offx;
+            this.getWidget("mPanel1").x += tempSize;
         }
     },
 
@@ -268,6 +265,7 @@ var YZWDMJRoom = BaseRoom.extend({
         var img_wx = "res/res_gameCom/Z_wechatInvitation.png";
         var img_qyq = "res/res_gameCom/qyqInvite.png";
         var img_back = "res/res_gameCom/backHall.png";
+
         var btn_wx_invite = this.btnInvite;
         btn_wx_invite.loadTextureNormal(img_wx);
         cc.log("this.btnInvite====",this.btnInvite.x);
@@ -295,7 +293,6 @@ var YZWDMJRoom = BaseRoom.extend({
                 btn_wx_invite.setPositionY(btn_wx_invite.y - 65);
             }
         }
-
         if(!this.tuichuBtn){
             this.tuichuBtn = this.getWidget("Button_tuichu");
         }
@@ -334,6 +331,7 @@ var YZWDMJRoom = BaseRoom.extend({
         }else{
             this.piaoBtnNode && this.piaoBtnNode.setVisible(false);
         }
+        this.tuichuBtn.visible = false;
     },
 
     onPiaoFen:function(obj){
@@ -436,6 +434,8 @@ var YZWDMJRoom = BaseRoom.extend({
         }else{
             this.waitPiaoImg && this.waitPiaoImg.setVisible(false);
         }
+        // cc.log("showWaitSelectPiao==")
+        // this.tuichuBtn.visible = false;
     },
     onClickPiaoFenBtn:function(sender){
         sySocket.sendComReqMsg(201,[sender.getTag()]);

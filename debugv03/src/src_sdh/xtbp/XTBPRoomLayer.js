@@ -96,7 +96,12 @@ var XTBPRoomLayer = SDHRoomLayer.extend({
         if(type == SDHTabelType.CreateTable){
             this.updateLaiMiBtnState();
             this.updateKanfenBtnState();
+
+            if(SDHRoomModel.remain == 8){
+                this.btn_tuichu.visible = false;
+            }
         }else if(type == "PiaoFen"){
+            this.btn_tuichu.visible = false;
             this.updateRoomTip();
         }else if(type == SDHTabelType.PlayCard){
             if(data.cardType == 100){
@@ -104,6 +109,7 @@ var XTBPRoomLayer = SDHRoomLayer.extend({
                 this.updateKanfenBtnState();
             }
         }
+
 
     },
 

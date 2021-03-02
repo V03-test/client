@@ -247,8 +247,8 @@ var ComResponder = BaseResponder.extend({
 								var popLayer = new ShopPop(3);
 								PopupManager.addPopup(popLayer);
 							}else{
-								var pop = new BindInvitePop(PlayerModel.inviterPayBindId || "");
-								PopupManager.addPopup(pop);
+								//var pop = new BindInvitePop(PlayerModel.inviterPayBindId || "");
+								//PopupManager.addPopup(pop);
 							}
 						});
 					}else{

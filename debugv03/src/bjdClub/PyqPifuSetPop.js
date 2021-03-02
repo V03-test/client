@@ -90,25 +90,25 @@ var PyqPifuSetPop = cc.Layer.extend({
 
         //var itemW = 240;
         this.zhuoArr = [];
-        //for(var i = 0;i<3;++i){
-        //    var img = "res/ui/bjdmj/popup/pyq/pifu/set_zhuozi_" + (i + 1) + ".png";
-        //    var item = new ccui.Button(img,img,"");
-        //    item.flag = i+1;
-        //    item.setPosition(itemW*(i+0.5),this.zhuo_scroll.height/2);
-        //    item.addTouchEventListener(this.onClickZhuoZi,this);
-        //    this.zhuo_scroll.addChild(item);
-        //    this.zhuoArr.push(item);
-        //
-        //    if(i == 0){
-        //        this.zhuoKuang.setPosition(item.getPosition());
-        //    }
-        //}
-        var img = "res/ui/bjdmj/popup/pyq/pifu/set_zhuozi_3.png";
-        var item = new cc.Sprite(img);
-        item.setPosition(120,this.zhuo_scroll.height/2);
-        this.zhuo_scroll.addChild(item);
-        this.zhuoArr.push(item);
-        this.zhuoKuang.setPosition(item.getPosition());
+        for(var i = 0;i<3;++i){
+            var img = "res/ui/bjdmj/popup/pyq/pifu/set_zhuozi_" + (i + 1) + ".png";
+            var item = new ccui.Button(img,img,"");
+            item.flag = i+1;
+            item.setPosition(itemW*(i+0.5),this.zhuo_scroll.height/2);
+            item.addTouchEventListener(this.onClickZhuoZi,this);
+            this.zhuo_scroll.addChild(item);
+            this.zhuoArr.push(item);
+
+            if(i == 0){
+                this.zhuoKuang.setPosition(item.getPosition());
+            }
+        }
+        //var img = "res/ui/bjdmj/popup/pyq/pifu/set_zhuozi_3.png";
+        //var item = new cc.Sprite(img);
+        //item.setPosition(120,this.zhuo_scroll.height/2);
+        //this.zhuo_scroll.addChild(item);
+        //this.zhuoArr.push(item);
+        //this.zhuoKuang.setPosition(item.getPosition());
 
         this.bu_scroll = new ccui.ScrollView();
         this.bu_scroll.setDirection(ccui.ScrollView.DIR_HORIZONTAL);
@@ -225,7 +225,6 @@ var PyqPifuSetPop = cc.Layer.extend({
     },
 
     setItemZhuoZi:function(item,type){
-        type = 3;
         var img = "res/ui/bjdmj/popup/pyq/zhuobu/zhuo_" + type + "_4.png";
         item.getChildByTag(2).initWithFile(img);
         item.ZhuoType = type;
@@ -249,7 +248,7 @@ var PyqPifuSetPop = cc.Layer.extend({
         this.wanfaKuang.setPosition(item.getPosition());
         this.curOptWanfa = item;
 
-        this.zhuoKuang.setPosition(this.zhuoArr[0].getPosition());//item.ZhuoType-1
+        this.zhuoKuang.setPosition(this.zhuoArr[item.ZhuoType-1].getPosition());
         this.buKuang.setPosition(this.buArr[item.buType].getPosition());
     },
 

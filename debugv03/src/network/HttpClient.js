@@ -26,7 +26,7 @@ var HttpUrlRequest = cc.Class.extend({
             data.userId = PlayerModel.userId;
             data.sessCode = PlayerModel.sessCode;
             data.sytime = new Date().getTime();
-            var sign = data.sytime+"7HGO4K61M8N2D9LARSPU";
+            var sign = data.sytime+"xw2qRjtbesoMPcd8";
             var md5str = md5(sign);
             data.sysign = md5str;
         }

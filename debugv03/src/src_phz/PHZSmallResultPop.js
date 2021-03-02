@@ -30,9 +30,14 @@ var PHZSmallResultCell = ccui.Widget.extend({
 			if(cards[i]==ClosingInfoModel.huCard){
 				ishu = true;
 			}
+
+			if((wanfa == GameTypeEunmZP.LDS || wanfa == GameTypeEunmZP.YZCHZ||wanfa == GameTypeEunmZP.JHSWZ) && (action == 4 || action == 3)){
+				vo.a = 0;
+			}
+
 			vo.ishu = ishu;
 			if (vo.ishu){
-				cc.log("vo===",JSON.stringify(vo))
+				cc.log("vo===",wanfa,cards[i],ClosingInfoModel.huCard,JSON.stringify(vo))
 			}
 			var card = new PHZCard(PHZAI.getDisplayVo(this.direct,3),vo);
 			card.x = 6;
@@ -115,6 +120,11 @@ var PHZSmallResultPop=BasePopup.extend({
 			this.getWidget("user3").visible = false;
 		}
 
+		if(PHZRoomModel.wanfa == GameTypeEunmZP.LDS || PHZRoomModel.wanfa == GameTypeEunmZP.YZCHZ||PHZRoomModel.wanfa == GameTypeEunmZP.JHSWZ){
+			this.showXingPai();
+			this.showWangReplace();
+		}
+
 		var xingSeat = -1;
 		var huSeat = -1;
 		for(var i=0;i<this.data.length;i++){
@@ -192,22 +202,22 @@ var PHZSmallResultPop=BasePopup.extend({
 		 胡牌时有10-12张红字，小红胡  翻倍,
 		 胡牌时有13张红字或以上,大红胡 +60,
 		 胡牌时全是黑字，乌胡 +60*/
-		//ClosingInfoModel.fanTypes = [1,2,3,4,5,6,7];
+		// ClosingInfoModel.fanTypes = [1,2,3,4,7,8,9,10];
 		var mingtangList = ["  天胡     +10","  地胡     +10","  自摸     +10",
-			"一点朱     x2","小红胡     x2","大红胡     +60","  乌胡     +60"];
+			"  一点朱     x2","小红胡     x2","大红胡     +60","  乌胡     +60"];
 		var str = "";
 		var tunStr = ""
 		if (PHZRoomModel.wanfa == GameTypeEunmZP.SYZP){
 			mingtangList = ["  天胡     +10","  地胡     +10","  自摸     +10",
-				"一点朱     x2","小红胡     x2","  红胡     x2","  黑胡     x2"];
+				"  一点朱     x2","  小红胡     x2","  红胡     x2","  黑胡     x2"];
 			if (ClosingInfoModel.tun){
 				tunStr = "\n"+"囤数:" + ClosingInfoModel.tun
 			}
 		}
 		if (PHZRoomModel.wanfa == GameTypeEunmZP.LDFPF){
 			mingtangList = ["  天胡     +100","  地胡     +100","  自摸     x2",
-				"一点朱     x2"," 十红     x2","  十三红     +100","  乌胡     +100",
-				"一块扁     x2","海底捞     x2","  20卡     x2","  30卡     +100","  飘胡     +30"
+				"  一点朱    x2"," 十红     x2","  十三红     +100","  乌胡     +100",
+				"  一块扁     x2","海底捞     x2","  20卡     x2","  30卡     +100","  飘胡     +30"
 			];
 		}
 
@@ -675,8 +685,18 @@ var PHZSmallResultPop=BasePopup.extend({
 		}
 
 		if(ClosingInfoModel.huxi>0){
-			str += "胡息: " + ClosingInfoModel.huxi + "  ";
+			str += "  胡息: " + ClosingInfoModel.huxi + "  ";
 		}
+
+		var newStr = str.split("\n");
+		str = "";
+		for(var i = 0;i < newStr.length; i++) {
+			str = str + newStr[i];
+			if ((newStr.length - i )%2 == 1){
+				str = str + "\n";
+			}
+		}
+		// cc.log("str===",str,newStr)
 		// str = str + tunStr;
 
 		this.getWidget("dataLabel").setString(str);/**  牌型显示 **/
@@ -749,6 +769,52 @@ var PHZSmallResultPop=BasePopup.extend({
 			this.getWidget("replay_tip").visible =  true;
 		}else{
 			this.getWidget("replay_tip").visible =  false;
+		}
+	},
+
+
+	showXingPai:function(){
+		var xingId = ClosingInfoModel.ext[11];
+		// cc.log("==========showXingPai============",xingId);
+		if(xingId){
+			var parent = this.getWidget("resultView");
+
+			var labeltip = new cc.LabelTTF("醒牌","res/font/bjdmj/fznt.ttf",30);
+			labeltip.setColor(cc.color.RED);
+			labeltip.setPosition(1400,625);
+			parent.addChild(labeltip,10);
+
+			var vo = PHZAI.getPHZDef(xingId);
+			var card = new PHZCard(PHZAI.getDisplayVo(this.direct,3),vo);
+			card.x = labeltip.x - 35;
+			card.y = labeltip.y - 120;
+			card.scale = 1.2;
+			parent.addChild(card,10);
+		}
+	},
+
+	showWangReplace:function(){
+		var data = ClosingInfoModel.ext[8];
+		//cc.log("==========showWangReplace============",data);
+		if(data){
+			var parent = this.getWidget("resultView");
+			var ids = data.split(";");
+
+			for(var i = 0;i<ids.length;++i){
+				var vo1 = PHZAI.getPHZDef(81);
+				var card1 = new PHZCard(PHZAI.getDisplayVo(this.direct,3),vo1);
+				card1.x = 1365 + i*60;
+				card1.y = 725;
+				card1.scale = 1.2;
+				parent.addChild(card1,10);
+
+				var vo = PHZAI.getPHZDef(ids[i]);
+				var card = new PHZCard(PHZAI.getDisplayVo(this.direct,3),vo);
+				card.x = card1.x;
+				card.y = card1.y - 60;
+				card.scale = 1.2;
+				parent.addChild(card,11);
+			}
 		}
 	},
 

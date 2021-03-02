@@ -286,6 +286,7 @@ var PyqHall = BasePopup.extend({
         this.btn_bind = this.getWidget("btn_bind");
         this.btn_bind.setVisible(!PlayerModel.payBindId);
         UITools.addClickEvent(this.btn_bind,this,this.onClickBind);
+        this.btn_bind.visible = false;
 
         this.btn_bufang = this.getWidget("btn_bufang");
         UITools.addClickEvent(this.btn_bufang,this,this.onClickBufang);
@@ -400,7 +401,7 @@ var PyqHall = BasePopup.extend({
         }
 
         var self = this;
-        NetworkJT.loginReqNew(309,params, function (data) {
+        NetworkJT.loginReqNew(448,params, function (data) {
             if (data) {
                 FloatLabelUtil.comText(data.message);
                 SyEventManager.dispatchEvent(SyEvent.UPDATE_CLUB_LIST);
@@ -416,8 +417,8 @@ var PyqHall = BasePopup.extend({
             var popLayer = new ShopPop();
             PopupManager.addPopup(popLayer);
         }else{
-            var pop = new BindInvitePop(PlayerModel.inviterPayBindId || "");
-            PopupManager.addPopup(pop);
+            //var pop = new BindInvitePop(PlayerModel.inviterPayBindId || "");
+            //PopupManager.addPopup(pop);
         }
     },
 
@@ -518,15 +519,15 @@ var PyqHall = BasePopup.extend({
         var clubId = ClickClubModel.getCurClubId();
         var temp = cc.sys.localStorage.getItem("sy_is_show_bind_in_club_" + clubId);
         if(!temp && !PlayerModel.payBindId){
-            var pop = new BindInvitePop(ClickClubModel.getPayBindId());
-            PopupManager.addPopup(pop);
+            //var pop = new BindInvitePop(ClickClubModel.getPayBindId());
+            //PopupManager.addPopup(pop);
             cc.sys.localStorage.setItem("sy_is_show_bind_in_club_" + clubId,"1");
         }
     },
 
     onClickBind:function(){
-        var pop = new BindInvitePop(ClickClubModel.getPayBindId());
-        PopupManager.addPopup(pop);
+        //var pop = new BindInvitePop(ClickClubModel.getPayBindId());
+        //PopupManager.addPopup(pop);
     },
 
     //获取亲友圈等级信息
@@ -1471,7 +1472,7 @@ var PyqHall = BasePopup.extend({
 
                     if(ClickClubModel.getBagIsHide(item.filterData)){
                         item.isHide = true;
-                        var img = "res/res_ui/qyq/hall/wanfaDi1.png";
+                        var img = "res/res_ui/qyq/hall/xianshi.png";
                         item.loadTextures(img,img,"");
                     }
 
@@ -1509,9 +1510,9 @@ var PyqHall = BasePopup.extend({
     onClickItemOpt:function(sender){
         var item = sender.getParent();
 
-        var img = "res/res_ui/qyq/hall/wanfaDi2.png";
+        var img = "res/res_ui/qyq/hall/xianshi.png";
         if(item.isHide){
-            img = "res/res_ui/qyq/hall/wanfaDi1.png";
+            img = "res/res_ui/qyq/hall/yinchang.png";
         }
         item.isHide = !item.isHide;
         item.loadTextures(img,img,"");
@@ -1793,6 +1794,9 @@ var PyqHall = BasePopup.extend({
         var zhuoBu = ccui.helper.seekWidgetByName(item,"zhuoBu");
         zhuoBu.loadTexture(imgNameArr[1]);
 
+        var tableBg = item.getChildByName("table_bg");
+        tableBg.loadTexture(imgNameArr[0]);
+
         if(item.tempData && this.dataHandler.isDataSame(item.tempData,data)){
             return;
         }
@@ -1800,25 +1804,32 @@ var PyqHall = BasePopup.extend({
         item.tempData = data;
 
         var item_btn = item.getChildByName("btn_table");
-        var tableBg = item.getChildByName("table_bg");
-        tableBg.loadTexture(imgNameArr[0]);
 
-        var offsetY = 54;
-        var offsetX = 5;
-        if(data.maxCount == 4){
-            offsetX = 2;
-            offsetY = 53;
-        }
+        //var offsetY = 54;
+        //var offsetX = 5;
+        //if(data.maxCount == 4){
+        //    offsetX = 2;
+        //    offsetY = 53;
+        //}
+        //if(imgNameArr[2] == 2){
+        //    offsetY = 58;
+        //    if(data.maxCount == 2)offsetX = 7;
+        //    if(data.maxCount == 4)offsetX = 3;
+        //}
+        //if(imgNameArr[2] == 3){
+        //    offsetY = 48;
+        //    offsetX = -5;
+        //}
+        //zhuoBu.setPosition(tableBg.width/2 + offsetX,tableBg.height/2 + offsetY);
+
+        var offsetY = 70;
+
         if(imgNameArr[2] == 2){
-            offsetY = 58;
-            if(data.maxCount == 2)offsetX = 7;
-            if(data.maxCount == 4)offsetX = 3;
-        }
-        if(imgNameArr[2] == 3){
+            offsetY = 66;
+        }else if(imgNameArr[2] == 3){
             offsetY = 48;
-            offsetX = -5;
         }
-        zhuoBu.setPosition(tableBg.width/2 + offsetX,tableBg.height/2 + offsetY);
+        zhuoBu.setPositionY(tableBg.height/2 + offsetY);
 
         var label_table_name = ccui.helper.seekWidgetByName(item,"table_name");
         label_table_name.setString(data.tableName);
@@ -2049,7 +2060,7 @@ var PyqHall = BasePopup.extend({
         var buType = 0;
 
         if(this.zhuoBuCfgData[configId]){
-            //zhuoType = this.zhuoBuCfgData[configId][1];
+            zhuoType = this.zhuoBuCfgData[configId][1];
             buType = this.zhuoBuCfgData[configId][2];
         }else{
             if(gameType == 2)buType = 1;

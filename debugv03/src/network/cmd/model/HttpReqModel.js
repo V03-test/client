@@ -67,6 +67,7 @@ HttpReqList[444] = "d444.do";//""/pdklogin/groupActionNew!fireInactiveUser.guaji
 HttpReqList[445] = "d445.do";//""/pdklogin/groupActionNew!updateGroupCreditRate.guajilogin";
 HttpReqList[446] = "d446.do";//""/pdklogin/groupActionNew!responseInvite.guajilogin";
 HttpReqList[447] = "d447.do";//""/pdklogin/groupActionNew!loadInactiveUserList.pdklogin";
+HttpReqList[448] = "d448.do";//""/pdklogin/groupActionNew!updateGroupInfo.guajilogin";
 
 HttpReqList[500] = "d500.do";//""/pdklogin/qipai!bindInviteId.action";
 HttpReqList[501] = "d501.do";//""/pdklogin/qipai!getBackStageManagement.action";

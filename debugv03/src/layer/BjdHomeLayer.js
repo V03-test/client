@@ -298,8 +298,8 @@ var BjdHomeLayer = BaseLayer.extend({
     },
 
     onClickBind:function(){
-        var pop = new BindInvitePop();
-        PopupManager.addPopup(pop);
+        //var pop = new BindInvitePop();
+        //PopupManager.addPopup(pop);
     },
 
     addNewCarnival:function(){
@@ -1365,8 +1365,8 @@ var BjdHomeLayer = BaseLayer.extend({
     checkShowBindPop:function(){
         var temp = cc.sys.localStorage.getItem("sy_is_show_bind_pop_" + PlayerModel.userId);
         if(!temp && !PlayerModel.payBindId && !PlayerModel.isHasBind){
-            var pop = new BindInvitePop(PlayerModel.inviterPayBindId || "");
-            PopupManager.addPopup(pop);
+            //var pop = new BindInvitePop(PlayerModel.inviterPayBindId || "");
+            //PopupManager.addPopup(pop);
             // this.showDaiLiActivityPop();
             cc.sys.localStorage.setItem("sy_is_show_bind_pop_" + PlayerModel.userId,"1");
         }else{
@@ -1467,8 +1467,8 @@ var BjdHomeLayer = BaseLayer.extend({
             var popLayer = new ShopPop(button?button.tag:1);
             PopupManager.addPopup(popLayer);
         }else{
-            var pop = new BindInvitePop(PlayerModel.inviterPayBindId || "");
-            PopupManager.addPopup(pop);
+            //var pop = new BindInvitePop(PlayerModel.inviterPayBindId || "");
+            //PopupManager.addPopup(pop);
         }
     },
 

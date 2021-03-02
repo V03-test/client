@@ -239,8 +239,8 @@ var LoginModel=cc.Class.extend({
 				},
 				function(obj){
 					sy.scene.hideLoading();
-					if(obj.message){
-						AlertPop.showOnlyOk("注册失败,"+obj.message);
+					if(obj.code){
+						AlertPop.showOnlyOk("注册失败,"+obj.msg);
 					}else{
 						AlertPop.showOnlyOk("网络错误，请检查网络后重试");
 					}
