@@ -40,7 +40,7 @@ var HttpUrlRequestJT = cc.Class.extend({
                 this.tempBody += "&"+paramTempStr;
             }
         }
-        var pingKyeBody = this._body+"&key="+"043a528a8fc7195876fc4d4c3eaa7d2e";
+        var pingKyeBody = this._body+"&key="+"xw2qRjtbesoMPcd8";
         var sign = md5(pingKyeBody);
         sign = sign.toUpperCase();
         var signParms = "sign="+sign;
