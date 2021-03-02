@@ -250,7 +250,7 @@ var Network = {
         // var url = csvhelper.strFormat(ServerUtil.defaultLoginUrl,"user","load");
         var userId = PlayerModel.userId;
         var now = new Date().getTime();
-        var sign = userId+""+now+"043a528a8fc7195876fc4d4c3eaa7d2e";
+        var sign = userId+""+now+"xw2qRjtbesoMPcd8";
         var self = this;
         this.ipReqTimes += 1;
         Network.sypost(url,165,{userId:userId, t:now, sign:sign},function(data){
