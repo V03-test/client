@@ -126,7 +126,7 @@ var AssetsManagerLoaderScene = cc.Scene.extend({
 
 		var nettip = this.noNetworkLabel = new cc.Sprite("res/starlogo/nettip.png");
 		var nettip_size = nettip.getContentSize();
-		var nettip_txt = new cc.LabelTTF("请在设置中找到江南棋牌，查看网络是否打开...", "Arial", 36);
+		var nettip_txt = new cc.LabelTTF("请在设置中找到湘娱棋牌，查看网络是否打开...", "Arial", 36);
 		nettip_txt.anchorX = nettip_txt.anchorY = 0.5;
 		nettip_txt.x = nettip_size.width / 2;
 		nettip_txt.y = nettip_size.height / 2;

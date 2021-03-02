@@ -15,8 +15,8 @@ var ShareDailyModel = {
 
     getFeedContent: function() {
         var feeds = [
-            "江南棋牌平台~扑特色玩法，简单好玩，猛戳下载！",
-            "江南棋牌平台~自主创房自定规则，休闲娱乐还能这样玩！",
+            "湘娱棋牌平台~扑特色玩法，简单好玩，猛戳下载！",
+            "湘娱棋牌平台~自主创房自定规则，休闲娱乐还能这样玩！",
             "湖南人最喜欢的竞技平台，点进来就知道了~",
         ];
         var max = SyConfig.hasOwnProperty("HAS_PNG_SHARE") ? feeds.length : feeds.length - 1;
@@ -29,8 +29,8 @@ var ShareDailyModel = {
     getShareContent: function() {
         var max = 16;
         var feeds = [
-            "江南棋牌平台~扑特色玩法，简单好玩，猛戳下载！",
-            "江南棋牌平台~自主创房自定规则，休闲娱乐还能这样玩！",
+            "湘娱棋牌平台~扑特色玩法，简单好玩，猛戳下载！",
+            "湘娱棋牌平台~自主创房自定规则，休闲娱乐还能这样玩！",
             "湖南人最喜欢的竞技平台，点进来就知道了~",
         ];
         var rand = MathUtil.mt_rand(1,feeds.length);
