@@ -2217,7 +2217,7 @@ var ClubCreditPop = BasePopup.extend({
         page = page || this.curRankPage;
         //cc.log("searchNameOrId",searchNameOrId)
         this.ListView_lashou.removeAllItems();
-        NetworkJT.loginReqNew(139, {
+        NetworkJT.loginReqNew(426, {
             groupId:ClickClubModel.getCurClubId(),
             userId:PlayerModel.userId,
             sessCode:PlayerModel.sessCode,
