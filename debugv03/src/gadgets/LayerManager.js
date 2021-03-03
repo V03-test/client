@@ -396,6 +396,8 @@ var LayerFactory = {
                     layer = new YYMJRoom(name);
                 }else if(MJRoomModel.wanfa == GameTypeEunmMJ.CQXZMJ){
                     layer = new CQXZMJRoom(name);
+                }else if(MJRoomModel.wanfa == GameTypeEunmMJ.DZMJ){
+                    layer = new DZMJRoom(name);
                 }else if(MJRoomModel.wanfa == GameTypeEunmMJ.ZZMJ){
                     layer = new ZZMJRoom(name);
                 }else{
@@ -406,7 +408,8 @@ var LayerFactory = {
             case this.NEW_MJ_REPLAY_TWO:
             case this.NEW_MJ_REPLAY_THREE:
                 if(MJReplayModel.playType == GameTypeEunmMJ.DZMJ || MJReplayModel.playType == GameTypeEunmMJ.ZOUMJ
-                    || MJReplayModel.playType == GameTypeEunmMJ.ZJMJ || MJReplayModel.playType == GameTypeEunmMJ.HZMJ){
+                    || MJReplayModel.playType == GameTypeEunmMJ.ZJMJ || MJReplayModel.playType == GameTypeEunmMJ.HZMJ
+                    || MJReplayModel.playType == GameTypeEunmMJ.DZMJ){
                     layer = new HZMJReplay(name);
                 }else if(MJReplayModel.playType == GameTypeEunmMJ.BSMJ || MJReplayModel.playType == GameTypeEunmMJ.DHMJ){
                     layer = new BSMJReplay(name);

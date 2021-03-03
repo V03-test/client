@@ -35,7 +35,7 @@ var ClosingMjInfoResponder = BaseResponder.extend({
             }else if(wanfa== GameTypeEunmMJ.HZMJ) {
                 var mc = new HZMJSmallResultPop(message);
                 PopupManager.addPopup(mc);
-            }else if(wanfa== GameTypeEunmMJ.ZJMJ) {
+            }else if(wanfa== GameTypeEunmMJ.ZJMJ || wanfa== GameTypeEunmMJ.DZMJ) {
                 var mc = new HZMJBigResultPop(message);
                 PopupManager.addPopup(mc);
             }else if(wanfa == GameTypeEunmMJ.DZMJ || wanfa == GameTypeEunmMJ.ZOUMJ){

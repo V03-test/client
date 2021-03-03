@@ -231,28 +231,12 @@ var ZJMJRoom = BaseRoom.extend({
         var tempSize = (size.width - SyConfig.DESIGN_WIDTH)/2;
         var offx = tempSize > 100 ? 50 : tempSize/2;
         if(size.width > SyConfig.DESIGN_WIDTH){
-            //this.getWidget("Image_info0").x -= tempSize - offx;
-            //this.getWidget("Image_info1").x -= tempSize - offx;
-            //this.getWidget("Image_info2").x -= tempSize - offx;
-            //this.recordBtn.x -= tempSize - offx;
-            //this.Button_ting.x += tempSize - offx;
-            //this.getWidget("Button_52").x += tempSize - offx;
-            //this.button_wanfa.x += tempSize - offx;
-            //this.Button_setup1.x += tempSize - offx;
-            //this.Image_setup.x += tempSize - offx;
-            //this.Button_gps -= tempSize - offx;
-            //this.getWidget("label_version").x += tempSize - offx;
-            //this.getWidget("netType").x += tempSize - offx;
-            //this.getWidget("Image_19").x += tempSize - offx;
-            //this.getWidget("Label_time").x += tempSize - offx;
-            //this.roomName_label.x = 120 + offx;
             this.getWidget("Label_info0").x -= tempSize - offx;
             this.getWidget("label_version").x -= tempSize - offx;
             this.getWidget("Label_time").x -= tempSize - offx;
             this.getWidget("netType").x -= tempSize - offx;
             this.getWidget("Image_19").x -= tempSize - offx;
             this.recordBtn.x -= tempSize - offx;
-            // this.Button_ting.x -= tempSize - offx;
             this.getWidget("Button_52").x += tempSize - offx;
             this.button_wanfa.x += tempSize - offx;
             this.Button_setup1.x += tempSize - offx;
@@ -260,9 +244,11 @@ var ZJMJRoom = BaseRoom.extend({
             this.Button_gps -= tempSize - offx;
 
             this.roomName_label.x -= tempSize - offx;
-
             this.getWidget("mPanel1").x += tempSize;
 
+            this.getWidget("Image_infoBg").x -= tempSize - offx;
+            this.getWidget("Image_otherDi").x -= tempSize - offx;
+            this.getWidget("Image_dipai").x -= tempSize - offx;
         }
     },
 

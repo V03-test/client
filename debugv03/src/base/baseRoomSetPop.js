@@ -23,6 +23,13 @@ var BaseRoomSetPop = BasePopup.extend({
         if(!this.hasGPS){
             this.btn_Gps.setBright(false);
         }
+
+        var size = cc.director.getWinSize();
+        var tempSize = (size.width - SyConfig.DESIGN_WIDTH)/2;
+        var offx = tempSize > 100 ? 50 : tempSize/2;
+        if(size.width > SyConfig.DESIGN_WIDTH){
+            this.getWidget("Image_setBg").x += tempSize - offx;
+        }
     },
 
     onSetUp:function(){

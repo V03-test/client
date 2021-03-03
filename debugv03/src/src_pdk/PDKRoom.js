@@ -734,8 +734,10 @@ var PDKRoom = BaseRoom.extend({//Room
 		var bgTexture = "res/pkCommon/gamebg.jpg";
 		if (_type == 1){
 			bgTexture = "res/pkCommon/gamebg2.jpg";
-			//this.getWidget("Label_hongshi").setColor(cc.color(73,178,191));
+			this.getWidget("Label_hongshi").setColor(cc.color("#80d7b2"));
 			//this.roomName_label.setColor(cc.color(90,78,45));
+		}else{
+			this.getWidget("Label_hongshi").setColor(cc.color("#acacac"));
 		}
 		//else if (_type == 2){
 		//	bgTexture = "res/res_pdk/pdkRoom/Bgc2.jpg";

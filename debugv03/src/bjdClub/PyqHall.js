@@ -1825,7 +1825,7 @@ var PyqHall = BasePopup.extend({
         var offsetY = 70;
 
         if(imgNameArr[2] == 2){
-            offsetY = 66;
+            offsetY = 64;
         }else if(imgNameArr[2] == 3){
             offsetY = 48;
         }

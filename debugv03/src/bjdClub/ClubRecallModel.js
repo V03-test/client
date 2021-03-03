@@ -2895,13 +2895,13 @@ var ClubRecallDetailModel = {
         // cc.log("getPDKWanfa=============",isGoldRoom)
         var gameStr = "跑得快 ";
         var costStr = "";
-        if(wanfaList[9] == 1){
-            costStr = "AA支付 ";
-        }else if(wanfaList[9] == 2){
-            costStr = "房主支付 ";
-        }else if(wanfaList[9] == 3){
-            costStr = "擂主支付 ";
-        }
+        //if(wanfaList[9] == 1){
+        //    costStr = "AA支付 ";
+        //}else if(wanfaList[9] == 2){
+        //    costStr = "房主支付 ";
+        //}else if(wanfaList[9] == 3){
+        //    costStr = "擂主支付 ";
+        //}
 
 
         var renshuStr = wanfaList[7] + "人 ";
@@ -3016,7 +3016,7 @@ var ClubRecallDetailModel = {
         infoArr.push(wanfaList[0] + "局");
         infoArr.push((17 - wanfaList[2]) + "张");
         if(!ClickClubModel.getClubIsGold())
-        infoArr.push(wanfaList[9] == 3?"擂主支付":wanfaList[9] == 2?"房主支付":"AA支付");
+        //infoArr.push(wanfaList[9] == 3?"擂主支付":wanfaList[9] == 2?"房主支付":"AA支付");
         var nameList = ["","红10(5分)","红10(10分)","红10(翻倍)"];
         infoArr.push(nameList[wanfaList[10]] || "");
 

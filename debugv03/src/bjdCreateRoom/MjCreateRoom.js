@@ -20,7 +20,7 @@ var MjCreateRoom = BasePopup.extend({
         //         ,"AXWMQ","XPLP","XPPHZ"]
         // ];
         this.itemConfigArr = [
-            ["HZMJ","ZZMJ","CSMJ","SYMJ","AHMJ","YJMJ","TJMJ","YYMJ","YZWDMJ","NYMJ"],
+            ["HZMJ","ZZMJ","CSMJ","SYMJ","AHMJ","YJMJ","TJMJ","YYMJ","YZWDMJ","NYMJ","DZMJ"],
             ["PDK","PDK11","ERDDZ","DTZ","XTSDH","DT","QF","YYBS","CDTLJ","HSTH","XTBP"],
             ["SYBP","SYZP","DYBP","AHPHZ","YJGHZ","NXGHZ","YYWHZ",
                 "SMPHZ","CDPHZ","HSPHZ","HYLHQ","HYSHK","LYZP",

@@ -491,6 +491,11 @@ var CQXZMJRoom = BaseRoom.extend({
             this.getWidget("Image_19").x += tempSize - offx;
             this.getWidget("Label_time").x += tempSize - offx;
             this.roomName_label.x = 120 + offx;
+
+
+            this.getWidget("Image_infoBg").x -= tempSize - offx;
+            this.getWidget("Image_otherDi").x -= tempSize - offx;
+            this.getWidget("Image_dipai").x -= tempSize - offx;
         }
     },
 

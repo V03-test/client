@@ -252,4 +252,107 @@ var PopupManager = {
 
 		}
 	},
+
+	checkHasPKSmallResult:function(){
+		if(PopupManager.hasClassByPopup(PDKSmallResultPop)){
+			PopupManager.removeClassByPopup(PDKSmallResultPop);
+		}
+
+		if(PopupManager.hasClassByPopup(DTZSmallResultPop)){
+			PopupManager.removeClassByPopup(DTZSmallResultPop);
+		}
+
+		if(PopupManager.hasClassByPopup(ERDDZSmallResultLayer)){
+			PopupManager.removeClassByPopup(ERDDZSmallResultLayer);
+		}
+
+		if(PopupManager.hasClassByPopup(HSTHSmallResultLayer)){
+			PopupManager.removeClassByPopup(HSTHSmallResultLayer);
+		}
+
+		if(PopupManager.hasClassByPopup(SDHSmallResultLayer)){
+			PopupManager.removeClassByPopup(SDHSmallResultLayer);
+		}
+
+		if(PopupManager.hasClassByPopup(QFSmallResultPop)){
+			PopupManager.removeClassByPopup(QFSmallResultPop);
+		}
+
+		if(PopupManager.hasClassByPopup(YYBSSmallResultLayer)){
+			PopupManager.removeClassByPopup(YYBSSmallResultLayer);
+		}
+
+		if(PopupManager.hasClassByPopup(CDTLJSmallResultLayer)){
+			PopupManager.removeClassByPopup(CDTLJSmallResultLayer);
+		}
+
+		if(PopupManager.hasClassByPopup(XTBPSmallResultLayer)){
+			PopupManager.removeClassByPopup(XTBPSmallResultLayer);
+		}
+
+		if(PopupManager.hasClassByPopup(DTSmallResultLayer)){
+			PopupManager.removeClassByPopup(DTSmallResultLayer);
+		}
+	},
+
+	checkHasZPSmallResult:function(){
+		if(PopupManager.hasClassByPopup(PHZSmallResultPop)){
+			PopupManager.removeClassByPopup(PHZSmallResultPop);
+		}
+
+		if(PopupManager.hasClassByPopup(NXGHZSmallResultPop)){
+			PopupManager.removeClassByPopup(NXGHZSmallResultPop);
+		}
+
+		if(PopupManager.hasClassByPopup(YJGHZSmallResultPop)){
+			PopupManager.removeClassByPopup(YJGHZSmallResultPop);
+		}
+
+		if(PopupManager.hasClassByPopup(YZLCSmallResultPop)){
+			PopupManager.removeClassByPopup(YZLCSmallResultPop);
+		}
+
+		if(PopupManager.hasClassByPopup(ZZPHSmallResultPop)){
+			PopupManager.removeClassByPopup(ZZPHSmallResultPop);
+		}
+	},
+
+	checkHasMJSmallResult:function(){
+		if(PopupManager.hasClassByPopup(AHMJSmallResultPop)){
+			PopupManager.removeClassByPopup(AHMJSmallResultPop);
+		}
+		if(PopupManager.hasClassByPopup(BSMJSmallResultPop)){
+			PopupManager.removeClassByPopup(BSMJSmallResultPop);
+		}
+		if(PopupManager.hasClassByPopup(CQXZMJSmallResultPop)){
+			PopupManager.removeClassByPopup(CQXZMJSmallResultPop);
+		}
+		if(PopupManager.hasClassByPopup(CSMJSmallResultPop)){
+			PopupManager.removeClassByPopup(CSMJSmallResultPop);
+		}
+		if(PopupManager.hasClassByPopup(DZMJSmallResultPop)){
+			PopupManager.removeClassByPopup(DZMJSmallResultPop);
+		}
+		if(PopupManager.hasClassByPopup(HZMJSmallResultPop)){
+			PopupManager.removeClassByPopup(HZMJSmallResultPop);
+		}
+		if(PopupManager.hasClassByPopup(SYMJSmallResultPop)){
+			PopupManager.removeClassByPopup(SYMJSmallResultPop);
+		}
+		if(PopupManager.hasClassByPopup(YJMJSmallResultPop)){
+			PopupManager.removeClassByPopup(YJMJSmallResultPop);
+		}
+		if(PopupManager.hasClassByPopup(YYMJSmallResultPop)){
+			PopupManager.removeClassByPopup(YYMJSmallResultPop);
+		}
+		if(PopupManager.hasClassByPopup(YZWDMJSmallResultPop)){
+			PopupManager.removeClassByPopup(YZWDMJSmallResultPop);
+		}
+		if(PopupManager.hasClassByPopup(ZZMJSmallResultPop)){
+			PopupManager.removeClassByPopup(ZZMJSmallResultPop);
+		}
+		if(PopupManager.hasClassByPopup(ZJMJSmallResultPop)){
+			PopupManager.removeClassByPopup(ZJMJSmallResultPop);
+		}
+	},
 }

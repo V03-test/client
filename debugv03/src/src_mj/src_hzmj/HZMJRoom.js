@@ -284,6 +284,10 @@ var HZMJRoom = BaseRoom.extend({
             this.Button_setup1.x += tempSize - offx;
             this.roomName_label.x -= tempSize - offx;
             this.getWidget("mPanel1").x += tempSize;
+
+            this.getWidget("Image_infoBg").x -= tempSize - offx;
+            this.getWidget("Image_otherDi").x -= tempSize - offx;
+            this.getWidget("Image_dipai").x -= tempSize - offx;
         }
     },
 
@@ -422,6 +426,7 @@ var HZMJRoom = BaseRoom.extend({
                 }
             }
             this.piaoBtnNode.setVisible(true);
+            this.tuichuBtn.visible = false;
         }else{
             this.piaoBtnNode && this.piaoBtnNode.setVisible(false);
         }
@@ -440,6 +445,7 @@ var HZMJRoom = BaseRoom.extend({
                 this.addChild(this.waitPiaoImg,4);
             }
             this.waitPiaoImg.setVisible(true);
+            this.tuichuBtn.visible = false;
         }else{
             this.waitPiaoImg && this.waitPiaoImg.setVisible(false);
         }

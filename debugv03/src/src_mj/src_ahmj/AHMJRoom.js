@@ -595,6 +595,10 @@ var AHMJRoom = BaseRoom.extend({
             this.roomName_label.x -= tempSize - offx;
             this.getWidget("mPanel1").x += tempSize;
             this.button_fengDong.x += tempSize - offx;
+
+            this.getWidget("Image_infoBg").x -= tempSize - offx;
+            this.getWidget("Image_otherDi").x -= tempSize - offx;
+            this.getWidget("Image_dipai").x -= tempSize - offx;
         }
     },
 
