@@ -178,11 +178,11 @@ var ZZPHSmallResultPop=BasePopup.extend({
 		// cc.log("user =",JSON.stringify(user));
         ccui.helper.seekWidgetByName(widget,"name").setString(user.name);
 		ccui.helper.seekWidgetByName(widget, "uid").setString("UID:" + user.userId);
-        var defaultimg = "res/res_phz/default_m.png";
+        var defaultimg = "res/res_gameCom/default_m.png";
         var sprite = new cc.Sprite(defaultimg);
-        sprite.scale=0.95;
-        sprite.x = 60;
-        sprite.y = 60;
+		//sprite.scale=0.98;
+		sprite.x = sprite.width / 2;
+		sprite.y = sprite.height / 2;
         widget.addChild(sprite,5,345);
 		//sprite.setScale(1.05);
         if(user.icon){

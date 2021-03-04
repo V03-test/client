@@ -59,17 +59,17 @@ var ZZPHBigResultPop = BasePopup.extend({
         ccui.helper.seekWidgetByName(widget,"label_hx").setString(totalPointStr);//点炮次数
 
         var icon = ccui.helper.seekWidgetByName(widget,"icon");
-        var defaultimg = "res/res_phz/default_m.png";
+        var defaultimg = "res/res_gameCom/default_m.png";
         if(icon.getChildByTag(345))
             icon.removeChildByTag(345);
         var sprite = new cc.Sprite(defaultimg);
-        sprite.scale = 0.9;
-        sprite.x = 60;
-        sprite.y = 60;
+        //sprite.scale=0.98;
+        sprite.x = icon.width / 2;
+        sprite.y = icon.height / 2;
         icon.addChild(sprite,5,345);
         //user.icon = "http://wx.qlogo.cn/mmopen/25FRchib0VdkrX8DkibFVoO7jAQhMc9pbroy4P2iaROShWibjMFERmpzAKQFeEKCTdYKOQkV8kvqEW09mwaicohwiaxOKUGp3sKjc8/0";
         if(user.icon){
-            cc.loader.loadImg(user.icon, {width: 70, height: 70}, function (error, img) {
+            cc.loader.loadImg(user.icon, {width: 75, height: 75}, function (error, img) {
                 if (!error) {
                     sprite.setTexture(img);
                     //sprite.scale = 1.05;

@@ -450,7 +450,7 @@ var PHZNewSetUpPop = BasePopup.extend({
     },
 
     displayZpxz:function(){
-        var values = [1,2];
+        var values = [1,3];
         cc.log("this.zpxz"+this.zpxz);
         for(var i = 1;i <= values.length; i++) {
             var btn = this["Button_zpxz" + i];

@@ -157,9 +157,9 @@ var PHZPlayer = cc.Class.extend({
 
         if(isCredit && PHZRoomModel.wanfa == GameTypeEunmZP.LDFPF){
             if(seq == 1){
-                this.Image_goldBg.y += 130;
+                this.Image_goldBg.y = 144;
             }else{
-                this.Image_goldBg.y -= 55;
+                this.Image_goldBg.y = -41;
             }
         }
 
