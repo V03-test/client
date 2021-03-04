@@ -106,15 +106,20 @@ var PHZNewSetUpPop = BasePopup.extend({
         this.addClickEvent(widgetZpdx , this.onZpdxClick);
         this.displayZpdx();
 
+        this["Button_zpdx1"].visible = false;
+        this["Button_zpdx2"].visible = false;
+        this["Button_zpdx4"].visible = false;
+        this["Button_zpdx3"].x = this["Button_zpdx1"].x;
+
         //虚线选择
         var widgetXxxz = {"Button_xxxz1":1,"Button_xxxz2":2,"Image_xxxz1":1,"Image_xxxz2":2};
         this.addClickEvent(widgetXxxz , this.onXxxzClick);
         this.displayXxxz();
 
         //字牌选择
-        //var widgetZpxz = {"Button_zpxz1":1,"Button_zpxz2":2,"Image_zpxz1":1,"Image_zpxz2":2};
-        //this.addClickEvent(widgetZpxz , this.onZpxzClick);
-        //this.displayZpxz();
+        var widgetZpxz = {"Button_zpxz1":1,"Button_zpxz2":3,"Image_zpxz1":1,"Image_zpxz2":3};
+        this.addClickEvent(widgetZpxz , this.onZpxzClick);
+        this.displayZpxz();
 
         //牌面选择
         //var widgetpmxz = {"Button_pmxz1":1,"Button_pmxz2":2,"Image_pmxz1":1,"Image_pmxz2":2};
@@ -122,8 +127,8 @@ var PHZNewSetUpPop = BasePopup.extend({
         //this.displayPmxz();
 
         //桌面背景
-        var widgetZmbj = {"Button_zmbj1":1,"Button_zmbj2":2,
-            "Image_zmbj1":1,"Image_zmbj2":2};
+        var widgetZmbj = {"Button_zmbj1":1,"Button_zmbj2":2,"Button_zmbj3":3,"Button_zmbj4":4,
+            "Image_zmbj1":1,"Image_zmbj2":2,"Image_zmbj3":3,"Image_zmbj4":4};
         this.addClickEvent(widgetZmbj , this.onZmbjClick);
         this.displayZmbj();
 
@@ -189,6 +194,12 @@ var PHZNewSetUpPop = BasePopup.extend({
         if(this.zmbj > 2){
             this.zmbj = 1;
         }
+
+        this.zpxz = this.zpxz == 3 ? 3 : 1;
+        this.pmxz = 1;
+        this.zpdx = 3;
+
+        this.zmbj = PHZSetModel.zmbj;
     },
 
     setDefaultAllData:function(){
@@ -420,7 +431,7 @@ var PHZNewSetUpPop = BasePopup.extend({
 
     onZpxzClick: function (obj) {
         var temp = parseInt(obj.temp);
-        var values = [1,2];
+        var values = [1,3];
         for(var i = 1;i <= values.length; i++) {
             var btn = this["Button_zpxz" + i];
             if (temp == values[i-1]){
@@ -429,7 +440,7 @@ var PHZNewSetUpPop = BasePopup.extend({
                 btn.setBright(false);
             }
         }
-        this.zpxz = values[temp-1];
+        this.zpxz = temp;
         if (PHZSetModel.getValue("pro003_phz_zpxz") != this.zpxz){
             PHZSetModel.zpxz = this.zpxz;
             this.setLocalItem("pro003_phz_zpxz"+PHZRoomModel.wanfa,this.zpxz);  //1,2,3
@@ -484,7 +495,7 @@ var PHZNewSetUpPop = BasePopup.extend({
 
     onZmbjClick: function (obj) {
         var temp = parseInt(obj.temp);
-        var values = [1,2];
+        var values = [1,2,3,4];
         for(var i = 1;i <= values.length; i++) {
             var btn = this["Button_zmbj" + i];
             if (temp == values[i-1]){
@@ -501,7 +512,7 @@ var PHZNewSetUpPop = BasePopup.extend({
     },
 
     displayZmbj:function(){
-        var values = [1,2];
+        var values = [1,2,3,4];
         //cc.log("this.zmbj"+this.zmbj);
         for(var i = 1;i <= values.length; i++) {
             var btn = this["Button_zmbj" + i];

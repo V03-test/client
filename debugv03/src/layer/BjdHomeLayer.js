@@ -1492,7 +1492,6 @@ var BjdHomeLayer = BaseLayer.extend({
     },
 
     onClickKfBtn:function(){
-        return;
         cc.log("=============onClickKfBtn==============");
         // var pop = new ServicePop();
         // PopupManager.addPopup(pop);

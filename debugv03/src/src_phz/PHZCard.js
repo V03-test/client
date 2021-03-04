@@ -86,7 +86,7 @@ var PHZCard = ccui.Widget.extend({
         if (this._bg && this.numberImg){
             var place = this._displayVo.place;
             var an = this._cardVo.a;
-            var pmType = 1;//PHZSetModel.pmxz;
+            var pmType = PHZSetModel.pmxz == 3 ? 3 : 1;
             var bgPng = "big_half_face_1.png";
             if (place == 1){
                 //bgPng = PHZSetModel.zpdx == 1 ? "big_half_face_"+pmType+".png" : "big_half_face2_"+pmType+".png";
@@ -372,8 +372,8 @@ var PHZCard = ccui.Widget.extend({
 
         var png = "";
         var bgPng = "";
-        var paiType = 1;//1;
-        var pmType = 1;//PHZSetModel.pmxz;
+        var paiType = PHZSetModel.zpxz == 3 ? 3 : 1;
+        var pmType = PHZSetModel.pmxz == 3 ? 3 : 1;
         var scale = 1;
         var scaleX = 1;
         if(an==1){
@@ -540,7 +540,7 @@ var PHZCard = ccui.Widget.extend({
     },
 
     createBigCard:function(){
-        var pmType = PHZSetModel.pmxz;
+        var pmType = PHZSetModel.pmxz == 3 ? 3 : 1;
         var kuangText = "#big_face"+pmType+".png";
         var per = 0.22;
         var kuang = new cc.Sprite(kuangText);
@@ -571,7 +571,7 @@ var PHZCard = ccui.Widget.extend({
     },
     getPaiPngurl:function(phzVo){
         var t = phzVo.t==1 ? "s" : "b";
-        var paiType = 1;//1;
+        var paiType = PHZSetModel.zpxz == 3 ? 3 : 1;
         var png = "big_cards" + paiType + "_" + phzVo.n + t + ".png";
         return png
     },

@@ -208,11 +208,11 @@ var CQXZMJRoom = BaseRoom.extend({
             this.recordBtn.y = 470;
         }
 
-        var gameNameImg = new cc.Sprite("res/res_mj/res_cqxzmj/cqxzmjRoom/cqxzmj.png");
-        var x = 960;
-        var y = 740;
-        gameNameImg.setPosition(x, y);
-        this.Panel_20.addChild(gameNameImg,2);
+        // var gameNameImg = new cc.Sprite("res/res_mj/res_cqxzmj/cqxzmjRoom/cqxzmj.png");
+        // var x = 960;
+        // var y = 740;
+        // gameNameImg.setPosition(x, y);
+        // this.Panel_20.addChild(gameNameImg,2);
 
         var huBg = "res/res_mj/mjRoom/img_ting1.png";
         this.Panel_hupai = new cc.Scale9Sprite(huBg,null,cc.rect(10,10,1,1));

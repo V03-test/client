@@ -400,6 +400,8 @@ var LayerFactory = {
                     layer = new DZMJRoom(name);
                 }else if(MJRoomModel.wanfa == GameTypeEunmMJ.ZZMJ){
                     layer = new ZZMJRoom(name);
+                }else if(MJRoomModel.wanfa == GameTypeEunmMJ.QZMJ){
+                    layer = new QZMJRoom(name);
                 }else{
                     layer = new CSMJRoom(name);
                 }
@@ -427,6 +429,8 @@ var LayerFactory = {
                     layer = new CQXZMJReplay(name);
                 }else if(MJReplayModel.playType == GameTypeEunmMJ.ZZMJ){
                     layer = new ZZMJReplay(name);
+                }else if(MJReplayModel.playType == GameTypeEunmMJ.QZMJ){
+                    layer = new QZMJReplay(name);
                 }else{
                     layer = new CSMJReplay(name);
                 }

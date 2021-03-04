@@ -66,11 +66,17 @@ var ZZPHPlayer = cc.Class.extend({
         this.hx.setString("0胡");
         this.updateHuXi(vo.ext[0]);
         this.updatePoint(this.coinNum);
-        this.showIcon();
+        //this.showIcon();
 
         if(PHZRoomModel.isMoneyRoom()){
             this.showMoneyIcon(this.point);
         }
+
+        if(!this.userIconPop){
+            this.userIconPop = new UserIconPop();
+        }
+        var iconNode = ccui.helper.seekWidgetByName(root,"kuang"+seq);
+        this.userIconPop.showIcon(iconNode,this._playerVo.icon,null,PHZRoomModel.isMoneyRoom());
 
         if (PHZRoomModel.mySeat == vo.seat){
             PHZRoomModel.myOutHuxi = vo.ext[0];
@@ -99,6 +105,8 @@ var ZZPHPlayer = cc.Class.extend({
             this.tuoguanSp.visible = false;
             this.tuoguanSp.x = 10;
         }
+
+        this.kuang = ccui.helper.seekWidgetByName(root,"kuang"+seq)
 
         this.creditScore = ccui.helper.seekWidgetByName(root,"lableCreditScore"+seq);
         if (this.creditScore){
@@ -253,6 +261,10 @@ var ZZPHPlayer = cc.Class.extend({
         }
         if(this.Label_coin){
             this.Label_coin.visible = false;
+        }
+        var node = this.userIconPop.getImgNode(this.kuang);
+        if(node){
+            node.visible = false;
         }
     },
     

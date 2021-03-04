@@ -123,7 +123,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         this.getWidget("label_version").setString(SyVersion.v);
         this.Label_batteryPer = this.getWidget("Label_batteryPer");
         this.roomName_label = new cc.LabelTTF("","Arial",36,cc.size(0, 0));
-        this.Image_phz.addChild(this.roomName_label,0);
+        this.root.addChild(this.roomName_label,0);
 
         if (PHZRoomModel.roomName){
             this.roomName_label.setString(PHZRoomModel.roomName);
@@ -172,6 +172,9 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
             this.Button_qihu.visible = false;
             UITools.addClickEvent(this.Button_qihu,this,this.sendQiHu);
         }
+
+        this.Button_qihu.y = this.getWidget("Image_otherDi").y - 20;
+        this.Button_qihu.x = this.getWidget("Image_otherDi").x - 380;
 
         // iphonex 防止刘海遮住弃牌和吃牌
         var disXForIphoneX  = 0;
@@ -481,8 +484,8 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
     },
     showShizhongpai:function(root,phzVo,actType,renshu,seq){
         root.visible = true;
-        var paiType = 1;
-        var endScale = 1.3;
+        var paiType = PHZSetModel.zpxz == 3 ? 3 : 1;
+        var endScale = 1.15;
         var kuangText = "#big_face_1.png";
 
         if(phzVo.c == 0){
@@ -508,7 +511,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         var png = "cards_back.png";
         if(phzVo.c>0){
             var t = phzVo.t==1 ? "s" : "b";
-            var paiType = 1;
+            var paiType = PHZSetModel.zpxz == 3 ? 3 : 1;
             png = "big_cards" + paiType + "_" + phzVo.n + t + ".png";
             // png = this.getPaiPngurl(phzVo);
             var bg1 = cc.Sprite("#"+png);
@@ -4105,11 +4108,10 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         }
     },
     updateBgColor:function(){
-        var bgTexture = "res/res_phz/roombg/room_bg1.jpg";
         var gameTypeUrl = "res/res_phz/wanfaFront/syzp.png";
-
-        if (PHZSetModel.zmbj != 1){
-            bgTexture = "res/res_phz/roombg/room_bg3.jpg";
+        var bgTexture = "res/res_phz/roombg/room_bg4.jpg";
+        if (PHZSetModel.zmbj > 0 && PHZSetModel.zmbj < 5){
+            bgTexture = "res/res_phz/roombg/room_bg"+PHZSetModel.zmbj+".jpg";
         }
 
         if (PHZRoomModel.wanfa == GameTypeEunmZP.SYBP){
@@ -4138,6 +4140,8 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
             gameTypeUrl = "res/res_phz/wanfaFront/yzlc.png";
         }else if (PHZRoomModel.wanfa == GameTypeEunmZP.JHSWZ){
             gameTypeUrl = "res/res_phz/wanfaFront/yzswz.png";
+        }else if (PHZRoomModel.wanfa == GameTypeEunmZP.LDFPF){
+            gameTypeUrl = "res/res_phz/wanfaFront/ldfpf.png";
         }
 
         this.Image_phz.loadTexture(gameTypeUrl);

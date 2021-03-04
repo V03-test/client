@@ -255,6 +255,13 @@ var ZZPHRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         //     this.getWidget("oPanel3").x = this.getWidget("sPanel3").x = this.getWidget("mPanel3").x = (SyConfig.DESIGN_WIDTH -cc.winSize.width)/2 + disXForIphoneX;
         // }
 
+        //if (PHZRoomModel.renshu == 2){
+        //    this.getWidget("mPanel1").x -= 50;
+        //    this.getWidget("oPanel1").x -= 50;
+        //    this.getWidget("oPanel2").y -= 30;
+        //    this.getWidget("mPanel2").x -= 50;
+        //}
+
         this.Panel_tingPai = this.getWidget("Panel_tingPai");//听牌层
 
         this.Panel_shouzhi = this.getWidget("Panel_shouzhi");
@@ -573,9 +580,9 @@ var ZZPHRoom = BaseLayer.extend({ //BaseLayer BaseRoom
     },
     //微信邀请按钮统一换资源，增加亲友圈邀请按钮
     adjustInviteBtn:function(){
-        var img_wx = "res/ui/bjdmj/wx_invite.png";
-        var img_qyq = "res/ui/bjdmj/qyq_invite.png";
-        var img_back = "res/ui/bjdmj/back_qyq_hall.png";
+        var img_wx = "res/res_gameCom/Z_wechatInvitation.png";
+        var img_qyq = "res/res_gameCom/qyqInvite.png";
+        var img_back = "res/res_gameCom/backHall.png";
         var btn_wx_invite = this.getWidget("Button_invite");
         btn_wx_invite.loadTextureNormal(img_wx);
 
@@ -1040,8 +1047,8 @@ var ZZPHRoom = BaseLayer.extend({ //BaseLayer BaseRoom
             tingBgImgHeight = Math.floor((huList.length-1)/3)*diffHeight + tingBgImgHeight;
 
             //听牌的底
-            var tingBg = cc.spriteFrameCache.getSpriteFrame("cards_listencard_di_tingpai.png");
-            var tingBgImg = new cc.Scale9Sprite(tingBg,null,cc.rect(5,5,165,45));
+            var tingBg = "res/res_phz/tingBg.png";
+            var tingBgImg = new cc.Scale9Sprite(tingBg,null,cc.rect(20,20,20,20));
             tingBgImg.anchorX= 0.5;
             tingBgImg.anchorY= 0.5;
             tingBgImg.x = 75;
@@ -1051,7 +1058,7 @@ var ZZPHRoom = BaseLayer.extend({ //BaseLayer BaseRoom
             this.Panel_tingPai.addChild(tingBgImg);
 
             //听牌的图片
-            var tingImg = new cc.Sprite("#cards_listencard_zi_tingpai.png");
+            var tingImg = new cc.Sprite("res/res_phz/tpz.png");
             //tingImg.x = 50;
             tingImg.anchorY= 0;
             tingImg.x = tingBgImg.width*0.5;
@@ -2039,6 +2046,7 @@ var ZZPHRoom = BaseLayer.extend({ //BaseLayer BaseRoom
                 phz.y = 10 + j * phz.height * scale;
                 innerbg.addChild(phz);
                 passArray.push(array[j].c);
+                phz.setLocalZOrder(array.length - j);
             }
             clickbg.x = innerbg.width/2+initX+i*114;
             clickbg.y = bg.height/2;
@@ -2637,11 +2645,11 @@ var ZZPHRoom = BaseLayer.extend({ //BaseLayer BaseRoom
             if(btnDatas.length>0 && isShowBtn){
                 //除了娄底放炮罚放炮胡牌不需要过之外，其他把过放到btnDatas里面去
                 btnDatas.push({t:"res/res_phz/act_button/guo.png",v:5});
-                var w = 225;//118
+                var w = 210;
                 var g = 20;
                 var winSize = cc.director.getWinSize();
                 var len = btnDatas.length;
-                var initX = 1275;
+                var initX = 1500;
                 var cardX = 0;
                 for(var i=0;i<len;i++){
                     var btnData = btnDatas[i];
@@ -2651,11 +2659,12 @@ var ZZPHRoom = BaseLayer.extend({ //BaseLayer BaseRoom
                     btn.loadTextureNormal(btnData.t);
                     btn.temp = btnData.v;
                     btn.x = initX - (len-i-1)*w - w/2 - (len-i-1)*g;
-                    btn.y = -50 + 100;
+                    btn.y = -50 + 150;
                     btn.state = isHu;
                     UITools.addClickEvent(btn,this,this.onPengPai);
                     var tag = (btnData.v == 6) ? this.tag_btn_chi : this.tag_btn_other;
                     if(btnData.v == 4)tag = this.tag_btn_liu;
+                    btn.scale = (btnData.v != 5) ? 0.72 : 0.64;
                     this.btnPanel.addChild(btn,0,tag);
                     if (i == 0){
                         cardX = btn.x;
@@ -3443,21 +3452,9 @@ var ZZPHRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         }
     },
     updateBgColor:function(){
-        var bgTexture = "res/res_phz/roombg/room_bg1.jpg";
-        if (PHZSetModel.zmbj == 1){
-            this.roomName_label.setColor(cc.color(214,203,173));
-        }else if (PHZSetModel.zmbj == 2 || PHZSetModel.zmbj == 5){
-            bgTexture = "res/res_phz/roombg/room_bg2.jpg";
-            if (PHZSetModel.zmbj == 5){
-                bgTexture = "res/res_phz/roombg/room_bg5.jpg";
-            }
-            this.roomName_label.setColor(cc.color(204,204,204));
-        }else if (PHZSetModel.zmbj == 3){
-            bgTexture = "res/res_phz/roombg/room_bg3.jpg";
-            this.roomName_label.setColor(cc.color(97,76,56));
-        }else if (PHZSetModel.zmbj == 4){
-            bgTexture = "res/res_phz/roombg/room_bg4.jpg";
-            this.roomName_label.setColor(cc.color(214,203,173));
+        var bgTexture = "res/res_phz/roombg/room_bg4.jpg";
+        if (PHZSetModel.zmbj > 0 && PHZSetModel.zmbj < 5){
+            bgTexture = "res/res_phz/roombg/room_bg"+PHZSetModel.zmbj+".jpg";
         }
         this.Panel_20.setBackGroundImage(bgTexture);
     },

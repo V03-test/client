@@ -199,30 +199,30 @@ var CSMJRoom = BaseRoom.extend({
         this.Panel_hupai.height = 220;
         this.root.addChild(this.Panel_hupai,4);
 
-        var roomFile = "res/res_mj/res_csmj/csmjRoom/csmj.png";
-        if(MJRoomModel.wanfa == GameTypeEunmMJ.TDH){
-            roomFile = "res/res_mj/res_csmj/csmjRoom/xytdh.png";
-        }else if(MJRoomModel.wanfa == GameTypeEunmMJ.TJMJ){
-            roomFile = "res/res_mj/res_csmj/csmjRoom/tjmj.png";
-            this.Panel_hupai.setAnchorPoint(0,0.5);
-            this.Panel_hupai.x = 300;
-        }else if(MJRoomModel.wanfa == GameTypeEunmMJ.GDCSMJ){
-            roomFile = "res/res_mj/res_csmj/csmjRoom/gdcsmj.png";
-        }else if(MJRoomModel.wanfa == GameTypeEunmMJ.TCMJ){
-            roomFile = "res/res_mj/res_csmj/csmjRoom/tcmj.png";
-        }else if(MJRoomModel.wanfa == GameTypeEunmMJ.NXMJ){
-            roomFile = "res/res_mj/res_csmj/nxmjRoom/nxmj.png";
-        }else if(MJRoomModel.wanfa == GameTypeEunmMJ.NYMJ){
-            roomFile = "res/res_mj/res_csmj/nymj/nymj.png";
-        }else if(MJRoomModel.wanfa == GameTypeEunmMJ.JZMJ){
-            roomFile = "res/res_mj/res_csmj/jzmj/title_jzmj.png";
-        }
-        var gameNameImg = new cc.Sprite(roomFile);
-        var x = 960;
-        var y = 740;
-        gameNameImg.setPosition(x, y);
-        //this.root.addChild(gameNameImg,2);
-        this.Panel_20.addChild(gameNameImg,2);
+        // var roomFile = "res/res_mj/res_csmj/csmjRoom/csmj.png";
+        // if(MJRoomModel.wanfa == GameTypeEunmMJ.TDH){
+        //     roomFile = "res/res_mj/res_csmj/csmjRoom/xytdh.png";
+        // }else if(MJRoomModel.wanfa == GameTypeEunmMJ.TJMJ){
+        //     roomFile = "res/res_mj/res_csmj/csmjRoom/tjmj.png";
+        //     this.Panel_hupai.setAnchorPoint(0,0.5);
+        //     this.Panel_hupai.x = 300;
+        // }else if(MJRoomModel.wanfa == GameTypeEunmMJ.GDCSMJ){
+        //     roomFile = "res/res_mj/res_csmj/csmjRoom/gdcsmj.png";
+        // }else if(MJRoomModel.wanfa == GameTypeEunmMJ.TCMJ){
+        //     roomFile = "res/res_mj/res_csmj/csmjRoom/tcmj.png";
+        // }else if(MJRoomModel.wanfa == GameTypeEunmMJ.NXMJ){
+        //     roomFile = "res/res_mj/res_csmj/nxmjRoom/nxmj.png";
+        // }else if(MJRoomModel.wanfa == GameTypeEunmMJ.NYMJ){
+        //     roomFile = "res/res_mj/res_csmj/nymj/nymj.png";
+        // }else if(MJRoomModel.wanfa == GameTypeEunmMJ.JZMJ){
+        //     roomFile = "res/res_mj/res_csmj/jzmj/title_jzmj.png";
+        // }
+        // var gameNameImg = new cc.Sprite(roomFile);
+        // var x = 960;
+        // var y = 740;
+        // gameNameImg.setPosition(x, y);
+        // //this.root.addChild(gameNameImg,2);
+        // this.Panel_20.addChild(gameNameImg,2);
 
         //this.getWidget("mPanel1").y = 10;
 

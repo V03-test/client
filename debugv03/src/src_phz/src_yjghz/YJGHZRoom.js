@@ -3476,11 +3476,11 @@ var YJGHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         }
     },
     updateBgColor:function(){
-        var bgTexture = "res/res_phz/roombg/room_bg1.jpg";
         var gameTypeUrl = "res/res_phz/wanfaFront/yjghz.png";
 
-        if (PHZSetModel.zmbj != 1){
-            bgTexture = "res/res_phz/roombg/room_bg3.jpg";
+        var bgTexture = "res/res_phz/roombg/room_bg4.jpg";
+        if (PHZSetModel.zmbj > 0 && PHZSetModel.zmbj < 5){
+            bgTexture = "res/res_phz/roombg/room_bg"+PHZSetModel.zmbj+".jpg";
         }
 
         this.Image_phz.loadTexture(gameTypeUrl);

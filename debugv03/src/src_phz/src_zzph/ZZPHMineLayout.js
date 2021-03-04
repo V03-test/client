@@ -16,6 +16,7 @@ setRoot:function(root){
     },
 
     getCardOffX:function(){
+        return 132;
         // cc.log("cc.winSize.width/1280 =",cc.winSize.width/1280 + 0.05*cc.winSize.width/1280);
         var w = PHZSetModel.zpdx == 1 ? 114 : 132; //75
         if (PHZSetModel.zpdx == 3 || PHZSetModel.zpdx == 4 ){

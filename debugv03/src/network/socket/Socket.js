@@ -174,8 +174,6 @@ var SySocket = cc.Class.extend({
         //关闭连接
         this.socket.onclose = function(e) {
             var that = this;
-
-
             SdkUtil.sdkLog("websocket is close.....................................1");
             connectStr = "connect|7";
             if ( _this.socket && _this.socket.wsid == that.wsid){
@@ -194,7 +192,6 @@ var SySocket = cc.Class.extend({
         this.socket.onerror = function(e) {
             var that = this;
             connectStr = "connect|11";
-            cc.log("url==",_this.url)
             SdkUtil.sdkLog("websocket is error.....................................3");
             if (_this.socket && _this.socket.wsid == that.wsid) {
                 PingClientModel.close();

@@ -566,8 +566,8 @@ var AHPHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
     },
     showShizhongpai:function(root,phzVo,actType,renshu,seq){
         root.visible = true;
-        var paiType = 1;
-        var endScale = 1.3;
+        var paiType = PHZSetModel.zpxz == 3 ? 3 : 1;
+        var endScale = 1.15;
         var kuangText = "#big_face_1.png";
         if(phzVo.c == 0){
             kuangText = "#cards_back.png";
@@ -592,7 +592,7 @@ var AHPHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         var png = "cards_back.png";
         if(phzVo.c>0){
             var t = phzVo.t==1 ? "s" : "b";
-            var paiType = 1;
+            var paiType = PHZSetModel.zpxz == 3 ? 3 : 1;
             png = "big_cards" + paiType + "_" + phzVo.n + t + ".png";
             // png = this.getPaiPngurl(phzVo);
             var bg1 = cc.Sprite("#"+png);
@@ -3600,11 +3600,11 @@ var AHPHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         }
     },
     updateBgColor:function(){
-        var bgTexture = "res/res_phz/roombg/room_bg1.jpg";
         var gameTypeUrl = "res/res_phz/wanfaFront/ahphz.png";
 
-        if (PHZSetModel.zmbj != 1){
-            bgTexture = "res/res_phz/roombg/room_bg3.jpg";
+        var bgTexture = "res/res_phz/roombg/room_bg4.jpg";
+        if (PHZSetModel.zmbj > 0 && PHZSetModel.zmbj < 5){
+            bgTexture = "res/res_phz/roombg/room_bg"+PHZSetModel.zmbj+".jpg";
         }
 
         this.Image_phz.loadTexture(gameTypeUrl);

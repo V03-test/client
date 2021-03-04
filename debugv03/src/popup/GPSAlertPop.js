@@ -232,6 +232,7 @@ var GpsPop = BasePopup.extend({
             case  GameTypeEunmMJ.CQXZMJ:
             case  GameTypeEunmMJ.YYMJ:
             case  GameTypeEunmMJ.ZJMJ:
+            case  GameTypeEunmMJ.QZMJ:
                 return MJRoomModel;
             case  GameTypeEunmPK.QF:
                 return QFRoomModel;

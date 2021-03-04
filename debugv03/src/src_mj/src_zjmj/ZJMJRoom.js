@@ -179,11 +179,11 @@ var ZJMJRoom = BaseRoom.extend({
         this.Panel_hupai.height = 220;
         this.root.addChild(this.Panel_hupai,4);
 
-        var gameNameImg = new cc.Sprite("res/res_mj/res_hzmj/zjmjRoom/zjmj.png");
-        var x = 960;
-        var y = 740;
-        gameNameImg.setPosition(x, y);
-        this.Panel_20.addChild(gameNameImg,2);
+        // var gameNameImg = new cc.Sprite("res/res_mj/res_hzmj/zjmjRoom/zjmj.png");
+        // var x = 960;
+        // var y = 740;
+        // gameNameImg.setPosition(x, y);
+        // this.Panel_20.addChild(gameNameImg,2);
 
         this.getWidget("mPanel1").y = 20;
 

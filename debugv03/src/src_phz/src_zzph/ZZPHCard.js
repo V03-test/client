@@ -19,7 +19,7 @@ var ZZPHCard = ccui.Widget.extend({
      * @param cardVo {PHZVo}
      */
     ctor:function(displayVo,cardVo,action,isRecord){
-        this._super();        
+        this._super();
         this.touchLayer=null;
         this.selected = false;
         this.mjTouchMoved = false;
@@ -28,11 +28,11 @@ var ZZPHCard = ccui.Widget.extend({
 
         this._tingList = [];
         // this.isLHQ_SHK_16 = PHZRoomModel && PHZRoomModel.getIs_LHQ_SHK_16();
-        
+
         this.refresh(displayVo,cardVo,action);
 
     },
-    
+
     /**
      * 出牌
      */
@@ -62,21 +62,25 @@ var ZZPHCard = ccui.Widget.extend({
 
 
     refreshCardByOpenTex:function() {
+        //if (this.numberImg){
+        //    var color = this._cardVo.t == 1 ? "s" : "b";
+        //    var number = this._cardVo.n;
+        //    var paiType = 1;
+        //    var pngName = "big_cards" + paiType + "_" + number + color + ".png";
+        //    var place = this._displayVo.place;
+        //    if(place != 1){
+        //        pngName= "small_cards" + paiType + "_" + number + color + ".png";
+        //    }
+        //    var frame = cc.spriteFrameCache.getSpriteFrame(pngName);
+        //    this.numberImg.setSpriteFrame(frame);
+        //    // this.refreshCardBgByOpenTex()
+        //}else{
+        //    //cc.log("this._cardVo.n::"+this._cardVo.n)
+        //    //cc.log("this._cardVo.t::"+this._cardVo.t)
+        //}
+
         if (this.numberImg){
-            var color = this._cardVo.t == 1 ? "s" : "b";
-            var number = this._cardVo.n;
-            var paiType = 1;
-            var pngName = "big_cards" + paiType + "_" + number + color + ".png";
-            var place = this._displayVo.place;
-            if(place != 1){
-                pngName= "small_cards" + paiType + "_" + number + color + ".png";
-            }
-            var frame = cc.spriteFrameCache.getSpriteFrame(pngName);
-            this.numberImg.setSpriteFrame(frame);
-            // this.refreshCardBgByOpenTex()
-        }else{
-            //cc.log("this._cardVo.n::"+this._cardVo.n)
-            //cc.log("this._cardVo.t::"+this._cardVo.t)
+            this.diplay();
         }
     },
 
@@ -84,14 +88,14 @@ var ZZPHCard = ccui.Widget.extend({
         if (this._bg && this.numberImg){
             var place = this._displayVo.place;
             var an = this._cardVo.a;
-            var pmType = PHZSetModel.pmxz;
-            var bgPng = "";
+            var pmType = PHZSetModel.pmxz == 3 ? 3 : 1;
+            var bgPng = "big_half_face_1.png";
             if (place == 1){
-                bgPng = PHZSetModel.zpdx == 1 ? "big_half_face_"+pmType+".png" : "big_half_face2_"+pmType+".png";
+                //bgPng = PHZSetModel.zpdx == 1 ? "big_half_face_"+pmType+".png" : "big_half_face2_"+pmType+".png";
             }else{
                 bgPng = "small_half_face_"+pmType+".png";
             }
-                
+
             if (this._cardVo.ishu){ //当前胡的这张牌
                 bgPng = "small_half_face1_"+pmType+".png"
             }
@@ -201,7 +205,7 @@ var ZZPHCard = ccui.Widget.extend({
                 //PHZRoomModel.mineRoot.Image_hdx.visible=true;
             }
             this.hasTouchBegin = true;
-            this.setLocalZOrder(999);   
+            this.setLocalZOrder(999);
             this.fromIndex = this.getCardIndex();
             //cc.log("this.fromIndex... ",this.fromIndex)
             this.mjTouchMoved = false;
@@ -352,31 +356,24 @@ var ZZPHCard = ccui.Widget.extend({
 
         var png = "";
         var bgPng = "";
-        var paiType = 1;
-        var pmType = PHZSetModel.pmxz;
+        var paiType = PHZSetModel.zpxz == 3 ? 3 : 1;
+        var pmType = PHZSetModel.pmxz == 3 ? 3 : 1;
         var scale = 1;
         var scaleX = 1;
         if(an==1){
-            scale = 0.75;
-            bgPng = "zzph_small_back.png";
+            //scale = 0.75;
+            //bgPng = "zzph_small_back.png";
+            bgPng = "small_half_back.png";
         }else{
             var t = this._cardVo.t == 1 ? "s" : "b";
             if (place == 1){
-                bgPng = PHZSetModel.zpdx == 1 ? "big_half_face_"+pmType+".png" : "big_half_face2_"+pmType+".png";
-            }else if (place == 2 || place == 3){
-                scale = 0.75;
-                bgPng = "cards_listencard_"+ this._cardVo.n + t+".png";
+                bgPng = "big_half_face_"+pmType+".png";
+                //bgPng = PHZSetModel.zpdx == 1 ? "big_half_face_"+pmType+".png" : "big_half_face2_"+pmType+".png";
             }else{
-                scale = 0.8;
+                //scale = 0.8;
                 bgPng = "small_half_face_"+pmType+".png";
             }
             if(place == 1){
-                if (PHZSetModel.zpdx == 3 || PHZSetModel.zpdx == 4){
-                    // scaleX = cc.winSize.width/1280 +0.02*( cc.winSize.width/1280);
-                    scaleX = 1.1;
-                }
-                png = "big_cards" + paiType + "_" + this._cardVo.n + t + ".png";
-            }else if (place == 2 || place == 3){
                 png = "big_cards" + paiType + "_" + this._cardVo.n + t + ".png";
             }else {
                 png = "small_cards" + paiType + "_" + this._cardVo.n + t + ".png";
@@ -402,18 +399,19 @@ var ZZPHCard = ccui.Widget.extend({
         this.addChild(bgImg);
 
 
-        if (png != "" && place != 2 && place != 3){
+        if (png != ""){
             var bg = this.numberImg = this.getSprite(png);
             bg.anchorX=bg.anchorY=0.5;
             bg.x = this._bg.width*0.5;
             bg.y = this._bg.height*0.62;
             bgImg.addChild(bg);
             if (place == 1){
-                if (PHZSetModel.zpdx == 4){
-                    bg.scale = 1.2;
-                }else if (PHZSetModel.zpdx == 2 || PHZSetModel.zpdx == 3){
-                    bg.scale = 1.1;
-                }
+                //if (PHZSetModel.zpdx == 4){
+                //    bg.scale = 1.2;
+                //}else if (PHZSetModel.zpdx == 2 || PHZSetModel.zpdx == 3){
+                //    bg.scale = 1.1;
+                //}
+                this.numberImg.scale = paiType == 1 ? 1 : 1.2;
             }
         }
         if(this._cardVo.as==1 || an == 1){//自己偎了的牌加一层透明层
@@ -501,11 +499,11 @@ var ZZPHCard = ccui.Widget.extend({
     },
 
     createBigCard:function(){
-        var pmType = PHZSetModel.pmxz;
+        var pmType = PHZSetModel.pmxz == 3 ? 3 : 1;
         var kuangText = "#big_face"+pmType+".png";
         var per = 0.22;
         var kuang = new cc.Sprite(kuangText);
-        kuang.scale = 1.45;
+        kuang.scale = 1.58;
         kuang.x = this._bg.width*0.5;
         kuang.y = this._bg.height*0.5;
         this._bg.addChild(kuang,6,234);
@@ -520,19 +518,19 @@ var ZZPHCard = ccui.Widget.extend({
             bg1.y = kuang.height*per;
             bg1.setFlippedY(-180);
             bg1.setFlippedX(-180);
-            bg1.scale = 0.8;
+            bg1.scale = 0.7;
             kuang.addChild(bg1);
 
             var bg = this.getSprite(png);
             bg.x = kuang.width/2;
             bg.y = kuang.height*(1-per);
-            bg.scale = 0.8;
+            bg.scale = 0.7;
             kuang.addChild(bg);
         }
     },
     getPaiPngurl:function(phzVo){
         var t = phzVo.t==1 ? "s" : "b";
-        var paiType = 1;
+        var paiType = PHZSetModel.zpxz == 3 ? 3 : 1;
         var png = "big_cards" + paiType + "_" + phzVo.n + t + ".png";
         return png
     },

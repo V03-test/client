@@ -24,7 +24,7 @@ var MjCreateRoom = BasePopup.extend({
             ["PDK","PDK11","ERDDZ","DTZ","XTSDH","DT","QF","YYBS","CDTLJ","HSTH","XTBP"],
             ["SYBP","SYZP","DYBP","AHPHZ","YJGHZ","NXGHZ","YYWHZ",
                 "SMPHZ","CDPHZ","HSPHZ","HYLHQ","HYSHK","LYZP",
-                "CZZP","LDS","YZCHZ","LSZP","YZLC","JHSWZ"]
+                "CZZP","LDS","YZCHZ","LSZP","YZLC","JHSWZ","LDFPF","XTPHZ","ZZPH"]
         ];
         // var isClose = false;
         // if (this.clubData){

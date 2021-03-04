@@ -195,13 +195,13 @@ var YYMJRoom = BaseRoom.extend({
         this.Panel_hupai.height = 220;
         this.root.addChild(this.Panel_hupai,4);
 
-        var roomFile = "res/res_mj/res_csmj/yymjRoom/yymj.png";
-        var gameNameImg = new cc.Sprite(roomFile);
-        var x = 960;
-        var y = 740;
-        gameNameImg.setPosition(x, y);
-        //this.root.addChild(gameNameImg,2);
-        this.Panel_20.addChild(gameNameImg,2);
+        // var roomFile = "res/res_mj/res_csmj/yymjRoom/yymj.png";
+        // var gameNameImg = new cc.Sprite(roomFile);
+        // var x = 960;
+        // var y = 740;
+        // gameNameImg.setPosition(x, y);
+        // //this.root.addChild(gameNameImg,2);
+        // this.Panel_20.addChild(gameNameImg,2);
 
         //this.getWidget("mPanel1").y = 10;
 

@@ -207,6 +207,9 @@ var BaseRoom = BaseLayer.extend({
             this.paomadeng.visible = false
             this.schedule(this.updateMarquee,1,cc.REPEAT_FOREVER,0);
         }
+
+        this.initGameTitle();
+
     },
 
     updateMarquee:function(dt){
@@ -554,4 +557,26 @@ var BaseRoom = BaseLayer.extend({
             this.initCards(allcardIds,true)
         }
     },
+
+    initGameTitle:function(){
+        var wanfa = (BaseRoomModel.curRoomData && BaseRoomModel.curRoomData.wanfa) ? BaseRoomModel.curRoomData.wanfa : 0;
+        if (wanfa && !ClubRecallDetailModel.isDTZWanfa(wanfa)){
+            var gameTypeUrl = "res/res_gameTitle/title_mj/title_"+ wanfa + ".png";
+            if (GameTypeManager.isPK(wanfa)){
+                if (ClubRecallDetailModel.isPDKWanfa(wanfa) && wanfa != 11){
+                    wanfa = 15;
+                }
+                gameTypeUrl = "res/res_gameTitle/title_pk/title_"+ wanfa + ".png";
+            }
+            if (this.gameTypeImg){
+                this.gameTypeImg.loadTexture(gameTypeUrl);
+            }else{
+                this.gameTypeImg = new cc.Sprite(gameTypeUrl);
+                var x = 960;
+                var y = 720;
+                this.gameTypeImg.setPosition(x, y);
+                this.root.addChild(this.gameTypeImg,2);
+            }
+        }
+    }
 });

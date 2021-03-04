@@ -964,16 +964,16 @@ var XPLPRoom = BaseRoom.extend({
         }else if (PHZSetModel.zmbj == 4){
             bgTexture = "res/res_phz/roombg/room_bg4.jpg";
         }
-        if(!this.Image_phz){
-            var gameNameImg = new ccui.ImageView(gameTypeUrl);
-            var x = 960;
-            var y = 806;//740;
-            gameNameImg.setPosition(x, y);
-            this.Panel_20.addChild(gameNameImg,2);
-            this.Image_phz = gameNameImg;
-        }else{
-            this.Image_phz.loadTexture(gameTypeUrl);
-        }
+        // if(!this.Image_phz){
+        //     var gameNameImg = new ccui.ImageView(gameTypeUrl);
+        //     var x = 960;
+        //     var y = 806;//740;
+        //     gameNameImg.setPosition(x, y);
+        //     this.Panel_20.addChild(gameNameImg,2);
+        //     this.Image_phz = gameNameImg;
+        // }else{
+        //     this.Image_phz.loadTexture(gameTypeUrl);
+        // }
         this.getWidget("Image_bg").loadTexture(bgTexture);
         this.updateRoomInfo();
     },

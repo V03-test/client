@@ -19,7 +19,7 @@ var PHZRoomEffects = {
             oPanel.removeChildByTag(321);
             this.qiCard = null;
         }
-        var pmType = 1;//PHZSetModel.pmxz;
+        var pmType = PHZSetModel.pmxz == 3 ? 3 : 1;
 
         var endScale = 1;
         this.phzVo = phzVo || null;
@@ -283,7 +283,7 @@ var PHZRoomEffects = {
 
     getPaiPngurl:function(phzVo){
         var t = phzVo.t==1 ? "s" : "b";
-        var paiType = 1;//1;
+        var paiType = PHZSetModel.zpxz == 3 ? 3 : 1;
         var png = "big_cards" + paiType + "_" + phzVo.n + t + ".png";
         return png
     },
@@ -292,7 +292,7 @@ var PHZRoomEffects = {
         if (this.bg && this.phzVo){
             var color = this.phzVo.t == 1 ? "s" : "b";
             var number = this.phzVo.n;
-            var paiType = 1;//1;
+            var paiType = PHZSetModel.zpxz == 3 ? 3 : 1;
             var pngName = "big_cards" + paiType + "_" + number + color + ".png";
             var frame = cc.spriteFrameCache.getSpriteFrame(pngName);
             this.bg.setSpriteFrame(frame);
@@ -301,7 +301,7 @@ var PHZRoomEffects = {
         if (this.bg1 && this.phzVo){
             var color = this.phzVo.t == 1 ? "s" : "b";
             var number = this.phzVo.n;
-            var paiType = 1;//1;
+            var paiType = PHZSetModel.zpxz == 3 ? 3 : 1;
             var pngName = "big_cards" + paiType + "_" + number + color + ".png";
             var frame = cc.spriteFrameCache.getSpriteFrame(pngName);
             this.bg1.setSpriteFrame(frame);
@@ -729,8 +729,8 @@ var PHZRoomEffects = {
     },
 
     createGLZPCard:function(root,phzVo,isHui){
-        var paiType =  1;//PHZSetModel.zpxz;
-        var pmType = 1;//PHZSetModel.pmxz;
+        var paiType =  PHZSetModel.zpxz == 3 ? 3 : 1;
+        var pmType = PHZSetModel.pmxz == 3 ? 3 : 1;
         var png = "big_face"+pmType+".png";
         var t = phzVo.t==1 ? "s" : "b";
         var ziPNG = "big_cards" + paiType + "_" + phzVo.n + t + ".png";
