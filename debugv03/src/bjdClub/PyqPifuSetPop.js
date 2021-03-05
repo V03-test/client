@@ -48,7 +48,7 @@ var PyqPifuSetPop = cc.Layer.extend({
 
         var itemW = 240;
 
-        var localNum = 3;
+        var localNum = 6;
 
         this.bg_scroll.setInnerContainerSize(cc.size(itemW*localNum,this.bg_scroll.height));
 

@@ -1520,6 +1520,13 @@ var QZMJRoom = BaseRoom.extend({
         this.Panel_btn.visible = this.Panel_8.visible = this.btn_back.visible = false;
         this.btnReady.visible = true;
         this.btnInvite.visible = (players.length<MJRoomModel.renshu);
+        if(!this.btnInvite.visible){
+            this.tuichuBtn.x = 960;
+        }else{
+            if(this.localTuichuX){
+                this.tuichuBtn.x = this.localTuichuX;
+            }
+        }
         for(var i=0;i<players.length;i++){
             var p = players[i];
             var seq = MJRoomModel.getPlayerSeq(p.userId,MJRoomModel.mySeat, p.seat);
