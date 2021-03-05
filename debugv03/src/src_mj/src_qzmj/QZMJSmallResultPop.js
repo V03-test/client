@@ -78,7 +78,7 @@ var QZMJSmallResultPop = BasePopup.extend({
     createMoldPais: function(widget,user) {
         var moldPais = user.moldPais;
         var count = 0;
-        this.moldInitX = 115 + 100;
+        this.moldInitX = 115 + 100 + 140;
         var lastX = 0;
         var height = 70;
         for (var i=0;i<moldPais.length;i++) {
@@ -93,7 +93,7 @@ var QZMJSmallResultPop = BasePopup.extend({
             if((innerAction==MJAction.AN_GANG || innerAction==MJAction.GANG) && (innerArray.length>3 || innerObject.gangVo)){
                 gangVo = innerArray.pop();
             }
-            var actionDiffX = 70;
+            var actionDiffX = 5;
             for(var j=0;j<innerArray.length;j++){
                 var innerVo = innerArray[j];
                 if (innerAction==MJAction.AN_GANG) {
@@ -104,9 +104,9 @@ var QZMJSmallResultPop = BasePopup.extend({
                     card.setCanThrow(false);
                 }
                 var size = card.getContentSize();
-                var _scale = 0.65;
+                var _scale = 0.6;
                 card.scale = _scale;
-                card.x = this.moldInitX + (size.width * _scale) * count;
+                card.x = this.moldInitX + (size.width * _scale - 0.5) * count;
                 card.y = height;
                 lastX = card.x;
                 widget.addChild(card,j == 1 ? 1 : 0);
@@ -174,7 +174,7 @@ var QZMJSmallResultPop = BasePopup.extend({
 
             var card = new QZMahjong(MJAI.getDisplayVo(1,1),voArray[i]);
             var size = card.getContentSize();
-            var _scale = 0.6;
+            var _scale = 0.5;
             card.scale = _scale;
             card.x = this.moldInitX + (size.width * _scale - 0.5) * i + localOffx;
             card.y = height;
@@ -191,7 +191,7 @@ var QZMJSmallResultPop = BasePopup.extend({
                 for (var j = 0; j < qzmjHuPai.length; j++) {
                     var card = new QZMahjong(MJAI.getDisplayVo(1,1),qzmjHuPai[j]);
                     var size = card.getContentSize();
-                    var _scale = 0.6;
+                    var _scale = 0.5;
                     card.scale = _scale;
                     card.x = this.moldInitX + (size.width * _scale - 0.5) * (voArray.length+j) + 60*(j+1);
                     card.y = height;
@@ -210,15 +210,16 @@ var QZMJSmallResultPop = BasePopup.extend({
         var intParams = this.isReplay ? MJReplayModel.intParams : MJRoomModel.intParams;
         var ext = ClosingInfoModel.ext || [];
         if(intParams[10] > 0 && ext[11] && ext[11] != 0){
-            this.getWidget("Label_niao").setString("醒牌");
+            this.Image_niao.loadTexture("res/pkCommon/pkSmallResult/xingpai.png");
+            this.Image_niao.visible = true;
             this.Panel_niao.visible = true;
             var newData = MJAI.getMJDef(ext[11]);
             if(newData){
                 var card = new QZMahjong(MJAI.getDisplayVo(1,2),newData);
                 var _scale = 0.7;
                 card.scale = _scale;
-                card.x =  80;
-                card.y = -20;
+                card.x = 0;
+                card.y = 0;
                 this.Panel_niao.addChild(card);
             }
         }
@@ -468,17 +469,50 @@ var QZMJSmallResultPop = BasePopup.extend({
 
         var qyqID = "";
         if(ClosingInfoModel.ext[0] && ClosingInfoModel.ext[0] != 0){
-            qyqID = "亲友圈ID：" + ClosingInfoModel.ext[0] + "  ";
+            qyqID = "亲友苑ID:" + ClosingInfoModel.ext[0] + "  ";
         }
 
         var jushuStr = "第" + MJRoomModel.nowBurCount + "/" + MJRoomModel.totalBurCount + "局";
-        var roomIdStr = "房间号：" + MJRoomModel.tableId;
-        this.getWidget("info").setString(qyqID + jushuStr + "  " + roomIdStr);
+        var roomIdStr = "房号:" + MJRoomModel.tableId;
+        this.getWidget("info").setString(roomIdStr);
 
         if (ClosingInfoModel.isReplay){
-            var jushuStr = "第" + MJReplayModel.nowBurCount + "/" + MJReplayModel.totalBurCount + "局";
-            var roomIdStr = "房间号：" + ClosingInfoModel.ext[1];
-            this.getWidget("info").setString(qyqID + jushuStr + "  " + roomIdStr);
+            roomIdStr = "房号:" + ClosingInfoModel.ext[1];
+            this.getWidget("info").setString(roomIdStr);
+        }
+
+        var date = new Date();
+        var hours = date.getHours().toString();
+        hours = hours.length < 2 ? "0"+hours : hours;
+        var minutes = date.getMinutes().toString();
+        minutes = minutes.length < 2 ? "0"+minutes : minutes;
+        if(this.getWidget("Label_time")){
+            this.getWidget("Label_time").setString(hours+":"+minutes);
+        }
+
+        this.getWidget("Label_jushu").setString(jushuStr);
+        this.getWidget("Label_clubID").setString(qyqID);
+
+        var btClose = this.getWidget("close_btn");
+        UITools.addClickEvent(btClose , this , this.onBreak);
+        if (this.isRePlay){
+            btClose.visible = false;
+        }
+
+        //版本号
+        if(this.getWidget("Label_version")){
+            this.getWidget("Label_version").setString(SyVersion.v);
+        }
+
+        this.Panel_niao = this.getWidget("Panel_niao");
+        this.Panel_niao.visible = false;
+        this.Image_niao = this.getWidget("Image_niao");
+        this.Image_niao.visible = false;
+
+        this.showXingCard();
+
+        if (ClosingInfoModel.isReplay){
+            this.getWidget("replay_tip").visible =  true;
         }
 
         var xipai_btn = this.getWidget("xipai_btn");
@@ -495,22 +529,23 @@ var QZMJSmallResultPop = BasePopup.extend({
         }else{
             xipai_btn.visible = MJRoomModel.creditConfig[10] == 1;
         }
-        var xpkf =  MJRoomModel.creditXpkf ? MJRoomModel.creditXpkf.toString() : 0;
-        this.getWidget("label_xpkf").setString(xpkf);
+        var xpkf = MJRoomModel.creditXpkf ? MJRoomModel.creditXpkf.toString() : 0;
+        this.getWidget("label_xpkf").setString(""+xpkf);
 
-        //版本号
-        if(this.getWidget("Label_version")){
-            this.getWidget("Label_version").setString(SyVersion.v);
-        }
+        var Button_yupai = this.getWidget("Button_yupai");
+        UITools.addClickEvent(Button_yupai,this,this.onShowMoreResult);
+        Button_yupai.visible = true;
+    },
 
-        this.Panel_niao = this.getWidget("Panel_niao");
-        this.Panel_niao.visible = false;
+    onBreak:function(){
+        PHZAlertPop.show("解散房间需所有玩家同意，确定要申请解散吗？",function(){
+            sySocket.sendComReqMsg(7);
+        })
+    },
 
-        if (ClosingInfoModel.isReplay){
-            this.getWidget("replay_tip").visible =  true;
-        }
-
-        this.showXingCard();
+    onShowMoreResult:function(){
+        var mc = new MJSmallResultOtherPop(this.data);
+        PopupManager.addPopup(mc);
     },
 
     onCheckDesktop:function(){

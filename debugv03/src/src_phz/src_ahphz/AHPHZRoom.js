@@ -339,7 +339,7 @@ var AHPHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         if(SyConfig.HAS_GPS && PHZRoomModel.renshu > 2){
             hasGPS = true;
         }
-        var mc = new BaseRoomSetPop(hasGPS);
+        var mc = new BaseRoomSetPop(hasGPS,true);
         PopupManager.addPopup(mc);
     },
 

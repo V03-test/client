@@ -41,6 +41,10 @@ var PHZSetModel = {
             this.zmbj = 4;
             this.setLocalItem("pro003_phz_set_bg"+PHZRoomModel.wanfa,1);
         }
+
+        if(this.yyxz != 2 && this.yyxz != 3){
+            this.yyxz = 4;
+        }
     },
     setDefaultAllData:function(){
         var setAHPHZ = this.getLocalItem("pro003_phz_setAllData_Model"+PHZRoomModel.wanfa);

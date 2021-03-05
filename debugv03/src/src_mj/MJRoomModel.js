@@ -164,6 +164,7 @@ var MJRoomModel = {
         this.lzTingResult = [];
         this.scoreCard = message.scoreCard || [];
         this.ahmj_wangID = message.ext[4] || -1;//安化麻将翻出的王牌ID
+        this.qzmj_wangID = message.ext[4] || -1;//全州麻将翻出的王牌ID
         //var groupProperty = message.groupProperty.split(",");
         //for(var i=0;i<groupProperty.length;i++){
         //    var cardI = parseInt(groupProperty[i]);

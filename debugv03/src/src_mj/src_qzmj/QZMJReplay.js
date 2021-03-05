@@ -265,12 +265,6 @@ var QZMJReplay = BaseLayer.extend({
         if(PopupManager.getClassByPopup(PyqHall)){
             PopupManager.showPopup(PyqHall);
         }
-        //if(PopupManager.getClassByPopup(GoldClubRecordPop)){
-        //    PopupManager.showPopup(GoldClubRecordPop);
-        //}
-        //if(PopupManager.getClassByPopup(GoldRecordPop)){
-        //    PopupManager.showPopup(GoldRecordPop);
-        //}
         if(PopupManager.getClassByPopup(PyqRecordPop)){
             PopupManager.showPopup(PyqRecordPop);
         }

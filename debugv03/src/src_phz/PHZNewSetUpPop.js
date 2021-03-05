@@ -93,6 +93,17 @@ var PHZNewSetUpPop = BasePopup.extend({
             this["Image_yyxz2"].temp = 10;
             this["Button_yyxz2"].temp = 10;
             if(this.yyxz != 2)this.yyxz = 10;
+        }else if (PHZRoomModel.wanfa == GameTypeEunmZP.CZZP){
+            this["Image_yyxz1"].temp = 2;
+            this["Button_yyxz1"].temp = 2;
+            this["Image_yyxz2"].temp = 3;
+            this["Button_yyxz2"].temp = 3;
+            this["Image_yyxz3"].temp = 4;
+            this["Button_yyxz3"].temp = 4;
+            this["Image_yyxz3"].loadTexture("res/res_phz/phzSet/czh.png");
+            if(this.yyxz != 2 && this.yyxz != 3){
+                this.yyxz= 4;
+            }
         }
         this.displayYyxz();
 

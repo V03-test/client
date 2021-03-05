@@ -42,7 +42,8 @@ var ClosingMjInfoResponder = BaseResponder.extend({
                 var mc = new HZMJBigResultPop(message);
                 PopupManager.addPopup(mc);
             }else if(wanfa== GameTypeEunmMJ.CXMJ || wanfa== GameTypeEunmMJ.AHMJ || wanfa== GameTypeEunmMJ.KWMJ
-            || wanfa== GameTypeEunmMJ.TCPFMJ || wanfa== GameTypeEunmMJ.TCDPMJ || wanfa == GameTypeEunmMJ.YYNXMJ){
+            || wanfa== GameTypeEunmMJ.TCPFMJ || wanfa== GameTypeEunmMJ.TCDPMJ || wanfa == GameTypeEunmMJ.YYNXMJ
+                || wanfa == GameTypeEunmMJ.QZMJ){
                 var mc = new AHMJBigResultPop(message);
                 PopupManager.addPopup(mc);
             }else if(wanfa== GameTypeEunmMJ.BSMJ || wanfa== GameTypeEunmMJ.DHMJ ){

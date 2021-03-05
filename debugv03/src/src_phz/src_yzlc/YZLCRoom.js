@@ -371,7 +371,7 @@ var YZLCRoom = BaseLayer.extend({ //BaseLayer BaseRoom
                 hasGPS = true;
             }
         }
-        var mc = new BaseRoomSetPop(hasGPS);
+        var mc = new BaseRoomSetPop(hasGPS,true);
         PopupManager.addPopup(mc);
     },
 

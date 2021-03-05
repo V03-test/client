@@ -25,6 +25,7 @@ var SocketErrorModel = {
         var _loginHosts = GameConfig.parseHost(_login.ips);
         SyConfig.REQ_URL   =  _loginHosts[this._loginIndex] + "pdklogin/" + "{0}!{1}.action";
         SyConfig.LOGIN_URL =  _loginHosts[this._loginIndex] + "pdklogin/" + "{0}!{1}.guajilogin";
+        SyConfig.LOGIN_URL_NEW = _loginHosts[this._loginIndex];
 
         var _game = this._socketList.game;
         var _gameHosts = GameConfig.parseHost(_game.ips);
@@ -57,6 +58,7 @@ var SocketErrorModel = {
             }
             SyConfig.REQ_URL   =  _loginHosts[this._loginIndex] + "pdklogin/" + "{0}!{1}.action";
             SyConfig.LOGIN_URL =  _loginHosts[this._loginIndex] + "pdklogin/" + "{0}!{1}.guajilogin";
+            SyConfig.LOGIN_URL_NEW = _loginHosts[this._loginIndex];
             UITools.setLocalItem("Socket_loginIndex",this._loginIndex);
             cc.log("updateLoginIndex===",this._loginIndex,SyConfig.REQ_URL,SyConfig.LOGIN_URL)
         }

@@ -294,10 +294,10 @@ var DTZExfunc = {
             if (times == 3) {
                 //cc.log("找到筒子 面值为:", cardMsg.cardValue, " 花色为:", cardMsg.color);
                 for(var index = 0 ; index < cardMsg.objList.length ; index ++ ){
-                    cardMsg.objList[index].tongziSp.visible = true;
-                    if (cardMsg.objList[index]._isTongzi){
-                        cardMsg.objList[index]._isTongzi = true;
-                    }
+                    cardMsg.objList[index].tongziSp.visible = cardMsg.objList[index]._isTongzi = true;
+                    //if (cardMsg.objList[index]._isTongzi){
+                    //    cardMsg.objList[index]._isTongzi = true;
+                    //}
                 }
             }else{//可能之前是筒子 打过牌以后拆散了 去掉是筒子的标记
                 for(var index = 0 ; index < cardMsg.objList.length ; index ++){

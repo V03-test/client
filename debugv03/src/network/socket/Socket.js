@@ -165,6 +165,7 @@ var SySocket = cc.Class.extend({
             sy.socketQueue._isLoading = false;
             var timeDis = timeEnd.getTime()-timeStart.getTime() ;//时间差的毫秒
             Network.uploadUpdateErrorLog(connectStr  + "|" + that.wsid + "|" + tag + "|" + PlayerModel.userId + "|" + timeDis);
+            SyEventManager.dispatchEvent(SyEvent.SOCKET_OPENED);
             SdkUtil.sdkLog("websocket is connect success.....................................");
         }
         //收到消息
@@ -180,7 +181,6 @@ var SySocket = cc.Class.extend({
                 PingClientModel.close();
                 _this.socket = null;
                 if (PlayerModel.userId > 0) {
-
                     NetErrorPop.show(true);
                 } else {
                     sy.scene.hideLoading();
@@ -201,7 +201,10 @@ var SySocket = cc.Class.extend({
                     NetErrorPop.show(true);
                 } else {
                     SocketErrorModel.updateGameIndex();
-                    FloatLabelUtil.comText("登录失败" + SocketErrorModel._gameIndex);
+                    if (_this.url){
+                        cc.log("登录失败url===",_this.url)
+                    }
+                    // FloatLabelUtil.comText("登录失败" + SocketErrorModel._gameIndex);
                     connectStr = "connect|13";
                     sy.scene.hideLoading();
                 }

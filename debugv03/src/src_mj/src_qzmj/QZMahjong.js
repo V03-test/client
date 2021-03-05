@@ -35,7 +35,7 @@ var QZMahjong = ccui.Widget.extend({
         if(!frame){
             //cc.log("Mahjong texture::"+texture+" is not exist!!!");
             // FloatLabelUtil.comText("Mahjong::"+texture+"not exist!!!");
-            texture = "lnmjbg_d4p3_an_1.png";
+            texture = "mjbg_d3p2_an_1.png";
         }
         return new cc.Sprite("#"+texture);
     },
@@ -87,7 +87,7 @@ var QZMahjong = ccui.Widget.extend({
 
     onDisplayTingPaiByGC:function(isTingSelected){
         if(isTingSelected) {
-            var sprite = UICtor.cS9Img("res/res_mj/ting_3.png", cc.rect(10, 10, 5, 5), cc.size(90, 130));
+            var sprite = UICtor.cS9Img("res/res_mj/mjRoom/ting_3.png", cc.rect(10, 10, 5, 5), cc.size(90, 130));
             sprite.x = 46.5;
             sprite.y = 66;
             this._bg.addChild(sprite,1,999);
@@ -248,25 +248,13 @@ var QZMahjong = ccui.Widget.extend({
             }
         }
         var hdp = "d"+hdirect+"p"+hplace;
-
-        if (type == 3){
-            if(an===1 || (direct==3&&place==1) || (direct==4&&place==1) || (direct==2&&place==1)){
-                if(an===1){
-                    hdp += "_an";
-                }
-                bgPng = "xygmjbg_"+hdp+".png";
-            }else{
-                bgPng = "xygmjbg_"+hdp+".png";
+        if (an === 1 || (direct == 3 && place == 1) || (direct == 4 && place == 1) || (direct == 2 && place == 1)) {
+            if (an === 1) {
+                hdp += "_an";
             }
-        }else{
-            if(an===1 || (direct==3&&place==1) || (direct==4&&place==1) || (direct==2&&place==1)){
-                if(an===1){
-                    hdp += "_an";
-                }
-                bgPng = type + "mjbg_"+hdp+".png";
-            }else{
-                bgPng = type + "mjbg_"+hdp+".png";
-            }
+            bgPng = type + "mjbg_" + hdp + ".png";
+        } else {
+            bgPng = type + "mjbg_" + hdp + ".png";
         }
         var png = SetUpModel.getMahjongRes(bgPng);
         var frame = cc.spriteFrameCache.getSpriteFrame(png);
@@ -274,7 +262,6 @@ var QZMahjong = ccui.Widget.extend({
     },
 
     changeZi:function(type){
-        cc.log("type =",type);
         //先选一个背景
         var direct = this._displayVo.direct;
         var place = this._displayVo.place;
@@ -300,28 +287,23 @@ var QZMahjong = ccui.Widget.extend({
         } else if(place == 2) {
             switch (direct) {
                 case 1:
-                    mjScale = 1.15;
                     break;
                 case 2:
                     hdirect = 4;
                     hplace = 3;
-                    mjScale = 1;
                     ziFlippedX = true;
                     break;
                 case 3:
                     hdirect = 1;
-                    mjScale = 0.8;
                     break;
                 case 4:
                     hplace = 3;
-                    mjScale = 1;
                     break;
             }
         } else if(place == 3) {
             switch (direct) {
                 case 1:
                     hplace = 2;
-                    mjScale = 0.79;
                     break;
                 case 2:
                     hdirect = 4;
@@ -331,7 +313,6 @@ var QZMahjong = ccui.Widget.extend({
                 case 3:
                     hdirect = 1;
                     hplace = 2;
-                    mjScale = 0.79;
                     break;
                 case 4:
                     hplace = 3;
@@ -341,46 +322,25 @@ var QZMahjong = ccui.Widget.extend({
             switch (direct) {
                 case 1:
                     hplace = 2;
-                    mjScale = 1;
                     break;
                 case 2:
                     hdirect = 4;
                     hplace = 3;
-                    mjScale = 1;
                     ziFlippedX = true;
                     break;
                 case 3:
                     hdirect = 1;
                     hplace = 2;
-                    mjScale = 0.8;
                     break;
                 case 4:
                     hplace = 3;
-                    mjScale = 1;
                     break;
             }
         }
         var hdp = "d"+hdirect+"p"+hplace;
-        // if (type == 2){
-        //     if(an===1 || (direct==3&&place==1) || (direct==4&&place==1) || (direct==2&&place==1)){
-        //     }else{
-        //         zipng = "lnmj_"+hdp+"_"+this._cardVo.t+"_"+this._cardVo.n+".png";
-        //     }
-        // }else if (type == 1){
-        //     if(an===1 || (direct==3&&place==1) || (direct==4&&place==1) || (direct==2&&place==1)){
-        //     }else{
-        //         zipng = "oldmj_"+hdp+"_"+this._cardVo.t+"_"+this._cardVo.n+".png";
-        //     }
-        if(type<3){
-            if(an===1 || (direct==3&&place==1) || (direct==4&&place==1) || (direct==2&&place==1)){
-            }else{
-                zipng = type + "mj_"+hdp+"_"+this._cardVo.t+"_"+this._cardVo.n+".png";
-            }
-        }else {
-            if(an===1 || (direct==3&&place==1) || (direct==4&&place==1) || (direct==2&&place==1)){
-            }else{
-                zipng = "xygmj_"+hdp+"_"+this._cardVo.t+"_"+this._cardVo.n+".png";
-            }
+        if (an === 1 || (direct == 3 && place == 1) || (direct == 4 && place == 1) || (direct == 2 && place == 1)) {
+        } else {
+            zipng = type + "mj_" + hdp + "_" + this._cardVo.t + "_" + this._cardVo.n + ".png";
         }
         if(zipng!=""){
             var frame = cc.spriteFrameCache.getSpriteFrame(zipng);
@@ -574,14 +534,14 @@ var QZMahjong = ccui.Widget.extend({
         var bgFlippedX = false;
         var ziFlippedX = false;
         var mjScale = 1;
-        var bgstyle = UITools.getLocalItem("sy_mj_pp"+MJRoomModel.wanfa)||UITools.getLocalItem("sy_mj_pp") || 1; //1 绿色 2 黄色
-        var mjstyle = UITools.getLocalItem("sy_mj_pm"+MJRoomModel.wanfa)||UITools.getLocalItem("sy_mj_pm") || 1; //1 旧麻将 2 新麻将;
+        var bgstyle = UITools.getLocalItem("pro003_mj_pp"+MJRoomModel.wanfa)|| 1; //1 绿色 2 黄色
+        var mjstyle = UITools.getLocalItem("pro003_mj_pm"+MJRoomModel.wanfa)|| 1; //1 旧麻将 2 新麻将;
 
         /***
          *   YJMJ需要用
          */
         //if(MJRoomModel.wanfa == MJWanfaType.YJMJ){
-        //    var mjstyle = UITools.getLocalItem("sy_mj_pm"+MJRoomModel.wanfa)||UITools.getLocalItem("sy_mj_pm") || 3; //1 旧麻将 2 新麻将;
+        //    var mjstyle = UITools.getLocalItem("pro003_mj_pm"+MJRoomModel.wanfa)||UITools.getLocalItem("pro003_mj_pm") || 3; //1 旧麻将 2 新麻将;
         //}
 
         if(place == 1){
@@ -660,6 +620,7 @@ var QZMahjong = ccui.Widget.extend({
         if(this._cardVo.hasOwnProperty("mjScale")) {
             mjScale = this._cardVo.mjScale;
         }
+
         if(an===1){
             hdp += "_an";
             if (direct == 1){
@@ -670,38 +631,19 @@ var QZMahjong = ccui.Widget.extend({
         }
 
         var hdp = "d"+hdirect+"p"+hplace;
-        if (bgstyle == 3){
-            if(an===1 || (direct==3&&place==1) || (direct==4&&place==1) || (direct==2&&place==1)){
-                if(an===1){
-                    hdp += "_an";
-                }
-                bgPng = "xygmjbg_"+hdp+".png";
-            }else{
-                bgPng = "xygmjbg_"+hdp+".png";
+        if (an === 1 || (direct == 3 && place == 1) || (direct == 4 && place == 1) || (direct == 2 && place == 1)) {
+            if (an === 1) {
+                hdp += "_an";
             }
-        }else{
-            if(an===1 || (direct==3&&place==1) || (direct==4&&place==1) || (direct==2&&place==1)){
-                if(an===1){
-                    hdp += "_an";
-                }
-                bgPng = bgstyle + "mjbg_"+hdp+".png";
-            }else{
-                bgPng = bgstyle + "mjbg_"+hdp+".png";
-            }
+            bgPng = bgstyle + "mjbg_" + hdp + ".png";
+        } else {
+            bgPng = bgstyle + "mjbg_" + hdp + ".png";
         }
 
-        if(mjstyle<3){
-            if(an===1 || (direct==3&&place==1) || (direct==4&&place==1) || (direct==2&&place==1)){
-            }else{
-                png = mjstyle + "mj_"+hdp+"_"+this._cardVo.t+"_"+this._cardVo.n+".png";
-            }
-        }else {
-            if(an===1 || (direct==3&&place==1) || (direct==4&&place==1) || (direct==2&&place==1)){
-            }else{
-                png = "xygmj_"+hdp+"_"+this._cardVo.t+"_"+this._cardVo.n+".png";
-            }
+        if (an === 1 || (direct == 3 && place == 1) || (direct == 4 && place == 1) || (direct == 2 && place == 1)) {
+        } else {
+            png = mjstyle + "mj_" + hdp + "_" + this._cardVo.t + "_" + this._cardVo.n + ".png";
         }
-
         // cc.log("ahmj png =",png);
         this.anchorX=this.anchorY=0;
         //根据设置的值，获取对应的资源
@@ -724,7 +666,12 @@ var QZMahjong = ccui.Widget.extend({
                 case 3:
                     zi.x = bg.width/2;
                     if(place==1) {
-                        zi.y = bg.height / 2 - 12;
+                        //if(direct == 1){
+                        //    if (mjstyle == 1){
+                        //        zi.setScale(0.72);
+                        //    }
+                        //}
+                        zi.y = bg.height / 2 - 15;
                     }
                     if(place==2)
                         zi.y = bg.height/2+15;
@@ -737,13 +684,13 @@ var QZMahjong = ccui.Widget.extend({
                 case 2:
 
                 case 4:
-                    zi.x = bg.width/2;
-                    zi.y = bg.height/2+12;
                     if(direct==2){
                         zi.setFlippedX(true);
                         zi.setFlippedY(true);
-                        zi.y = bg.height/2+12;
                     }
+                    zi.x = bg.width/2;
+                    zi.y = bg.height/2+11;
+
                     break;
             }
 
@@ -801,7 +748,7 @@ var QZMahjong = ccui.Widget.extend({
 
     },
 
-    displayGreyBg:function(isShouPai){
+    displayGreyBg:function(){
         if(!this._bg.getChildByTag(1001)) {
             var png = "res/res_mj/mjRoom/mjRoom_37.png";
             var initX = 0;
@@ -811,14 +758,13 @@ var QZMahjong = ccui.Widget.extend({
                 png = "res/res_mj/mjRoom/mjRoom_38.png";
                 initX = 4;
                 initY = 1;
-                scale = 1.35;
+                scale = 1.71;
             }
             var bg = new cc.Sprite(png);
             if (this._displayVo.direct == 3 || this._displayVo.direct == 1) {
-                initX = 3;
+                initX = 2;
                 initY = 0;
-                scale = 1.7;
-                scaleX = 1.9;
+                scale = 2.15;
             }
             if(isShouPai && this._displayVo.direct == 1){
                 scale = this._bg.scale;
@@ -888,7 +834,7 @@ var QZMahjong = ccui.Widget.extend({
      * @param bg
      */
     displayTing: function(bg) {
-        this.tingpaiSprite = new cc.Sprite("res/res_mj/ting_2.png");
+        this.tingpaiSprite = new cc.Sprite("res/res_mj/mjRoom/ting_2.png");
         this.tingpaiSprite.setScale(1.2);
         this.tingpaiSprite.x = 62;
         this.tingpaiSprite.y = 102;
@@ -896,7 +842,7 @@ var QZMahjong = ccui.Widget.extend({
         this.tingpaiLab = UICtor.cLabel("0",20,cc.size(220,45),cc.color(255,248,238),1,1);
         this.tingpaiLab.x = this.tingpaiLab.y = 12;
         this.tingpaiSprite.addChild(this.tingpaiLab);
-        this.shadeSprite = UICtor.cS9Img("res/res_mj/ting_3.png",cc.rect(10,10,5,5),cc.size(73,107));
+        this.shadeSprite = UICtor.cS9Img("res/res_mj/mjRoom/ting_3.png",cc.rect(10,10,5,5),cc.size(73,107));
         this.shadeSprite.x = 37;
         this.shadeSprite.y = 54;
         bg.addChild(this.shadeSprite);
@@ -907,7 +853,7 @@ var QZMahjong = ccui.Widget.extend({
     displayJianTou: function(direct, bg, scale) {
         var bgw = bg.width*scale;
         var bgh = bg.height*scale;
-        var realpath = "res/res_mj/mjRoom/"+this._cardVo.jt;
+        var realpath = "res/res_mj/mjRoom/mjRoom/"+this._cardVo.jt;
         if(!jsb.fileUtils.isFileExist(realpath)){
             //cc.log("realpath is not exist...");
             return;
@@ -934,7 +880,7 @@ var QZMahjong = ccui.Widget.extend({
 
     displayFuOrFeiPai: function(direct, place, bg) {
         if(direct==1&&place==1) {
-            var sprite = UICtor.cS9Img("res/res_mj/ting_3.png",cc.rect(10,10,5,5),cc.size(90,130));
+            var sprite = UICtor.cS9Img("res/res_mj/mjRoom/ting_3.png",cc.rect(10,10,5,5),cc.size(90,130));
             sprite.x = 46.5;
             sprite.y = 66;
             bg.addChild(sprite);
@@ -942,7 +888,7 @@ var QZMahjong = ccui.Widget.extend({
     },
 
     gang:function(){
-        //var gang = new cc.Sprite("res/res_mj/img_50.png");
+        //var gang = new cc.Sprite("res/res_mj/mjRoom/img_50.png");
         //this._bg.addChild(gang);
     },
 

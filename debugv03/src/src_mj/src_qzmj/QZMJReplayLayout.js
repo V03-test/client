@@ -600,7 +600,7 @@ var QZMJReplayLayout = cc.Class.extend({
 
         this.data1 = newData;
 
-        var gapMapping = {1:133,2:41,3:58,4:41};//{1:88,2:40,3:50,4:40};
+        var gapMapping = {1:133,2:57,3:72,4:57};//{1:88,2:40,3:50,4:40};
         var g=gapMapping[this.direct];
         var initVal=this.p2Mark;
         var correctCoord = function(direct,card,i,zorder,isMopai){
@@ -790,19 +790,19 @@ var QZMJReplayLayout = cc.Class.extend({
         var g,initVal;
         switch (this.direct){
             case 1:
-                g = 64;//50;
+                g = 75;//50;
                 initVal = 34;
                 break;
             case 2:
-                g = 46;//39;
+                g = 59;//39;
                 initVal = g;
                 break;
             case 3:
-                g = 64;//50;
+                g = 75;//50;
                 initVal = this.oPanel.width-g-34;
                 break;
             case 4:
-                g = 46;//39;
+                g = 59;//39;
                 initVal = this.oPanel.height-g;
                 break;
         }

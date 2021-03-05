@@ -62,6 +62,11 @@ var PDKSetUpPop = BasePopup.extend({
         this.pz = this.getLocalItem(this.layerName+"sy_pdk_pz") || 2;
         this.pm = 2;
 
+        this.pkCard = this.getLocalItem(this.layerName+"_localCardIndex") || 1;//扑克牌
+        if(this.pkCard != 1 && this.pkCard != 2){
+            this.pkCard = 1;
+        }
+
         if(this.pz > 2){
             this.pz = 1;
         }
@@ -70,22 +75,8 @@ var PDKSetUpPop = BasePopup.extend({
         this["CheckBox_bg1"].addEventListener(this.onClickPz1, this);
         this["CheckBox_bg2"] = this.getWidget("CheckBox_bg2");
         this["CheckBox_bg2"].addEventListener(this.onClickPz2, this);
-        //this["CheckBox_bg3"] = this.getWidget("CheckBox_bg3");
-        //this["CheckBox_bg3"].addEventListener(this.onClickPz3, this);
 
         if(PDKRoomModel.isMoneyRoom()){
-            //this.getWidget("Panel_pm set").setVisible(false);
-            //this["CheckBox_bg3"].visible = false;
-
-            //var bg1 = "res/res_pdk/pdkSetup/gold_set_1.png";
-            //var bg2 = "res/res_pdk/pdkSetup/gold_set_2.png"
-            //
-            //this["CheckBox_bg1"].loadTextureBackGround(bg1);
-            //this["CheckBox_bg1"].loadTextureBackGroundSelected(bg1);
-            //
-            //this["CheckBox_bg2"].loadTextureBackGround(bg2);
-            //this["CheckBox_bg2"].loadTextureBackGroundSelected(bg2);
-
             if(this.pz == 3)this.pz = 1;
         }
 
@@ -148,7 +139,6 @@ var PDKSetUpPop = BasePopup.extend({
     displayPz:function(){
         this.getWidget("CheckBox_bg1").setSelected(this.pz==1);
         this.getWidget("CheckBox_bg2").setSelected(this.pz==2);
-        //this.getWidget("CheckBox_bg3").setSelected(this.pz==3);
         cc.sys.localStorage.setItem(this.layerName+"sy_pdk_pz",this.pz);
         SyEventManager.dispatchEvent(SyEvent.UPDATE_BG_YANSE,this.pz);
     },

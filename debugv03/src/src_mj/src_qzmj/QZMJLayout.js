@@ -957,9 +957,9 @@ var QZMJLayout = cc.Class.extend({
         this.data1 = newData;
         // cc.log("this.data1 =",JSON.stringify(this.data1));
         var gapMapping = {1:133,2:41,3:58,4:41};
-        //if (cc.winSize.width > SyConfig.DESIGN_WIDTH && SdkUtil.isLiuHaiPin()){
-        //    gapMapping[1] = (parseInt(cc.winSize.width) - 14*133)/2 / 14  + 133;
-        //}
+        if (cc.winSize.width > SyConfig.DESIGN_WIDTH && SdkUtil.isLiuHaiPin()){
+            gapMapping[1] = (parseInt(cc.winSize.width) - 14*133)/2 / 14  + 133;
+        }
         var g=gapMapping[this.direct];
         var initVal=this.p2Mark;
         var correctCoord = function(direct,card,i,zorder,isMopai){
@@ -1179,7 +1179,7 @@ var QZMJLayout = cc.Class.extend({
                         if(this.direct==2)
                             gang.y += 15;
                         if(this.direct==3)
-                            gang.y += 20;
+                            gang.y += 12;
                         if(this.direct==4)
                             gang.y += 15;
                         gang.scale = 1;
@@ -1219,22 +1219,22 @@ var QZMJLayout = cc.Class.extend({
         var g,initVal;
         switch (this.direct){
             case 1:
-                g = 75;
+                g = 64;
                 initVal = 34;
                 if(MJRoomModel.renshu ==3){
                     initVal = -40;
                 }
                 break;
             case 2:
-                g = 59;
+                g = 46;
                 initVal = MJRoomModel.renshu ==3?130:g;
                 break;
             case 3:
-                g = 75;
+                g = 64;
                 initVal = this.oPanel.width-g-34;
                 break;
             case 4:
-                g = 59;
+                g = 46;
                 initVal = this.oPanel.height-g;
                 if(MJRoomModel.renshu ==3){
                     initVal += 80;
@@ -1375,9 +1375,9 @@ var QZMJLayout = cc.Class.extend({
                 card.x = 0;
                 var localNumber = Math.floor(i / rowCount);
                 if(this.direct==2)
-                    card.x = 120 - localNumber * 76;
+                    card.x = -28 + localNumber * 100;
                 if(this.direct==4)
-                    card.x = -100 + localNumber * 76;
+                    card.x = 58 - localNumber * 100;
             }
             if(this.direct==4){
                 card.setLocalZOrder(i);
@@ -1389,11 +1389,10 @@ var QZMJLayout = cc.Class.extend({
                 card.y = 0;
                 var localNumber = Math.floor(i / rowCount);
                 if(this.direct==1)
-                    card.y = -110 + localNumber * 72;
-                card.setLocalZOrder(5 - localNumber);
+                    card.y = 50 - localNumber * 85;
                 if(this.direct==3){
-                    card.y = 130 - localNumber * 72;
-                    card.setLocalZOrder(5 + localNumber);
+                    card.y = localNumber * 85;
+                    card.setLocalZOrder(5 - localNumber);
                 }
             }
             this.oPanel.addChild(card);
@@ -1416,19 +1415,19 @@ var QZMJLayout = cc.Class.extend({
         var dis = isBuhua?500:0;
         switch (this.direct){
             case 1:
-                g = 48;
+                g = 64;
                 initVal=450+ dis;
                 break;
             case 2:
-                g = 32;
+                g = 46
                 initVal = 50;
                 break;
             case 3:
-                g = 48;
+                g = 64;
                 initVal = 500;
                 break;
             case 4:
-                g = 32;
+                g = 46;
                 initVal = 50;
                 break;
         }

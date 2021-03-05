@@ -20,14 +20,7 @@ var NetErrorPop = BasePopup.extend({
     selfRender: function () {
         this.Label_35 = this.getWidget("Label_35");
         this.addCustomEvent(SyEvent.SOCKET_OPENED,this,this.onSuc);
-        //var mc = this.lmc = this.getWidget("Image_7");
-        //mc.runAction(cc.rotateTo(3,720,720).repeatForever());
 
-        // ccs.armatureDataManager.addArmatureFileInfo("res/bjdani/jiazai_bjd/jiazai_bjd.ExportJson");
-        // this.ani = new ccs.Armature("jiazai_bjd");
-        // this.ani.setPosition(this.root.width/2 ,this.root.height/2+40);
-        // this.ani.getAnimation().play("jiazai",-1,1);
-        // this.root.addChild(this.ani);
         if(!this._runAnimat) {
             var _timeDiff = 0.25;
             var _timeDelay = 0.1;

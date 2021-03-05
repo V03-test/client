@@ -397,7 +397,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
                 hasGPS = true;
             }
         }
-        var mc = new BaseRoomSetPop(hasGPS);
+        var mc = new BaseRoomSetPop(hasGPS,true);
         PopupManager.addPopup(mc);
     },
 
@@ -4144,6 +4144,8 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
             gameTypeUrl = "res/res_phz/wanfaFront/ldfpf.png";
         }else if (PHZRoomModel.wanfa == GameTypeEunmZP.GLZP){
             gameTypeUrl = "res/res_phz/wanfaFront/glzp.png";
+        }else if (PHZRoomModel.wanfa == GameTypeEunmZP.XTPHZ){
+            gameTypeUrl = "res/res_phz/wanfaFront/xtphz.png";
         }
 
         this.Image_phz.loadTexture(gameTypeUrl);

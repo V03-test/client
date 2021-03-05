@@ -65,28 +65,26 @@ var QZMJRoom = BaseRoom.extend({
         this.jt3= this.getWidget("jt3");
         this.jt4= this.getWidget("jt4");
         this.jt.visible = false;
-        this.Image_info1 = this.getWidget("Image_info1");
-        this.Image_info2 = this.getWidget("Image_info2");
-        this.Label_info_mj = this.getWidget("Label_info_mj");
+        this.Label_info_mj = this.getWidget("Label_info_mj")
+        this.Label_jushu = this.getWidget("Label_jushu");
+        this.Label_shengyu = this.getWidget("Label_shengyu");
         this.Label_info0 = this.getWidget("Label_info0");//房号
         this.Panel_btn = this.getWidget("Panel_btn");//按钮panel
-        //this.Button_setup = this.getWidget("Button_setup");
+
         this.Button_setup1 = this.getWidget("Button_setup1");
-        this.Image_setup = this.getWidget("Image_setup");
         this.Panel_20 = this.getWidget("Panel_20");
         this.Button_info = this.getWidget("Button_info");
         this.Button_gps = this.getWidget("Button_gps");
         this.getWidget("mPanel1").y = 20;
 
-        if (SyConfig.HAS_GPS && MJRoomModel.renshu >2) {
-            if(GPSModel.getGpsData(PlayerModel.userId) == null){
-                this.Button_gps.setBright(false);
-            }else{
-                this.Button_gps.setBright(true);
-            }
-        } else {
-            this.Button_gps.visible = false;
-        }
+        this.Button_gps.visible = false;
+
+        this.tuichuBtn = this.getWidget("Button_tuichu");//退出房间
+        UITools.addClickEvent(this.tuichuBtn ,this,this.onTuiChu);
+
+        this.tuichuBtn.visible = true;
+        this.tuichuBtn.y = 520;
+
         this.getWidget("label_version").setString(SyVersion.v);
 
 
@@ -122,20 +120,21 @@ var QZMJRoom = BaseRoom.extend({
         this.Button_10 = this.getWidget("Button_10");//继续按钮
         this.btn_back = this.getWidget("btn_back");
         this.Main = this.getWidget("Panel_20");
-        this.bgColor = cc.sys.localStorage.getItem("sy_mj_pz"+MJRoomModel.wanfa)||cc.sys.localStorage.getItem("sy_mj_pz") || 2;
+        this.bgColor = cc.sys.localStorage.getItem("pro003_mj_pz"+MJRoomModel.wanfa)|| 2;
         this.Label_jsq = this.getWidget("Label_jsq");//计时器
         //this.Label_jsq.setString("计时器\n00:00");
         this.Label_jsq.setString("");
-        this.btnInvite.y = 400;
+        this.btnInvite.y = 520;
         this.roomName_label = new cc.LabelTTF("","Arial",32,cc.size(500, 40));
+        this.roomName_label.setAnchorPoint(0,0.5);
         this.addChild(this.roomName_label, 10);
         if (MJRoomModel.roomName){
             this.roomName_label.setString(MJRoomModel.roomName);
             this.roomName_label.setColor(cc.color(214,203,173));
             this.roomName_label.setHorizontalAlignment(cc.TEXT_ALIGNMENT_CENTER);
             this.roomName_label.setVerticalAlignment(cc.VERTICAL_TEXT_ALIGNMENT_CENTER);
-            this.roomName_label.x = cc.winSize.width/2 - 840;
-            this.roomName_label.y = cc.winSize.height/2 + 300;
+            this.roomName_label.x = cc.winSize.width/2 - 960;
+            this.roomName_label.y = cc.winSize.height/2 + 370;
         }
 
         this.btn_CancelTuoguan = this.getWidget("btn_CancelTuoguan");//取消托管按钮
@@ -229,9 +228,10 @@ var QZMJRoom = BaseRoom.extend({
         this.Panel_20.addChild(this.button_wanfa);
         this.button_wanfa.y = this.Button_setup1.y;
         this.button_wanfa.x = 1710;
-        UITools.addClickEvent(this.button_wanfa,this,this.showWanFaImg);
-        this.initwanfaImg();
-        this.showWanFaImg();
+        //UITools.addClickEvent(this.button_wanfa,this,this.showWanFaImg);
+        //this.initwanfaImg();
+        //this.showWanFaImg();
+        this.button_wanfa.visible = false;
 
         this.button_fengDong =  new ccui.Button("res/res_mj/res_ahmj/kwmjRoom/feng.png","","");
         this.Panel_20.addChild(this.button_fengDong);
@@ -281,6 +281,10 @@ var QZMJRoom = BaseRoom.extend({
         this.newUpdateFace();
         // this.showCXMJ_chooseGang();
         //this.adjustInviteBtn();
+    },
+
+    onTuiChu:function(){
+        sySocket.sendComReqMsg(6);
     },
 
     NeedXipai: function () {
@@ -525,12 +529,8 @@ var QZMJRoom = BaseRoom.extend({
                 mjp.startGame();
             }
         }
-        this.Panel_piaofen.visible = true;
-        if(MJRoomModel.wanfa == GameTypeEunmMJ.KWMJ){
-            this.Button_p3f.visible = false;
-            this.Button_p1f.x = 210;
-            this.Button_p2f.x = 650;
-        }
+        //this.Panel_piaofen.visible = true;
+        this.showPiaoBtn(true);
     },
     hideAction:function() {
         this.Panel_btn.visible = false;
@@ -586,31 +586,25 @@ var QZMJRoom = BaseRoom.extend({
         var tempSize = (size.width - SyConfig.DESIGN_WIDTH)/2;
         var offx = tempSize > 100 ? 50 : tempSize/2;
         if(size.width > SyConfig.DESIGN_WIDTH){
-            this.getWidget("Label_info0").x -= tempSize - offx;
-            this.getWidget("label_version").x -= tempSize - offx;
-            this.getWidget("Label_time").x -= tempSize - offx;
-            this.getWidget("netType").x -= tempSize - offx;
-            this.getWidget("Image_19").x -= tempSize - offx;
             this.recordBtn.x -= tempSize - offx;
-            // this.Button_ting.x -= tempSize - offx;
             this.getWidget("Button_52").x += tempSize - offx;
-            this.Button_ting.x =  this.Button_52.x;
-            this.button_wanfa.x += tempSize - offx;
             this.Button_setup1.x += tempSize - offx;
-            this.Image_setup.x += tempSize - offx;
-            this.Button_gps -= tempSize - offx;
-
             this.roomName_label.x -= tempSize - offx;
-
             this.getWidget("mPanel1").x += tempSize;
+            this.button_fengDong.x += tempSize - offx;
+
+            this.getWidget("Image_infoBg").x -= tempSize - offx;
+            this.getWidget("Image_otherDi").x -= tempSize - offx;
+            this.getWidget("Image_dipai").x -= tempSize - offx;
         }
     },
 
     //微信邀请按钮统一换资源，增加亲友圈邀请按钮
     adjustInviteBtn:function(){
-        var img_wx = "res/ui/bjdmj/wx_invite.png";
-        var img_qyq = "res/ui/bjdmj/qyq_invite.png";
-        var img_back = "res/ui/bjdmj/back_qyq_hall.png";
+        var img_wx = "res/res_gameCom/Z_wechatInvitation.png";
+        var img_qyq = "res/res_gameCom/qyqInvite.png";
+        var img_back = "res/res_gameCom/backHall.png";
+
         var btn_wx_invite = this.btnInvite;
         btn_wx_invite.loadTextureNormal(img_wx);
         cc.log("this.btnInvite====",this.btnInvite.x);
@@ -638,7 +632,19 @@ var QZMJRoom = BaseRoom.extend({
                 btn_wx_invite.setPositionY(btn_wx_invite.y - 65);
             }
         }
-
+        if(!this.tuichuBtn){
+            this.tuichuBtn = this.getWidget("Button_tuichu");
+        }
+        var localX = this.btnInvite.x;
+        this.tuichuBtn.y = this.btnInvite.y;
+        if(BaseRoomModel.curRoomData && BaseRoomModel.curRoomData.roomName){
+            this.tuichuBtn.x = localX;
+        }else{
+            this.tuichuBtn.x = 960;
+        }
+        this.localTuichuX = this.tuichuBtn.x;
+        //this.btnInvite.setEnabled(false);
+        this.btnInvite.opacity = 0;
     },
 
     send_KWMJ_fengdong:function(){
@@ -1109,13 +1115,6 @@ var QZMJRoom = BaseRoom.extend({
             for(var j=0;j < info.length; j++){
                 if (info[j].majiangId){
                     var list = info[j].tingMajiangIds;
-                    if (list && list.length == 1 && list[0] == 201&& !MJRoomModel.isTCPFMJ() && !MJRoomModel.isTCDPMJ()){
-                        list = [];
-                        for (var i = 1; i <= 27; i++) {
-                            list.push(i);
-                        }
-                        list.push(201);
-                    }
                     var num = 0;
                     for(var lay in this.layouts){
                         num = num + this.layouts[lay].getCardAllNumById(list);
@@ -1183,8 +1182,8 @@ var QZMJRoom = BaseRoom.extend({
                     this.Panel_hupai.height = 280;
                 }
             }else{
-                this.Panel_hupai.width = 20 + huList.length * 102*scale_num;
-                this.Panel_hupai.height = 135;
+                this.Panel_hupai.width = huList.length * 100*scale_num + 20;
+                this.Panel_hupai.height = 130;
             }
 
             for (var i = 0; i < huList.length; i++) {
@@ -1194,8 +1193,8 @@ var QZMJRoom = BaseRoom.extend({
                 var card = new QZMahjong(MJAI.getDisplayVo(1, 2), vo);
                 card.scale = scale_num;
                 var size = card.getContentSize();
-                card.x = 20 + width * (size.width*scale_num + 2*scale_num + 10);
-                card.y = this.Panel_hupai.height - (size.height + 30) * scale_num - height*(size.height + 15)*scale_num;
+                card.x = 10 + width * (size.width*scale_num + 2*scale_num);
+                card.y = this.Panel_hupai.height - (size.height + 15) * scale_num - height*(size.height + 5)*scale_num;
                 this.Panel_hupai.addChild(card,i+1);
                 var num = this.getMahjongNumById(vo);
                 var paiNumLabel = new cc.LabelTTF("", "Arial", 40);
@@ -1206,6 +1205,7 @@ var QZMJRoom = BaseRoom.extend({
                 card.addChild(paiNumLabel);
             }
         }else{
+            this.Button_ting.visible = false;
             this.Panel_hupai.removeAllChildren();
             this.Panel_hupai.visible =false;
         }
@@ -1271,9 +1271,6 @@ var QZMJRoom = BaseRoom.extend({
                 this.getWidget("Image_bg").loadTexture("res/res_mj/common/bbglv.jpg");
                 break;
             case 2:
-                this.getWidget("Image_bg").loadTexture("res/res_mj/common/bbgqianlan.jpg");
-                break;
-            case 3:
                 this.getWidget("Image_bg").loadTexture("res/res_mj/common/bbglan.jpg");
                 break;
         }
@@ -1372,25 +1369,14 @@ var QZMJRoom = BaseRoom.extend({
     },
 
     onShowSetUp:function(obj,fromTimeOut){
-        var self = this;
-        if (this.Panel_20.getChildByName("wanfaImg")){
-            this.Panel_20.getChildByName("wanfaImg").setVisible(false);
+        var hasGPS = false;
+        if(SyConfig.HAS_GPS && MJRoomModel.renshu > 2){
+            if(GPSModel.getGpsData(PlayerModel.userId) != null){
+                hasGPS = true;
+            }
         }
-        if(!fromTimeOut&&this.setUpTimeId>=0){
-            clearTimeout(this.setUpTimeId);
-            this.setUpTimeId=-1;
-        }
-        if(!this.Image_setup.visible){
-            if(fromTimeOut)
-                return;
-            this.Image_setup.visible = true;
-            this.setUpTimeId = setTimeout(function(){
-                self.onShowSetUp(obj,true);
-            },10000);
-        }else{
-            this.Image_setup.visible = false;
-        }
-        this.Button_setup1.setBright(!this.Image_setup.visible);
+        var mc = new BaseRoomSetPop(hasGPS);
+        PopupManager.addPopup(mc);
     },
 
     onPlayerInfo:function(obj){
@@ -1487,7 +1473,7 @@ var QZMJRoom = BaseRoom.extend({
     initData:function(){
         this.removeWangCards();
         this.roomName_label.setString(MJRoomModel.roomName);
-        this.initwanfaImg();
+        //this.initwanfaImg();
         BaseRoom.prototype.initData.call(this);
         if(this.overTimeout) {
             clearTimeout(this.overTimeout);
@@ -1553,10 +1539,15 @@ var QZMJRoom = BaseRoom.extend({
             }
 
             if(!isContinue){
-                if(p.status)
+                if(p.status){
                     cardPlayer.onReady();
+                    if(MJRoomModel.nowBurCount == 1 && !MJRoomModel.isStart){
+                        this.tuichuBtn.visible = true;
+                    }
+                }
             }else{//恢复牌局
                 var banker = null;
+                this.tuichuBtn.visible = false;
 
                 this.initCards(seq,p.handCardIds, p.moldCards, p.outedIds, p.huCards, banker, isMoPai);
 
@@ -1996,26 +1987,8 @@ var QZMJRoom = BaseRoom.extend({
     },
 
     updateRemain:function(){
-        this.Image_info2.removeChildByTag(999);
-        var textRenderer =  new cc.LabelTTF("剩"+MJRoomModel.remain+"张", "", 32);
-        var ele1 = [];
-        ele1.push(RichLabelVo.createTextVo("剩",cc.color("#AFD1BA"),32));
-        ele1.push(RichLabelVo.createTextVo(MJRoomModel.remain+"",cc.color("#f6c143"),32));
-        ele1.push(RichLabelVo.createTextVo("张",cc.color("#AFD1BA"),32));
-        var label = new RichLabel(cc.size(120,40));
-        label.setLabelString(ele1);
-        label.x = (this.Image_info2.width-textRenderer.getContentSize().width)/2;
-        label.y = 24;
-        this.Image_info2.addChild(label,1,999);
+        this.Label_shengyu.setString(""+MJRoomModel.remain);
         if (MJRoomModel.remain == 4) {
-            //var winSize = cc.director.getWinSize();
-            //var last4 = new cc.Sprite("res/res_mj/res_ahmj/ahmjRoom/last4.png");
-            //last4.x = winSize.width/2+42;
-            //last4.y = winSize.height/2;
-            //this.root.addChild(last4,9999);
-            //last4.runAction(cc.sequence(cc.delayTime(3),cc.fadeOut(2),cc.callFunc(function() {
-            //    last4.removeFromParent(true);
-            //})));
             FloatLabelUtil.comText("最后四张");
         }
     },
@@ -2030,6 +2003,32 @@ var QZMJRoom = BaseRoom.extend({
             me.status = params[1];
             this.btnReady.visible = false;
             this.btnInvite.visible = (ObjectUtil.size(this._players)<MJRoomModel.renshu);
+            if(!this.btnInvite.visible){
+                this.tuichuBtn.x = 960;
+            }else{
+                if(this.localTuichuX){
+                    this.tuichuBtn.x = this.localTuichuX;
+                }
+            }
+        }
+    },
+
+    /**
+     * 退出房间
+     * @param event
+     */
+    onExitRoom:function(event){
+        var p = event.getUserData();
+        if(this._players[p.seat])
+            this._players[p.seat].exitRoom();
+        delete this._players[p.seat];
+        this.btnInvite.visible = (ObjectUtil.size(this._players)<MJRoomModel.renshu);
+        if(!this.btnInvite.visible){
+            this.tuichuBtn.x = 960;
+        }else{
+            if(this.localTuichuX){
+                this.tuichuBtn.x = this.localTuichuX;
+            }
         }
     },
 
@@ -2055,29 +2054,9 @@ var QZMJRoom = BaseRoom.extend({
 
 
     updateRoomInfo:function(color){
-        var color = color || this.bgColor;
-        var fontColor = this.getFontColorByBgColor(color);
-        this.Label_info_mj.setColor(cc.color(fontColor[1]));
         this.updateRemain();
-        var zuizi = MJRoomModel.getZuiZiName(MJRoomModel.getFuType());
-        //var wa = MJRoomModel.getHuCountName(MJRoomModel.getHuCountConf());
-        var jifen = MJRoomModel.getJiFenName(MJRoomModel.getJiFenConf());
-        var cp = MJRoomModel.getChiPengName(MJRoomModel.getChiPengConf());
-        var ting = MJRoomModel.getTingHuName(MJRoomModel.getTingHuConf());
-        var jianglei = MJRoomModel.getJiangLeiName(MJRoomModel.getJiangLeiConf());
-        var gangjiafan = MJRoomModel.getKeXuanName(1);
-        //this.Label_info_mj.setString(csvhelper.strFormat("{0} {1} {2} {3} {4} {5}",zuizi,cp,jianglei,ting,jifen,gangjiafan));
-        this.Label_info_mj.setString("")
-        this.Image_info1.removeChildByTag(999);
-        var textRenderer =  new cc.LabelTTF(MJRoomModel.nowBurCount+"/"+MJRoomModel.totalBurCount+"局", "", 32);
-        var ele1 = [];
-        ele1.push(RichLabelVo.createTextVo(MJRoomModel.nowBurCount+"",cc.color(246,193,67),32));
-        ele1.push(RichLabelVo.createTextVo("/"+MJRoomModel.totalBurCount+"局",cc.color("#AFD1BA"),32));
-        var label = new RichLabel(cc.size(300,40),1);
-        label.setLabelString(ele1);
-        label.x = (this.Image_info1.width-textRenderer.getContentSize().width)/2;
-        label.y = 24;
-        this.Image_info1.addChild(label,1,999);
+        this.Label_info_mj.setString(ClubRecallDetailModel.getSpecificWanfa(MJRoomModel.intParams,0,1,MJRoomModel.isMoneyRoom()));
+        this.Label_jushu.setString("第 "+MJRoomModel.nowBurCount+"/"+MJRoomModel.totalBurCount+" 局");
     },
 
     displaySelectMahjongsForCXMJ:function(action,resultArray){
@@ -2521,6 +2500,7 @@ var QZMJRoom = BaseRoom.extend({
         if(this.Panel_20.getChildByName("wanfaImg")){
             this.Panel_20.getChildByName("wanfaImg").setVisible(false);
         }
+        this.tuichuBtn.visible = false;
         this.Panel_niaoPai.removeAllChildren();
         this.startTime = new Date().getTime();
         this.startJS = true;
@@ -2908,9 +2888,6 @@ var QZMJRoom = BaseRoom.extend({
     onLetOutCard:function(event){
         this.updateCountDown(this.COUNT_DOWN);
         var message = event.getUserData();
-
-        cc.log(" 操作消息 message = ",JSON.stringify(message));
-
         var userId = message.userId;
         var seat = message.seat;
         var action = message.action;
@@ -3056,6 +3033,7 @@ var QZMJRoom = BaseRoom.extend({
                     prefix = "bu";
                     showTing = false;
                 }else if(action==MJAction.CHI){
+                    beiPengId = ids[1];
                     prefix = "chi";
                     beiPengId = ids[0];
                     MJRoomModel.localThrowCard = beiPengId;
@@ -3234,6 +3212,13 @@ var QZMJRoom = BaseRoom.extend({
             //if(MJRoomModel.wanfa == GameTypeEunmMJ.CXMJ){
             PopupManager.addPopup(new GpsPop(MJRoomModel , MJRoomModel.renshu));
             //}
+        }
+        if(!this.btnInvite.visible){
+            this.tuichuBtn.x = 960;
+        }else{
+            if(this.localTuichuX){
+                this.tuichuBtn.x = this.localTuichuX;
+            }
         }
     },
 

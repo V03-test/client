@@ -2,8 +2,9 @@
  * Created by Administrator on 2020/12/9 0009.
  */
 var BaseRoomSetPop = BasePopup.extend({
-    ctor:function(hasGPS){
+    ctor:function(hasGPS,isPHZ){
         this.hasGPS = !!hasGPS;
+        this.isPHZ = !!isPHZ;
         this._super("res/gameRoomSetPop.json");
     },
 
@@ -27,7 +28,7 @@ var BaseRoomSetPop = BasePopup.extend({
         var size = cc.director.getWinSize();
         var tempSize = (size.width - SyConfig.DESIGN_WIDTH)/2;
         var offx = tempSize > 100 ? 50 : tempSize/2;
-        if(size.width > SyConfig.DESIGN_WIDTH){
+        if(!this.isPHZ && size.width > SyConfig.DESIGN_WIDTH){
             this.getWidget("Image_setBg").x += tempSize - offx;
         }
     },
@@ -62,6 +63,9 @@ var BaseRoomSetPop = BasePopup.extend({
             var isYuyan = MJRoomModel.wanfa == GameTypeEunmMJ.CSMJ || MJRoomModel.wanfa == GameTypeEunmMJ.TDH
                 || MJRoomModel.wanfa == GameTypeEunmMJ.JZMJ;
             var mc = new MjSetUpPop(isCSMJ,isYuyan);
+            PopupManager.addPopup(mc);
+        }else if (LayerManager.isInDTZ()){
+            var mc = new PDKSetUpPop("DTZ");
             PopupManager.addPopup(mc);
         }
     },
