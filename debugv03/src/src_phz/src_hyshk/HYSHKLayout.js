@@ -400,14 +400,12 @@ var HYSHKLayout = cc.Class.extend({
             }
         }else if(PHZRoomModel.renshu==3){
             localNum = 5;
-            if(this.direct==2){
+            if(this.direct!=3){
                 initVal = 290;
-            }else if(this.direct==1){
-                initVal = 310;
             }
         }else{
-            localNum = 8;
-            initVal=(this.direct==2) ? 300 : 10;
+            localNum = PHZRoomModel.intParams[20] == 0 ? 8 : 5;
+            initVal=(this.direct==1) ? 300 : 10;
         }
         for(var i=0;i<this.mahjongs3.length;i++){
             this.mahjongs3[i].refresh(PHZAI.getDisplayVo(this.direct,3),data[i]);
@@ -444,13 +442,12 @@ var HYSHKLayout = cc.Class.extend({
             }else if(PHZRoomModel.renshu==3){
                 if(this.direct==3){
                     card.x = initVal+localX*g;
-                    card.y = -localY * 78;
                 }else{
                     card.x = initVal-localX*g;
-                    card.y = localY * 78;
                 }
+                card.y = localY * 78;
             }else if(PHZRoomModel.renshu==2){
-                if(this.direct==2){
+                if(this.direct==1){
                     card.x = initVal-localX*g;
                 }else{
                     card.x = initVal+localX*g;

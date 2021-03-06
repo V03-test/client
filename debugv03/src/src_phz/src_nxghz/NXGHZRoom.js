@@ -156,21 +156,31 @@ var NXGHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
             disXForIphoneX = 90;
         }
 
-        var offsetX = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2;
-        this.getWidget("player1").x -= offsetX;
-        this.getWidget("player2").x += offsetX;
-        if(PHZRoomModel.renshu == 3){
-            this.getWidget("player3").x -= offsetX;
-        }
+        //var offsetX = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2;
+        //this.getWidget("player1").x -= offsetX;
+        //this.getWidget("player2").x += offsetX;
+        //if(PHZRoomModel.renshu == 3){
+        //    this.getWidget("player3").x -= offsetX;
+        //}
 
+        if (PHZRoomModel.renshu != 4){
+            this.Button_53.x = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2 + SyConfig.DESIGN_WIDTH - disXForIphoneX - 50;
+            if(PHZRoomModel.renshu == 2){
+                this.Button_52.x = this.Button_53.x;
+            }else{
+                this.Button_52.x = this.Button_53.x - 130;
+            }
+            this.getWidget("Panel_left").x = (SyConfig.DESIGN_WIDTH - cc.winSize.width)/2 +this.getWidget("Panel_left").x;
+        }
         if (PHZRoomModel.renshu == 2){
-            //this.getWidget("mPanel2").x = this.getWidget("oPanel2").x = this.getWidget("oPanel1").x =   (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2 + SyConfig.DESIGN_WIDTH - disXForIphoneX;
-            //this.getWidget("mPanel1").x = (SyConfig.DESIGN_WIDTH -cc.winSize.width)/2 - 20;
-            //this.getWidget("oPanel1").x = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2 + SyConfig.DESIGN_WIDTH - disXForIphoneX - 20;
+            this.getWidget("Panel_right").x = (SyConfig.DESIGN_WIDTH - cc.winSize.width)/2 +this.getWidget("Panel_right").x;
+            this.getWidget("oPanel1").x = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2 + SyConfig.DESIGN_WIDTH - disXForIphoneX - 20;
+            this.getWidget("oPanel2").x = this.getWidget("sPanel2").x = this.getWidget("mPanel2").x = (SyConfig.DESIGN_WIDTH -cc.winSize.width)/2 + disXForIphoneX;
         }else if (PHZRoomModel.renshu == 3){
-            //this.getWidget("oPanel1").x =  this.getWidget("oPanel2").x = this.getWidget("mPanel2").x = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2 + SyConfig.DESIGN_WIDTH - disXForIphoneX;
-            //
-            //this.getWidget("mPanel1").x = this.getWidget("oPanel3").x = this.getWidget("mPanel3").x = (SyConfig.DESIGN_WIDTH -cc.winSize.width)/2 + 90;
+            this.getWidget("Panel_right").x = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2 +this.getWidget("Panel_right").x;
+            this.getWidget("oPanel1").x =  this.getWidget("oPanel2").x = this.getWidget("sPanel2").x
+                = this.getWidget("mPanel2").x = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2 + SyConfig.DESIGN_WIDTH - disXForIphoneX;
+            this.getWidget("oPanel3").x = this.getWidget("sPanel3").x = this.getWidget("mPanel3").x = (SyConfig.DESIGN_WIDTH -cc.winSize.width)/2 + disXForIphoneX;
         }
 
         this.Panel_daniao = this.getWidget("Panel_daniao");//打鸟panel
@@ -3518,7 +3528,7 @@ var NXGHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
             }else if(PHZRoomModel.renshu==3){
                 coords = {1:{x:150,y:135},2:{x:1425,y:720},3:{x:300,y:720}};
             }else{
-                coords = {1:{x:150,y:200},2:{x:1425,y:840}};
+                coords = {1:{x:150,y:200},2:{x:300,y:840}};
             }
             var coord = coords[direct];
             this.Image_time.x = coord.x;

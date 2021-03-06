@@ -551,6 +551,9 @@ var PDKRoom = BaseRoom.extend({//Room
 		UITools.addClickEvent(this.Button_p5f,this,this.onPiaoFen);
 		UITools.addClickEvent(this.Button_p8f,this,this.onPiaoFen);
 
+		if(this.gameTypeImg){
+			this.gameTypeImg.y = 850;
+		}
 	},
 
 	onTuiChu:function(){

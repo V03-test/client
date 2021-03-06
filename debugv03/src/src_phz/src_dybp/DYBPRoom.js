@@ -140,14 +140,20 @@ var DYBPRoom = BaseLayer.extend({ //BaseLayer BaseRoom
             disXForIphoneX = 90;
         }
         if (PHZRoomModel.renshu != 4){
+            this.Button_53.x = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2 + SyConfig.DESIGN_WIDTH - disXForIphoneX - 50;
+            if(PHZRoomModel.renshu == 2){
+                this.Button_52.x = this.Button_53.x;
+            }else{
+                this.Button_52.x = this.Button_53.x - 130;
+            }
             this.getWidget("Panel_left").x = (SyConfig.DESIGN_WIDTH - cc.winSize.width)/2 +this.getWidget("Panel_left").x;
-            this.getWidget("Panel_right").x = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2 +this.getWidget("Panel_right").x;
         }
         if (PHZRoomModel.renshu == 2){
-            //this.getWidget("oPanel1").x = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2 + SyConfig.DESIGN_WIDTH - disXForIphoneX - 20;
-            //this.getWidget("oPanel2").x = this.getWidget("sPanel2").x = this.getWidget("mPanel2").x = (SyConfig.DESIGN_WIDTH -cc.winSize.width)/2 + disXForIphoneX;
-
+            this.getWidget("Panel_right").x = (SyConfig.DESIGN_WIDTH - cc.winSize.width)/2 +this.getWidget("Panel_right").x;
+            this.getWidget("oPanel1").x = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2 + SyConfig.DESIGN_WIDTH - disXForIphoneX - 20;
+            this.getWidget("oPanel2").x = this.getWidget("sPanel2").x = this.getWidget("mPanel2").x = (SyConfig.DESIGN_WIDTH -cc.winSize.width)/2 + disXForIphoneX;
         }else if (PHZRoomModel.renshu == 3){
+            this.getWidget("Panel_right").x = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2 +this.getWidget("Panel_right").x;
             this.getWidget("oPanel1").x =  this.getWidget("oPanel2").x = this.getWidget("sPanel2").x
                 = this.getWidget("mPanel2").x = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2 + SyConfig.DESIGN_WIDTH - disXForIphoneX;
             this.getWidget("oPanel3").x = this.getWidget("sPanel3").x = this.getWidget("mPanel3").x = (SyConfig.DESIGN_WIDTH -cc.winSize.width)/2 + disXForIphoneX;
@@ -356,8 +362,8 @@ var DYBPRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         this.cleanChuPai();
         this.cleanTingPanel();
         this.cleanSPanel();
-        PHZMineLayout.setRoot(this.getWidget("minePanel"));
-        PHZMineLayout.clean();
+        DYBPMineLayout.setRoot(this.getWidget("minePanel"));
+        DYBPMineLayout.clean();
         if (PHZRoomModel.is3Ren() || PHZRoomModel.is2Ren()) {
             this.fapai.removeAllChildren();
         }
@@ -3239,7 +3245,7 @@ var DYBPRoom = BaseLayer.extend({ //BaseLayer BaseRoom
             }else if(PHZRoomModel.renshu==3){
                 coords = {1:{x:200 + (SyConfig.DESIGN_WIDTH-cc.winSize.width)/2,y:190},2:{x:1600 + (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2,y:720},3:{x:200 + (SyConfig.DESIGN_WIDTH-cc.winSize.width)/2,y:720}};
             }else{
-                coords = {1:{x:200 + (SyConfig.DESIGN_WIDTH-cc.winSize.width)/2,y:190},2:{x:1600 + (SyConfig.DESIGN_WIDTH-cc.winSize.width)/2,y:720}};
+                coords = {1:{x:200 + (SyConfig.DESIGN_WIDTH-cc.winSize.width)/2,y:190},2:{x:200 + (SyConfig.DESIGN_WIDTH-cc.winSize.width)/2,y:720}};
             }
             var coord = coords[direct];
             this.Image_time.x = coord.x;

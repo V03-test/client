@@ -58,46 +58,31 @@ var PHZRoomEffects = {
             endPosY = 100;
         }
 
-        //if (PHZRoomModel.wanfa == GameTypeEunmZP.AHPHZ || PHZRoomModel.wanfa == GameTypeEunmZP.YJGHZ
-        //    || PHZRoomModel.wanfa == GameTypeEunmZP.NXGHZ || PHZRoomModel.wanfa == GameTypeEunmZP.YYWHZ){
-        //    if(actType == 1){
-        //        if(seq == 1){
-        //            kuang.x = 0;
-        //            kuang.y = 0;
-        //        }else if(seq == 2){
-        //            kuang.x = -200;
-        //            kuang.y = -20;
-        //        }else if(seq == 3){
-        //            kuang.x = 200;
-        //            kuang.y = -20;
-        //        }
-        //    }else if(actType == 2){
-        //        if(seq == 1){
-        //            kuang.x = -550;
-        //            kuang.y = -350;
-        //        }else if(seq == 2){
-        //            kuang.x = 300;
-        //            kuang.y = 150;
-        //        }else if(seq == 3){
-        //            kuang.x = -550;
-        //            kuang.y = 100;
-        //        }
-        //    }
-
         if(renshu == 4){
             endPosX = 0;
             endPosY = 0;
+        }else if(renshu == 2){
+            if(seq == 1){
+                endPosX = 360;
+                endPosY = 240;
+            }else{
+                endPosX = 0;
+                endPosY = 0;
+            }
         }else{
             if(seq == 1){
-                endPosX = -360;
+                endPosX = 360;
                 endPosY = 240;
-            }else if(seq == 2){
-                endPosX = -280;
-                endPosY = 220;
-            }else if(seq == 3){
-                endPosX = -80;
-                endPosY = 20;
             }
+            //else if(seq == 2){
+            //    endPosX = -280;
+            //    endPosY = 220;
+            //}else if(seq == 3){
+            //    endPosX = -80;
+            //    endPosY = 20;
+            //}
+            endPosX = 0;
+            endPosY = 0;
         }
 
         PHZRoomModel.isSelfOutCard = false;

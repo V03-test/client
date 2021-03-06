@@ -167,8 +167,9 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         this.Image_hdx = this.getWidget("Image_hdx");//滑动出牌的线
         this.Image_hdx.visible = false;
         this.netType = this.getWidget("netType");//网络类型
+
+        this.Button_qihu = this.getWidget("Button_qihu");
         if((PHZRoomModel.renshu == 2 || PHZRoomModel.renshu == 3)){
-            this.Button_qihu = this.getWidget("Button_qihu");
             this.Button_qihu.visible = false;
             UITools.addClickEvent(this.Button_qihu,this,this.sendQiHu);
         }
@@ -183,16 +184,23 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
             disXForIphoneX = 90;
         }
         if (PHZRoomModel.renshu != 4){
+            this.Button_53.x = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2 + SyConfig.DESIGN_WIDTH - disXForIphoneX - 50;
+            if(PHZRoomModel.renshu == 2){
+                this.Button_52.x = this.Button_53.x;
+            }else{
+                this.Button_52.x = this.Button_53.x - 130;
+            }
             this.getWidget("Panel_left").x = (SyConfig.DESIGN_WIDTH - cc.winSize.width)/2 +this.getWidget("Panel_left").x;
-            this.getWidget("Panel_right").x = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2 +this.getWidget("Panel_right").x;
         }
         if (PHZRoomModel.renshu == 2){
-            //this.getWidget("oPanel1").x = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2 + SyConfig.DESIGN_WIDTH - disXForIphoneX - 20;
-            //this.getWidget("oPanel2").x = this.getWidget("sPanel2").x = this.getWidget("mPanel2").x = (SyConfig.DESIGN_WIDTH -cc.winSize.width)/2 + disXForIphoneX;
+            this.getWidget("Panel_right").x = (SyConfig.DESIGN_WIDTH - cc.winSize.width)/2 +this.getWidget("Panel_right").x;
+            this.getWidget("oPanel1").x = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2 + SyConfig.DESIGN_WIDTH - disXForIphoneX - 20;
+            this.getWidget("oPanel2").x = this.getWidget("sPanel2").x = this.getWidget("mPanel2").x = (SyConfig.DESIGN_WIDTH -cc.winSize.width)/2 + disXForIphoneX;
         }else if (PHZRoomModel.renshu == 3){
-            //this.getWidget("oPanel1").x =  this.getWidget("oPanel2").x = this.getWidget("sPanel2").x
-            //= this.getWidget("mPanel2").x = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2 + SyConfig.DESIGN_WIDTH - disXForIphoneX;
-            //this.getWidget("oPanel3").x = this.getWidget("sPanel3").x = this.getWidget("mPanel3").x = (SyConfig.DESIGN_WIDTH -cc.winSize.width)/2 + disXForIphoneX;
+            this.getWidget("Panel_right").x = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2 +this.getWidget("Panel_right").x;
+            this.getWidget("oPanel1").x =  this.getWidget("oPanel2").x = this.getWidget("sPanel2").x
+                = this.getWidget("mPanel2").x = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2 + SyConfig.DESIGN_WIDTH - disXForIphoneX;
+            this.getWidget("oPanel3").x = this.getWidget("sPanel3").x = this.getWidget("mPanel3").x = (SyConfig.DESIGN_WIDTH -cc.winSize.width)/2 + disXForIphoneX;
         }
 
 
@@ -3104,7 +3112,8 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
             }
             var btnDatas = [];
             var textureMap = {
-                0:{t:"res/res_phz/act_button/hu.png",v:1},2:{t:"res/res_phz/act_button/wai.png",v:3},3:{t:"res/res_phz/act_button/liu.png",v:4},1:{t:"res/res_phz/act_button/peng.png",v:2},
+                0:{t:"res/res_phz/act_button/hu.png",v:1},2:{t:"res/res_phz/act_button/wai.png",v:3},
+                3:{t:"res/res_phz/act_button/liu.png",v:4},1:{t:"res/res_phz/act_button/peng.png",v:2},
                 4:{t:"res/res_phz/act_button/chi.png",v:6},5:{t:"res/res_phz/act_button/pao.png",v:7}};
 
             if(PHZRoomModel.wanfa == GameTypeEunmZP.LDS || PHZRoomModel.wanfa == GameTypeEunmZP.YZCHZ ||
@@ -3203,6 +3212,10 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
                     if(btnData.v == 4)tag = this.tag_btn_liu;
 
                     btn.scale = (btnData.v != 5) ? 0.72 : 0.64;
+
+                    if (btnData.v >= 15 ){
+                        btn.scale = 0.90;
+                    }
 
                     this.btnPanel.addChild(btn,0,tag);
                     if (i == 0){
@@ -3842,7 +3855,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
             }else if(PHZRoomModel.renshu==3){
                 coords = {1:{x:200 + (SyConfig.DESIGN_WIDTH-cc.winSize.width)/2,y:190},2:{x:1600 + (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2,y:720},3:{x:200 + (SyConfig.DESIGN_WIDTH-cc.winSize.width)/2,y:720}};
             }else{
-                coords = {1:{x:200 + (SyConfig.DESIGN_WIDTH-cc.winSize.width)/2,y:190},2:{x:1600 + (SyConfig.DESIGN_WIDTH-cc.winSize.width)/2,y:720}};
+                coords = {1:{x:200 + (SyConfig.DESIGN_WIDTH-cc.winSize.width)/2,y:190},2:{x:200 + (SyConfig.DESIGN_WIDTH-cc.winSize.width)/2,y:720}};
             }
             var coord = coords[direct];
             this.Image_time.x = coord.x;
@@ -4146,6 +4159,8 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
             gameTypeUrl = "res/res_phz/wanfaFront/glzp.png";
         }else if (PHZRoomModel.wanfa == GameTypeEunmZP.XTPHZ){
             gameTypeUrl = "res/res_phz/wanfaFront/xtphz.png";
+        }else if (PHZRoomModel.wanfa == GameTypeEunmZP.HHHGW){
+            gameTypeUrl = "res/res_phz/wanfaFront/hhhgw.png";
         }
 
         this.Image_phz.loadTexture(gameTypeUrl);

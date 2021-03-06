@@ -11,7 +11,7 @@ var LayerFactory = {
     // DTZ_MONEY_ROOM:"res/dtzMoney3RenRoom.json",
     DTZ_3REN_ROOM:"res/dtz3RenRoom.json",
     PHZ_ROOM_MORE:"res/phzRoomMore.json",
-    PHZ_ROOM_LESS:"res/phzRoom2Ren.json",
+    PHZ_ROOM_LESS:"res/phzRoom2Ren_new.json",//phzRoom2Ren
     PHZ_MONEY_ROOM:"res/phzMoneyRoom.json",
     PHZ_MONEY_ROOM_MORE:"res/phzMoneyRoomMore.json",
     PHZ_MONEY_ROOM_THREE:"res/phzMoneyRoomThree.json",
@@ -19,7 +19,7 @@ var LayerFactory = {
     PHZ_REPLAY_MORE:"res/phzReplayMore.json",
     PHZ_REPLAY_LESS:"res/phzReplayLess.json",
     MJ_ROOM:"res/mjRoom.json",
-    PHZ_ROOM:"res/phzRoom.json",
+    PHZ_ROOM:"res/phzRoom_new.json",
     HOME:"res/bjdHome.json",
     BJD_HOME:"res/bjdHome.json",
     LOGIN:"res/login.json",

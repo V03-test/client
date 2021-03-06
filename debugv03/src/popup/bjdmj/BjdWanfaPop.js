@@ -3961,7 +3961,7 @@ var BjdWanfaPop = BasePopup.extend({
 
             "SYBP","SYZP","DYBP","AHPHZ","YJGHZ","NXGHZ","YYWHZ",
             "SMPHZ","CDPHZ","HSPHZ","HYLHQ","HYSHK","LYZP",
-            "CZZP","LDS","YZCHZ","LSZP","YZLC","JHSWZ"];
+            "CZZP","LDS","YZCHZ","LSZP","YZLC","JHSWZ","LDFPF","XTPHZ","ZZPH","GLZP","HHHGW"];
 
         var defautSelect = null;
         var selectIdx = 0;

@@ -140,8 +140,10 @@ var YZLCRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         this.Image_hdx = this.getWidget("Image_hdx");//滑动出牌的线
         this.Image_hdx.visible = false;
         this.netType = this.getWidget("netType");//网络类型
+
+        this.Button_qihu = this.getWidget("Button_qihu");
+
         if((PHZRoomModel.renshu == 2 || PHZRoomModel.renshu == 3)){
-            this.Button_qihu = this.getWidget("Button_qihu");
             this.Button_qihu.visible = false;
             UITools.addClickEvent(this.Button_qihu,this,this.sendQiHu);
         }
@@ -154,15 +156,13 @@ var YZLCRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         }
         if (PHZRoomModel.renshu != 4){
             this.getWidget("Panel_left").x = (SyConfig.DESIGN_WIDTH - cc.winSize.width)/2 +this.getWidget("Panel_left").x;
-            this.getWidget("Panel_right").x = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2 +this.getWidget("Panel_right").x;
         }
         if (PHZRoomModel.renshu == 2){
-            //this.getWidget("oPanel1").x = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2 + SyConfig.DESIGN_WIDTH - disXForIphoneX - 20;
-            //this.getWidget("oPanel2").x = this.getWidget("sPanel2").x = this.getWidget("mPanel2").x = (SyConfig.DESIGN_WIDTH -cc.winSize.width)/2 + disXForIphoneX;
+            this.Button_53.y -= 320;
+            this.Button_52.y = this.Button_53.y - 130;
+            this.getWidget("Panel_right").x = (SyConfig.DESIGN_WIDTH - cc.winSize.width)/2 +this.getWidget("Panel_right").x;
         }else if (PHZRoomModel.renshu == 3){
-            //this.getWidget("oPanel1").x =  this.getWidget("oPanel2").x = this.getWidget("sPanel2").x
-            //= this.getWidget("mPanel2").x = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2 + SyConfig.DESIGN_WIDTH - disXForIphoneX;
-            //this.getWidget("oPanel3").x = this.getWidget("sPanel3").x = this.getWidget("mPanel3").x = (SyConfig.DESIGN_WIDTH -cc.winSize.width)/2 + disXForIphoneX;
+            this.getWidget("Panel_right").x = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2 +this.getWidget("Panel_right").x;
         }
 
 
@@ -3260,7 +3260,7 @@ var YZLCRoom = BaseLayer.extend({ //BaseLayer BaseRoom
             }else if(PHZRoomModel.renshu==3){
                 coords = {1:{x:200 + (SyConfig.DESIGN_WIDTH-cc.winSize.width)/2,y:190},2:{x:1600 + (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2,y:720},3:{x:200 + (SyConfig.DESIGN_WIDTH-cc.winSize.width)/2,y:720}};
             }else{
-                coords = {1:{x:200 + (SyConfig.DESIGN_WIDTH-cc.winSize.width)/2,y:190},2:{x:1600 + (SyConfig.DESIGN_WIDTH-cc.winSize.width)/2,y:720}};
+                coords = {1:{x:200 + (SyConfig.DESIGN_WIDTH-cc.winSize.width)/2,y:190},2:{x:200 + (SyConfig.DESIGN_WIDTH-cc.winSize.width)/2,y:720}};
             }
             var coord = coords[direct];
             this.Image_time.x = coord.x;
