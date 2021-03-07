@@ -407,6 +407,8 @@ var ZZMJSmallResultPop = BasePopup.extend({
         if (ClosingInfoModel.isReplay){
             this.getWidget("replay_tip").visible =  true;
             this.getWidget("label_rule").setString("");
+            this.getWidget("replay_tip").x -= 220;
+            this.getWidget("replay_tip").setString("回放码:"+BaseRoomModel.curHfm);
         }else{
             var wanfaDesc = ClubRecallDetailModel.getSpecificWanfa(MJRoomModel.intParams);
             this.getWidget("label_rule").setString("转转麻将  "+wanfaDesc);

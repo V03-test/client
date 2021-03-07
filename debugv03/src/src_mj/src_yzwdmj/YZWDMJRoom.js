@@ -1985,14 +1985,14 @@ var YZWDMJRoom = BaseRoom.extend({
             this.resetBtnPanel();
             this.Panel_btn.visible = true;
             var textureMap = {
-                0:{t:"res/res_mj/mjRoom/mj_btn_hu.png",v:1},
-                1:{t:"res/res_mj/mjRoom/mj_btn_peng.png",v:2},
-                2:{t:"res/res_mj/mjRoom/mj_btn_gang.png",v:3},
-                3:{t:"res/res_mj/mjRoom/mj_btn_gang.png",v:4},
-                4:{t:"res/res_mj/mjRoom/mj_btn_chi.png",v:6},
-                5:{t:"res/res_mj/mjRoom/mj_btn_hu.png",v:1},
-                6:{t:"res/res_mj/mjRoom/mj_btn_hu_wc.png",v:1101},//王闯
-                7:{t:"res/res_mj/mjRoom/mj_btn_hu_wd.png",v:1102},//王钓
+                0:{t:"res/res_mj/res_yzwdmj/yzwdmjRoom/mj_btn_hu.png",v:1},
+                1:{t:"res/res_mj/res_yzwdmj/yzwdmjRoom/mj_btn_peng.png",v:2},
+                2:{t:"res/res_mj/res_yzwdmj/yzwdmjRoom/mj_btn_gang.png",v:3},
+                3:{t:"res/res_mj/res_yzwdmj/yzwdmjRoom/mj_btn_gang.png",v:4},
+                4:{t:"res/res_mj/res_yzwdmj/yzwdmjRoom/mj_btn_chi.png",v:6},
+                5:{t:"res/res_mj/res_yzwdmj/yzwdmjRoom/mj_btn_hu.png",v:1},
+                6:{t:"res/res_mj/res_yzwdmj/yzwdmjRoom/mj_btn_hu_wc.png",v:1101},//王闯
+                7:{t:"res/res_mj/res_yzwdmj/yzwdmjRoom/mj_btn_hu_wd.png",v:1102},//王钓
             };
 
             var rIndex=0;

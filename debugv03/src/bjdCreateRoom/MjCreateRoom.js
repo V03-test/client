@@ -304,7 +304,7 @@ var MjCreateRoom = BasePopup.extend({
                     if(this.clickCreditParms && i <= 3){
                         goldMsg.push(credit);
                     }
-                    if ((i >= 1 && i <= 4) || i == 7 || i == 9 || i == 12){
+                    if ((i >= 1 && i <= 4) || i == 7 || i == 9 || i == 12 || i == 13){
                         credit = Math.round(credit * 100);
                     }
                     creditParams.push(credit);

@@ -382,10 +382,11 @@ var YJMJSmallResultPop = BasePopup.extend({
 
         this.getWidget("Image_niao").visible = false;
 
+
         if (ClosingInfoModel.isReplay){
-            var txt_hf = this.getWidget("replay_tip");
-            txt_hf.setPosition(1086,657);
-            txt_hf.visible =  true;
+            this.getWidget("replay_tip").visible =  true;
+            this.getWidget("replay_tip").x -= 220;
+            this.getWidget("replay_tip").setString("回放码:"+BaseRoomModel.curHfm);
         }
 
         var xipai_btn = this.getWidget("xipai_btn");
