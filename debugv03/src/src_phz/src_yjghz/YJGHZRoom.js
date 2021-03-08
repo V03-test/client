@@ -152,22 +152,27 @@ var YJGHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
             disXForIphoneX = 90;
         }
 
-        var offsetX = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2;
-        this.getWidget("player1").x -= offsetX;
-        this.getWidget("player2").x += offsetX;
-        if(PHZRoomModel.renshu == 3){
-            this.getWidget("player3").x -= offsetX;
+        if (PHZRoomModel.renshu != 4){
+            this.getWidget("Panel_left").x = (SyConfig.DESIGN_WIDTH - cc.winSize.width)/2 +this.getWidget("Panel_left").x;
+        }
+
+        this.Button_53.x = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2 + SyConfig.DESIGN_WIDTH - disXForIphoneX - 50;
+        if(PHZRoomModel.renshu == 2){
+            this.Button_52.x = this.Button_53.x;
+        }else{
+            this.Button_52.x = this.Button_53.x - 130;
         }
 
         if (PHZRoomModel.renshu == 2){
-            //this.getWidget("mPanel2").x = this.getWidget("oPanel2").x = this.getWidget("oPanel1").x =   (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2 + SyConfig.DESIGN_WIDTH - disXForIphoneX;
-            //this.getWidget("mPanel1").x = (SyConfig.DESIGN_WIDTH -cc.winSize.width)/2 - 20;
+            this.getWidget("Panel_right").x = (SyConfig.DESIGN_WIDTH - cc.winSize.width)/2 +this.getWidget("Panel_right").x;
+            this.getWidget("oPanel1").x = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2 + SyConfig.DESIGN_WIDTH - disXForIphoneX - 20;
+            this.getWidget("oPanel2").x = this.getWidget("sPanel2").x = this.getWidget("mPanel2").x = (SyConfig.DESIGN_WIDTH -cc.winSize.width)/2 + disXForIphoneX;
         }else if (PHZRoomModel.renshu == 3){
-            //this.getWidget("oPanel1").x =  this.getWidget("oPanel2").x = this.getWidget("mPanel2").x = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2 + SyConfig.DESIGN_WIDTH - disXForIphoneX;
-            //
-            //this.getWidget("mPanel1").x = this.getWidget("oPanel3").x = this.getWidget("mPanel3").x = (SyConfig.DESIGN_WIDTH -cc.winSize.width)/2 + 90;
+            this.getWidget("Panel_right").x = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2 +this.getWidget("Panel_right").x;
+            this.getWidget("oPanel1").x =  this.getWidget("oPanel2").x = this.getWidget("sPanel2").x
+                = this.getWidget("mPanel2").x = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2 + SyConfig.DESIGN_WIDTH - disXForIphoneX;
+            this.getWidget("oPanel3").x = this.getWidget("sPanel3").x = this.getWidget("mPanel3").x = (SyConfig.DESIGN_WIDTH -cc.winSize.width)/2 + disXForIphoneX;
         }
-
 
         this.Panel_daniao = this.getWidget("Panel_daniao");//打鸟panel
         this.Panel_daniao.visible = false;
@@ -373,7 +378,7 @@ var YJGHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         if(SyConfig.HAS_GPS && PHZRoomModel.renshu > 2){
             hasGPS = true;
         }
-        var mc = new BaseRoomSetPop(hasGPS);
+        var mc = new BaseRoomSetPop(hasGPS,true);
         PopupManager.addPopup(mc);
     },
 
@@ -3255,11 +3260,11 @@ var YJGHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
             this.timeDirect = direct;
             var coords = null;
             if(PHZRoomModel.renshu==4){
-                coords = {1:{x:0,y:220},2:{x:0,y:220},3:{x:0,y:220},4:{x:0,y:220}};
+                coords = {1:{x:200 + (SyConfig.DESIGN_WIDTH-cc.winSize.width)/2,y:280},2:{x:1600 + (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2,y:600},3:{x:1100 + (SyConfig.DESIGN_WIDTH-cc.winSize.width)/2,y:850},4:{x:200 + (SyConfig.DESIGN_WIDTH-cc.winSize.width)/2,y:820}};
             }else if(PHZRoomModel.renshu==3){
-                coords = {1:{x:150,y:135},2:{x:1425,y:720},3:{x:300,y:720}};
+                coords = {1:{x:200 + (SyConfig.DESIGN_WIDTH-cc.winSize.width)/2,y:190},2:{x:1600 + (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2,y:720},3:{x:200 + (SyConfig.DESIGN_WIDTH-cc.winSize.width)/2,y:720}};
             }else{
-                coords = {1:{x:150,y:200},2:{x:1425,y:720}};
+                coords = {1:{x:200 + (SyConfig.DESIGN_WIDTH-cc.winSize.width)/2,y:190},2:{x:200 + (SyConfig.DESIGN_WIDTH-cc.winSize.width)/2,y:720}};
             }
             var coord = coords[direct];
             this.Image_time.x = coord.x;
@@ -3476,11 +3481,11 @@ var YJGHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         }
     },
     updateBgColor:function(){
-        var bgTexture = "res/res_phz/roombg/room_bg1.jpg";
         var gameTypeUrl = "res/res_phz/wanfaFront/yjghz.png";
 
-        if (PHZSetModel.zmbj != 1){
-            bgTexture = "res/res_phz/roombg/room_bg3.jpg";
+        var bgTexture = "res/res_phz/roombg/room_bg4.jpg";
+        if (PHZSetModel.zmbj > 0 && PHZSetModel.zmbj < 5){
+            bgTexture = "res/res_phz/roombg/room_bg"+PHZSetModel.zmbj+".jpg";
         }
 
         this.Image_phz.loadTexture(gameTypeUrl);

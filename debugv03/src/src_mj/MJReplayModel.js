@@ -129,6 +129,9 @@ var MJReplayModel = {
         if (this.wanfa == GameTypeEunmMJ.AHMJ || this.wanfa == GameTypeEunmMJ.KWMJ || this.wanfa == GameTypeEunmMJ.TCPFMJ){
             this.ahmj_wangID = closingMsg.ext[10];
         }
+        if(this.wanfa == GameTypeEunmMJ.QZMJ){
+            this.qzmj_wangID = closingMsg.ext[10];
+        }
         MJRoomModel.wanfa = this.wanfa;
         var huList = closingMsg.huList;
         this.huList = {};

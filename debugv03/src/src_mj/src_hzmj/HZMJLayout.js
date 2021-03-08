@@ -845,7 +845,7 @@ var HZMJLayout = cc.Class.extend({
         var index = 0;
         for(;i<newData.length;i++){
             newData[i].feiDisplay = 1;
-            let card = new HZMahjong(MJAI.getDisplayVo(this.direct,1),newData[i]);
+            var card = new HZMahjong(MJAI.getDisplayVo(this.direct,1),newData[i]);
             this.mahjongs1.push(card);
             var isMopai = (this.data1.length%3 == 2 && i > (this.data1.length - 2))? true : false;//有碰牌时摸牌的处理
             correctCoord(this.direct,card,i,zorder,isMopai);

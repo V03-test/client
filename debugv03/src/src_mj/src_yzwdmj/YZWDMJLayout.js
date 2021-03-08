@@ -708,9 +708,9 @@ var YZWDMJLayout = cc.Class.extend({
         //var style = 1;//1 旧麻将 2 新麻将
         this.data1 = newData;
         var gapMapping = {1:133,2:41,3:58,4:41};
-        if (cc.winSize.width > SyConfig.DESIGN_WIDTH && SdkUtil.isLiuHaiPin()){
-            gapMapping[1] = (parseInt(cc.winSize.width) - 14*133)/2 / 14  + 133;
-        }
+        //if (cc.winSize.width > SyConfig.DESIGN_WIDTH && SdkUtil.isLiuHaiPin()){
+        //    gapMapping[1] = (parseInt(cc.winSize.width) - 14*133)/2 / 14  + 133;
+        //}
         // cc.log("gapMapping[1] = ",gapMapping[1]);
         var g=gapMapping[this.direct];
         var initVal=this.p2Mark;
@@ -719,8 +719,8 @@ var YZWDMJLayout = cc.Class.extend({
             //card.scale = 0.85;
             if(direct==1){
                 //card.scale = 0.95;
-                card.scale = g/133;
-                card.setScaleY(g/133 + 0.05);
+                //card.scale = g/133;
+                //card.setScaleY(g/133 + 0.05);
                 card.x = initVal+i*(g+1);
                 card.setLocalZOrder(1);
             }else if(direct==3){
@@ -825,16 +825,16 @@ var YZWDMJLayout = cc.Class.extend({
                     initVal = (w - (totalCount * g) - (data.length - 1) * 10) / 2;
                 break;
             case 2:
-                g = 46 * scale;
-                initVal = -40 * scale;
+                g = 46;
+                initVal = -40 ;
                 break;
             case 3:
-                g = 64 * scale;
-                initVal = 550* scale;
+                g = 64;
+                initVal = 550;
                 break;
             case 4:
-                g = 46 * scale;
-                initVal = 440* scale;//-(MJAI.MJ_NUMBER-totalCount-1)*7+modext*15;
+                g = 46;
+                initVal = 440;//-(MJAI.MJ_NUMBER-totalCount-1)*7+modext*15;
                 break;
         }
         var zorder = totalCount;
@@ -972,9 +972,9 @@ var YZWDMJLayout = cc.Class.extend({
                 card.x = 0;
                 var localNumber = Math.floor(i / rowCount);
                 if(this.direct==2)
-                    card.x = -28 + localNumber * 100;
+                    card.x = -28 + localNumber * 76;
                 if(this.direct==4)
-                    card.x = 58 - localNumber * 100;
+                    card.x = 58 - localNumber * 76;
             }
             if(this.direct==4){
                 card.setLocalZOrder(i);
@@ -986,9 +986,9 @@ var YZWDMJLayout = cc.Class.extend({
                 card.y = 0;
                 var localNumber = Math.floor(i / rowCount);
                 if(this.direct==1)
-                    card.y = 50 - localNumber * 85;
+                    card.y = 50 - localNumber * 72;
                 if(this.direct==3){
-                    card.y = localNumber * 85;
+                    card.y = localNumber * 72;
                     card.setLocalZOrder(5 - localNumber);
                 }
             }

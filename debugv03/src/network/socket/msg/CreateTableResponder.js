@@ -94,7 +94,7 @@ var CreateTableResponder = BaseResponder.extend({
             LayerManager.showLayer(LayerName);
             var layer = LayerManager.getLayer(LayerName);
             layer.initData();
-        }else if(GameTypeManager.isZP(wanfa)){
+        }else if(GameTypeManager.isZP(wanfa) && wanfa != GameTypeEunmZP.ZZPH){
             PHZRoomModel.init(message);
             var LayerName = LayerFactory.PHZ_ROOM_MORE;
             if(message.renshu == 3) {

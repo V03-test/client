@@ -193,16 +193,16 @@ var TJMJRoom = BaseRoom.extend({
         this.Panel_hupai.height = 220;
         this.root.addChild(this.Panel_hupai,4);
 
-        var roomFile = "res/res_mj/res_csmj/csmjRoom/tjmj.png";
+        // var roomFile = "res/res_mj/res_csmj/csmjRoom/tjmj.png";
         this.Panel_hupai.setAnchorPoint(0,0.5);
         this.Panel_hupai.x = 300;
 
-        var gameNameImg = new cc.Sprite(roomFile);
-        var x = 960;
-        var y = 740;
-        gameNameImg.setPosition(x, y);
-        //this.root.addChild(gameNameImg,2);
-        this.Panel_20.addChild(gameNameImg,2);
+        // var gameNameImg = new cc.Sprite(roomFile);
+        // var x = 960;
+        // var y = 740;
+        // gameNameImg.setPosition(x, y);
+        // //this.root.addChild(gameNameImg,2);
+        // this.Panel_20.addChild(gameNameImg,2);
 
         //this.getWidget("mPanel1").y = 10;
 
@@ -441,6 +441,10 @@ var TJMJRoom = BaseRoom.extend({
             this.Button_setup1.x += tempSize - offx;
             this.roomName_label.x -= tempSize - offx;
             this.getWidget("mPanel1").x += tempSize;
+
+            this.getWidget("Image_infoBg").x -= tempSize - offx;
+            this.getWidget("Image_otherDi").x -= tempSize - offx;
+            this.getWidget("Image_dipai").x -= tempSize - offx;
         }
     },
 

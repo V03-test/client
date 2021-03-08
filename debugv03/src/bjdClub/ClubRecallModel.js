@@ -191,6 +191,8 @@ var ClubRecallDetailModel = {
             wanfaStr = this.getZJMJWanfa(wanfaList,isNotGame);
         }else if(wanfa == GameTypeEunmPK.ZZPDK){
             wanfaStr = this.getZZPDKWanfa(wanfaList,isNotGame);
+        }else if(wanfa == GameTypeEunmMJ.QZMJ){
+            wanfaStr = this.getQZMJWanfa(wanfaList,isNotGame);
         }
 
         //cc.log("wanfaStr==="+wanfaStr);
@@ -278,6 +280,51 @@ var ClubRecallDetailModel = {
             renshuStr,zhuangStr,guchouStr,
             choupaiStr,tuoguanStr, fanbeiStr);
         return allStr;
+    },
+
+    getQZMJWanfa:function(wanfaList,isNotGame){
+        var infoArr = [];
+        if(!isNotGame)infoArr.push("全州麻将");
+        infoArr.push(wanfaList[7] + "人");
+        infoArr.push(wanfaList[0] + "局");
+        if(!ClickClubModel.getClubIsGold())
+            infoArr.push(wanfaList[2] == 3?"群主支付":wanfaList[2] == 2?"房主支付":"AA支付");
+
+        if(wanfaList[4] == 1){
+            infoArr.push("自摸翻倍");
+        }else{
+            infoArr.push("自摸无分");
+        }
+
+        var temp = parseInt(wanfaList[10],2);
+        if (Math.floor(temp/100) == 1) infoArr.push("翻上醒");
+        if (Math.floor(temp/10)%10 == 1) infoArr.push("翻中醒");
+        if (temp%10 == 1) infoArr.push("翻下醒");
+
+        if(wanfaList[11] > 0){
+            if(wanfaList[12] == 1){
+                infoArr.push("单局托管");
+            }else if(wanfaList[12] == 3){
+                infoArr.push("三局托管");
+            }else{
+                infoArr.push("整局托管");
+            }
+        }
+
+        if(wanfaList[7] == 2 ){
+            infoArr.push("小局" + wanfaList[5] + "分封顶");
+            infoArr.push("大局" + wanfaList[6] + "分封顶");
+        }
+
+        if (wanfaList[7] == 2 && wanfaList[13] == 1){
+            infoArr.push("低于" + wanfaList[14] + "分翻" + wanfaList[15] +"倍");
+        }
+
+        if (wanfaList[7] == 2 && wanfaList[16] && wanfaList[16] != 0){
+            infoArr.push("低于" + wanfaList[17] + "分加" + wanfaList[16] +"分");
+        }
+
+        return infoArr.join(" ");
     },
 
     getWCPHZWanfa:function(wanfaList,isNotGame){
@@ -2895,13 +2942,13 @@ var ClubRecallDetailModel = {
         // cc.log("getPDKWanfa=============",isGoldRoom)
         var gameStr = "跑得快 ";
         var costStr = "";
-        if(wanfaList[9] == 1){
-            costStr = "AA支付 ";
-        }else if(wanfaList[9] == 2){
-            costStr = "房主支付 ";
-        }else if(wanfaList[9] == 3){
-            costStr = "擂主支付 ";
-        }
+        //if(wanfaList[9] == 1){
+        //    costStr = "AA支付 ";
+        //}else if(wanfaList[9] == 2){
+        //    costStr = "房主支付 ";
+        //}else if(wanfaList[9] == 3){
+        //    costStr = "擂主支付 ";
+        //}
 
 
         var renshuStr = wanfaList[7] + "人 ";
@@ -3016,7 +3063,7 @@ var ClubRecallDetailModel = {
         infoArr.push(wanfaList[0] + "局");
         infoArr.push((17 - wanfaList[2]) + "张");
         if(!ClickClubModel.getClubIsGold())
-        infoArr.push(wanfaList[9] == 3?"擂主支付":wanfaList[9] == 2?"房主支付":"AA支付");
+        //infoArr.push(wanfaList[9] == 3?"擂主支付":wanfaList[9] == 2?"房主支付":"AA支付");
         var nameList = ["","红10(5分)","红10(10分)","红10(翻倍)"];
         infoArr.push(nameList[wanfaList[10]] || "");
 
@@ -4672,6 +4719,9 @@ var ClubRecallDetailModel = {
         if(wanfaList[12] == 1){
             niaoNumStr = "";
             niaoStr = "一鸟全中 ";
+            if(wanfaList[38] == 1){
+                niaoStr += "中一算十 ";
+            }
         }
         if(wanfaList[11] == 1){
             niaoNumStr = "";
@@ -5229,6 +5279,8 @@ var ClubRecallDetailModel = {
             name = "五子棋";
         }else if(wanfa == GameTypeEunmMJ.ZJMJ){
             name = "芷江麻将";
+        }else if(wanfa == GameTypeEunmMJ.QZMJ){
+            name = "全州麻将";
         }
         return name;
     },

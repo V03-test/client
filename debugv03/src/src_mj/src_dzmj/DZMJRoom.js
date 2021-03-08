@@ -1,6 +1,3 @@
-/**
- * Created by zhoufan on 2016/7/22.
- */
 var DZMJRoom = BaseRoom.extend({
     layouts:{},
     initCoords:{},
@@ -62,32 +59,27 @@ var DZMJRoom = BaseRoom.extend({
         this.jt3= this.getWidget("jt3");
         this.jt4= this.getWidget("jt4");
         this.jt.visible = false;
-        this.Image_info1 = this.getWidget("Image_info1");
-        this.Image_info2 = this.getWidget("Image_info2");
-        this.Label_info_mj = this.getWidget("Label_info_mj");
+        this.Label_info_mj = this.getWidget("Label_info_mj")
+        this.Label_jushu = this.getWidget("Label_jushu");
+        this.Label_shengyu = this.getWidget("Label_shengyu");
         this.Label_info0 = this.getWidget("Label_info0");//房号
         this.Panel_btn = this.getWidget("Panel_btn");//按钮panel
-        //this.Button_setup = this.getWidget("Button_setup");
+
         this.Button_setup1 = this.getWidget("Button_setup1");
-        this.Image_setup = this.getWidget("Image_setup");
+
         this.Panel_20 = this.getWidget("Panel_20");
         this.Button_info = this.getWidget("Button_info");
         this.Button_gps = this.getWidget("Button_gps");
 
-        if (SyConfig.HAS_GPS && MJRoomModel.renshu >2) {
-            if(GPSModel.getGpsData(PlayerModel.userId) == null){
-                this.Button_gps.setBright(false);
-            }else{
-                this.Button_gps.setBright(true);
-            }
-        } else {
-            this.Button_gps.visible = false;
-        }
+        this.Button_gps.visible = false;
         this.getWidget("label_version").setString(SyVersion.v);
 
-        // this.Button_gps.visible =true;
-        //this.Button_gps.x = 190;
-        //this.Button_gps.y = 680;
+        this.tuichuBtn = this.getWidget("Button_tuichu");//退出房间
+        UITools.addClickEvent(this.tuichuBtn ,this,this.onTuiChu);
+
+        this.tuichuBtn.visible = true;
+        this.tuichuBtn.y = 520;
+
         this.Label_ting = this.getWidget("Label_ting");//听牌
         this.Panel_ting = this.getWidget("Panel_ting");//听的牌面
         this.Label_ting.visible = this.Panel_ting.visible = false;
@@ -102,19 +94,27 @@ var DZMJRoom = BaseRoom.extend({
         this.Label_jsq = this.getWidget("Label_jsq");//计时器
         //this.Label_jsq.setString("计时器\n00:00");
         this.Label_jsq.setString("");
-        this.btnInvite.y = 400;
+        this.btnInvite.y = 520;
         this.roomName_label = new cc.LabelTTF("","Arial",40,cc.size(500, 45));
         this.roomName_label.setAnchorPoint(0,0.5);
         this.addChild(this.roomName_label, 10);
-        if (MJRoomModel.roomName){
-            this.roomName_label.setString(MJRoomModel.roomName);
-            this.roomName_label.setColor(cc.color(214,203,173));
-            this.roomName_label.setHorizontalAlignment(cc.TEXT_ALIGNMENT_CENTER);
-            this.roomName_label.setVerticalAlignment(cc.VERTICAL_TEXT_ALIGNMENT_CENTER);
-            this.roomName_label.x = cc.winSize.width/2 - 1120;
-            this.roomName_label.y = cc.winSize.height/2 + 340;
+
+        this.roomName_label.setString(MJRoomModel.roomName || "");
+        this.roomName_label.setColor(cc.color(214, 203, 173));
+        this.roomName_label.setHorizontalAlignment(cc.TEXT_ALIGNMENT_CENTER);
+        this.roomName_label.setVerticalAlignment(cc.VERTICAL_TEXT_ALIGNMENT_CENTER);
+        this.roomName_label.x = cc.winSize.width / 2 - 960;
+        this.roomName_label.y = cc.winSize.height / 2 + 370;
+
+
+        if(MJRoomModel.isMatchRoom()){
+            var str = "挑战赛白金豆:" + MJRoomModel.strParams[1];
+            var label_bjd = new cc.LabelTTF(str,"",40);
+            label_bjd.setColor(cc.color(214,203,173));
+            label_bjd.setPosition(cc.winSize.width/2,cc.winSize.height/2 + 270);
+            this.addChild(label_bjd,1);
         }
-        
+
         this.btn_CancelTuoguan = this.getWidget("btn_CancelTuoguan");//取消托管按钮
         this.bg_CancelTuoguan = this.getWidget("bg_CancelTuoguan");
         if(this.bg_CancelTuoguan && this.btn_CancelTuoguan){
@@ -159,6 +159,7 @@ var DZMJRoom = BaseRoom.extend({
         this.addCustomEvent(SyEvent.PIAO_FEN,this,this.onPiaoFen);
         this.addCustomEvent(SyEvent.SELECT_PIAO_FEN,this,this.onSelectPiaoFen);
         this.addCustomEvent(SyEvent.BISAI_XIPAI, this, this.NeedXipai);
+
         this.addCustomEvent("XIPAI_CLEAR_NODE", this, this.clearXiPai);
 
         this.countDownLabel = new cc.LabelBMFont("15","res/font/font_mj3.fnt");
@@ -179,17 +180,11 @@ var DZMJRoom = BaseRoom.extend({
         this.Panel_hupai.height = 220;
         this.root.addChild(this.Panel_hupai,4);
 
-        var img = "res/res_mj/res_dzmj/dzmj.png";
-
-        if(MJRoomModel.wanfa == GameTypeEunmMJ.ZOUMJ){
-            img = "res/res_mj/res_dzmj/zoumj.png";
-        }
-
-        var gameNameImg = new cc.Sprite(img);
-        var x = 960;
-        var y = 740;
-        gameNameImg.setPosition(x, y);
-        this.Panel_20.addChild(gameNameImg,2);
+        // var gameNameImg = new cc.Sprite("res/res_mj/res_dzmj/dzmj.png");
+        // var x = 960;
+        // var y = 740;
+        // gameNameImg.setPosition(x, y);
+        // this.Panel_20.addChild(gameNameImg,2);
 
         this.getWidget("mPanel1").y = 20;
 
@@ -215,19 +210,65 @@ var DZMJRoom = BaseRoom.extend({
             this.getWidget("oPanel"+1).x -= 20;
             this.getWidget("oPanel"+1).y -= 20;
         }
-        
-        this.button_wanfa =  new ccui.Button("res/res_mj/mjRoom/wanfa.png","","");
-        this.Panel_20.addChild(this.button_wanfa);
-        this.button_wanfa.y = this.Button_setup1.y;
-        this.button_wanfa.x = 1710;
-        UITools.addClickEvent(this.button_wanfa,this,this.showWanFaImg);
-        this.initwanfaImg();
-        this.showWanFaImg();
+
+        //this.button_wanfa =  new ccui.Button("res/res_mj/mjRoom/wanfa.png","","");
+        //this.Panel_20.addChild(this.button_wanfa);
+        //this.button_wanfa.y = this.Button_setup1.y;
+        //this.button_wanfa.x = 1710;
+        //UITools.addClickEvent(this.button_wanfa,this,this.showWanFaImg);
+        //this.initwanfaImg();
+        //
+        //if(MJRoomModel.isMoneyRoom()){
+        //    this.button_wanfa.setVisible(false);
+        //}else{
+        //    this.showWanFaImg();
+        //}
+
         this.newUpdateFace();
         //this.adjustInviteBtn();
-        this.Panel_20.getChildByName("Label_info_mj").setVisible(false);
-        this.Panel_20.getChildByName("Image_info1").setVisible(false);
-        this.Panel_20.getChildByName("Image_info2").setVisible(false);
+        this.actionNodeArr = [];
+        for (var i = 0; i < MJRoomModel.renshu; i++) {
+            var actionNode = new cc.Node();
+            this.root.addChild(actionNode);
+            var mPanel = this.getWidget("mPanel"+(i+1));
+            actionNode.setPosition(mPanel.x,mPanel.y);
+            this.actionNodeArr.push(actionNode);
+        }
+
+        if(MJRoomModel.isMoneyRoom()){
+            this.Button_ting.addTouchEventListener(this.onClickTingBtn,this);
+        }
+        // this.actionNode = new cc.Node();
+        // this.root.addChild(this.actionNode);
+        // this.actionNode.setPosition(this.getWidget("mPanel1").x,this.getWidget("mPanel1").y);
+        ccs.armatureDataManager.addArmatureFileInfo("res/bjdani/YLCMjButtonAni/btmjchi/btmjchi.ExportJson");
+        ccs.armatureDataManager.addArmatureFileInfo("res/bjdani/YLCMjButtonAni/btmjgang/btmjgang.ExportJson");
+        ccs.armatureDataManager.addArmatureFileInfo("res/bjdani/YLCMjButtonAni/btmjhu/btmjhu.ExportJson");
+        ccs.armatureDataManager.addArmatureFileInfo("res/bjdani/YLCMjButtonAni/btmjpeng/btmjpeng.ExportJson");
+        ccs.armatureDataManager.addArmatureFileInfo("res/bjdani/YLCMjButtonAni/btmjting/btmjting.ExportJson");
+        ccs.armatureDataManager.addArmatureFileInfo("res/bjdani/YLCMjActionAni/mjshandian/mjshandian.ExportJson");
+        ccs.armatureDataManager.addArmatureFileInfo("res/bjdani/YLCMjActionAni/mjpengpai/mjpengpai.ExportJson");
+    },
+    onClickTingBtn:function(sender,type){
+        if(type == ccui.Widget.TOUCH_BEGAN){
+            sender.setColor(cc.color.GRAY);
+
+            this.Panel_hupai.setVisible(true);
+
+        }else if(type == ccui.Widget.TOUCH_ENDED){
+            sender.setColor(cc.color.WHITE);
+
+            this.Panel_hupai.setVisible(false);
+
+        }else if(type == ccui.Widget.TOUCH_CANCELED){
+            sender.setColor(cc.color.WHITE);
+
+            this.Panel_hupai.setVisible(false);
+        }
+    },
+
+    onTuiChu:function(){
+        sySocket.sendComReqMsg(6);
     },
 
     newUpdateFace:function(){//宽屏适配
@@ -235,38 +276,15 @@ var DZMJRoom = BaseRoom.extend({
         var tempSize = (size.width - SyConfig.DESIGN_WIDTH)/2;
         var offx = tempSize > 100 ? 50 : tempSize/2;
         if(size.width > SyConfig.DESIGN_WIDTH){
-            //this.getWidget("Image_info0").x -= tempSize - offx;
-            //this.getWidget("Image_info1").x -= tempSize - offx;
-            //this.getWidget("Image_info2").x -= tempSize - offx;
-            //this.recordBtn.x -= tempSize - offx;
-            //this.Button_ting.x += tempSize - offx;
-            //this.getWidget("Button_52").x += tempSize - offx;
-            //this.button_wanfa.x += tempSize - offx;
-            //this.Button_setup1.x += tempSize - offx;
-            //this.Image_setup.x += tempSize - offx;
-            //this.Button_gps -= tempSize - offx;
-            //this.getWidget("label_version").x += tempSize - offx;
-            //this.getWidget("netType").x += tempSize - offx;
-            //this.getWidget("Image_19").x += tempSize - offx;
-            //this.getWidget("Label_time").x += tempSize - offx;
-            //this.roomName_label.x = 120 + offx;
-            this.getWidget("Label_info0").x -= tempSize - offx;
-            this.getWidget("label_version").x -= tempSize - offx;
-            this.getWidget("Label_time").x -= tempSize - offx;
-            this.getWidget("netType").x -= tempSize - offx;
-            this.getWidget("Image_19").x -= tempSize - offx;
             this.recordBtn.x -= tempSize - offx;
-            // this.Button_ting.x -= tempSize - offx;
             this.getWidget("Button_52").x += tempSize - offx;
-            this.button_wanfa.x += tempSize - offx;
             this.Button_setup1.x += tempSize - offx;
-            this.Image_setup.x += tempSize - offx;
-            this.Button_gps -= tempSize - offx;
-
             this.roomName_label.x -= tempSize - offx;
-
             this.getWidget("mPanel1").x += tempSize;
-            
+
+            this.getWidget("Image_infoBg").x -= tempSize - offx;
+            this.getWidget("Image_otherDi").x -= tempSize - offx;
+            this.getWidget("Image_dipai").x -= tempSize - offx;
         }
     },
 
@@ -277,7 +295,7 @@ var DZMJRoom = BaseRoom.extend({
         var img_back = "res/res_gameCom/backHall.png";
         var btn_wx_invite = this.btnInvite;
         btn_wx_invite.loadTextureNormal(img_wx);
-        cc.log("this.btnInvite====",this.btnInvite.x);
+        // cc.log("this.btnInvite====",this.btnInvite.x);
         if(BaseRoomModel.curRoomData && BaseRoomModel.curRoomData.roomName){
             var offsetX = 350;
             var offsetY = 390;
@@ -302,7 +320,19 @@ var DZMJRoom = BaseRoom.extend({
                 btn_wx_invite.setPositionY(btn_wx_invite.y - 65);
             }
         }
-
+        if(!this.tuichuBtn){
+            this.tuichuBtn = this.getWidget("Button_tuichu");
+        }
+        var localX = this.btnInvite.x;
+        this.tuichuBtn.y = this.btnInvite.y;
+        if(BaseRoomModel.curRoomData && BaseRoomModel.curRoomData.roomName){
+            this.tuichuBtn.x = localX;
+        }else{
+            this.tuichuBtn.x = 960;
+        }
+        this.localTuichuX = this.tuichuBtn.x;
+        //this.btnInvite.setEnabled(false);
+        this.btnInvite.opacity = 0;
     },
 
     showWanFaImg:function(){
@@ -313,7 +343,12 @@ var DZMJRoom = BaseRoom.extend({
         }
     },
     initwanfaImg:function(){
-        var wanfaStr = ClubRecallDetailModel.getSpecificWanfa(MJRoomModel.intParams);
+        var wanfaStr = ClubRecallDetailModel.getSpecificWanfa(MJRoomModel.intParams,false,true,MJRoomModel.isMoneyRoom());
+
+        if(MJRoomModel.isMatchRoom()){
+            wanfaStr = wanfaStr.replace(/ .*支付/,"");
+        }
+
         var wanfaArr = wanfaStr.split(" ");
         wanfaStr = wanfaStr.replace(/ /g,"\n");
         var bgHeigh = 20 + wanfaArr.length * 40;
@@ -374,23 +409,11 @@ var DZMJRoom = BaseRoom.extend({
                 this.piaoBtnNode = new cc.Node();
                 this.piaoBtnNode.setPosition(cc.winSize.width/2,cc.winSize.height/2 + 100);
                 this.addChild(this.piaoBtnNode,5);
-
-                var path = "res/res_mj/mjRoom/";
                 var imgArr = ["bupiao.png","1fen.png","2fen.png","3fen.png"];
-
-                if(MJRoomModel.wanfa == GameTypeEunmMJ.ZOUMJ){
-                    path = "res/res_mj/res_dzmj/imgPao/";
-                    imgArr[0] = "bupao.png";
-                    if(MJRoomModel.intParams[4] == 7){
-                        imgArr.push("4fen.png");
-                        imgArr.push("5fen.png");
-                    }
-                }
-
                 var offsetX = 300;//170;
                 var startX = -(imgArr.length - 1)/2*offsetX;
                 for(var i = 0;i<imgArr.length;++i){
-                    var img = path + imgArr[i];
+                    var img = "res/res_mj/mjRoom/" + imgArr[i];
                     var btn = new ccui.Button(img);
                     btn.setTag(i);
                     //btn.setScale(0.6);
@@ -400,25 +423,26 @@ var DZMJRoom = BaseRoom.extend({
                 }
             }
             this.piaoBtnNode.setVisible(true);
+            this.tuichuBtn.visible = false;
         }else{
             this.piaoBtnNode && this.piaoBtnNode.setVisible(false);
+        }
+
+        if(MJRoomModel.isMoneyRoom()){
+            this.moneyRoomShowLeaveBtn(false);
+            this.moneyRoomShowWaitAni(false);
         }
     },
 
     showWaitSelectPiao:function(isShow){
         if(isShow){
             if(!this.waitPiaoImg){
-                var img = "res/res_mj/mjRoom/word_piaofen.png";
-
-                if(MJRoomModel.wanfa == GameTypeEunmMJ.ZOUMJ){
-                    img = "res/res_mj/res_dzmj/imgPao/wait_pao.png";
-                }
-
-                this.waitPiaoImg = new cc.Sprite(img);
+                this.waitPiaoImg = new cc.Sprite("res/res_mj/mjRoom/word_piaofen.png");
                 this.waitPiaoImg.setPosition(cc.winSize.width/2 + 50,cc.winSize.height/2);
                 this.addChild(this.waitPiaoImg,4);
             }
             this.waitPiaoImg.setVisible(true);
+            this.tuichuBtn.visible = false;
         }else{
             this.waitPiaoImg && this.waitPiaoImg.setVisible(false);
         }
@@ -582,14 +606,19 @@ var DZMJRoom = BaseRoom.extend({
     },
 
     onExit:function(){
-
         ccs.armatureDataManager.removeArmatureFileInfo("res/bjdani/saiziani/baijindao_mjq_touzi.ExportJson");
-
+        ccs.armatureDataManager.removeArmatureFileInfo("res/bjdani/YLCMjButtonAni/btmjchi/btmjchi.ExportJson");
+        ccs.armatureDataManager.removeArmatureFileInfo("res/bjdani/YLCMjButtonAni/btmjgang/btmjgang.ExportJson");
+        ccs.armatureDataManager.removeArmatureFileInfo("res/bjdani/YLCMjButtonAni/btmjhu/btmjhu.ExportJson");
+        ccs.armatureDataManager.removeArmatureFileInfo("res/bjdani/YLCMjButtonAni/btmjpeng/btmjpeng.ExportJson");
+        ccs.armatureDataManager.removeArmatureFileInfo("res/bjdani/YLCMjButtonAni/btmjting/btmjting.ExportJson");
+        ccs.armatureDataManager.removeArmatureFileInfo("res/bjdani/YLCMjActionAni/mjshandian/mjshandian.ExportJson");
+        ccs.armatureDataManager.removeArmatureFileInfo("res/bjdani/YLCMjActionAni/mjpengpai/mjpengpai.ExportJson");
         this._super();
     },
 
     onSetUp:function(){
-        var mc = new MjSetUpPop(true,true);
+        var mc = new MjSetUpPop(true,false);
         PopupManager.addPopup(mc);
     },
 
@@ -719,7 +748,6 @@ var DZMJRoom = BaseRoom.extend({
                 if (info[j].majiangId){
                     info[j].tingMajiangIds = ArrayUtil.uniqueArray(info[j].tingMajiangIds);
                     var list = info[j].tingMajiangIds;
-
                     var num = 0;
                     for(var lay in this.layouts){
                         num = num + this.layouts[lay].getCardAllNumById(list);
@@ -727,6 +755,9 @@ var DZMJRoom = BaseRoom.extend({
 
                     info[j].tingNum =  list.length * 4 - num;
 
+                    if(MJRoomModel.intParams[31]){
+                        info[j].tingNum += 4;//八红中选项
+                    }
                 }
             }
         }
@@ -753,7 +784,7 @@ var DZMJRoom = BaseRoom.extend({
         MJRoomModel.huCards = tingData.huCards || [];
         cc.log("tingData.huCards =",JSON.stringify(tingData.huCards));
         // if (tingData.isShow){
-            this.onShowHuPanel(1);
+        this.onShowHuPanel(1);
         // }
     },
 
@@ -768,7 +799,7 @@ var DZMJRoom = BaseRoom.extend({
         // this.removeHuPanel();
         if (huList && huList.length > 0){
             this.Button_ting.visible = true;
-            var scale_num = 0.8;
+            var scale_num = 1;
             this.Panel_hupai.removeAllChildren();
             if (isShowAllTime === 1){
                 this.Panel_hupai.visible = true;
@@ -776,27 +807,27 @@ var DZMJRoom = BaseRoom.extend({
                 this.Panel_hupai.visible = !this.Panel_hupai.isVisible();
             }
 
-            if (huList.length > 17){
-                this.Panel_hupai.width = 17 * 90*scale_num+ (17-1)*15+120;
-                this.Panel_hupai.height = 360;
+            if (huList.length > 9){
+                this.Panel_hupai.width = 9 * 90*scale_num+ (9-1)*30+60+100;
+                this.Panel_hupai.height = 420;
                 this.Panel_hupai.setAnchorPoint(0,0);
             }else{
-                this.Panel_hupai.width = huList.length * 90*scale_num+ (huList.length-1)*15+150;
+                this.Panel_hupai.width = huList.length * 90*scale_num+ (huList.length-1)*30+60+100;
                 // cc.log("this.Panel_hupai.width =",this.Panel_hupai.width);
-                this.Panel_hupai.height = 200;
+                this.Panel_hupai.height = 210;
                 this.Panel_hupai.setAnchorPoint(0,0);
             }
 
             var totalNum = 0;
             for (var i = 0; i < huList.length; i++) {
-                var height = Math.floor(i/17);
-                var width = Math.floor(i%17);
+                var height = Math.floor(i/9);
+                var width = Math.floor(i%9);
                 var vo = MJAI.getMJDef(huList[i]);
                 var card = new HZMahjong(MJAI.getDisplayVo(1, 2), vo);
                 card.scale = scale_num;
                 var size = card.getContentSize();
-                card.x = width * ((90+15)*scale_num)+120;
-                card.y = 70 * scale_num + height*(size.height + 70)*scale_num;
+                card.x = 30+width * ((90+30)*scale_num)+100;
+                card.y = 50 * scale_num + height*(size.height + 70)*scale_num;
                 this.Panel_hupai.addChild(card,i+1);
                 var num = this.getMahjongNumById(vo);
                 totalNum += num;
@@ -948,10 +979,8 @@ var DZMJRoom = BaseRoom.extend({
 
     onJixuFromResult:function(){
         this.Panel_8.visible = false;
-        if(MJRoomModel.totalBurCount == MJRoomModel.nowBurCount
-            || (MJRoomModel.wanfa == GameTypeEunmMJ.DZMJ && ClosingInfoModel.ext[27] == 1)
-            || (MJRoomModel.wanfa == GameTypeEunmMJ.ZOUMJ && ClosingInfoModel.ext[25] == 1)){
-            var mc = new HZMJBigResultPop(this.resultData);
+        if(MJRoomModel.totalBurCount == MJRoomModel.nowBurCount || (ClosingInfoModel.ext[27] == 1)){
+            var mc = new DZMJBigResultPop(this.resultData);
             PopupManager.addPopup(mc);
         }else {
             sySocket.sendComReqMsg(3);
@@ -969,25 +998,78 @@ var DZMJRoom = BaseRoom.extend({
     },
 
     onShowSetUp:function(obj,fromTimeOut){
-        var self = this;
-        if (this.Panel_20.getChildByName("wanfaImg")){
-            this.Panel_20.getChildByName("wanfaImg").setVisible(false);
+        var hasGPS = false;
+        if(SyConfig.HAS_GPS && MJRoomModel.renshu > 2){
+            if(GPSModel.getGpsData(PlayerModel.userId) != null){
+                hasGPS = true;
+            }
         }
-        if(!fromTimeOut&&this.setUpTimeId>=0){
-            clearTimeout(this.setUpTimeId);
-            this.setUpTimeId=-1;
+        var mc = new BaseRoomSetPop(hasGPS);
+        PopupManager.addPopup(mc);
+    },
+
+    showMoneyRoomItemBtn:function(isShow){
+        if(isShow){
+            if(!this.itemBtnBg){
+                var btnImgArr = ["guize","shezhi"];
+                var itemHeight = 120;
+
+                this.itemBtnBg = new cc.Scale9Sprite("res/res_mj/mjRoomSetPop/item_bg.png");
+                this.itemBtnBg.setContentSize(this.itemBtnBg.width,itemHeight*btnImgArr.length + 40);
+                this.itemBtnBg.setAnchorPoint(0.8,1);
+                this.itemBtnBg.setPosition(this.Button_setup1.x,this.Button_setup1.y - 60);
+                this.Button_setup1.getParent().addChild(this.itemBtnBg);
+
+                for(var i = 0;i<btnImgArr.length;++i){
+                    var img = "res/res_mj/mjRoomSetPop/" + btnImgArr[i] + ".png";
+                    var btn = new ccui.Button(img,img,"");
+                    btn.setPosition(this.itemBtnBg.width/2,this.itemBtnBg.height - itemHeight*(i+0.5) - 20);
+                    btn.addTouchEventListener(this.onClickItemBtn,this);
+                    btn.setName(btnImgArr[i]);
+                    this.itemBtnBg.addChild(btn);
+
+                    if(i > 0){
+                        var line = new cc.Sprite("res/res_mj/mjRoomSetPop/line.png");
+                        line.setPosition(btn.x,btn.y + itemHeight/2);
+                        this.itemBtnBg.addChild(line);
+                    }
+                }
+
+                var self = this;
+                var action = cc.sequence(cc.delayTime(10),cc.callFunc(function(node){
+                    node.removeFromParent(true);
+                    self.itemBtnBg = null;
+                    self.Button_setup1.setBright(true);
+                }));
+                this.itemBtnBg.runAction(action);
+            }
+        }else if(this.itemBtnBg){
+            this.itemBtnBg.removeFromParent(true);
+            this.itemBtnBg = null;
         }
-        if(!this.Image_setup.visible){
-            if(fromTimeOut)
-                return;
-            this.Image_setup.visible = true;
-            this.setUpTimeId = setTimeout(function(){
-                self.onShowSetUp(obj,true);
-            },10000);
-        }else{
-            this.Image_setup.visible = false;
+
+        this.Button_setup1.setBright(!isShow);
+    },
+
+    onClickItemBtn:function(sender,type){
+        if(type == ccui.Widget.TOUCH_BEGAN){
+            sender.setColor(cc.color.GRAY);
+        }else if(type == ccui.Widget.TOUCH_ENDED){
+            sender.setColor(cc.color.WHITE);
+
+            var name = sender.getName();
+
+            if(name == "guize"){
+                var pop = new ShowRulePop();
+                pop.setLayerInfo(ClubRecallDetailModel.getSpecificWanfa(MJRoomModel.intParams,0,1,MJRoomModel.isMoneyRoom()));
+                PopupManager.addPopup(pop);
+            }else if(name == "shezhi"){
+                this.onSetUp();
+            }
+
+        }else if(type == ccui.Widget.TOUCH_CANCELED){
+            sender.setColor(cc.color.WHITE);
         }
-        this.Button_setup1.setBright(!this.Image_setup.visible);
     },
 
     onPlayerInfo:function(obj){
@@ -1065,7 +1147,7 @@ var DZMJRoom = BaseRoom.extend({
 
     initData:function(){
         this.roomName_label.setString(MJRoomModel.roomName);
-        this.initwanfaImg();
+        //this.initwanfaImg();
         BaseRoom.prototype.initData.call(this);
         if(this.overTimeout) {
             clearTimeout(this.overTimeout);
@@ -1079,12 +1161,6 @@ var DZMJRoom = BaseRoom.extend({
         this.showPiaoBtn(false);
         this.showWaitSelectPiao(false);
 
-        if(MJRoomModel.wanfa == GameTypeEunmMJ.ZOUMJ){
-            this.showWangPai2([MJRoomModel.ext[5],MJRoomModel.ext[13]]);
-        }else{
-            this.showWangPai(MJRoomModel.ext[5]);
-        }
-
         PlayMJMessageSeq.clean();
         this.hideTing();
         this.tingList.length=0;
@@ -1096,6 +1172,15 @@ var DZMJRoom = BaseRoom.extend({
         this.hideAllBanker();
         this.lastLetOutMJ=this.lastLetOutSeat=0;
         this.Label_info0.setString("房号:"+MJRoomModel.tableId);
+
+        if(MJRoomModel.isMoneyRoom()){
+            this.Label_info0.setString("序号:"+MJRoomModel.tableId);
+        }
+
+        if(this.bg_CancelTuoguan){
+            this.bg_CancelTuoguan.visible = false;
+        }
+
         this.updateRoomInfo();
         this._players = {};
         var players = MJRoomModel.players;
@@ -1115,7 +1200,7 @@ var DZMJRoom = BaseRoom.extend({
         }
         this.Panel_btn.visible = this.Panel_8.visible = this.btn_back.visible = false;
         this.btnReady.visible = true;
-        this.btnInvite.visible = (players.length<MJRoomModel.renshu);
+        this.setInviteBtnState();
         for(var i=0;i<players.length;i++){
             var p = players[i];
             var seq = MJRoomModel.getPlayerSeq(p.userId,MJRoomModel.mySeat, p.seat);
@@ -1134,41 +1219,29 @@ var DZMJRoom = BaseRoom.extend({
             }
 
             var point = -1;
-            if(MJRoomModel.intParams[20] > 0){
+            if(MJRoomModel.intParams[17] > 0){
                 point = p.ext[3];
             }
-            if(MJRoomModel.wanfa == GameTypeEunmMJ.ZOUMJ){
-                if(MJRoomModel.intParams[4] > 0){
-                    point = p.ext[3];
-                }
-            }
-
             if(point >= 0){
                 cardPlayer.showPiaoFenImg(point);
             }else{
                 cardPlayer.hidePiaoFenImg();
             }
 
-            if(MJRoomModel.wanfa == GameTypeEunmMJ.ZOUMJ){
-                if(!isContinue && p.seat == MJRoomModel.mySeat && point >= 0){
-                    this.showWaitSelectPiao(true);
-                }
-            }else{
-                if(!isContinue && p.seat == MJRoomModel.mySeat && point >= 0 && MJRoomModel.intParams[20] == 1){
-                    this.showWaitSelectPiao(true);
-                }
+            if(!isContinue && p.seat == MJRoomModel.mySeat && point >= 0 && MJRoomModel.intParams[17] == 1){
+                this.showWaitSelectPiao(true);
             }
 
-
             if(!isContinue){
-                if(p.status)
+                if(p.status){
                     cardPlayer.onReady();
+                    if(MJRoomModel.nowBurCount == 1 && !MJRoomModel.isStart){
+                        this.tuichuBtn.visible = true;
+                    }
+                }
             }else{//恢复牌局
-                this.Panel_20.getChildByName("Label_info_mj").setVisible(true);
-                this.Panel_20.getChildByName("Image_info1").setVisible(true);
-                this.Panel_20.getChildByName("Image_info2").setVisible(true);
-
                 var banker = null;
+                this.tuichuBtn.visible = false;
                 //if(p.seat==MJRoomModel.nextSeat)
                 //    banker= p.seat;
                 this.initCards(seq,p.handCardIds, p.moldCards, p.outedIds, p.huCards, banker, isMoPai);
@@ -1183,7 +1256,6 @@ var DZMJRoom = BaseRoom.extend({
                         MJRoomModel.banker = p.seat;
                         cardPlayer.isBanker(true);
                     }
-                    //this.clearXiPai();
                 }
                 cardPlayer.startGame();
             }
@@ -1247,13 +1319,103 @@ var DZMJRoom = BaseRoom.extend({
                 this.showJianTou(-1);
             this.btnInvite.visible = false;
         }else{
-            if (players.length>1 && MJRoomModel.renshu != 2 && MJRoomModel.nowBurCount == 1)
+            if (players.length>1 && MJRoomModel.renshu != 2 && MJRoomModel.nowBurCount == 1 && !MJRoomModel.isMoneyRoom())
                 PopupManager.addPopup(new GpsPop(MJRoomModel , MJRoomModel.renshu));
 
             this.root.removeChildByTag(MJRoomEffects.BAO_TAG);
             this.jt.visible = false;
         }
         this.removeHuPanel();
+
+        if(MJRoomModel.isMoneyRoom()){
+            this.moneyRoomInitData();
+        }
+
+        var endData = { closingPlayers :[{ userId : 7664459 , name : "lx45" , seat :1, sex :1, icon : "res/res_icon/20.png" , point :2,
+            totalPoint :2, winCount :null, lostCount :null, maxPoint :null, zmCount :null, jpCount :null, fpCount :null, totalFan :null, ext :[0,0],
+            handPais :[113,92,116,1,38,55,97,65,96,42,17], moldPais :[{ action :2, cards :[56,2,29], huxi :2}], isHu :17, birdPoint :0, actionCount :[1,0,0,0,0,0],
+            dahus :[24], xiaohus :[], credit :null, winLoseCredit :null, commissionCredit :null, pointArr :[2,0,0,0,0], fanPao :null, goldFlag :null},{ userId : 2517495 ,
+            name : "lx67" , seat :2, sex :2, icon : "res/res_icon/15.png" , point :-2, totalPoint :-2, winCount :null, lostCount :null, maxPoint :null, zmCount :null,
+            jpCount :null, fpCount :null, totalFan :null, ext :[0], handPais :[22,5,108,7,23,69,34,24,4,62,27,84,58], moldPais :[], isHu :null, birdPoint :0,
+            actionCount :[0,0,0,0,0,0], dahus :[], xiaohus :[], credit :null, winLoseCredit :null, commissionCredit :null, pointArr :[-2,0,0,0,0], fanPao :null,
+            goldFlag :null}], isBreak :0, wanfa :251, ext :[ 0 , 896081 , 7664459 , "2021-03-03 10:37:34" , 251 , 0 , 0 , 0 , 16 , 0 , 0 , 0 , 0 , 2 , 0 , 26 , 0 ,
+            0 , 1 , 0 , 1 , 0 , 5 , 2 , 0 , 1 ], huList :[], bird :[], birdSeat :[], groupLogId :null, leftCards :[212,16,78,111,8,120,40,107,60,36,201,48,211,114,
+            11,87,77,123,3,100,89,109,98,13,115,91,35,52,95,110,10,31,117,21,6,208,49,205,41,75,204,50,83,102,76,54,37,71,25,101,70,32,57,9,81,61,44,79,90,45,51,203,
+            106,63,88,15,33,20,80,82,28,105,99,122,43,59,30], catchBirdSeat :1, creditConfig :[{ low :0, high :0, unsigned :false},{ low :0, high :0, unsigned :false},
+            { low :0, high :0, unsigned :false},{ low :0, high :0, unsigned :false},{ low :0, high :0, unsigned :false},{ low :0, high :0, unsigned :false},{ low :0, high :0,
+                unsigned :false},{ low :0, high :0, unsigned :false}], intParams :[], birdAttr :[]};
+
+        //ClosingInfoModel.init(endData);
+        //var mc = new HZMJBigResultPop(endData);
+        //PopupManager.addPopup(mc);
+    },
+
+    moneyRoomInitData:function(){
+        this.btnInvite.setVisible(false);
+        this.btnReady.setVisible(false);
+
+        var isShow = (MJRoomModel.players.length<MJRoomModel.renshu);
+        this.moneyRoomShowLeaveBtn(isShow);
+        this.moneyRoomShowWaitAni(isShow);
+    },
+
+    moneyRoomShowLeaveBtn:function(isShow){
+        if(isShow){
+            if(!this.btn_leave){
+                var img = "res/ui/bjdmj/back_qyq_hall.png";
+                this.btn_leave = new ccui.Button(img,"","");
+                this.btn_leave.setPosition(cc.winSize.width/2,cc.winSize.height/3);
+                this.addChild(this.btn_leave,1);
+                UITools.addClickEvent(this.btn_leave,this,this.onLeave);
+            }
+            this.btn_leave.setVisible(true);
+        }else if(this.btn_leave){
+            this.btn_leave.setVisible(false);
+        }
+    },
+
+    moneyRoomShowWaitAni:function(isShow){
+        if(isShow){
+            if(!this.waitAni){
+                ccs.armatureDataManager.addArmatureFileInfo("res/bjdani/gold_zzpp/NewAnimation2.ExportJson");
+                this.waitAni = new ccs.Armature("NewAnimation2");
+                this.waitAni.setPosition(cc.winSize.width/2,cc.winSize.height/2);
+                this.addChild(this.waitAni,1);
+                this.waitAni.getAnimation().play("Animation1",-1,1);
+            }
+
+        }else if(this.waitAni){
+            this.waitAni.removeFromParent(true);
+            this.waitAni = null;
+        }
+    },
+
+    //对局门票显示
+    moneyRoomShowTiket:function(isShow,num,delayRemove){
+        if(isShow){
+            if(!this.imgTiket){
+                this.imgTiket = new cc.Sprite("res/res_mj/common/gold_mp.png");
+                this.imgTiket.setAnchorPoint(1,0.5);
+                this.imgTiket.setPosition(cc.winSize.width,cc.winSize.height/4);
+                this.addChild(this.imgTiket,1);
+
+                var label = new cc.LabelBMFont(num,"res/font/gold_mp.fnt");
+                label.setPosition(this.imgTiket.width*0.68,this.imgTiket.height*0.85);
+                this.imgTiket.addChild(label,1);
+
+                var self = this;
+                if(delayRemove){
+                    var action = cc.sequence(cc.delayTime(3),cc.callFunc(function(node){
+                        node.removeFromParent(true);
+                        self.imgTiket = null;
+                    }));
+                    this.imgTiket.runAction(action);
+                }
+            }
+        }else if(this.imgTiket){
+            this.imgTiket.removeFromParent(true);
+            this.imgTiket = null;
+        }
     },
 
     showNiaoPanel:function(data){
@@ -1290,7 +1452,7 @@ var DZMJRoom = BaseRoom.extend({
             var vo = MJAI.getMJDef(birdList[i]);
             var idIndex = vo.i%10;
             for(var j=0;j<nowBirdList.length;j++) {
-                if (idIndex == nowBirdList[j] || vo.i == 201 || MJRoomModel.isOneBird()){
+                if (idIndex == nowBirdList[j] || MJRoomModel.isOneBird()){
                     iszhongniao = true;
                     break;
                 }
@@ -1310,7 +1472,7 @@ var DZMJRoom = BaseRoom.extend({
                 this.Panel_niaoPai.addChild(card, i + 1);
                 var idIndex = vo.i%10;
                 for(var j=0;j<nowBirdList.length;j++) {
-                    if (idIndex == nowBirdList[j] || vo.i == 201 || MJRoomModel.isOneBird() || (MJRoomModel.intParams[30] && !iszhongniao)){
+                    if (idIndex == nowBirdList[j] || MJRoomModel.isOneBird() || (MJRoomModel.intParams[30] && !iszhongniao)){
                         var niaoKuang = new cc.Sprite("res/res_mj/mjSmallResult/mjSmallResult_22.png");
                         niaoKuang.x = size.width*0.5;
                         niaoKuang.y = size.height*0.5;
@@ -1510,27 +1672,9 @@ var DZMJRoom = BaseRoom.extend({
     },
 
     updateRemain:function(){
-        this.Image_info2.removeChildByTag(999);
-        var textRenderer =  new cc.LabelTTF("剩 "+MJRoomModel.remain+" 张", "", 40);
-        var ele1 = [];
-        ele1.push(RichLabelVo.createTextVo("剩 ",cc.color("#73a8d7"),40));
-        ele1.push(RichLabelVo.createTextVo(MJRoomModel.remain+"",cc.color("#d3dc6f"),40));
-        ele1.push(RichLabelVo.createTextVo(" 张",cc.color("#73a8d7"),40));
-        var label = new RichLabel(cc.size(200,40));
-        label.setLabelString(ele1);
-        label.x = (this.Image_info2.width-textRenderer.getContentSize().width)/2;
-        label.y = 5;
-        this.Image_info2.addChild(label,1,999);
+        this.Label_shengyu.setString(""+MJRoomModel.remain);
         if (MJRoomModel.remain == 4) {
             FloatLabelUtil.comText("最后四张");
-            //var winSize = cc.director.getWinSize();
-            //var last4 = new cc.Sprite("res/res_mj/mjRoom/last4.png");
-            //last4.x = winSize.width/2+42;
-            //last4.y = winSize.height/2;
-            //this.root.addChild(last4,9999);
-            //last4.runAction(cc.sequence(cc.delayTime(3),cc.fadeOut(2),cc.callFunc(function() {
-            //    last4.removeFromParent(true);
-            //})));
         }
     },
 
@@ -1543,7 +1687,30 @@ var DZMJRoom = BaseRoom.extend({
             var me = MJRoomModel.getPlayerVo();
             me.status = params[1];
             this.btnReady.visible = false;
-            this.btnInvite.visible = (ObjectUtil.size(this._players)<MJRoomModel.renshu);
+            this.setInviteBtnState();
+        }
+
+        if(MJRoomModel.isMoneyRoom()){
+            this.btnInvite.visible = false;
+        }
+    },
+
+    /**
+     * 退出房间
+     * @param event
+     */
+    onExitRoom:function(event){
+        var p = event.getUserData();
+        if(this._players[p.seat])
+            this._players[p.seat].exitRoom();
+        delete this._players[p.seat];
+        this.btnInvite.visible = (ObjectUtil.size(this._players)<MJRoomModel.renshu);
+        if(!this.btnInvite.visible){
+            this.tuichuBtn.x = 960;
+        }else{
+            if(this.localTuichuX){
+                this.tuichuBtn.x = this.localTuichuX;
+            }
         }
     },
 
@@ -1569,25 +1736,14 @@ var DZMJRoom = BaseRoom.extend({
 
 
     updateRoomInfo:function(color){
-        var color = color || this.bgColor;
-        var fontColor = this.getFontColorByBgColor(color);
-        // cc.log("fontColor =",JSON.stringify(fontColor));
-        this.getWidget("Label_time").setColor(fontColor);
-        this.Label_info0.setColor(fontColor);
-        this.getWidget("label_version").setColor(fontColor);
         this.updateRemain();
-        this.Label_info_mj.setString(ClubRecallDetailModel.getSpecificWanfa(MJRoomModel.intParams,0,1));
-        this.Image_info1.removeChildByTag(999);
-        var textRenderer =  new cc.LabelTTF("第 "+MJRoomModel.nowBurCount+"/"+MJRoomModel.totalBurCount+" 局", "", 40);
-        var ele1 = [];
-        ele1.push(RichLabelVo.createTextVo("第 ",cc.color("73a8d7"),40));
-        ele1.push(RichLabelVo.createTextVo(MJRoomModel.nowBurCount+"/"+MJRoomModel.totalBurCount,cc.color("#d3dc6f"),40));
-        ele1.push(RichLabelVo.createTextVo(" 局",cc.color("#73a8d7"),40));
-        var label = new RichLabel(cc.size(300,40),1);
-        label.setLabelString(ele1);
-        label.x = (this.Image_info1.width-textRenderer.getContentSize().width)/2;
-        label.y = 5;
-        this.Image_info1.addChild(label,1,999);
+        var wanfaStr = ClubRecallDetailModel.getSpecificWanfa(MJRoomModel.intParams,0,1,MJRoomModel.isMoneyRoom());
+        if(MJRoomModel.isMatchRoom()){
+            wanfaStr = wanfaStr.replace(/ .*支付/,"");
+        }
+
+        this.Label_info_mj.setString(wanfaStr);
+        this.Label_jushu.setString("第 "+MJRoomModel.nowBurCount+"/"+MJRoomModel.totalBurCount+" 局");
     },
 
     /**
@@ -1616,7 +1772,7 @@ var DZMJRoom = BaseRoom.extend({
         var count = 0;
 
         var tipLabel = new UICtor.cLabel("请点击麻将选择要操作的牌",42);
-        tipLabel.setPosition(bg.width/2,bg.height - 30);
+        tipLabel.setPosition(bg.width/2,bg.height - 20);
         tipLabel.setColor(cc.color.YELLOW);
         bg.addChild(tipLabel,1);
 
@@ -1639,11 +1795,14 @@ var DZMJRoom = BaseRoom.extend({
                 }
                 var mahjong = new HZMahjong(MJAI.getDisplayVo(1,3),chiVo);
                 mahjong.scale=scale;
-                mahjong.x = initX+75*scale*count;mahjong.y = 10;
+                mahjong.x = initX+75*scale*count;mahjong.y = 3;
                 bg.addChild(mahjong);
-                if(action==MJAction.CHI && j==1){
-                    mahjong._bg.setColor(cc.color.YELLOW);
-                }
+                //if(action==MJAction.CHI && j==1){
+                //    var huang = new cc.Scale9Sprite("res/res_mj/img_52.png");
+                //    huang.setContentSize(52*scale,76);
+                //    huang.x = 26;huang.y=38;
+                //    mahjong.addChild(huang);
+                //}
                 count++;
             }
         }
@@ -1830,10 +1989,6 @@ var DZMJRoom = BaseRoom.extend({
         //this.Label_jsq.setString("计时器\n"+strShi+":"+strFen);
     },
     startGame:function(event){
-        //this.Label_info_mj.y = 160;
-        this.Panel_20.getChildByName("Label_info_mj").setVisible(true);
-        this.Panel_20.getChildByName("Image_info1").setVisible(true);
-        this.Panel_20.getChildByName("Image_info2").setVisible(true);
         this.startTime = new Date().getTime();
         this.startJS = true;
         //this.Label_jsq.visible = true;
@@ -1846,6 +2001,7 @@ var DZMJRoom = BaseRoom.extend({
             if(layout)//清理掉上一次的牌局数据
                 layout.clean();
         }
+        this.tuichuBtn.visible = false;
         this.btnInvite.visible = this.btnReady.visible =false;
         var p = event.getUserData();
         this.showJianTou();
@@ -1895,6 +2051,13 @@ var DZMJRoom = BaseRoom.extend({
         }
         this.Panel_niaoPai.removeAllChildren();
         // },100);
+
+        if(MJRoomModel.isMoneyRoom()){
+            this.moneyRoomShowTiket(true,MJRoomModel.goldMsg[0],true);
+
+            this.moneyRoomShowLeaveBtn(false);
+            this.moneyRoomShowWaitAni(false);
+        }
     },
 
     NeedXipai: function () {
@@ -1969,88 +2132,88 @@ var DZMJRoom = BaseRoom.extend({
         BaseXiPaiModel.isNeedXiPai = false;
     },
 
-    xipaiAni:function(){
-        if(this.actionnode){
+    xipaiAni: function () {
+        if (this.actionnode) {
             this.actionnode.removeAllChildren();
         }
         this.actionnode = new cc.Node();
-		this.addChild(this.actionnode,10);
-        this.actionnode.setPosition(cc.winSize.width/2,cc.winSize.height/2 - 300);
-        
+        this.addChild(this.actionnode, 10);
+        this.actionnode.setPosition(cc.winSize.width / 2, cc.winSize.height / 2 - 300);
+
         ccs.armatureDataManager.addArmatureFileInfo("res/bjdani/jnqp/jnqp.ExportJson");
         var ani = new ccs.Armature("jnqp");
         ani.setAnchorPoint(0.5, 0.5);
-        ani.setPosition(cc.winSize.width / 2 - 50, cc.winSize.height /2 + 300);
+        ani.setPosition(cc.winSize.width / 2 - 50, cc.winSize.height / 2 + 300);
         ani.getAnimation().play("Animation1");
         ani.setName("caishendao")
         this.addChild(ani);
-		for (var index = 0; index < 15; index++) {
-			var back_card = new cc.Sprite("res/res_mj/mjRoom/action_card1.png");
-			back_card.scale = 1.2;
-			back_card.setPosition(cc.winSize.width/2 - 80,500);
-			this.actionnode.addChild(back_card);
+        for (var index = 0; index < 15; index++) {
+            var back_card = new cc.Sprite("res/res_mj/mjRoom/action_card1.png");
+            back_card.scale = 1.2;
+            back_card.setPosition(cc.winSize.width / 2 - 80, 500);
+            this.actionnode.addChild(back_card);
             var action = this.xipaiAction(index)
             back_card.setRotation(-60)
-			back_card.runAction(action);
-		}
+            back_card.runAction(action);
+        }
     },
 
-    xipaiAction:function(index,type){
-		var self = this;
+    xipaiAction: function (index, type) {
+        var self = this;
         var action = cc.sequence(
-			cc.delayTime(0.1*index),
-            cc.spawn(cc.moveTo(0.15,600,cc.winSize.height/2 - 300),cc.rotateTo(0.15,0)),
-			cc.moveTo(0.1,-500 + 70*index,cc.winSize.height/2 - 300),
-			cc.callFunc(function () {
-                if(index == 14){
-                    self.actionnode.setPosition(cc.winSize.width/2,cc.winSize.height/2 - 500);
-                    self.xipaiAni2();  
+            cc.delayTime(0.1 * index),
+            cc.spawn(cc.moveTo(0.15, 600, cc.winSize.height / 2 - 300), cc.rotateTo(0.15, 0)),
+            cc.moveTo(0.1, -500 + 70 * index, cc.winSize.height / 2 - 300),
+            cc.callFunc(function () {
+                if (index == 14) {
+                    self.actionnode.setPosition(cc.winSize.width / 2, cc.winSize.height / 2 - 500);
+                    self.xipaiAni2();
                 }
             })
         );
         return action;
     },
 
-    xipaiAni2:function(){
-        if(this.actionnode2){
+    xipaiAni2: function () {
+        if (this.actionnode2) {
             this.actionnode2.removeAllChildren();
         }
         this.actionnode2 = new cc.Node();
-		this.addChild(this.actionnode2,10);
-		this.actionnode2.setPosition(cc.winSize.width/2,cc.winSize.height/2 - 300);
-		for (var index = 0; index < 15; index++) {
-			var back_card = new cc.Sprite("res/res_mj/mjRoom/action_card1.png");
-			back_card.scale = 1.2;
-			back_card.setPosition(cc.winSize.width/2 - 80,500);
-			this.actionnode2.addChild(back_card);
+        this.addChild(this.actionnode2, 10);
+        this.actionnode2.setPosition(cc.winSize.width / 2, cc.winSize.height / 2 - 300);
+        for (var index = 0; index < 15; index++) {
+            var back_card = new cc.Sprite("res/res_mj/mjRoom/action_card1.png");
+            back_card.scale = 1.2;
+            back_card.setPosition(cc.winSize.width / 2 - 80, 500);
+            this.actionnode2.addChild(back_card);
             var action = this.xipaiAction2(index)
             back_card.setRotation(-60)
-			back_card.runAction(action);
-		}   
+            back_card.runAction(action);
+        }
 
     },
 
-    xipaiAction2:function(index,type){
-		var self = this;
+    xipaiAction2: function (index, type) {
+        var self = this;
         var action = cc.sequence(
-			cc.delayTime(0.1*index),
-            cc.spawn(cc.moveTo(0.15,600,cc.winSize.height/2 - 300),cc.rotateTo(0.15,0)),
-			cc.moveTo(0.1,-500 + 70*index,cc.winSize.height/2 - 300),
-			cc.callFunc(function () {
-                if(index == 14){
-                    self.actionnode2.setPosition(cc.winSize.width/2,cc.winSize.height/2 - 460);
+            cc.delayTime(0.1 * index),
+            cc.spawn(cc.moveTo(0.15, 600, cc.winSize.height / 2 - 300), cc.rotateTo(0.15, 0)),
+            cc.moveTo(0.1, -500 + 70 * index, cc.winSize.height / 2 - 300),
+            cc.callFunc(function () {
+                if (index == 14) {
+                    self.actionnode2.setPosition(cc.winSize.width / 2, cc.winSize.height / 2 - 460);
                 }
             }),
             cc.delayTime(0.2),
             cc.callFunc(function () {
-                if(index == 14){
-                    self.actionnode.setPosition(cc.winSize.width/2,cc.winSize.height/2 - 400);
-                    self.actionnode2.setPosition(cc.winSize.width/2,cc.winSize.height/2 - 360);
+                if (index == 14) {
+                    self.actionnode.setPosition(cc.winSize.width / 2, cc.winSize.height / 2 - 400);
+                    self.actionnode2.setPosition(cc.winSize.width / 2, cc.winSize.height / 2 - 360);
                 }
             }),
             cc.delayTime(0.2),
             cc.callFunc(function () {
-                if(index == 14){
+                if (index == 14) {
                     self.actionnode.removeAllChildren();
                     self.actionnode2.removeAllChildren();
                     sySocket.sendComReqMsg(3);
@@ -2202,7 +2365,6 @@ var DZMJRoom = BaseRoom.extend({
                     this.hbtns[0].visible = false;
                 }
             }
-                
         }
     },
 
@@ -2332,14 +2494,9 @@ var DZMJRoom = BaseRoom.extend({
                 var prefix = (message.zimo==1) ? "zimo" : "hu";
                 MJRoomEffects.normalAction(this.root,prefix,this.getWidget("cp"+direct),userId);
                 MJRoomSound.actionSound(userId,prefix);
-                //if(prefix=="hu" && this.lastLetOutSeat>0){
-                //    var lastseq = MJRoomModel.getPlayerSeq("",MJRoomModel.mySeat,this.lastLetOutSeat);
-                //    MJRoomEffects.normalAction(this.root,"dianpao",this.getWidget("cp"+lastseq),[],userId);
-                //}
-                //if(direct==1) {
-                //    this.layouts[direct].csGangPai();
-                //}
+
                 MJRoomModel.hued(seat, {action:(message.zimo==1) ? 0 : 1,cards:[lastId]});
+                cc.log("message.fromSeat =",message.fromSeat);
                 if(message.fromSeat){
                     var fromDirect = MJRoomModel.getPlayerSeq("",MJRoomModel.mySeat,message.fromSeat);
                     this.layouts[fromDirect].playDianPaoEff();
@@ -2348,24 +2505,6 @@ var DZMJRoom = BaseRoom.extend({
 
                 var loseActionArray = [];
                 var zhuangTarget = this._players[seat];
-                //var ext = message.ext[1].split(",");
-                //if(!MJRoomModel.isGuCang()) {
-                //    var score = parseInt(ext[2]);
-                //    if (message.fromSeat) {
-                //        loseActionArray.push({target: this._players[message.fromSeat], point: score});
-                //        this._players[seat].changeSPoint(score);
-                //        this._players[message.fromSeat].changeSPoint(-score);
-                //    } else {
-                //        this._players[seat].changeSPoint(score * 3);
-                //        for (var key in this._players) {
-                //            if (key != seat) {
-                //                //this._players[key].changeSPoint(-score);
-                //                //loseActionArray.push({target: this._players[key], point: score});
-                //            }
-                //        }
-                //    }
-                //    this._effectLayout.runJettonAction(loseActionArray, zhuangTarget);
-                //}
                 break;
             case MJAction.GUO://过
                 if(isOtherHasAction == 0)
@@ -2379,7 +2518,7 @@ var DZMJRoom = BaseRoom.extend({
                 //this.layouts[direct].xiaohu(ids);
                 //var huArray = message.huArray;
                 //MJRoomEffects.normalAction(this.root,"btn_cs_xiaohu_"+huArray[0],this.getWidget("cp"+direct));
-                break; 
+                break;
             case MJAction.TING://听牌特殊处理，先出牌，再播听牌动画
                 prefix = "ting";
                 MJRoomModel.ting(seat);
@@ -2428,6 +2567,9 @@ var DZMJRoom = BaseRoom.extend({
                 this.showJianTou();
                 MJRoomSound.actionSound(userId,prefix);
                 break;
+        }
+        if(MJRoomModel.isMoneyRoom() && seat == MJRoomModel.mySeat){
+            this.Panel_hupai.setVisible(false);
         }
         this.refreshButton(selfAct);
 
@@ -2569,13 +2711,42 @@ var DZMJRoom = BaseRoom.extend({
         var seq = MJRoomModel.getPlayerSeq(p.userId,MJRoomModel.mySeat, p.seat);
         this._players[p.seat] = new MJPlayer(p,this.root,seq);
         var me = MJRoomModel.getPlayerVo();
-        this.btnInvite.visible = (ObjectUtil.size(this._players)<MJRoomModel.renshu);
+        this.setInviteBtnState();
         var seats = MJRoomModel.isIpSame();
-        if(seats.length>0  && MJRoomModel.renshu != 2){
+        if(seats.length>0  && MJRoomModel.renshu != 2 && !MJRoomModel.isMoneyRoom()){
             for(var i=0;i<seats.length;i++) {
                 this._players[seats[i]].isIpSame(true);
             }
             PopupManager.addPopup(new GpsPop(MJRoomModel , MJRoomModel.renshu));
+        }
+
+        if(MJRoomModel.isMoneyRoom()){
+            this.btnInvite.visible = false;
+
+            var isShow = (ObjectUtil.size(this._players)<MJRoomModel.renshu);
+            this.moneyRoomShowLeaveBtn(isShow);
+        }
+        if(!this.btnInvite.visible){
+            this.tuichuBtn.x = 960;
+        }else{
+            if(this.localTuichuX){
+                this.tuichuBtn.x = this.localTuichuX;
+            }
+        }
+    },
+
+    setInviteBtnState:function(){
+        this.btnInvite.visible = (MJRoomModel.players.length<MJRoomModel.renshu);
+
+        if(MJRoomModel.isMatchRoom()){
+            this.btnInvite.setVisible(false);
+        }
+        if(!this.btnInvite.visible){
+            this.tuichuBtn.x = 960;
+        }else{
+            if(this.localTuichuX){
+                this.tuichuBtn.x = this.localTuichuX;
+            }
         }
     },
 
@@ -2618,9 +2789,9 @@ var DZMJRoom = BaseRoom.extend({
      * @param bankerSeat {number}
      * @param isMoPai {Boolean}
      */
-    initCards:function(direct,p1Mahjongs,p2Mahjongs,p3Mahjongs,p4Mahjongs,bankerSeat,isMoPai){
+    initCards:function(direct,p1Mahjongs,p2Mahjongs,p3Mahjongs,p4Mahjongs,bankerSeat,isMoPai,showAction){
         var layout = this.getLayout(direct);
-        layout.initData(direct,this.getWidget("mPanel"+direct),this.getWidget("oPanel"+direct),this.getWidget("hPanel"+direct));
+        layout.initData(direct,this.getWidget("mPanel"+direct),this.getWidget("oPanel"+direct),this.getWidget("hPanel"+direct),this.actionNodeArr[direct-1],showAction);
         layout.refresh(p1Mahjongs,p2Mahjongs,p3Mahjongs,p4Mahjongs,bankerSeat,isMoPai);
         if(direct==1){
             MJRoomModel.mineLayout = layout;

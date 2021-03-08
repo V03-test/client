@@ -109,7 +109,7 @@ var CSMJSmallResultPop = BasePopup.extend({
                 card.x = this.moldInitX + (size.width * _scale+dis) * count;
                 card.y = height;
                 lastX = card.x;
-                widget.addChild(card);
+                widget.addChild(card,innerArray.length-j);
 
                 //杠的牌需要放一张牌到上面去
                 if(gangVo && j==1){
@@ -862,6 +862,12 @@ var CSMJSmallResultPop = BasePopup.extend({
             this.showJiangma();
         }
         Button_yupai.visible = true;
+
+        if (ClosingInfoModel.isReplay){
+            this.getWidget("replay_tip").visible =  true;
+            this.getWidget("replay_tip").x -= 220;
+            this.getWidget("replay_tip").setString("回放码:"+BaseRoomModel.curHfm);
+        }
     },
 
     onBreak:function(){

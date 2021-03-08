@@ -281,12 +281,12 @@ var CSMahjong = ccui.Widget.extend({
         } else if(place == 2) {
             switch (direct) {
                 case 1:
-                    mjScale = 1.15;
+                    //mjScale = 1.15;
                     break;
                 case 2:
                     hdirect = 4;
                     hplace = 3;
-                    mjScale = 1;
+                    //mjScale = 1;
                     ziFlippedX = true;
                     break;
                 case 3:
@@ -295,14 +295,14 @@ var CSMahjong = ccui.Widget.extend({
                     break;
                 case 4:
                     hplace = 3;
-                    mjScale = 1;
+                    //mjScale = 1;
                     break;
             }
         } else if(place == 3) {
             switch (direct) {
                 case 1:
                     hplace = 2;
-                    mjScale = 0.79;
+                    //mjScale = 0.79;
                     break;
                 case 2:
                     hdirect = 4;
@@ -312,7 +312,7 @@ var CSMahjong = ccui.Widget.extend({
                 case 3:
                     hdirect = 1;
                     hplace = 2;
-                    mjScale = 0.79;
+                    //mjScale = 0.79;
                     break;
                 case 4:
                     hplace = 3;
@@ -322,7 +322,7 @@ var CSMahjong = ccui.Widget.extend({
             switch (direct) {
                 case 1:
                     hplace = 2;
-                    mjScale = 1;
+                    //mjScale = 1;
                     break;
                 case 2:
                     hdirect = 4;
@@ -333,11 +333,11 @@ var CSMahjong = ccui.Widget.extend({
                 case 3:
                     hdirect = 1;
                     hplace = 2;
-                    mjScale = 0.8;
+                    //mjScale = 0.8;
                     break;
                 case 4:
                     hplace = 3;
-                    mjScale = 1;
+                    //mjScale = 1;
                     break;
             }
         }

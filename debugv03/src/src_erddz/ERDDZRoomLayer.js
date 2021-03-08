@@ -324,7 +324,7 @@ var ERDDZRoomLayer = ERDDZBaseRoomLayer.extend({
                 //this.btn_invite_wx.x = 0;
             }
         }else{
-            if(this.btn_qyq_back){
+            if(this.btn_qyq_back && this.roomBtnContent.visible){
                 if(this.btn_invite_qyq){
                     //this.btn_invite_wx.x = -450;
                     this.btn_invite_qyq.x = -350;
@@ -788,7 +788,9 @@ var ERDDZRoomLayer = ERDDZBaseRoomLayer.extend({
                     break;
                 }
             }
-            if((ERDDZRoomModel.tableType != 1 && data.masterId == PlayerModel.userId) || isStart){
+            if(!isStart){
+                this.btn_tuichu.visible = true;
+            }else if((ERDDZRoomModel.tableType != 1 && data.masterId == PlayerModel.userId) || isStart){
                 this.updateQyqButton(false);
             }
         }

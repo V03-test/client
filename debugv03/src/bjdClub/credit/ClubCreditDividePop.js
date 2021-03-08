@@ -52,7 +52,7 @@ var ClubCreditDividePop = BasePopup.extend({
 
     getConfigData:function(){
         var self = this;
-        NetworkJT.loginReqNew(123, {
+        NetworkJT.loginReqNew(410, {
             userId:PlayerModel.userId ,
             targetUserId:this.optItem.opUserId || 0,
             groupId:ClickClubModel.getCurClubId(),

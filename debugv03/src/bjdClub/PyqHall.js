@@ -460,11 +460,10 @@ var PyqHall = BasePopup.extend({
     },
 
     setBackImg:function(type){
-        var imgName = "res/res_ui/qyq/hall/bg.jpg";
-        if(type == 2){
-            imgName = "res/res_ui/qyq/hall/bg2.jpg";
-        }else if(type == 3){
-            imgName = "res/res_ui/qyq/hall/bg1.jpg";
+        var imgName = "res/res_ui/qyq/hall/bg1.jpg";
+        var indexType = parseInt(type);
+        if(indexType > 0 && indexType < 7){
+            imgName = "res/res_ui/qyq/hall/bg"+ indexType+".jpg";
         }
         this.root.setBackGroundImage(imgName);
     },
@@ -1825,7 +1824,7 @@ var PyqHall = BasePopup.extend({
         var offsetY = 70;
 
         if(imgNameArr[2] == 2){
-            offsetY = 66;
+            offsetY = 64;
         }else if(imgNameArr[2] == 3){
             offsetY = 48;
         }

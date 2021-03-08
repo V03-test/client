@@ -189,11 +189,11 @@ var YZWDMJRoom = BaseRoom.extend({
         this.Panel_hupai.height = 220;
         this.root.addChild(this.Panel_hupai,4);
 
-        var gameNameImg = new cc.Sprite("res/res_mj/res_csmj/yzwdmjRoom/yzwdmj.png");
-        var x = 960;
-        var y = 740;
-        gameNameImg.setPosition(x, y);
-        this.Panel_20.addChild(gameNameImg,2);
+        // var gameNameImg = new cc.Sprite("res/res_mj/res_csmj/yzwdmjRoom/yzwdmj.png");
+        // var x = 960;
+        // var y = 740;
+        // gameNameImg.setPosition(x, y);
+        // this.Panel_20.addChild(gameNameImg,2);
 
 
 
@@ -257,6 +257,10 @@ var YZWDMJRoom = BaseRoom.extend({
             this.Button_setup1.x += tempSize - offx;
             this.roomName_label.x -= tempSize - offx;
             this.getWidget("mPanel1").x += tempSize;
+
+            this.getWidget("Image_infoBg").x -= tempSize - offx;
+            this.getWidget("Image_otherDi").x -= tempSize - offx;
+            this.getWidget("Image_dipai").x -= tempSize - offx;
         }
     },
 
@@ -1981,14 +1985,14 @@ var YZWDMJRoom = BaseRoom.extend({
             this.resetBtnPanel();
             this.Panel_btn.visible = true;
             var textureMap = {
-                0:{t:"res/res_mj/mjRoom/mj_btn_hu.png",v:1},
-                1:{t:"res/res_mj/mjRoom/mj_btn_peng.png",v:2},
-                2:{t:"res/res_mj/mjRoom/mj_btn_gang.png",v:3},
-                3:{t:"res/res_mj/mjRoom/mj_btn_gang.png",v:4},
-                4:{t:"res/res_mj/mjRoom/mj_btn_chi.png",v:6},
-                5:{t:"res/res_mj/mjRoom/mj_btn_hu.png",v:1},
-                6:{t:"res/res_mj/mjRoom/mj_btn_hu_wc.png",v:1101},//王闯
-                7:{t:"res/res_mj/mjRoom/mj_btn_hu_wd.png",v:1102},//王钓
+                0:{t:"res/res_mj/res_yzwdmj/yzwdmjRoom/mj_btn_hu.png",v:1},
+                1:{t:"res/res_mj/res_yzwdmj/yzwdmjRoom/mj_btn_peng.png",v:2},
+                2:{t:"res/res_mj/res_yzwdmj/yzwdmjRoom/mj_btn_gang.png",v:3},
+                3:{t:"res/res_mj/res_yzwdmj/yzwdmjRoom/mj_btn_gang.png",v:4},
+                4:{t:"res/res_mj/res_yzwdmj/yzwdmjRoom/mj_btn_chi.png",v:6},
+                5:{t:"res/res_mj/res_yzwdmj/yzwdmjRoom/mj_btn_hu.png",v:1},
+                6:{t:"res/res_mj/res_yzwdmj/yzwdmjRoom/mj_btn_hu_wc.png",v:1101},//王闯
+                7:{t:"res/res_mj/res_yzwdmj/yzwdmjRoom/mj_btn_hu_wd.png",v:1102},//王钓
             };
 
             var rIndex=0;

@@ -71,11 +71,11 @@ var DTZRoomModel = {
     cleanCards:1,//清牌的逻辑开关
     //界面布局相关参数
     firstLineLimit : 23,
-    initCardYLine1 : 265,
-    initCardYLine2 : 125,
+    initCardYLine1 : 230,
+    initCardYLine2 : 110,
     line1cardNumber:0,
     line2cardNumber:0,
-    _cardW: 100,
+    _cardW: 65,
     _cardG: 30, //65
 
     initX : -35,

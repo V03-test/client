@@ -51,7 +51,7 @@ var DTZBigCard = Card.extend({
 		//
 		var bg = this._bg;
 		//增加卡牌背面
-		var backbg =  new cc.Sprite("#m_p.png");
+		var backbg =  new cc.Sprite("#nmw_bcard_bg.png");
 		backbg.x = backbg.width/2;
 		backbg.y = backbg.height/2;
 		backbg.visible = false;

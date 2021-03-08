@@ -99,6 +99,7 @@ var JoinTableResponder = BaseResponder.extend({
             case GameTypeEunmMJ.YYMJ:
             case GameTypeEunmMJ.JZMJ:
             case GameTypeEunmMJ.ZJMJ:
+            case GameTypeEunmMJ.QZMJ:
                 MJRoomModel.join(message.player);
                 break;
             case GameTypeEunmPK.QF:

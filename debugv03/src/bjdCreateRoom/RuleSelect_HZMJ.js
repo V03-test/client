@@ -27,7 +27,7 @@ var RuleSelect_HZMJ = RuleSelectBase.extend({
                 "八红中","自摸必胡","有红中不可接炮","不能一炮多响","中途解散算杠分"],col:3},//3
             {title:"",type:2,content:["七对、碰碰胡、清一色+1分"],col:3},//4
             {title:"玩法选择",type:1,content:["不抓鸟","抓2鸟","抓4鸟","抓6鸟","一鸟全中","窝窝鸟"],col:3},//5
-            {title:"玩法选择",type:2,content:["159中鸟"]},//6
+            {title:"玩法选择",type:2,content:["159中鸟","中一算十"]},//6
             {title:"玩法选择",type:1,content:["中鸟+1分","中鸟+2分","中鸟翻倍"],col:3},//7
             {title:"玩法选择",type:1,content:["无红中鸟+0","无红中鸟+1","无红中鸟+2"],col:3},//8
             {title:"飘分",type:1,content:["不飘分","自由飘分","首局定飘","1分","2分","3分"],col:3},//9
@@ -189,6 +189,8 @@ var RuleSelect_HZMJ = RuleSelectBase.extend({
         var dianpaohu = this.getItemByIdx(3,1).isSelected();
         this.getItemByIdx(3,14).setItemState(dianpaohu);
 
+        var yiniaoquanzhong = this.getItemByIdx(5,4).isSelected();
+        this.getItemByIdx(6,1).setItemState(yiniaoquanzhong);
     },
 
     updateZsNum:function(){
@@ -488,6 +490,13 @@ var RuleSelect_HZMJ = RuleSelectBase.extend({
         var ztjssgf = 0;
         if(this.getItemByIdx(3,16).isSelected())ztjssgf = 1;
 
+        var zyjs = 0;
+        if(ynqz){
+            if(this.getItemByIdx(6,1).isSelected()){
+                zyjs = 1;
+            }
+        }
+
         var morefen = 0;
         var allowScore= 0;
         if(this.getItemByIdx(15,0).isSelected()){//如果勾选
@@ -535,7 +544,8 @@ var RuleSelect_HZMJ = RuleSelectBase.extend({
             allowScore,//34 "低于xx分"
             yhzbkjp,//35 有红中不可接炮
             bnypdx,// 36 不能一炮多响
-            ztjssgf// 37 中途解散算杠分
+            ztjssgf,// 37 中途解散算杠分
+            zyjs//38 中一加十
         ];
 
         cc.log("data.params =",JSON.stringify(data))
@@ -618,6 +628,10 @@ var RuleSelect_HZMJ = RuleSelectBase.extend({
         if(params[19] == "1")defaultConfig[6].push(0);
 
         if (params[25] == "1")defaultConfig[4].push(0);
+
+        if(params[12] == 1 && params[38] == 1){
+            defaultConfig[6].push(1);
+        }
 
         this.addScore = parseInt(params[33])||10;
         this.allowScore = parseInt(params[34])||10;

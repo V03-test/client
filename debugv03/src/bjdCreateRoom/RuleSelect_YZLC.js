@@ -12,7 +12,7 @@ var RuleSelect_YZLC = RuleSelectBase.extend({
 
     setConfigData:function(){
         this.ruleConfig = [
-            {title:"局数选择",type:1,content:["6局","8局","10局","20局"]},// 0
+            {title:"局数选择",type:1,content:["1局","6局","8局","10局","20局"]},// 0
             {title:"房费",type:1,content:["AA支付","房主支付"]},// 1
             {title:"人数选择",type:1,content:["4人","3人","2人"]},// 2
             {title:"玩法",type:1,content:["曲戳","定戳"]},// 3
@@ -203,7 +203,7 @@ var RuleSelect_YZLC = RuleSelectBase.extend({
 
         var zsNum = 4;
 
-        var zsArr = [4,5,6,12];
+        var zsArr = [1,4,5,6,12];
 
         var renshu = 4;
         for(var i = 0;i<3;++i){
@@ -214,7 +214,7 @@ var RuleSelect_YZLC = RuleSelectBase.extend({
         }
 
         var temp = 0;
-        for(var i = 0;i<4;++i){
+        for(var i = 0;i<zsArr.length;++i){
             var item = this.getItemByIdx(0,i);
             if(item.isSelected()){
                 temp = i;
@@ -260,12 +260,14 @@ var RuleSelect_YZLC = RuleSelectBase.extend({
     getSocketRuleData:function(){
         cc.log("getSocketRuleData in RuleSelect_YZLC");
         var data = {params:[],strParams:""};
-        var jushu = 6;
+        var jushu = 1;
         if(this.getItemByIdx(0,1).isSelected()){
-            jushu = 8;
+            jushu = 6;
         }else if(this.getItemByIdx(0,2).isSelected()){
-            jushu = 10;
+            jushu = 8;
         }else if(this.getItemByIdx(0,3).isSelected()){
+            jushu = 10;
+        }else if(this.getItemByIdx(0,4).isSelected()){
             jushu = 20;
         }
 
@@ -405,8 +407,8 @@ var RuleSelect_YZLC = RuleSelectBase.extend({
     //用于俱乐部的创建
     getWanfas:function(){
         var jushu = 8;
-        var jushuArr = [6,8,10,20];
-        for(var i = 0;i<3;++i){
+        var jushuArr = [1,6,8,10,20];
+        for(var i = 0;i<jushuArr.length;++i){
             if(this.getItemByIdx(0,i).isSelected()){
                 jushu = jushuArr[i];
                 break;
@@ -438,7 +440,7 @@ var RuleSelect_YZLC = RuleSelectBase.extend({
         cc.log("===========readSelectData============" + params);
         var defaultConfig = [[0],[1],[0],[0],[0],[],[0],[1],[0],[0],[]];
 
-        var jushuArr = [6,8,10,20];
+        var jushuArr = [1,6,8,10,20];
         var index = jushuArr.indexOf(parseInt(params[0]));
         defaultConfig[0][0] = index !== -1 ? index : 0;//局数
         defaultConfig[1][0] = params[9] == 3||params[9] == 4?0:parseInt(params[9]) - 1;//房费

@@ -148,6 +148,10 @@ var ComResponder = BaseResponder.extend({
 								!XPLPRoomModel.isMoneyRoom())){//非金币场模式才提示
 								FloatLabelUtil.comText("您的房间已解散");
 								LayerManager.showLayer(LayerFactory.HOME);
+
+								PopupManager.checkHasZPSmallResult();
+								PopupManager.checkHasPKSmallResult();
+								PopupManager.checkHasMJSmallResult();
 							}
 						}else if(LayerManager.getCurrentLayer()==LayerFactory.LOGIN){//防止在登录界面卡死的情况
 							LayerManager.showLayer(LayerFactory.HOME);

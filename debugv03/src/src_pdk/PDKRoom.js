@@ -488,7 +488,7 @@ var PDKRoom = BaseRoom.extend({//Room
 		this.addCustomEvent(SyEvent.ROOM_ROLD_ICON,this,this.setRoldPlayerIcon);
 		this.addCustomEvent(SyEvent.UPDATE_BG_YANSE , this,this.updateBgColor);
 		this.addCustomEvent(SyEvent.UPDATE_TUOGUAN , this,this.updatePlayTuoguan);
-		this.addCustomEvent(SyEvent.CHANGE_PDK_CARDS , this,this.changePDKcards);
+		this.addCustomEvent(SyEvent.UPDATE_PK_CARD , this,this.changePDKcards);
 		this.addCustomEvent(SyEvent.PDK_DESK_HUIKAN , this,this.OnDeskHuiKan);
 		this.addCustomEvent(SyEvent.BISAI_XIPAI , this,this.NeedXipai);
 
@@ -516,9 +516,8 @@ var PDKRoom = BaseRoom.extend({//Room
 			this.getWidget("player3").x += 30;
 			this.getWidget("small3").x += 30;
 		}
-		var type = UITools.getLocalItem("sy_pdk_pz") || 2;
+		var type = UITools.getLocalItem("PDKsy_pdk_pz") || 2;
 		this.showBgColor(type);
-
 
 		var huBg = "res/ui/common/img_ting1.png";
 		this.Panel_huikan = new cc.Scale9Sprite(huBg,null,cc.rect(10,10,1,1));
@@ -551,6 +550,9 @@ var PDKRoom = BaseRoom.extend({//Room
 		UITools.addClickEvent(this.Button_p5f,this,this.onPiaoFen);
 		UITools.addClickEvent(this.Button_p8f,this,this.onPiaoFen);
 
+		if(this.gameTypeImg){
+			this.gameTypeImg.y = 850;
+		}
 	},
 
 	onTuiChu:function(){
@@ -734,8 +736,10 @@ var PDKRoom = BaseRoom.extend({//Room
 		var bgTexture = "res/pkCommon/gamebg.jpg";
 		if (_type == 1){
 			bgTexture = "res/pkCommon/gamebg2.jpg";
-			//this.getWidget("Label_hongshi").setColor(cc.color(73,178,191));
+			this.getWidget("Label_hongshi").setColor(cc.color("#80d7b2"));
 			//this.roomName_label.setColor(cc.color(90,78,45));
+		}else{
+			this.getWidget("Label_hongshi").setColor(cc.color("#acacac"));
 		}
 		//else if (_type == 2){
 		//	bgTexture = "res/res_pdk/pdkRoom/Bgc2.jpg";
@@ -1367,7 +1371,7 @@ var PDKRoom = BaseRoom.extend({//Room
 		}
 		this.getWidget("small"+seq).removeAllChildren(true);
 		for(var i=0;i<length;i++){
-			var smallCard = new SmallCard(PDKAI.getCardDef(copyCardIds[i]) , 2);
+			var smallCard = new SmallCard(PDKAI.getCardDef(copyCardIds[i]) , 2,true);
 			smallCard.anchorX=smallCard.anchorY=0;
 			smallCard.scale = smallCardScale;
 			if(seq == 2){

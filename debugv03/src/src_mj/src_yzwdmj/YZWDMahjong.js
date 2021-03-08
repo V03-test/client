@@ -335,16 +335,8 @@ var YZWDMahjong = ccui.Widget.extend({
         if(zipng!=""){
             var frame = cc.spriteFrameCache.getSpriteFrame(zipng);
             this._zi.setSpriteFrame(frame);
-            if(hdirect == 4 && hplace == 3 && type != 3){
-                this._zi.scale = 0.8;
-            }else if(hdirect == 1 && hplace == 2 && type == 3){
+            if(hdirect == 1 && hplace == 3){
                 this._zi.scale = 1.3;
-            }else if(hdirect == 1 && hplace == 1 && type == 3){
-                this._zi.scale = 1.35;
-            }else if(hdirect == 1 && hplace == 1 && type == 2){
-                this._zi.scale = 1.2;
-            }else{
-                this._zi.scale = 1;
             }
         }
     },
@@ -544,42 +536,67 @@ var YZWDMahjong = ccui.Widget.extend({
             switch (direct) {
                 case 1:
                     hplace = 2;
-                    mjScale = 0.5;
+                    mjScale = 1;
                     break;
                 case 2:
                     hdirect = 4;
                     hplace = 3;
-                    mjScale = 0.6;
+                    mjScale = 1;
                     ziFlippedX = true;
                     break;
                 case 3:
                     hdirect = 1;
                     hplace = 2;
-                    mjScale = 0.5;
+                    mjScale = 0.8;
                     break;
                 case 4:
                     hplace = 3;
-                    mjScale = 0.6;
+                    mjScale = 1;
                     break;
             }
         }
         if(this._cardVo.hasOwnProperty("mjScale")) {
             mjScale = this._cardVo.mjScale;
         }
-        var hdp = "d"+hdirect+"p"+hplace;
-        if (an === 1 || (direct == 3 && place == 1) || (direct == 4 && place == 1) || (direct == 2 && place == 1)) {
-            if (an === 1) {
-                hdp += "_an";
+        //var hdp = "d"+hdirect+"p"+hplace;
+        //if (an === 1 || (direct == 3 && place == 1) || (direct == 4 && place == 1) || (direct == 2 && place == 1)) {
+        //    if (an === 1) {
+        //        hdp += "_an";
+        //    }
+        //    bgPng = bgstyle + "mjbg_" + hdp + ".png";
+        //} else {
+        //    bgPng = bgstyle + "mjbg_" + hdp + ".png";
+        //}
+        //
+        //if (an === 1 || (direct == 3 && place == 1) || (direct == 4 && place == 1) || (direct == 2 && place == 1)) {
+        //} else {
+        //    png = mjstyle + "mj_" + hdp + "_" + this._cardVo.t + "_" + this._cardVo.n + ".png";
+        //}
+
+        if(an===1){
+            hdp += "_an";
+            if (direct == 1){
+                mjScale = 1.6;
+            }else{
+                mjScale = 1.1;
             }
-            bgPng = bgstyle + "mjbg_" + hdp + ".png";
-        } else {
-            bgPng = bgstyle + "mjbg_" + hdp + ".png";
         }
 
-        if (an === 1 || (direct == 3 && place == 1) || (direct == 4 && place == 1) || (direct == 2 && place == 1)) {
-        } else {
-            png = mjstyle + "mj_" + hdp + "_" + this._cardVo.t + "_" + this._cardVo.n + ".png";
+        var hdp = "d"+hdirect+"p"+hplace;
+        if(an===1 || (direct==3&&place==1) || (direct==4&&place==1) || (direct==2&&place==1)){
+            if(an===1){
+                hdp += "_an";
+            }
+            bgPng = bgstyle + "mjbg_"+hdp+".png";
+        }else{
+            bgPng = bgstyle + "mjbg_"+hdp+".png";
         }
+
+        if(an===1 || (direct==3&&place==1) || (direct==4&&place==1) || (direct==2&&place==1)){
+        }else{
+            png = mjstyle + "mj_"+hdp+"_"+this._cardVo.t+"_"+this._cardVo.n+".png";
+        }
+
         // cc.log("hzmj png =",png);
         this.anchorX=this.anchorY=0;
         //根据设置的值，获取对应的资源

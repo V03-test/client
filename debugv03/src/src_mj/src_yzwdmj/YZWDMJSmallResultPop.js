@@ -105,7 +105,7 @@ var YZWDMJSmallResultPop = BasePopup.extend({
                 var size = card.getContentSize();
                 var _scale = 0.6;
                 card.scale = _scale;
-                card.x = this.moldInitX + (size.width * _scale - 0.5) * count;
+                card.x = this.moldInitX + (size.width * _scale + dis) * count;
                 card.y = height;
                 lastX = card.x;
                 widget.addChild(card);
@@ -114,7 +114,7 @@ var YZWDMJSmallResultPop = BasePopup.extend({
                 if(gangVo && j==1){
                     if(!card.getChildByTag(333)){
                         var gang = new YZWDMahjong(MJAI.getDisplayVo(1,2),gangVo);
-                        gang.y += 20;
+                        gang.y += 30;
                         gang.scale = 1;
                         card.addChild(gang,1,333);
                     }
@@ -381,6 +381,8 @@ var YZWDMJSmallResultPop = BasePopup.extend({
 
         if (ClosingInfoModel.isReplay){
             this.getWidget("replay_tip").visible =  true;
+            this.getWidget("replay_tip").x -= 220;
+            this.getWidget("replay_tip").setString("回放码:"+BaseRoomModel.curHfm);
         }
     },
 
@@ -400,10 +402,10 @@ var YZWDMJSmallResultPop = BasePopup.extend({
                 var mj = MJAI.getMJDef(id);
                 var card = new YZWDMahjong(MJAI.getDisplayVo(1, 2), mj);
                 var size = card.getContentSize();
-                var _scale = 0.7;
+                var _scale = 0.55;
                 card.scale = _scale;
-                card.x = (size.width * _scale - 1.5) * j + 80;
-                card.y = -15;
+                card.x = (size.width * _scale +8) * j - 10;
+                card.y = 10;
                 this.Panel_niao.addChild(card);
                 var idIndex = mj.i%10;
                 for(var i=0;i<nowBirdList.length;i++) {

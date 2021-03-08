@@ -2,8 +2,9 @@
  * Created by Administrator on 2020/12/9 0009.
  */
 var BaseRoomSetPop = BasePopup.extend({
-    ctor:function(hasGPS){
+    ctor:function(hasGPS,isPHZ){
         this.hasGPS = !!hasGPS;
+        this.isPHZ = !!isPHZ;
         this._super("res/gameRoomSetPop.json");
     },
 
@@ -22,6 +23,13 @@ var BaseRoomSetPop = BasePopup.extend({
 
         if(!this.hasGPS){
             this.btn_Gps.setBright(false);
+        }
+
+        var size = cc.director.getWinSize();
+        var tempSize = (size.width - SyConfig.DESIGN_WIDTH)/2;
+        var offx = tempSize > 100 ? 50 : tempSize/2;
+        if(!this.isPHZ && size.width > SyConfig.DESIGN_WIDTH){
+            this.getWidget("Image_setBg").x += tempSize - offx;
         }
     },
 
@@ -55,6 +63,9 @@ var BaseRoomSetPop = BasePopup.extend({
             var isYuyan = MJRoomModel.wanfa == GameTypeEunmMJ.CSMJ || MJRoomModel.wanfa == GameTypeEunmMJ.TDH
                 || MJRoomModel.wanfa == GameTypeEunmMJ.JZMJ;
             var mc = new MjSetUpPop(isCSMJ,isYuyan);
+            PopupManager.addPopup(mc);
+        }else if (LayerManager.isInDTZ()){
+            var mc = new PDKSetUpPop("DTZ");
             PopupManager.addPopup(mc);
         }
     },
@@ -92,4 +103,35 @@ var BaseRoomSetPop = BasePopup.extend({
         PopupManager.remove(this);
     },
 
-})
+});
+
+var BasePKCardSetModel = {
+
+    getLocalCardPathByWanfa:function(wanfa){
+        var index = this.getLocalCardTypeIndexByWanfa(wanfa);
+        var path = "res/pkCommon/tyCard" + index + "/"+ index +"_";
+        return path;
+    },
+
+    getLocalCardTypeIndexByWanfa:function(wanfa){
+        var keyVal = this.getLocalItem(wanfa+"_cardTypeIndex") || 1;//扑克牌
+        keyVal = parseInt(keyVal) == 2 ? 2 : 1;
+        return keyVal;
+    },
+
+    getLocalItem:function(key){
+        var val = cc.sys.localStorage.getItem(key);
+        if(val)
+            val = parseInt(val);
+        return val;
+    },
+
+    setLocalItem:function(wanfa,key){
+        cc.sys.localStorage.setItem(wanfa+"_cardTypeIndex",key);
+    },
+
+    getLocalCardPathByName:function(name){
+        var path = "res/pkCommon/com/" + name + ".png";
+        return path;
+    },
+};

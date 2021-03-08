@@ -19,7 +19,7 @@ var PHZRoomEffects = {
             oPanel.removeChildByTag(321);
             this.qiCard = null;
         }
-        var pmType = 1;//PHZSetModel.pmxz;
+        var pmType = PHZSetModel.pmxz == 3 ? 3 : 1;
 
         var endScale = 1;
         this.phzVo = phzVo || null;
@@ -58,46 +58,31 @@ var PHZRoomEffects = {
             endPosY = 100;
         }
 
-        //if (PHZRoomModel.wanfa == GameTypeEunmZP.AHPHZ || PHZRoomModel.wanfa == GameTypeEunmZP.YJGHZ
-        //    || PHZRoomModel.wanfa == GameTypeEunmZP.NXGHZ || PHZRoomModel.wanfa == GameTypeEunmZP.YYWHZ){
-        //    if(actType == 1){
-        //        if(seq == 1){
-        //            kuang.x = 0;
-        //            kuang.y = 0;
-        //        }else if(seq == 2){
-        //            kuang.x = -200;
-        //            kuang.y = -20;
-        //        }else if(seq == 3){
-        //            kuang.x = 200;
-        //            kuang.y = -20;
-        //        }
-        //    }else if(actType == 2){
-        //        if(seq == 1){
-        //            kuang.x = -550;
-        //            kuang.y = -350;
-        //        }else if(seq == 2){
-        //            kuang.x = 300;
-        //            kuang.y = 150;
-        //        }else if(seq == 3){
-        //            kuang.x = -550;
-        //            kuang.y = 100;
-        //        }
-        //    }
-
         if(renshu == 4){
             endPosX = 0;
             endPosY = 0;
+        }else if(renshu == 2){
+            if(seq == 1){
+                endPosX = 360;
+                endPosY = 240;
+            }else{
+                endPosX = 0;
+                endPosY = 0;
+            }
         }else{
             if(seq == 1){
-                endPosX = -360;
+                endPosX = 360;
                 endPosY = 240;
-            }else if(seq == 2){
-                endPosX = -280;
-                endPosY = 220;
-            }else if(seq == 3){
-                endPosX = -80;
-                endPosY = 20;
             }
+            //else if(seq == 2){
+            //    endPosX = -280;
+            //    endPosY = 220;
+            //}else if(seq == 3){
+            //    endPosX = -80;
+            //    endPosY = 20;
+            //}
+            endPosX = 0;
+            endPosY = 0;
         }
 
         PHZRoomModel.isSelfOutCard = false;
@@ -283,7 +268,7 @@ var PHZRoomEffects = {
 
     getPaiPngurl:function(phzVo){
         var t = phzVo.t==1 ? "s" : "b";
-        var paiType = 1;//1;
+        var paiType = PHZSetModel.zpxz == 3 ? 3 : 1;
         var png = "big_cards" + paiType + "_" + phzVo.n + t + ".png";
         return png
     },
@@ -292,7 +277,7 @@ var PHZRoomEffects = {
         if (this.bg && this.phzVo){
             var color = this.phzVo.t == 1 ? "s" : "b";
             var number = this.phzVo.n;
-            var paiType = 1;//1;
+            var paiType = PHZSetModel.zpxz == 3 ? 3 : 1;
             var pngName = "big_cards" + paiType + "_" + number + color + ".png";
             var frame = cc.spriteFrameCache.getSpriteFrame(pngName);
             this.bg.setSpriteFrame(frame);
@@ -301,7 +286,7 @@ var PHZRoomEffects = {
         if (this.bg1 && this.phzVo){
             var color = this.phzVo.t == 1 ? "s" : "b";
             var number = this.phzVo.n;
-            var paiType = 1;//1;
+            var paiType = PHZSetModel.zpxz == 3 ? 3 : 1;
             var pngName = "big_cards" + paiType + "_" + number + color + ".png";
             var frame = cc.spriteFrameCache.getSpriteFrame(pngName);
             this.bg1.setSpriteFrame(frame);
@@ -729,8 +714,8 @@ var PHZRoomEffects = {
     },
 
     createGLZPCard:function(root,phzVo,isHui){
-        var paiType =  1;//PHZSetModel.zpxz;
-        var pmType = 1;//PHZSetModel.pmxz;
+        var paiType =  PHZSetModel.zpxz == 3 ? 3 : 1;
+        var pmType = PHZSetModel.pmxz == 3 ? 3 : 1;
         var png = "big_face"+pmType+".png";
         var t = phzVo.t==1 ? "s" : "b";
         var ziPNG = "big_cards" + paiType + "_" + phzVo.n + t + ".png";

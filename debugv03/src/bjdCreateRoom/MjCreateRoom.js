@@ -20,11 +20,11 @@ var MjCreateRoom = BasePopup.extend({
         //         ,"AXWMQ","XPLP","XPPHZ"]
         // ];
         this.itemConfigArr = [
-            ["HZMJ","ZZMJ","CSMJ","SYMJ","AHMJ","YJMJ","TJMJ","YYMJ","YZWDMJ","NYMJ"],
+            ["HZMJ","ZZMJ","CSMJ","SYMJ","AHMJ","YJMJ","TJMJ","YYMJ","YZWDMJ","NYMJ","DZMJ","QZMJ"],
             ["PDK","PDK11","ERDDZ","DTZ","XTSDH","DT","QF","YYBS","CDTLJ","HSTH","XTBP"],
             ["SYBP","SYZP","DYBP","AHPHZ","YJGHZ","NXGHZ","YYWHZ",
                 "SMPHZ","CDPHZ","HSPHZ","HYLHQ","HYSHK","LYZP",
-                "CZZP","LDS","YZCHZ","LSZP","YZLC","JHSWZ"]
+                "CZZP","LDS","YZCHZ","LSZP","YZLC","JHSWZ","LDFPF","XTPHZ","ZZPH","GLZP","HHHGW"]
         ];
         // var isClose = false;
         // if (this.clubData){
@@ -304,7 +304,7 @@ var MjCreateRoom = BasePopup.extend({
                     if(this.clickCreditParms && i <= 3){
                         goldMsg.push(credit);
                     }
-                    if ((i >= 1 && i <= 4) || i == 7 || i == 9 || i == 12){
+                    if ((i >= 1 && i <= 4) || i == 7 || i == 9 || i == 12 || i == 13){
                         credit = Math.round(credit * 100);
                     }
                     creditParams.push(credit);

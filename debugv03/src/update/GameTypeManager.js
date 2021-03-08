@@ -67,6 +67,7 @@ var GameTypeEunmMJ = {
     CQXZMJ:185,//重庆血战麻将
     ZOUMJ:253,//郑州麻将
     ZJMJ:804,//芷江麻将
+    QZMJ:183,//全州麻将
 }
 //扑克
 var GameTypeEunmPK = {

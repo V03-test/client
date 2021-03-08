@@ -16,7 +16,7 @@ var Card = ccui.Widget.extend({
 	 * @construct
 	 * @param cardVo {CardVo}
 	 */
-	ctor:function(prefix,cardVo,cardType){
+	ctor:function(prefix,cardVo,cardType,isPDK){
 		var cardType = cardType || 1;
 		this._prefix = prefix;
 		this._super();
@@ -31,7 +31,8 @@ var Card = ccui.Widget.extend({
 		//	bg = this._bg = new cc.Sprite("#nmw_bcard_" + color + "_" + number + ".png");
 		//}else if(cardType == 2){
 			//bg = this._bg = new cc.Sprite("#nmw_bcard_" + color + "_" + number + ".png");
-			bg = this._bg = new cc.Sprite("#bbt_mcard_"+color+"_"+number+".png"); //pdk卡牌资源
+		  var nameStr = isPDK ? "#bbt_mcard_":"#nmw_bcard_";
+			bg = this._bg = new cc.Sprite(nameStr+color+"_"+number+".png"); //pdk卡牌资源
 		//}
 
 

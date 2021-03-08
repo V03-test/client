@@ -13,8 +13,8 @@ res.majiang_bg3_png = "res/plist/majiang_bg3.png";
 
 res.emoji_plist = "res/plist/biaoqing.plist";
 res.emoji_png = "res/plist/biaoqing.png";
-// res.poker_plist = "res/plist/nmw_bcard.plist";
-// res.poker_png = "res/plist/nmw_bcard.png";
+ res.poker_plist = "res/plist/nmw_bcard.plist";
+ res.poker_png = "res/plist/nmw_bcard.png";
 res.test_png = "res/ui/images/bomb.png";
 res.tongzi_png = "res/res_dtz/images/redKuang.png";
 res.dizha_png = "res/res_dtz/images/orangeKuang.png";

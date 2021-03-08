@@ -171,11 +171,11 @@ var ZZMJRoom = BaseRoom.extend({
         this.Panel_hupai.height = 220;
         this.root.addChild(this.Panel_hupai,4);
 
-        var gameNameImg = new cc.Sprite("res/res_mj/res_zzmj/zzmjRoom/zzmj.png");
-        var x = 960;
-        var y = 740;
-        gameNameImg.setPosition(x, y);
-        this.root.addChild(gameNameImg,2);
+        // var gameNameImg = new cc.Sprite("res/res_mj/res_zzmj/zzmjRoom/zzmj.png");
+        // var x = 960;
+        // var y = 740;
+        // gameNameImg.setPosition(x, y);
+        // this.root.addChild(gameNameImg,2);
 
         // this.wanfa_Label = new cc.LabelTTF("","Arial",34);
         // this.wanfa_Label.setColor(cc.color(181,151,83));
@@ -261,6 +261,10 @@ var ZZMJRoom = BaseRoom.extend({
             this.Button_setup1.x += tempSize - offx;
             this.roomName_label.x -= tempSize - offx;
             this.getWidget("mPanel1").x += tempSize;
+
+            this.getWidget("Image_infoBg").x -= tempSize - offx;
+            this.getWidget("Image_otherDi").x -= tempSize - offx;
+            this.getWidget("Image_dipai").x -= tempSize - offx;
         }
     },
 

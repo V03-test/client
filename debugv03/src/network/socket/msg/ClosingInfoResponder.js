@@ -44,7 +44,7 @@ var ClosingInfoModel = {
         ClosingInfoModel.allCardsCombo = message.allCardsCombo;
         ClosingInfoModel.isBreak = message.isBreak;
         ClosingInfoModel.wanfa = message.wanfa;
-        ClosingInfoModel.pdkcutCard = message.cutCard || [];
+        ClosingInfoModel.cutCard = message.cutDtzCard || [];
     },
 }
 var ClosingInfoResponder = BaseResponder.extend({

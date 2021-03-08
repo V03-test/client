@@ -215,22 +215,22 @@ var AHMJRoom = BaseRoom.extend({
         this.Panel_hupai.height = 220;
         this.root.addChild(this.Panel_hupai,4);
 
-        var roomFile = "res/res_mj/res_ahmj/ahmjRoom/ahmj.png";
-        if(MJRoomModel.wanfa == GameTypeEunmMJ.CXMJ)
-            roomFile = "res/res_mj/res_ahmj/cxmjRoom/cxmj.png";
-        else  if(MJRoomModel.wanfa == GameTypeEunmMJ.KWMJ)
-            roomFile = "res/res_mj/res_ahmj/kwmjRoom/kwmj.png";
-        if(MJRoomModel.isTCPFMJ())
-            roomFile = "res/res_mj/res_ahmj/tcmjRoom/tcpfmj.png";
-        if(MJRoomModel.isTCDPMJ())
-            roomFile = "res/res_mj/res_ahmj/tcmjRoom/tcdpmj.png";
-        if(MJRoomModel.isYYNXMJ())
-            roomFile = "res/res_mj/res_ahmj/yynxmjRoom/yynxmj.png";
-        var gameNameImg = new cc.Sprite(roomFile);
-        var x = 960;
-        var y = 740;
-        gameNameImg.setPosition(x, y);
-        this.root.addChild(gameNameImg,2);
+        // var roomFile = "res/res_mj/res_ahmj/ahmjRoom/ahmj.png";
+        // if(MJRoomModel.wanfa == GameTypeEunmMJ.CXMJ)
+        //     roomFile = "res/res_mj/res_ahmj/cxmjRoom/cxmj.png";
+        // else  if(MJRoomModel.wanfa == GameTypeEunmMJ.KWMJ)
+        //     roomFile = "res/res_mj/res_ahmj/kwmjRoom/kwmj.png";
+        // if(MJRoomModel.isTCPFMJ())
+        //     roomFile = "res/res_mj/res_ahmj/tcmjRoom/tcpfmj.png";
+        // if(MJRoomModel.isTCDPMJ())
+        //     roomFile = "res/res_mj/res_ahmj/tcmjRoom/tcdpmj.png";
+        // if(MJRoomModel.isYYNXMJ())
+        //     roomFile = "res/res_mj/res_ahmj/yynxmjRoom/yynxmj.png";
+        // var gameNameImg = new cc.Sprite(roomFile);
+        // var x = 960;
+        // var y = 740;
+        // gameNameImg.setPosition(x, y);
+        // this.root.addChild(gameNameImg,2);
 
         //this.getWidget("mPanel1").y = 10;
 
@@ -595,6 +595,10 @@ var AHMJRoom = BaseRoom.extend({
             this.roomName_label.x -= tempSize - offx;
             this.getWidget("mPanel1").x += tempSize;
             this.button_fengDong.x += tempSize - offx;
+
+            this.getWidget("Image_infoBg").x -= tempSize - offx;
+            this.getWidget("Image_otherDi").x -= tempSize - offx;
+            this.getWidget("Image_dipai").x -= tempSize - offx;
         }
     },
 

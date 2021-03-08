@@ -62,32 +62,24 @@ var LoginLayer = BaseLayer.extend({
 			  ports_str += "," + i;
 			}
 		}
-//		if ((SyConfig.isAndroid() && SyConfig.TJD == true) || SyConfig.isIos()) {
 
-			SyConfig.TJD = false;
-			SyConfig.WS_HOST = "login.5mh1oqm.cn";
-			SyConfig.WS_PORT = ports;
-			SyConfig.REQ_URL = "http://login.5mh1oqm.cn/pdklogin/{0}!{1}.action";
-			SyConfig.LOGIN_URL = "http://login.5mh1oqm.cn/pdklogin/{0}!{1}.guajilogin";
-			ServerUtil.defaultLoginUrl = SyConfig.LOGIN_URL;
-			ServerUtil.defaultReqUrl = SyConfig.REQ_URL;
-            SyConfig.LOGIN_URL_NEW = "http://login.5mh1oqm.cn";
 
-            //SyConfig.TJD = false;
-            //SyConfig.WS_HOST = "192.168.1.110";
-            //SyConfig.WS_PORT = "8109";
-            //SyConfig.REQ_URL = "http://192.168.1.110:8081/pdklogin/{0}!{1}.action";
-            //SyConfig.LOGIN_URL = "http://192.168.1.110:8081/pdklogin/{0}!{1}.pdklogin";
-            //ServerUtil.defaultLoginUrl = SyConfig.LOGIN_URL;
-            //ServerUtil.defaultReqUrl = SyConfig.REQ_URL;
-            //SyConfig.LOGIN_URL_NEW = "http://192.168.1.110:8081";
-//		}
+        SyConfig.TJD = false;
+        SyConfig.WS_HOST = "login.5mh1oqm.cn";
+        SyConfig.WS_PORT = ports;
+        SyConfig.REQ_URL = "http://login.5mh1oqm.cn/pdklogin/{0}!{1}.action";
+        SyConfig.LOGIN_URL = "http://login.5mh1oqm.cn/pdklogin/{0}!{1}.guajilogin";
+        ServerUtil.defaultLoginUrl = SyConfig.LOGIN_URL;
+        ServerUtil.defaultReqUrl = SyConfig.REQ_URL;
+        SyConfig.LOGIN_URL_NEW = "http://login.5mh1oqm.cn";
+
         var timeRound = UITools.getLocalItem("Socket_timeRound1");
         if (!timeRound || timeRound == ""){
             var time = new Date().getTime();
             var Socket_timeRound1 = time + "" + Math.floor(Math.random()*1000)+1;
             UITools.setLocalItem("Socket_timeRound1",Socket_timeRound1);
         }
+
 
 
         //初始化新增的SDK参数
@@ -144,7 +136,6 @@ var LoginLayer = BaseLayer.extend({
         this.uploadUpdateErrorLog();
 
         this.selected = true;
-
         this.addCustomEvent(SyEvent.SOCKET_LOGIN_SUCCESS, this, this.onLoginSuccess);
 
         this.isForceUpdate();
@@ -164,114 +155,10 @@ var LoginLayer = BaseLayer.extend({
 
         //显示登陆按钮
         this.displayLoginBtn();
-        
+
         //sy.scene.showLoading("正在创建房间");
         //强制每次都弹出开屏广告
         SdkUtil.upOpenAd();
-        //
-        // var message = {"closingPlayers":[{"userId":"120220","name":"lww001","leftCardNum":0,"point":140,"totalPoint":140,"boom":400,"winCount":null,"lostCount":null,"maxPoint":null,"totalBoom":null,"cards":[],"seat":1,"sex":1,"icon":"","isHu":0,"actionCounts":[],"gangIds":[],"dahus":[],"xiaohus":[],"ext":["4","2","4","0","0","0","0","0","0","0","0","0","1","1","-1","140","0","0","0","0","0","0","0","0","0","0","0","0","0"],"gold":null,"credit":null,"winLoseCredit":null,"commissionCredit":null,"goldFlag":0},{"userId":"9708382","name":"lww004","leftCardNum":24,"point":-60,"totalPoint":-60,"boom":-400,"winCount":null,"lostCount":null,"maxPoint":null,"totalBoom":null,"cards":[208,305,111,305,413,313,308,108,113,414,114,209,211,111,205,405,311,314,309,310,210,109,108,310],"seat":2,"sex":1,"icon":"","isHu":0,"actionCounts":[],"gangIds":[],"dahus":[],"xiaohus":[],"ext":["0","0","0","0","0","0","0","0","1","0","0","0","2","4","-1","-60","0","0","0","0","0","0","0","0","0","0","0","0","0"],"gold":null,"credit":null,"winLoseCredit":null,"commissionCredit":null,"goldFlag":0},{"userId":"1298992","name":"lww003","leftCardNum":0,"point":125,"totalPoint":125,"boom":400,"winCount":null,"lostCount":null,"maxPoint":null,"totalBoom":null,"cards":[],"seat":3,"sex":1,"icon":"","isHu":0,"actionCounts":[],"gangIds":[],"dahus":[],"xiaohus":[],"ext":["3","2","3","0","0","0","0","0","0","0","0","0","1","2","-1","125","0","0","0","0","0","0","0","0","0","0","0","0","0"],"gold":null,"credit":null,"winLoseCredit":null,"commissionCredit":null,"goldFlag":0},{"userId":"120236","name":"lww002","leftCardNum":21,"point":-60,"totalPoint":-60,"boom":-400,"winCount":null,"lostCount":null,"maxPoint":null,"totalBoom":null,"cards":[114,410,110,306,405,112,214,109,115,314,215,409,308,414,310,208,412,114,112,213,415],"seat":4,"sex":1,"icon":"","isHu":1,"actionCounts":[],"gangIds":[],"dahus":[],"xiaohus":[],"ext":["0","0","0","0","0","0","0","0","1","0","0","0","2","3","-1","-60","0","0","0","0","0","0","0","0","0","0","0","0","0"],"gold":null,"credit":null,"winLoseCredit":null,"commissionCredit":null,"goldFlag":0}],"bird":[],"birdSeat":[],"isBreak":0,"wanfa":8,"ext":["462058","120220","2020-12-23 19:50:24","113","1","145","0","-1","0","0","1","2","","0","0","0","0","0","0","0","0","0","0"],"matchExt":[],"cutCard":[],"cutDtzCard":[210,410,113,115,107,309,307,214],"groupLogId":null,"intParams":[]};
-        // //
-        // // var message = {"closingPlayers":[{"userId":"120220","name":"lww001","leftCardNum":44,"point":0,"totalPoint":-60,"boom":-700,"winCount":null,"lostCount":null,"maxPoint":null,"totalBoom":null,"cards":[208,415,311,307,107,115,109,411,209,206,406,205,105,310,111,412,412,312,107,412,114,210,211,313,207,214,208,111,105,315,213,313,108,212,107,209,113,308,106,407,314,307,113,412],"seat":1,"sex":1,"icon":"","isHu":null,"actionCounts":[],"gangIds":[],"dahus":[],"xiaohus":[],"ext":["0","0","0","0","0","0","0","0","1","0","0","0","1","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0"],"gold":null,"credit":null,"winLoseCredit":null,"commissionCredit":null,"goldFlag":0},{"userId":"120236","name":"lww002","leftCardNum":44,"point":0,"totalPoint":565,"boom":700,"winCount":null,"lostCount":null,"maxPoint":null,"totalBoom":null,"cards":[408,113,409,110,308,112,313,414,105,205,306,309,207,307,309,410,406,405,305,407,415,215,110,108,214,308,115,405,311,206,411,215,210,110,306,309,405,209,213,407,405,215,410,406],"seat":2,"sex":1,"icon":"","isHu":null,"actionCounts":[],"gangIds":[],"dahus":[],"xiaohus":[],"ext":["0","0","0","0","0","0","0","0","1","1","1","0","2","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0"],"gold":null,"credit":null,"winLoseCredit":null,"commissionCredit":null,"goldFlag":0}],"bird":[],"birdSeat":[],"isBreak":1,"wanfa":8,"ext":["756693","120220","2020-12-23 15:40:30","210","2","-60","265","0","0","0","1","3","","0","0","0","0","0","0","0","0","0","1"],"matchExt":[],"cutCard":[],"cutDtzCard":[410,305,310,213,306,115,206,114,308,112,105,107,408,411,106,207,109,212,305,210,112,212,309,413,111,415,314,306,305,110,315,208,215,207,408,312,315,106,310,414,408,209,314,311,313,409,112,208,214,315,111,312,307,407,212,106,410,312,314,205,413,211,409,211,115,310,411,113,109,114,211,108,311,214,205,108,413,415,109,210,414,414,213,114,409,206,406,413],"groupLogId":null,"intParams":[]};
-        // //
-        // var players = message.closingPlayers;
-        // for(var i=0;i<players.length;i++){
-        //     var p = players[i];
-        //     if(WXHeadIconManager.isRemoteHeadImg(p.icon)){
-        //         p.icon = WXHeadIconManager.replaceUrl(p.icon);
-        //         if(WXHeadIconManager.hasLocalHeadImg(p.userId)){
-        //             p.icon = WXHeadIconManager.getHeadImgPath(p.userId);
-        //         }
-        //     }
-        //     p.winLoseCredit = Number(p.winLoseCredit) + Number(p.commissionCredit);
-        // }
-        // ClosingInfoModel.ext = message.ext;
-        // ClosingInfoModel.isReplay = false;
-        // ClosingInfoModel.closingPlayers = message.closingPlayers;
-        // ClosingInfoModel.cutCard = message.cutDtzCard || [];
-        //
-        // if(typeof QFRoomModel !== "undefined"){
-        //     QFRoomModel.overbird = message.bird || [];
-        // }
-        //
-        // ClosingInfoModel.round = message.ext[4];
-        // ClosingInfoModel.ascore = message.ext[5];
-        // ClosingInfoModel.bscore = message.ext[6];
-        // ClosingInfoModel.groupLogId = message.groupLogId||0;//俱乐部名片id
-        // var extIndex = 7;
-        // if (players.length == 3) {
-        //     ClosingInfoModel.cscore = message.ext[extIndex];
-        //     extIndex++;
-        // }
-        // ClosingInfoModel.gotoBigResult = message.wanfa == 190?message.ext[6]:message.ext[extIndex];
-        // ClosingInfoModel.pdkcutCard = message.cutCard || [];
-        //
-        // var mc = new DTZBigResultPop(message.closingPlayers);
-        // PopupManager.addPopup(mc);
-
-
-        // var message = {"closingPlayers":[{"userId":"4638347","name":"qwe","point":-48,
-        //         "totalPoint":-470,"winCount":1,"lostCount":5,
-        //         "maxPoint":32,"seat":1,"sex":1,"icon":"res/res_icon/3.png",
-        //         "bopiPoint":48,"cards":[16,52,57,50,60],"isShuXing":null,
-        //         "renewStatus":null,"firstCards":[16,52,57,50,60],
-        //         "strExt":["1","0","1","0","-47000","0"],
-        //         "winLoseCredit":{"low":-47000,"high":-1,"unsigned":false},
-        //         "commissionCredit":{"low":0,"high":0,"unsigned":false},"allHuxi":null,
-        //         "finalPoint":null,"moldCards":[],"goldFlag":0},{"userId":"2165511",
-        //         "name":"zxc","point":48,"totalPoint":470,"winCount":5,"lostCount":1,
-        //         "maxPoint":192,"seat":2,"sex":1,"icon":"res/res_icon/15.png","bopiPoint":48,
-        //         "cards":[14,74,81],"isShuXing":null,"renewStatus":null,
-        //         "firstCards":[14,74,81],"strExt":["5","4","0","2","47000","0"],
-        //         "winLoseCredit":{"low":47000,"high":0,"unsigned":false},
-        //         "commissionCredit":{"low":0,"high":0,"unsigned":false},"allHuxi":null,"finalPoint":null,
-        //         "moldCards":[],"goldFlag":0}],"isBreak":0,"wanfa":4,"ext":["527914","4638347",
-        //         "2021-02-26 14:48:33","229","0","6","1","2","14","26","9","26","0","2058","0","0","0","1","10"],
-        //     "matchExt":[],"cards":[{"action":6,"cards":[37,67,77],"huxi":0},
-        //         {"action":6,"cards":[42,47,70],"huxi":6},{"action":3,"cards":[51,61,71],"huxi":6},
-        //         {"action":3,"cards":[6,26,36],"huxi":3},{"action":6,"cards":[14,74,81],"huxi":0}],
-        //     "leftCards":[55,28,34,46,41,80,59,27,5,3,32,31,17,4,83,45,24,68,44,65,38,64,35,63,12,40,53,25,82,54],
-        //     "tun":15,"fan":2,"huxi":15,"huSeat":2,"huCard":26,"totalTun":15,"fanTypes":[10],
-        //     "isRenew":null,"renewCount":null,"pointRecord":null,"startLeftCards":[],
-        //     "groupLogId":null,"chouCards":[],"intParams":[],"allCardsCombo":[]}
-        // var players = message.closingPlayers;
-        // for(var i=0;i<players.length;i++){
-        //     var p = players[i];
-        //     if(!LoginData.isLoadIcon()){//屏蔽头像加载
-        //         p.icon = "";
-        //         cc.log("head icon has blocked, now icon url is::"+ p.icon);
-        //     }
-        //     if(WXHeadIconManager.isRemoteHeadImg(p.icon)){
-        //         p.icon = WXHeadIconManager.replaceUrl(p.icon);
-        //         if(WXHeadIconManager.hasLocalHeadImg(p.userId)){
-        //             p.icon = WXHeadIconManager.getHeadImgPath(p.userId);
-        //         }
-        //     }
-        //     p.winLoseCredit = Number(p.winLoseCredit) + Number(p.commissionCredit);
-        // }
-        // ClosingInfoModel.round = message.ext[5];
-        // ClosingInfoModel.ext = message.ext;
-        // ClosingInfoModel.isReplay = false;
-        // ClosingInfoModel.closingPlayers = message.closingPlayers;
-        // ClosingInfoModel.cards = message.cards;
-        // ClosingInfoModel.leftCards = message.leftCards;
-        // ClosingInfoModel.tun = message.tun;
-        // ClosingInfoModel.fan = message.fan;
-        // ClosingInfoModel.huxi = message.huxi;
-        // ClosingInfoModel.huSeat = message.huSeat;
-        // ClosingInfoModel.huCard = message.huCard;
-        // ClosingInfoModel.totalTun = message.totalTun;
-        // ClosingInfoModel.fanTypes = message.fanTypes;
-        // ClosingInfoModel.firstCard = message.firstCard;
-        // ClosingInfoModel.startLeftCards = message.startLeftCards || [];
-        // ClosingInfoModel.chouCards = message.chouCards || [];
-        // ClosingInfoModel.groupLogId = message.groupLogId||0;//俱乐部名片id
-        // ClosingInfoModel.intParams = PHZRoomModel.intParams || [];
-        // ClosingInfoModel.allCardsCombo = message.allCardsCombo;
-        // ClosingInfoModel.isBreak = message.isBreak;
-        // var wanfa = message.wanfa;
-        // var mc = new PHZSmallResultPop(message.closingPlayers);
-        // PopupManager.addPopup(mc);
-
 
     },
     addPlistAni:function(){
@@ -295,34 +182,7 @@ var LoginLayer = BaseLayer.extend({
         logo.setPosition(this.bg.width/2  ,this.bg.height/2 + 140);
         this.bg.addChild(logo, 2);
 
-        // ccs.armatureDataManager.addArmatureFileInfo("res/bjdani/csd/csd.ExportJson");
-        //
-        // var ani = new ccs.Armature("csd");
-        // ani.setPosition(this.bg.width/2,this.bg.height/2+100);
-        // ani.getAnimation().play("Animation1",-1,1);
-        // this.bg.addChild(ani,2);
-        // this.showLogoAni();
 
-        // var zuohua = new ccs.Armature("bjdqp_denglu_new");
-        // zuohua.setPosition(this.bg.width/2 - (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2,this.bg.height/2);
-        // zuohua.getAnimation().play("zuohua",-1,1);
-        // this.bg.addChild(zuohua);
-        //
-        //
-        // var youhua = new ccs.Armature("bjdqp_denglu_new");
-        // youhua.setPosition(this.bg.width/2 + (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2,this.bg.height/2);
-        // youhua.getAnimation().play("youhua",-1,1);
-        // this.bg.addChild(youhua);
-        //
-        // var shu = new ccs.Armature("bjdqp_denglu_new");
-        // shu.setPosition(this.bg.width/2+50,this.bg.height/2-20);
-        // shu.getAnimation().play("shu",-1,1);
-        // this.bg.addChild(shu,1);
-        //
-        // var sun = new ccs.Armature("bjdqp_denglu_new");
-        // sun.setPosition(this.bg.width/2-100 - (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2,this.bg.height/2+60);
-        // sun.getAnimation().play("sun",-1,1);
-        // this.bg.addChild(sun);
     },
 
     showLogoAni:function(){
@@ -408,7 +268,7 @@ var LoginLayer = BaseLayer.extend({
             }
         }
 
-        btn.visible = true;//!!SyConfig.DEBUG;
+        btn.visible = true;
 
         var btnArr = [];
         if(btn.visible)btnArr.push(btn);
@@ -424,6 +284,9 @@ var LoginLayer = BaseLayer.extend({
 
     onEnter:function(){
         this._super();
+
+        //加载道具配置表，注意标文件编码utf-8
+        // PropDataMgr.loadCfgData();
     },
 
     onEnterTransitionDidFinish:function(){
@@ -513,7 +376,7 @@ var LoginLayer = BaseLayer.extend({
 
 
         cc.log("realLogin::"+SyConfig.LOGIN_URL);
-    	var pf = SyConfig.isSelf()||(params.visitor&&params.visitor==true) ? "" : SyConfig.PF;
+        var pf = SyConfig.isSelf()||(params.visitor&&params.visitor==true) ? "" : SyConfig.PF;
         if (params.phoneLogin){
             pf = "phoneLogin";
         }
@@ -538,19 +401,19 @@ var LoginLayer = BaseLayer.extend({
         //     "gamevc": "v2.3.80",
         //     "bind_pf": "xianliaobjd"
         // }
-       // params.ps = "123456";
+        // params.ps = "123456";
         //获取android平台的渠道号，机型等登录参数
         try{
-        	var androidParams=JSON.parse(SdkUtil.sdkGetLoginParams());
-        	for(var key in androidParams){
-        		params[key]=androidParams[key];
-        	}
-        	if(androidParams.hasOwnProperty("roomId") && PlayerModel.loginTimes==0){
-        		PlayerModel.urlSchemeRoomId=androidParams["roomId"];
-        	}
-        	//SdkUtil.sdkLog(JSON.stringify(params));
+            var androidParams=JSON.parse(SdkUtil.sdkGetLoginParams());
+            for(var key in androidParams){
+                params[key]=androidParams[key];
+            }
+            if(androidParams.hasOwnProperty("roomId") && PlayerModel.loginTimes==0){
+                PlayerModel.urlSchemeRoomId=androidParams["roomId"];
+            }
+            //SdkUtil.sdkLog(JSON.stringify(params));
         }catch(e){
-        	SdkUtil.sdkLog("realLogin exception::"+e.toString());
+            SdkUtil.sdkLog("realLogin exception::"+e.toString());
         }
         sy.scene.showLoading("正在登录");
         var sortedParams = ObjectUtil.sortByDict(params);
@@ -635,15 +498,15 @@ var LoginLayer = BaseLayer.extend({
         if (PlayerModel.serverId == parseInt(obj.currentServer) || PlayerModel.playTableId <= 0) {
             PlayerModel.serverId = parseInt(obj.currentServer);
             //var callBack = function(){
-                sySocket.sendOpenMsg(1);
+            sySocket.sendOpenMsg(1);
             //}
         } else {//需要切服
             //var callBack = function(){
-                sySocket.url = PlayerModel.connectHost;
-                sySocket.isCrossServer = true;
-                sySocket.disconnect(function(){
-                    sySocket.connect(null,4);
-                },4);
+            sySocket.url = PlayerModel.connectHost;
+            sySocket.isCrossServer = true;
+            sySocket.disconnect(function(){
+                sySocket.connect(null,4);
+            },4);
             //}
         }
         //sy.scene.updatelayer.getUpdatePath(PlayerModel.playType,callBack);
@@ -667,10 +530,10 @@ var LoginLayer = BaseLayer.extend({
     },
 
     onVisitor:function(){
-	    if(!this.selected)
-    		return;
-    	var mc = new UserLoginLayer();
-    	PopupManager.addPopup(mc);
+        if(!this.selected)
+            return;
+        var mc = new UserLoginLayer();
+        PopupManager.addPopup(mc);
     },
 
     onPhone:function(){
@@ -680,9 +543,9 @@ var LoginLayer = BaseLayer.extend({
 
     onWx:function(){
         if(!this.selected)return;
-    	if(SyConfig.isSdk()){
-    		SdkUtil.sdkLogin();
-    	}
+        if(SyConfig.isSdk()){
+            SdkUtil.sdkLogin();
+        }
     },
 
     onXl:function() {

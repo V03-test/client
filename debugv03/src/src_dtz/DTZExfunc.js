@@ -294,17 +294,11 @@ var DTZExfunc = {
             if (times == 3) {
                 //cc.log("找到筒子 面值为:", cardMsg.cardValue, " 花色为:", cardMsg.color);
                 for(var index = 0 ; index < cardMsg.objList.length ; index ++ ){
-                    cardMsg.objList[index].tongziSp.visible = true;
-                    if (cardMsg.objList[index]._isTongzi){
-                        cardMsg.objList[index]._isTongzi = true;
-                    }
+                    cardMsg.objList[index].tongziSp.visible = cardMsg.objList[index]._isTongzi = true;
                 }
             }else{//可能之前是筒子 打过牌以后拆散了 去掉是筒子的标记
                 for(var index = 0 ; index < cardMsg.objList.length ; index ++){
-                    cardMsg.objList[index].tongziSp.visible = false;
-                    if (cardMsg.objList[index]._isTongzi){
-                        cardMsg.objList[index]._isTongzi = false;
-                    }
+                    cardMsg.objList[index].tongziSp.visible = cardMsg.objList[index]._isTongzi = false;
                 }
             }
         }
@@ -354,27 +348,18 @@ var DTZExfunc = {
 
                 //cc.log("superBoomObjList.length..." , superBoomObjList.length)
                 for (var index = 0 ; index < superBoomObjList.length  ; index ++){
-                    superBoomObjList[index].superBoomSp.visible = isSuperBoom; //显示地炸的特殊标识
-                    if (superBoomObjList[index]._isSuperBoom){
-                        superBoomObjList[index]._isSuperBoom = isSuperBoom;
-                    }
+                    superBoomObjList[index].superBoomSp.visible = superBoomObjList[index]._isSuperBoom = isSuperBoom; //显示地炸的特殊标识
                 }
 
                 if(isSuperBoom){
                     for (var indexOrg = 0 ; indexOrg < objList.length ; indexOrg ++) {//优先显示地炸
                         //if(objList[indexOrg]._isSuperBoom){
-                        objList[indexOrg].tongziSp.visible = false;
+                        objList[indexOrg].tongziSp.visible = objList[indexOrg]._isTongzi = false;
                         //}
-                        if (objList[indexOrg]._isTongzi){
-                            objList[indexOrg]._isTongzi = false;
-                        }
                     }
                 }else{//否则去掉地炸标识
                     for (var indexOrg = 0 ; indexOrg < objList.length ; indexOrg ++) {//优先显示地炸
-                        objList[indexOrg].superBoomSp.visible = false;
-                        if (objList[indexOrg]._isSuperBoom){
-                            objList[indexOrg]._isSuperBoom = false;
-                        }
+                        objList[indexOrg].superBoomSp.visible = objList[indexOrg]._isSuperBoom = false;
                     }
                 }
 
@@ -384,10 +369,7 @@ var DTZExfunc = {
                 }
             }else{
                 for (var indexOrg = 0 ; indexOrg < objList.length ; indexOrg ++) {//
-                    objList[indexOrg].superBoomSp.visible = false;
-                    if (objList[indexOrg]._isSuperBoom){
-                        objList[indexOrg]._isSuperBoom = false;
-                    }
+                    objList[indexOrg].superBoomSp.visible = objList[indexOrg]._isSuperBoom = false;
                 }
             }
         }
@@ -415,18 +397,12 @@ var DTZExfunc = {
                 //cc.log("找到喜 面值为:", cardMsg.cardValue, " 花色为:", cardMsg.color);
                 for(var index = cardMsg.objList.length - 1 ; index >= 0 ; index -- ){
                     if(cardMsg.objList[index]._isSuperBoom == false){
-                        cardMsg.objList[index].xiSp.visible = true;
-                        if (cardMsg.objList[index]._isXi){
-                            cardMsg.objList[index]._isXi = true;
-                        }
+                        cardMsg.objList[index].xiSp.visible = cardMsg.objList[index]._isXi = true;
                     }
                 }
             }else{//可能之前是喜 打过牌以后拆散了 去掉是喜的标记
                 for(var index = 0 ; index < cardMsg.objList.length ; index ++){
-                    cardMsg.objList[index].xiSp.visible = false;
-                    if (cardMsg.objList[index]._isXi){
-                        cardMsg.objList[index]._isXi = false;
-                    }
+                    cardMsg.objList[index].xiSp.visible = cardMsg.objList[index]._isXi = false;
                 }
             }
         }

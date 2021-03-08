@@ -183,11 +183,11 @@ var SYMJRoom = BaseRoom.extend({
             this.recordBtn.y = 470;
         }
 
-        var gameNameImg = new cc.Sprite("res/res_mj/res_symj/symjRoom/symj.png");
-        var x = 960;
-        var y = 740;
-        gameNameImg.setPosition(x, y);
-        this.Panel_20.addChild(gameNameImg,2);
+        // var gameNameImg = new cc.Sprite("res/res_mj/res_symj/symjRoom/symj.png");
+        // var x = 960;
+        // var y = 740;
+        // gameNameImg.setPosition(x, y);
+        // this.Panel_20.addChild(gameNameImg,2);
 
         var huBg = "res/res_mj/mjRoom/img_ting1.png";
         this.Panel_hupai = new cc.Scale9Sprite(huBg,null,cc.rect(10,10,1,1));
@@ -415,6 +415,10 @@ var SYMJRoom = BaseRoom.extend({
             this.Button_setup1.x += tempSize - offx;
             this.roomName_label.x -= tempSize - offx;
             this.getWidget("mPanel1").x += tempSize;
+
+            this.getWidget("Image_infoBg").x -= tempSize - offx;
+            this.getWidget("Image_otherDi").x -= tempSize - offx;
+            this.getWidget("Image_dipai").x -= tempSize - offx;
         }
     },
 

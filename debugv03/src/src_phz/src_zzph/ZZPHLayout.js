@@ -293,8 +293,9 @@ var ZZPHLayout = cc.Class.extend({
     refreshP2:function(data,isOver){
         this.data2 = data;
         // cc.log("this.data2======"+JSON.stringify(this.data2));
-        var gx = 69*0.75;
-        var gy = 70*0.75;
+        var localScale = 0.75;
+        var gx = 62*localScale;
+        var gy = 55*localScale;
         var count = 0;
         var nowCards = this.mahjongs2.length;
         for(var i=0;i<data.length;i++){
@@ -355,6 +356,7 @@ var ZZPHLayout = cc.Class.extend({
                 }else{
                     card.x = i*gx;
                 }
+                card.scale = localScale;
                 card.setLocalZOrder(zorder);
                 card.y = j*gy;
                 count++;
@@ -373,7 +375,8 @@ var ZZPHLayout = cc.Class.extend({
      */
     refreshP3:function(data,isQiAni){
         this.data3 = data;
-        var g = 69*0.75;
+        var localScale = 0.75;
+        var g = 62*localScale;
         var initVal = 0;
         // if(PHZRoomModel.renshu==4){
         //     initVal=(this.direct==3 || this.direct==4) ? 0 : 308;
@@ -386,7 +389,7 @@ var ZZPHLayout = cc.Class.extend({
             this.mahjongs3[i].refresh(PHZAI.getDisplayVo(this.direct,3),data[i]);
         }
         var maxLength = 40;
-        var endPos = cc.p(1280,0);
+        var endPos = cc.p(1920,0);
         for(;i<data.length;i++){
             //cc.log("data.length============="+data.length)
             cc.log("data[i] =",JSON.stringify(data[i]));
@@ -482,6 +485,8 @@ var ZZPHLayout = cc.Class.extend({
                 
             }
 
+            card.scale = localScale;
+
             if (i == data.length -1 ){
                 endPos.x = card.x;
                 endPos.y = card.y;
@@ -493,7 +498,7 @@ var ZZPHLayout = cc.Class.extend({
             }
         }
 
-        if (isQiAni && endPos.x != 1280){
+        if (isQiAni && endPos.x != 1920){
             ZZPHRoomEffects.qiPai(endPos);
         }
     },

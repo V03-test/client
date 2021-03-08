@@ -5,8 +5,8 @@ var DTZRoom = BaseRoom.extend({
 
 //原Room.js 中的代码
     _cardPanel: null,
-    _cardW: 263,
-    _cardG: 30, //65
+    _cardW: 144,//263,
+    _cardG: 60,//30, //65
     //用于卡牌定位
     firstLineLimit : 23,
     initCardYLine1 : 150,
@@ -14,7 +14,7 @@ var DTZRoom = BaseRoom.extend({
     line1cardNumber:0,
     line2cardNumber:0,
     initX : 150,
-    _letOutCardScale:0.51,
+    _letOutCardScale:0.85,
     /**
      * {Array.<DTZBigCard>}
      */
@@ -864,6 +864,21 @@ var DTZRoom = BaseRoom.extend({
             this.Button_giveUp.visible = false;
         }
 
+
+        var localData = { closingPlayers :[{ userId : 2517495 , name : "lx67" , leftCardNum :0, point :70, totalPoint :70, boom :0, winCount :null, lostCount :null, maxPoint :null,
+            totalBoom :null, cards :[], seat :2, sex :2, icon : "res/res_icon/15.png" , isHu :0, actionCounts :[], gangIds :[], dahus :[], xiaohus :[],
+            ext :[ 2 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 2 , 1 , -1 , 70 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ], gold :null, credit :null,
+            winLoseCredit :null, commissionCredit :null, goldFlag :0},{ userId : 7664459 , name : "lx45" , leftCardNum :3, point :65, totalPoint :65, boom :0, winCount :null,
+            lostCount :null, maxPoint :null, totalBoom :null, cards :[110,210,112], seat :1, sex :1, icon : "res/res_icon/20.png" , isHu :1, actionCounts :[],
+            gangIds :[], dahus :[], xiaohus :[], ext :[ 3 , 5 , 6 , 0 , 0 , 0 , 0 , 0 , 1 , 0 , 0 , 0 , 1 , 2 , -1 , 65 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ],
+            gold :null, credit :null, winLoseCredit :null, commissionCredit :null, goldFlag :0}], bird :[], birdSeat :[], isBreak :0, wanfa :8,
+            ext :[ 457350 , 7664459 , "2021-03-08 15:50:42", 117 , 1 , 125 , 10 , -1 , 0 , 0 , 1 , 10 ,  , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ], matchExt :[],
+            cutCard :[], cutDtzCard :[106,409,215,307,407,210,313,415,311,209,215,312,207,306,205,112,207,109,115,413,314,213,111,410,406,106,109,410,405,314,308,206,406,
+            313,405,315,109,408,412,409,212,308,407,408,211,413,205,211,315,414,107,108,412,105,211,413,305,210,412,215,310,411,209,305,308,309], groupLogId :null,
+            intParams :[]};
+        //ClosingInfoModel.init(localData);
+        //var mc = new DTZSmallResultPop(localData.closingPlayers);
+        //PopupManager.addPopup(mc);
     },
 
     //这种情况是前端无法独立解析 飞机牌的连续次数 要依赖后台的数据修正
@@ -2178,7 +2193,7 @@ var DTZRoom = BaseRoom.extend({
                 var card = new DTZBigCard(cards[i]);
                 card.cardId = i;
                 card.anchorX = card.anchorY = 0.5;
-                card.scale = 0.72;
+                card.scale = DTZRoomModel._cardScale;
                 card.setLocalZOrder(i);
                 this._cards.push(card);
             }

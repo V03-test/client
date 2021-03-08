@@ -72,7 +72,7 @@ var MainScene = cc.Scene.extend({
 
 		LayerManager.init(this.mainlayer);
 		PopupManager.init(this.popuplayer);
-		// cc.spriteFrameCache.addSpriteFrames(res.poker_plist);
+		 cc.spriteFrameCache.addSpriteFrames(res.poker_plist);
 		cc.spriteFrameCache.addSpriteFrames(res.pdk_midcards_plist);
 		cc.spriteFrameCache.addSpriteFrames(res.phz_cards_plist);
 		// cc.spriteFrameCache.addSpriteFrames(res.xpphz_cards_plist);

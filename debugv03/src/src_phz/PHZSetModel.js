@@ -32,6 +32,15 @@ var PHZSetModel = {
             this.zpdx = 4;
         }
 
+        this.zpxz = this.zpxz == 3 ? 3 : 1;
+        this.pmxz = 1;
+        this.zpdx = 3;
+
+        var setBg = this.getLocalItem("pro003_phz_set_bg"+PHZRoomModel.wanfa);
+        if(setBg != 1){
+            this.zmbj = 4;
+            this.setLocalItem("pro003_phz_set_bg"+PHZRoomModel.wanfa,1);
+        }
     },
     setDefaultAllData:function(){
         var setAHPHZ = this.getLocalItem("pro003_phz_setAllData_Model"+PHZRoomModel.wanfa);
@@ -102,7 +111,7 @@ var PHZSetModel = {
         return defaultValue;
     },
     getDefaultZmbj:function(){
-        var defaultValue = 2;
+        var defaultValue = 4;
        if(PHZRoomModel.wanfa == GameTypeEunmZP.AHPHZ){
             defaultValue = 1;
         }else if(PHZRoomModel.wanfa == GameTypeEunmZP.YJGHZ || PHZRoomModel.wanfa == GameTypeEunmZP.NXGHZ || PHZRoomModel.wanfa == GameTypeEunmZP.YYWHZ){

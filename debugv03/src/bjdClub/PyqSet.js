@@ -1109,7 +1109,7 @@ var PyqPifuPop = cc.Layer.extend({
         this.btnArr = [];
         var offsetX = 310;
         var offsetY = 170;
-        for(var i = 0;i<3;++i){
+        for(var i = 0;i<6;++i){
             var img = "res/ui/bjdmj/popup/pyq/pifu/set_bg_" + (i + 1) + ".jpg";
             var btn = new ccui.Button(img,img,"");
             btn.setTag(i+1);

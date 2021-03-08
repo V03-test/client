@@ -319,6 +319,7 @@ var jsList = [
     "src/bjdCreateRoom/RuleSelect_NXGHZ.js",
     "src/bjdCreateRoom/RuleSelect_YZLC.js",
     "src/bjdCreateRoom/RuleSelect_DZMJ.js",
+    "src/bjdCreateRoom/RuleSelect_QZMJ.js",
     "src/bjdCreateRoom/RuleSelect_YYNXMJ.js",
     "src/bjdCreateRoom/RuleSelect_CQXZMJ.js",
     "src/bjdCreateRoom/RuleSelect_HHHGW.js",
@@ -456,6 +457,13 @@ var jsList = [
     "src/src_mj/src_csmj/NYMJMaPai.js",
     "src/src_mj/src_tjmj/TJMJRoom.js",
     "src/src_mj/src_tjmj/TJMJLayout.js",
+
+    "src/src_mj/src_qzmj/QZMahjong.js",
+    "src/src_mj/src_qzmj/QZMJLayout.js",
+    "src/src_mj/src_qzmj/QZMJRoom.js",
+    "src/src_mj/src_qzmj/QZMJSmallResultPop.js",
+    "src/src_mj/src_qzmj/QZMJReplayLayout.js",
+    "src/src_mj/src_qzmj/QZMJReplay.js",
 
     "src/src_mj/src_dzmj/DZMJLayout.js",
     "src/src_mj/src_dzmj/DZMJRoom.js",

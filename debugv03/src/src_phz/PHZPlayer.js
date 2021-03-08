@@ -155,6 +155,14 @@ var PHZPlayer = cc.Class.extend({
         }
         this.Image_goldBg.visible = isCredit;
 
+        if(isCredit && PHZRoomModel.wanfa == GameTypeEunmZP.LDFPF){
+            if(seq == 1){
+                this.Image_goldBg.y = 144;
+            }else{
+                this.Image_goldBg.y = -41;
+            }
+        }
+
         if(PHZRoomModel.isClubGoldRoom()){
             this.creditScore.setString("豆:"+ UITools.moneyToStr(vo.gold));
         }

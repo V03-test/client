@@ -184,14 +184,14 @@ var BSMJRoom = BaseRoom.extend({
             this.recordBtn.y = 470;
         }
 
-        var gameNameImg = new cc.Sprite("res/res_mj/res_bsmj/bsmjRoom/bsmj.png");
-        if(MJRoomModel.wanfa == GameTypeEunmMJ.DHMJ){
-            gameNameImg = new cc.Sprite("res/res_mj/res_bsmj/bsmjRoom/dhmj.png");
-        }
-        var x = 960;
-        var y = 740;
-        gameNameImg.setPosition(x, y);
-        this.Panel_20.addChild(gameNameImg,2);
+        // var gameNameImg = new cc.Sprite("res/res_mj/res_bsmj/bsmjRoom/bsmj.png");
+        // if(MJRoomModel.wanfa == GameTypeEunmMJ.DHMJ){
+        //     gameNameImg = new cc.Sprite("res/res_mj/res_bsmj/bsmjRoom/dhmj.png");
+        // }
+        // var x = 960;
+        // var y = 740;
+        // gameNameImg.setPosition(x, y);
+        // this.Panel_20.addChild(gameNameImg,2);
 
         MJRoomModel.dhmjDipai = [];
 
@@ -257,6 +257,10 @@ var BSMJRoom = BaseRoom.extend({
             this.getWidget("Image_19").x += tempSize - offx;
             this.getWidget("Label_time").x += tempSize - offx;
             this.roomName_label.x = 120 + offx;
+
+            this.getWidget("Image_infoBg").x -= tempSize - offx;
+            this.getWidget("Image_otherDi").x -= tempSize - offx;
+            this.getWidget("Image_dipai").x -= tempSize - offx;
         }
     },
 

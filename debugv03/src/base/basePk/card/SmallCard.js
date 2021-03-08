@@ -8,11 +8,11 @@ var SmallCard = Card.extend({
      * @construct
      * @param cardVo {CardVo}
      */
-    ctor:function(cardVo , cardType){
+    ctor:function(cardVo , cardType,isPDK){
         var cardType = cardType || 1;
         this._selected = false;
         this._touched = false;
-        this._super("smallcard" , cardVo , cardType);
+        this._super("smallcard" , cardVo , cardType,isPDK);
         this.i = cardVo.i;
         this.t = cardVo.t;
         this.n = cardVo.n;

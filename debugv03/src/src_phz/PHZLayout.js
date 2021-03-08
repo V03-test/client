@@ -522,7 +522,7 @@ var PHZLayout = cc.Class.extend({
                     card.setScale(localScale);
                 }
 
-                if(this.direct==2){
+                if(this.direct==2 && PHZRoomModel.renshu != 2){
                     card.x = 142-i*gx*localScale;
                 }else{
                     if(this.direct==1){
@@ -572,14 +572,14 @@ var PHZLayout = cc.Class.extend({
             }
         }else if(PHZRoomModel.renshu==3){
             localNum = 5;
-            if(this.direct==2){
+            if(this.direct!=3){
                 initVal = 290;
-            }else if(this.direct==1){
-                initVal = 310;
             }
         }else{
-            localNum = 7;
-            initVal=(this.direct==2) ? 300 : 10;
+            var isWu = PHZRoomModel.wanfa == GameTypeEunmZP.LSZP || PHZRoomModel.wanfa == GameTypeEunmZP.LDS ||
+                PHZRoomModel.wanfa == GameTypeEunmZP.JHSWZ || (PHZRoomModel.wanfa == GameTypeEunmZP.HYLHQ && PHZRoomModel.intParams[20] == 0);
+            localNum = isWu ? 8 : 5;
+            initVal=(this.direct==1) ? 300 : 10;
         }
         for(var i=0;i<this.mahjongs3.length;i++){
             this.mahjongs3[i].refresh(PHZAI.getDisplayVo(this.direct,3),data[i]);
@@ -618,21 +618,17 @@ var PHZLayout = cc.Class.extend({
             }else if(PHZRoomModel.renshu==3){
                 if(this.direct==3){
                     card.x = initVal+localX*g;
-                    card.y = -localY * 78 + 78;
-                }else if(this.direct==2){
-                    card.x = initVal-localX*g;
-                    card.y = -localY * 78 + 78;
                 }else{
                     card.x = initVal-localX*g;
-                    card.y = localY * 78;
                 }
+                card.y = localY * 78;
             }else if(PHZRoomModel.renshu==2){
-                if(this.direct==2){
+                if(this.direct==1){
                     card.x = initVal-localX*g;
                 }else{
                     card.x = initVal+localX*g;
                 }
-                card.y = 156 - localY * 78;
+                card.y = localY * 78;
             }
 
             if (i == data.length -1 ){

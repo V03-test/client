@@ -58,7 +58,6 @@ var PDKSetUpPop = BasePopup.extend({
     },
 
     selfRender: function () {
-
         this.pz = this.getLocalItem(this.layerName+"sy_pdk_pz") || 2;
         this.pm = 2;
 
@@ -70,24 +69,22 @@ var PDKSetUpPop = BasePopup.extend({
         this["CheckBox_bg1"].addEventListener(this.onClickPz1, this);
         this["CheckBox_bg2"] = this.getWidget("CheckBox_bg2");
         this["CheckBox_bg2"].addEventListener(this.onClickPz2, this);
-        //this["CheckBox_bg3"] = this.getWidget("CheckBox_bg3");
-        //this["CheckBox_bg3"].addEventListener(this.onClickPz3, this);
 
         if(PDKRoomModel.isMoneyRoom()){
-            //this.getWidget("Panel_pm set").setVisible(false);
-            //this["CheckBox_bg3"].visible = false;
-
-            //var bg1 = "res/res_pdk/pdkSetup/gold_set_1.png";
-            //var bg2 = "res/res_pdk/pdkSetup/gold_set_2.png"
-            //
-            //this["CheckBox_bg1"].loadTextureBackGround(bg1);
-            //this["CheckBox_bg1"].loadTextureBackGroundSelected(bg1);
-            //
-            //this["CheckBox_bg2"].loadTextureBackGround(bg2);
-            //this["CheckBox_bg2"].loadTextureBackGroundSelected(bg2);
-
             if(this.pz == 3)this.pz = 1;
         }
+
+        this.displayPz();
+
+        this.cardIndex = BasePKCardSetModel.getLocalCardTypeIndexByWanfa(this.layerName);//扑克牌
+
+        //画面设置界面的逻辑
+        //快速吃牌
+        var widgetPmxz = {"Button_pmxz1":1,"Button_pmxz2":2,"Image_pmxz1":1,"Image_pmxz2":2};
+        this.addClickEvent(widgetPmxz , this.onPmxzClick);
+        this.displayPmxz();
+
+        this["Button_pmxz2"].visible = this.layerName == "PDK";
 
         this.displayPz();
  
@@ -122,6 +119,38 @@ var PDKSetUpPop = BasePopup.extend({
         this.Button_music.setBright(this.state1 != 0);
     },
 
+    onPmxzClick: function (obj) {
+        var temp = parseInt(obj.temp);
+        var values = [1,2];
+        for(var i = 1;i <= values.length; i++) {
+            var btn = this["Button_pmxz" + i];
+            if (temp == i){
+                btn.setBright(true);
+            }else{
+                btn.setBright(false);
+            }
+        }
+        this.cardIndex = values[temp-1];
+
+        cc.log(" this.cardIndex = ",this.cardIndex);
+        if (BasePKCardSetModel.getLocalCardTypeIndexByWanfa(this.layerName) != this.cardIndex){
+            BasePKCardSetModel.setLocalItem(this.layerName,this.cardIndex);
+            SyEventManager.dispatchEvent(SyEvent.UPDATE_PK_CARD);
+        }
+    },
+
+    displayPmxz:function(){
+        var values = [1,2];
+        for(var i = 1;i <= values.length; i++) {
+            var btn = this["Button_pmxz" + i];
+            if (this.cardIndex == values[i-1]) {
+                btn.setBright(true);
+            }else{
+                btn.setBright(false);
+            }
+        }
+    },
+
 
     onClickYx:function(){
         if(this.Button_effect.isBright()){
@@ -148,7 +177,6 @@ var PDKSetUpPop = BasePopup.extend({
     displayPz:function(){
         this.getWidget("CheckBox_bg1").setSelected(this.pz==1);
         this.getWidget("CheckBox_bg2").setSelected(this.pz==2);
-        //this.getWidget("CheckBox_bg3").setSelected(this.pz==3);
         cc.sys.localStorage.setItem(this.layerName+"sy_pdk_pz",this.pz);
         SyEventManager.dispatchEvent(SyEvent.UPDATE_BG_YANSE,this.pz);
     },
@@ -166,15 +194,6 @@ var PDKSetUpPop = BasePopup.extend({
     onClickPz2:function(obj,type){
         if (type == ccui.CheckBox.EVENT_SELECTED) {
             this.pz = 2
-        }
-        if(type == ccui.CheckBox.EVENT_UNSELECTED){
-            this.pz = 1
-        }
-        this.displayPz();
-    },
-    onClickPz3:function(obj,type){
-        if (type == ccui.CheckBox.EVENT_SELECTED) {
-            this.pz = 3
         }
         if(type == ccui.CheckBox.EVENT_UNSELECTED){
             this.pz = 1

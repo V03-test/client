@@ -337,7 +337,7 @@ var YJGHZLayout = cc.Class.extend({
                     this.mPanel.addChild(card);
                     this.mahjongs2.push(card);
                 }
-                if(this.direct==2){
+                if(this.direct==2 && PHZRoomModel.renshu != 2){
                     card.x = 142-i*gx;
                 }else{
                     if(this.direct==1){
@@ -400,14 +400,12 @@ var YJGHZLayout = cc.Class.extend({
 
         if(PHZRoomModel.renshu==3){
             localNum = 5;
-            if(this.direct==2){
+            if(this.direct!=3){
                 initVal = 290;
-            }else if(this.direct==1){
-                initVal = 310;
             }
         }else{
-            localNum = 7;
-            initVal=(this.direct==2) ? 300 : 10;
+            localNum = 5;
+            initVal=(this.direct==1) ? 300 : 10;
         }
         for(var i=0;i<this.mahjongs3.length;i++){
             this.mahjongs3[i].refresh(PHZAI.getDisplayVo(this.direct,3),data[i]);
@@ -425,23 +423,19 @@ var YJGHZLayout = cc.Class.extend({
             var localY = Math.floor(i / localNum);
 
             if(PHZRoomModel.renshu==2){
-                if(this.direct==2){
+                if(this.direct==1){
                     card.x = initVal-localX*g;
                 }else{
                     card.x = initVal+localX*g;
                 }
-                card.y = 156 - localY * 78;
+                card.y = localY * 78;
             }else{
                 if(this.direct==3){
                     card.x = initVal+localX*g;
-                    card.y = -localY * 78 + 78;
-                }else if(this.direct==2){
-                    card.x = initVal-localX*g;
-                    card.y = -localY * 78 + 78;
                 }else{
                     card.x = initVal-localX*g;
-                    card.y = localY * 78;
                 }
+                card.y = localY * 78;
             }
 
             if (i == data.length -1 ){

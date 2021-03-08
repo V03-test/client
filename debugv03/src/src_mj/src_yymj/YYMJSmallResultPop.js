@@ -484,6 +484,12 @@ var YYMJSmallResultPop = BasePopup.extend({
         this.getWidget("label_xpkf").setString(xpkf);
 
         Button_yupai.visible = true;
+
+        if (ClosingInfoModel.isReplay){
+            this.getWidget("replay_tip").visible =  true;
+            this.getWidget("replay_tip").x -= 220;
+            this.getWidget("replay_tip").setString("回放码:"+BaseRoomModel.curHfm);
+        }
     },
 
     onBreak:function(){

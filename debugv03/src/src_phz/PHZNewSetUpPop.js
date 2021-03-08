@@ -46,15 +46,18 @@ var PHZNewSetUpPop = BasePopup.extend({
         this.displaykqtp();
 
         //语音选择
-        var widgetYyxz = {"Button_yyxz1":1,"Button_yyxz2":2,"Button_yyxz3":3,"Image_yyxz1":1,"Image_yyxz2":2,"Image_yyxz3":3};
+        var widgetYyxz = {"Button_yyxz1":2,"Button_yyxz2":3,"Button_yyxz3":4,"Image_yyxz1":2,"Image_yyxz2":3,"Image_yyxz3":4};
         this.addClickEvent(widgetYyxz , this.onYyxzClick);
 
         this["Image_yyxz1"].loadTexture("res/res_phz/phzSet/pth.png");
         this["Image_yyxz2"].loadTexture("res/res_phz/phzSet/cdh.png");
         this["Image_yyxz3"].loadTexture("res/res_phz/phzSet/syh.png");
 
+        this["Button_yyxz3"].visible = false;
+
         //根据玩法暂时语音选择按钮 1 邵阳话 2 普通话 3 常德话 4 郴州话 5 耒阳话
         if (PHZRoomModel.wanfa == GameTypeEunmZP.SYBP || PHZRoomModel.wanfa == GameTypeEunmZP.SYZP){
+            this["Button_yyxz3"].visible = true;
             this["Image_yyxz1"].temp = 2;
             this["Button_yyxz1"].temp = 2;
             this["Image_yyxz2"].temp = 3;
@@ -65,34 +68,76 @@ var PHZNewSetUpPop = BasePopup.extend({
                 this.yyxz = 1;
             }
         }else if(PHZRoomModel.wanfa == GameTypeEunmZP.WHZ){
-            this["Button_yyxz3"].visible = false;
             this["Image_yyxz2"].loadTexture("res/res_phz/phzSet/bdh.png");
             this["Image_yyxz2"].temp = 6;
             this["Button_yyxz2"].temp = 6;
             if(this.yyxz != 2)this.yyxz = 6;
         }else if(PHZRoomModel.wanfa == GameTypeEunmZP.AHPHZ){
+            this["Button_yyxz3"].visible = true;
             this["Image_yyxz2"].loadTexture("res/res_phz/phzSet/ahh.png");
+            this["Image_yyxz3"].loadTexture("res/res_phz/phzSet/cdh.png");
+            this["Image_yyxz1"].temp = 2;
+            this["Button_yyxz1"].temp = 2;
+            this["Image_yyxz2"].temp = 4;
+            this["Button_yyxz2"].temp = 4;
+            this["Image_yyxz3"].temp = 3;
+            this["Button_yyxz3"].temp = 3;
+            if (this.yyxz > 4 || this.yyxz < 2){
+                this.yyxz = 4;
+            }
+        }else if(PHZRoomModel.wanfa == GameTypeEunmZP.YJGHZ || PHZRoomModel.wanfa == GameTypeEunmZP.NXGHZ){
+            this["Image_yyxz2"].loadTexture("res/res_phz/phzSet/bdh.png");
+            this["Image_yyxz2"].temp = 9;
+            this["Button_yyxz2"].temp = 9;
+            if(this.yyxz != 2)this.yyxz = 9;
+        }else if(PHZRoomModel.wanfa == GameTypeEunmZP.YYWHZ){
+            this["Image_yyxz2"].loadTexture("res/res_phz/phzSet/bdh.png");
+            this["Image_yyxz2"].temp = 10;
+            this["Button_yyxz2"].temp = 10;
+            if(this.yyxz != 2)this.yyxz = 10;
+        }else if (PHZRoomModel.wanfa == GameTypeEunmZP.CZZP){
+            this["Button_yyxz3"].visible = true;
             this["Image_yyxz1"].temp = 2;
             this["Button_yyxz1"].temp = 2;
             this["Image_yyxz2"].temp = 3;
             this["Button_yyxz2"].temp = 3;
             this["Image_yyxz3"].temp = 4;
             this["Button_yyxz3"].temp = 4;
-            if (this.yyxz > 4 || this.yyxz < 2){
-                this.yyxz = 4;
+            this["Image_yyxz3"].loadTexture("res/res_phz/phzSet/czh.png");
+            if(this.yyxz != 2 && this.yyxz != 3){
+                this.yyxz= 4;
             }
-        }else if(PHZRoomModel.wanfa == GameTypeEunmZP.YJGHZ || PHZRoomModel.wanfa == GameTypeEunmZP.NXGHZ){
-            this["Button_yyxz3"].visible = false;
+        }else if(PHZRoomModel.wanfa == GameTypeEunmZP.LYZP){
+            this["Button_yyxz3"].visible = true;
+            this["Image_yyxz3"].loadTexture("res/res_phz/phzSet/lyh.png");
+            this["Image_yyxz3"].temp = 5;
+            this["Button_yyxz3"].temp = 5;
+            if (this.yyxz > 3 || this.yyxz < 2){
+                this.yyxz = 5;
+            }
+        }else if(PHZRoomModel.wanfa == GameTypeEunmZP.LDS || PHZRoomModel.wanfa == GameTypeEunmZP.YZCHZ || PHZRoomModel.wanfa == GameTypeEunmZP.JHSWZ){
             this["Image_yyxz2"].loadTexture("res/res_phz/phzSet/bdh.png");
-            this["Image_yyxz2"].temp = 9;
-            this["Button_yyxz2"].temp = 9;
-            if(this.yyxz != 2)this.yyxz = 9;
-        }else if(PHZRoomModel.wanfa == GameTypeEunmZP.YYWHZ){
-            this["Button_yyxz3"].visible = false;
-            this["Image_yyxz2"].loadTexture("res/res_phz/phzSet/bdh.png");
-            this["Image_yyxz2"].temp = 10;
-            this["Button_yyxz2"].temp = 10;
-            if(this.yyxz != 2)this.yyxz = 10;
+            this["Image_yyxz2"].temp = 7;
+            this["Button_yyxz2"].temp = 7;
+            if(this.yyxz != 2)this.yyxz = 7;
+        }else if(PHZRoomModel.wanfa == GameTypeEunmZP.GLZP){
+            this["Image_yyxz2"].loadTexture("res/res_phz/phzSet/glh.png");
+            this["Image_yyxz2"].temp = 3;
+            this["Button_yyxz2"].temp = 3;
+            if (this.yyxz != 2){
+                this.yyxz = 3;
+            }
+        }else if(PHZRoomModel.wanfa == GameTypeEunmZP.ZZPH){
+            this["Image_yyxz2"].loadTexture("res/res_phz/phzSet/zzh.png");
+            this["Image_yyxz2"].temp = 8;
+            this["Button_yyxz2"].temp = 8;
+            if(this.yyxz != 2)this.yyxz = 8;
+        }else if(PHZRoomModel.wanfa == GameTypeEunmZP.YZLC){
+            this["Image_yyxz1"].loadTexture("res/res_phz/phzSet/bdh.png");
+            this["Image_yyxz1"].temp = 2;
+            this["Button_yyxz1"].temp = 2;
+            this.yyxz = 2;
+            this["Button_yyxz2"].visible = false;
         }
         this.displayYyxz();
 
@@ -106,15 +151,20 @@ var PHZNewSetUpPop = BasePopup.extend({
         this.addClickEvent(widgetZpdx , this.onZpdxClick);
         this.displayZpdx();
 
+        this["Button_zpdx1"].visible = false;
+        this["Button_zpdx2"].visible = false;
+        this["Button_zpdx4"].visible = false;
+        this["Button_zpdx3"].x = this["Button_zpdx1"].x;
+
         //虚线选择
         var widgetXxxz = {"Button_xxxz1":1,"Button_xxxz2":2,"Image_xxxz1":1,"Image_xxxz2":2};
         this.addClickEvent(widgetXxxz , this.onXxxzClick);
         this.displayXxxz();
 
         //字牌选择
-        //var widgetZpxz = {"Button_zpxz1":1,"Button_zpxz2":2,"Image_zpxz1":1,"Image_zpxz2":2};
-        //this.addClickEvent(widgetZpxz , this.onZpxzClick);
-        //this.displayZpxz();
+        var widgetZpxz = {"Button_zpxz1":1,"Button_zpxz2":3,"Image_zpxz1":1,"Image_zpxz2":3};
+        this.addClickEvent(widgetZpxz , this.onZpxzClick);
+        this.displayZpxz();
 
         //牌面选择
         //var widgetpmxz = {"Button_pmxz1":1,"Button_pmxz2":2,"Image_pmxz1":1,"Image_pmxz2":2};
@@ -122,8 +172,8 @@ var PHZNewSetUpPop = BasePopup.extend({
         //this.displayPmxz();
 
         //桌面背景
-        var widgetZmbj = {"Button_zmbj1":1,"Button_zmbj2":2,
-            "Image_zmbj1":1,"Image_zmbj2":2};
+        var widgetZmbj = {"Button_zmbj1":1,"Button_zmbj2":2,"Button_zmbj3":3,"Button_zmbj4":4,
+            "Image_zmbj1":1,"Image_zmbj2":2,"Image_zmbj3":3,"Image_zmbj4":4};
         this.addClickEvent(widgetZmbj , this.onZmbjClick);
         this.displayZmbj();
 
@@ -189,6 +239,12 @@ var PHZNewSetUpPop = BasePopup.extend({
         if(this.zmbj > 2){
             this.zmbj = 1;
         }
+
+        this.zpxz = this.zpxz == 3 ? 3 : 1;
+        this.pmxz = 1;
+        this.zpdx = 3;
+
+        this.zmbj = PHZSetModel.zmbj;
     },
 
     setDefaultAllData:function(){
@@ -420,7 +476,7 @@ var PHZNewSetUpPop = BasePopup.extend({
 
     onZpxzClick: function (obj) {
         var temp = parseInt(obj.temp);
-        var values = [1,2];
+        var values = [1,3];
         for(var i = 1;i <= values.length; i++) {
             var btn = this["Button_zpxz" + i];
             if (temp == values[i-1]){
@@ -429,7 +485,7 @@ var PHZNewSetUpPop = BasePopup.extend({
                 btn.setBright(false);
             }
         }
-        this.zpxz = values[temp-1];
+        this.zpxz = temp;
         if (PHZSetModel.getValue("pro003_phz_zpxz") != this.zpxz){
             PHZSetModel.zpxz = this.zpxz;
             this.setLocalItem("pro003_phz_zpxz"+PHZRoomModel.wanfa,this.zpxz);  //1,2,3
@@ -439,7 +495,7 @@ var PHZNewSetUpPop = BasePopup.extend({
     },
 
     displayZpxz:function(){
-        var values = [1,2];
+        var values = [1,3];
         cc.log("this.zpxz"+this.zpxz);
         for(var i = 1;i <= values.length; i++) {
             var btn = this["Button_zpxz" + i];
@@ -484,7 +540,7 @@ var PHZNewSetUpPop = BasePopup.extend({
 
     onZmbjClick: function (obj) {
         var temp = parseInt(obj.temp);
-        var values = [1,2];
+        var values = [1,2,3,4];
         for(var i = 1;i <= values.length; i++) {
             var btn = this["Button_zmbj" + i];
             if (temp == values[i-1]){
@@ -501,7 +557,7 @@ var PHZNewSetUpPop = BasePopup.extend({
     },
 
     displayZmbj:function(){
-        var values = [1,2];
+        var values = [1,2,3,4];
         //cc.log("this.zmbj"+this.zmbj);
         for(var i = 1;i <= values.length; i++) {
             var btn = this["Button_zmbj" + i];

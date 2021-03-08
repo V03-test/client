@@ -11,7 +11,7 @@ var LayerFactory = {
     // DTZ_MONEY_ROOM:"res/dtzMoney3RenRoom.json",
     DTZ_3REN_ROOM:"res/dtz3RenRoom.json",
     PHZ_ROOM_MORE:"res/phzRoomMore.json",
-    PHZ_ROOM_LESS:"res/phzRoom2Ren.json",
+    PHZ_ROOM_LESS:"res/phzRoom2Ren_new.json",//phzRoom2Ren
     PHZ_MONEY_ROOM:"res/phzMoneyRoom.json",
     PHZ_MONEY_ROOM_MORE:"res/phzMoneyRoomMore.json",
     PHZ_MONEY_ROOM_THREE:"res/phzMoneyRoomThree.json",
@@ -19,7 +19,7 @@ var LayerFactory = {
     PHZ_REPLAY_MORE:"res/phzReplayMore.json",
     PHZ_REPLAY_LESS:"res/phzReplayLess.json",
     MJ_ROOM:"res/mjRoom.json",
-    PHZ_ROOM:"res/phzRoom.json",
+    PHZ_ROOM:"res/phzRoom_new.json",
     HOME:"res/bjdHome.json",
     BJD_HOME:"res/bjdHome.json",
     LOGIN:"res/login.json",
@@ -396,8 +396,12 @@ var LayerFactory = {
                     layer = new YYMJRoom(name);
                 }else if(MJRoomModel.wanfa == GameTypeEunmMJ.CQXZMJ){
                     layer = new CQXZMJRoom(name);
+                }else if(MJRoomModel.wanfa == GameTypeEunmMJ.DZMJ){
+                    layer = new DZMJRoom(name);
                 }else if(MJRoomModel.wanfa == GameTypeEunmMJ.ZZMJ){
                     layer = new ZZMJRoom(name);
+                }else if(MJRoomModel.wanfa == GameTypeEunmMJ.QZMJ){
+                    layer = new QZMJRoom(name);
                 }else{
                     layer = new CSMJRoom(name);
                 }
@@ -406,7 +410,8 @@ var LayerFactory = {
             case this.NEW_MJ_REPLAY_TWO:
             case this.NEW_MJ_REPLAY_THREE:
                 if(MJReplayModel.playType == GameTypeEunmMJ.DZMJ || MJReplayModel.playType == GameTypeEunmMJ.ZOUMJ
-                    || MJReplayModel.playType == GameTypeEunmMJ.ZJMJ || MJReplayModel.playType == GameTypeEunmMJ.HZMJ){
+                    || MJReplayModel.playType == GameTypeEunmMJ.ZJMJ || MJReplayModel.playType == GameTypeEunmMJ.HZMJ
+                    || MJReplayModel.playType == GameTypeEunmMJ.DZMJ){
                     layer = new HZMJReplay(name);
                 }else if(MJReplayModel.playType == GameTypeEunmMJ.BSMJ || MJReplayModel.playType == GameTypeEunmMJ.DHMJ){
                     layer = new BSMJReplay(name);
@@ -424,6 +429,8 @@ var LayerFactory = {
                     layer = new CQXZMJReplay(name);
                 }else if(MJReplayModel.playType == GameTypeEunmMJ.ZZMJ){
                     layer = new ZZMJReplay(name);
+                }else if(MJReplayModel.playType == GameTypeEunmMJ.QZMJ){
+                    layer = new QZMJReplay(name);
                 }else{
                     layer = new CSMJReplay(name);
                 }

@@ -482,36 +482,8 @@ var DTZSmallResultPop = BasePopup.extend({
     //暗牌八张
     showDarkCards:function(cardsData){
         cardsData.sort(this.sortCardlists);
-        // if (!this.is4Ren()) {
-        //     var main1 = this.getWidget("main1");
-        //     if (this.is2Ren()) {
-        //         var mod = 48;
-        //         for(var cardIndex = 0 ; cardIndex < cardsData.length ; cardIndex ++) {
-        //             var cardMsg = DTZAI.getCardDef(cardsData[cardIndex]);
-        //             var cardItem = new DTZBigCard(cardMsg);
-        //             cardItem.scale = 0.3;
-        //             cardItem.x = 300+(cardIndex%mod)*21;
-        //             cardItem.y = cardIndex<mod ? 321 : 225;
-        //             main1.addChild(cardItem);
-        //         }
-        //     } else {
-        //         for(var cardIndex = 0 ; cardIndex < cardsData.length ; cardIndex ++) {
-        //             var cardMsg = DTZAI.getCardDef(cardsData[cardIndex]);
-        //             var cardItem = new DTZBigCard(cardMsg);
-        //             cardItem.scale = 0.3;
-        //             cardItem.x = 193+cardIndex*21;
-        //             cardItem.y = 90;
-        //             main1.addChild(cardItem);
-        //         }
-        //     }
-        //     return;
-        // }
         var listViewNode = this.getWidget("ListView_DarkCard");
-        // if(!listViewNode){
-        //     cc.log("未获取到ListView_DarkCard item");
-        //     return;
-        // }
-        var offX = 105;
+        var offX = 60;
         for(var cardIndex = 0 ; cardIndex < cardsData.length ; cardIndex ++){
             var cardMsg = DTZAI.getCardDef(cardsData[cardIndex]);
             var cardItem = new DTZBigCard(cardMsg);
@@ -519,12 +491,11 @@ var DTZSmallResultPop = BasePopup.extend({
             cardItem.anchorX = 0.55;
             cardItem.anchorY = 0;
 
-            cardItem.scale = 0.3;
+            cardItem.scale = 0.5;
             cardItem.width = offX;
             // cardItem.height = cardItem.height * cardItem.scale;
             cardItem.x = -300;
             listViewNode.pushBackCustomItem(cardItem);
-
         }
     },
 
@@ -546,9 +517,9 @@ var DTZSmallResultPop = BasePopup.extend({
         var indexViewNode = this.getWidget("ListView_"+index);
         var length = cardsData.length;
         cardsData.sort(this.sortCardlists);
-        var offX = 105;
+        var offX = 50;//105;
         //如果只有十二张 不需要用拖动的方式显示 调整位置使其居中
-        // var offY = this.is4Ren() ? 90 : 52;
+         var offY = this.is4Ren() ? 90 : 52;
 
         var beginX = (250 - length * 20) * 0.5;
         for(var cardIndex = 0 ; cardIndex < cardsData.length ; cardIndex ++){
@@ -559,7 +530,7 @@ var DTZSmallResultPop = BasePopup.extend({
                 cardItem.anchorX = 0.5;
                 cardItem.anchorY = 0;
                 //cardItem.x = 0 + cardIndex * 10;
-                cardItem.scale = 0.3;
+                cardItem.scale = 0.5;
                 cardItem.width = offX;
                 // cardItem.height = cardItem.height * cardItem.scale + offY;
                 indexViewNode.pushBackCustomItem(cardItem);

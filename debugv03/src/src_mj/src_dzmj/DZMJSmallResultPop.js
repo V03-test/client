@@ -78,7 +78,7 @@ var DZMJSmallResultPop = BasePopup.extend({
     createMoldPais: function(widget,user) {
         var moldPais = user.moldPais;
         var count = 0;
-        this.moldInitX = 115 + 50 + 100;
+        this.moldInitX = 115 + 50 + 140;
         var lastX = 0;
         var height = 70;
         for (var i=0;i<moldPais.length;i++) {
@@ -215,7 +215,7 @@ var DZMJSmallResultPop = BasePopup.extend({
             voArray[i].isJs = 1;
             var card = new HZMahjong(MJAI.getDisplayVo(1,1),voArray[i]);
             var size = card.getContentSize();
-            var _scale = 0.6;
+            var _scale = 0.5;
             card.scale = _scale;
             card.x = this.moldInitX + (size.width * _scale - 0.5) * i + localOffx;
             card.y = height;
@@ -289,13 +289,22 @@ var DZMJSmallResultPop = BasePopup.extend({
         ccui.helper.seekWidgetByName(widget,"uid").setString("ID:"+user.userId);
         //分数
         var pointLabel = ccui.helper.seekWidgetByName(widget,"point");
+
+        var pointNum = user.point;
+        if(MJRoomModel.isMoneyRoom() || MJRoomModel.isMatchRoom()){
+            pointNum = user.totalPoint;
+        }
         var color = "67d4fc";
-        if (user.point>0){
+        if (pointNum>0){
             color = "ff6648";
         }
-        var point = user.point>0 ? "+"+user.point : ""+user.point;
+        var point = pointNum>0 ? "+"+pointNum : ""+pointNum;
         pointLabel.setString(""+point);
         pointLabel.setColor(cc.color(color+""));
+
+        if(MJRoomModel.isMoneyRoom() || MJRoomModel.isMatchRoom()){
+            this.showMoneyIcon(pointLabel);
+        }
 
         //庄家
         ccui.helper.seekWidgetByName(widget,"zhuang").visible = (user.seat==this.data.ext[22]);
@@ -303,7 +312,6 @@ var DZMJSmallResultPop = BasePopup.extend({
         //头像
         var spritePanel = ccui.helper.seekWidgetByName(widget,"Image_icon");
         this.showIcon(spritePanel,user.icon);
-
 
         var isHu = false;
         if (user.isHu){
@@ -346,16 +354,6 @@ var DZMJSmallResultPop = BasePopup.extend({
     },
 
     showWangPai:function(){
-        var labelNiao = this.getWidget("Label_niao");
-        labelNiao.x += 150;
-        this.Panel_niao.x += 150;
-        labelNiao.setVisible(false);
-
-        var labelWang = new cc.LabelTTF("王霸:","",45);
-        labelWang.setColor(cc.color(245,237,159));
-        labelWang.setPosition(labelNiao.x - 150,labelNiao.y);
-        labelNiao.getParent().addChild(labelWang);
-
         var vo = null;
         for(var i in MJAI.MJ){
             if(MJAI.MJ[i].i == this.data.ext[15]){
@@ -363,12 +361,18 @@ var DZMJSmallResultPop = BasePopup.extend({
                 break;
             }
         }
+        var localCount = 0;
+        var localScale = 0.55;
+
         if(this.data.ext[15] > 0 && vo){
             vo.wang = 1;
-            var card = new HZMahjong(MJAI.getDisplayVo(1, 1), vo);
-            card.setScale(0.5);
-            card.setPosition(labelWang.width,-30);
-            labelWang.addChild(card);
+            var card = new HZMahjong(MJAI.getDisplayVo(1, 2), vo);
+            card.setScale(localScale);
+            var size = card.getContentSize();
+            card.x = (size.width * localScale + 5) * localCount - 10;
+            card.y = 10;
+            this.Panel_niao.addChild(card);
+            localCount++;
         }
 
         if(MJRoomModel.wanfa == GameTypeEunmMJ.ZOUMJ){
@@ -381,10 +385,12 @@ var DZMJSmallResultPop = BasePopup.extend({
             }
             if(this.data.ext[26] > 0 && vo){
                 vo.wang = 1;
-                var card = new HZMahjong(MJAI.getDisplayVo(1, 1), vo);
-                card.setScale(0.5);
-                card.setPosition(labelWang.width + 80,-30);
-                labelWang.addChild(card);
+                var card = new HZMahjong(MJAI.getDisplayVo(1, 2), vo);
+                card.setScale(localScale);
+                var size = card.getContentSize();
+                card.x = (size.width * localScale + 5) * localCount - 10;
+                card.y = 10;
+                this.Panel_niao.addChild(card);
             }
 
         }
@@ -436,6 +442,10 @@ var DZMJSmallResultPop = BasePopup.extend({
     },
 
     selfRender: function () {
+        this.addCustomEvent(SyEvent.SOCKET_OPENED,this,this.onSuc);
+        this.addCustomEvent(SyEvent.GET_SERVER_SUC,this,this.onChooseCallBack);
+        this.addCustomEvent(SyEvent.NOGET_SERVER_ERR,this,this.onChooseCallBack);
+
         var btnok = this.getWidget("btnok");
         UITools.addClickEvent(btnok,this,this.onOk);
         var Button_11 = this.getWidget("Button_11");
@@ -448,14 +458,20 @@ var DZMJSmallResultPop = BasePopup.extend({
             PopupManager.remove(this);
             this.onOk();
         });
-        if (MJRoomModel.nowBurCount == MJRoomModel.totalBurCount
-            || (MJRoomModel.wanfa == GameTypeEunmMJ.DZMJ && this.data.ext[27] == 1)) {
+        if (MJRoomModel.nowBurCount == MJRoomModel.totalBurCount || (this.data.ext[27] == 1)) {
             xipai_btn.visible = false;
         } else {
             xipai_btn.visible = MJRoomModel.creditConfig[10] == 1;
         }
         var xpkf =  MJRoomModel.creditXpkf ? MJRoomModel.creditXpkf.toString() : 0;
         this.getWidget("label_xpkf").setString(xpkf);
+
+        if(MJRoomModel.isMoneyRoom() && !this.isReplay){
+            btnok.loadTextureNormal("res/res_mj/mjBigResult/btn_start_another.png");
+            Button_11.loadTextureNormal("res/res_mj/mjBigResult/btn_return_hall.png");
+            btnok.scale = Button_11.scale = 0.9;
+        }
+
 
         this.closingPlayers = this.data.closingPlayers;
         this.huList = {};
@@ -480,45 +496,66 @@ var DZMJSmallResultPop = BasePopup.extend({
                 }
             }
         }
-        var zuizi = MJRoomModel.getZuiZiName(this.data.ext[10]);
-        var wa = MJRoomModel.getHuCountName(this.data.ext[15]);
-        var cp = MJRoomModel.getChiPengName(this.data.ext[11]);
-        var ting = MJRoomModel.getTingHuName(this.data.ext[13]);
-        var jianglei = MJRoomModel.getJiangLeiName(this.data.ext[18]);
-        var gangjiafan = MJRoomModel.getGJFName(this.data.ext[16]);
-        //this.getWidget("info").setString(csvhelper.strFormat("{0} {1} {2} {3} {4} {5}",zuizi,wa,cp,ting,jianglei,gangjiafan));
-
 
         this.label_rule = this.getWidget("label_rule");
+        var wanfaStr = "";
+        if(this.isReplay){
 
-        var intParams = this.isReplay?MJReplayModel.intParams:MJRoomModel.intParams;
-
-        var wanfaStr = ClubRecallDetailModel.getDZMJWanfa(intParams);
-        if(MJRoomModel.wanfa == GameTypeEunmMJ.ZOUMJ){
-            wanfaStr = ClubRecallDetailModel.getZOUMJWanfa(intParams);
+        }else{
+            wanfaStr = ClubRecallDetailModel.getDZMJWanfa(MJRoomModel.intParams,false,MJRoomModel.isMoneyRoom());
         }
 
-        this.label_rule.setString(this.isReplay?"":wanfaStr);
+        if(MJRoomModel.isMatchRoom() && !this.isReplay){
+            wanfaStr = wanfaStr.replace(/ .*支付/,"");
+        }
 
+        this.label_rule.setString(wanfaStr);
 
         var qyqID = "";
         if(ClosingInfoModel.ext[0] && ClosingInfoModel.ext[0] != 0){
-            qyqID = "亲友苑ID：" + ClosingInfoModel.ext[0] + "  ";
+            qyqID = "亲友苑ID:" + ClosingInfoModel.ext[0] + "  ";
         }
 
+        var label_info = this.getWidget("info");
+        var roomId = MJRoomModel.tableId;
+        if(ClosingInfoModel.isReplay)roomId = ClosingInfoModel.ext[1];
+
         var jushuStr = "第" + MJRoomModel.nowBurCount + "/" + MJRoomModel.totalBurCount + "局";
-        var roomIdStr = "房间号：" + MJRoomModel.tableId;
-        this.getWidget("info").setString(qyqID + jushuStr + "  " + roomIdStr);
+        var roomIdStr = "房号:" + roomId;
+        label_info.setString(roomIdStr);
 
         if (ClosingInfoModel.isReplay){
-            var jushuStr = "第" + MJReplayModel.nowBurCount + "/" + MJReplayModel.totalBurCount + "局";
-            var roomIdStr = "房间号：" + ClosingInfoModel.ext[1];
-            this.getWidget("info").setString(qyqID + jushuStr + "  " + roomIdStr);
+            roomIdStr = "房号:" + roomId;
+            label_info.setString(roomIdStr);
+        }
+
+        var date = new Date();
+        var hours = date.getHours().toString();
+        hours = hours.length < 2 ? "0"+hours : hours;
+        var minutes = date.getMinutes().toString();
+        minutes = minutes.length < 2 ? "0"+minutes : minutes;
+        if(this.getWidget("Label_time")){
+            this.getWidget("Label_time").setString(hours+":"+minutes);
+        }
+
+        this.getWidget("Label_jushu").setString(jushuStr);
+        this.getWidget("Label_clubID").setString(qyqID);
+
+        var btClose = this.getWidget("close_btn");
+        UITools.addClickEvent(btClose , this , this.onBreak);
+        if (this.isRePlay){
+            btClose.visible = false;
+        }
+
+        if(MJRoomModel.isMoneyRoom()){
+            var str = "底分:" + MJRoomModel.goldMsg[2];
+            str += ("  序号:" + roomId);
+            label_info.setString(str);
         }
 
         //版本号
         if(this.getWidget("Label_version")){
-        	this.getWidget("Label_version").setString(SyVersion.v);
+            this.getWidget("Label_version").setString(SyVersion.v);
         }
 
         this.Panel_niao = this.getWidget("Panel_niao");
@@ -527,10 +564,15 @@ var DZMJSmallResultPop = BasePopup.extend({
         //显示鸟牌
         this.showBirds();
 
-
         if (ClosingInfoModel.isReplay){
             this.getWidget("replay_tip").visible =  true;
+            this.getWidget("replay_tip").x -= 220;
+            this.getWidget("replay_tip").setString("回放码:"+BaseRoomModel.curHfm);
         }
+
+        var Button_yupai = this.getWidget("Button_yupai");
+        UITools.addClickEvent(Button_yupai,this,this.onShowMoreResult);
+        Button_yupai.visible = true;
     },
 
     showBirds: function() {

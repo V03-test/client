@@ -438,7 +438,7 @@ var PDKReplay = BaseLayer.extend({
 			initX = 0;
 		}
 		for(var i=0;i<length;i++){
-			var smallCard = new SmallCard(PDKAI.getCardDef(copyCardIds[i]),2);
+			var smallCard = new SmallCard(PDKAI.getCardDef(copyCardIds[i]),2,true);
 			smallCard.anchorX=smallCard.anchorY=0;
 			smallCard.scale = 0.5;
 			if(seq == 2){

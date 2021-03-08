@@ -199,30 +199,30 @@ var CSMJRoom = BaseRoom.extend({
         this.Panel_hupai.height = 220;
         this.root.addChild(this.Panel_hupai,4);
 
-        var roomFile = "res/res_mj/res_csmj/csmjRoom/csmj.png";
-        if(MJRoomModel.wanfa == GameTypeEunmMJ.TDH){
-            roomFile = "res/res_mj/res_csmj/csmjRoom/xytdh.png";
-        }else if(MJRoomModel.wanfa == GameTypeEunmMJ.TJMJ){
-            roomFile = "res/res_mj/res_csmj/csmjRoom/tjmj.png";
-            this.Panel_hupai.setAnchorPoint(0,0.5);
-            this.Panel_hupai.x = 300;
-        }else if(MJRoomModel.wanfa == GameTypeEunmMJ.GDCSMJ){
-            roomFile = "res/res_mj/res_csmj/csmjRoom/gdcsmj.png";
-        }else if(MJRoomModel.wanfa == GameTypeEunmMJ.TCMJ){
-            roomFile = "res/res_mj/res_csmj/csmjRoom/tcmj.png";
-        }else if(MJRoomModel.wanfa == GameTypeEunmMJ.NXMJ){
-            roomFile = "res/res_mj/res_csmj/nxmjRoom/nxmj.png";
-        }else if(MJRoomModel.wanfa == GameTypeEunmMJ.NYMJ){
-            roomFile = "res/res_mj/res_csmj/nymj/nymj.png";
-        }else if(MJRoomModel.wanfa == GameTypeEunmMJ.JZMJ){
-            roomFile = "res/res_mj/res_csmj/jzmj/title_jzmj.png";
-        }
-        var gameNameImg = new cc.Sprite(roomFile);
-        var x = 960;
-        var y = 740;
-        gameNameImg.setPosition(x, y);
-        //this.root.addChild(gameNameImg,2);
-        this.Panel_20.addChild(gameNameImg,2);
+        // var roomFile = "res/res_mj/res_csmj/csmjRoom/csmj.png";
+        // if(MJRoomModel.wanfa == GameTypeEunmMJ.TDH){
+        //     roomFile = "res/res_mj/res_csmj/csmjRoom/xytdh.png";
+        // }else if(MJRoomModel.wanfa == GameTypeEunmMJ.TJMJ){
+        //     roomFile = "res/res_mj/res_csmj/csmjRoom/tjmj.png";
+        //     this.Panel_hupai.setAnchorPoint(0,0.5);
+        //     this.Panel_hupai.x = 300;
+        // }else if(MJRoomModel.wanfa == GameTypeEunmMJ.GDCSMJ){
+        //     roomFile = "res/res_mj/res_csmj/csmjRoom/gdcsmj.png";
+        // }else if(MJRoomModel.wanfa == GameTypeEunmMJ.TCMJ){
+        //     roomFile = "res/res_mj/res_csmj/csmjRoom/tcmj.png";
+        // }else if(MJRoomModel.wanfa == GameTypeEunmMJ.NXMJ){
+        //     roomFile = "res/res_mj/res_csmj/nxmjRoom/nxmj.png";
+        // }else if(MJRoomModel.wanfa == GameTypeEunmMJ.NYMJ){
+        //     roomFile = "res/res_mj/res_csmj/nymj/nymj.png";
+        // }else if(MJRoomModel.wanfa == GameTypeEunmMJ.JZMJ){
+        //     roomFile = "res/res_mj/res_csmj/jzmj/title_jzmj.png";
+        // }
+        // var gameNameImg = new cc.Sprite(roomFile);
+        // var x = 960;
+        // var y = 740;
+        // gameNameImg.setPosition(x, y);
+        // //this.root.addChild(gameNameImg,2);
+        // this.Panel_20.addChild(gameNameImg,2);
 
         //this.getWidget("mPanel1").y = 10;
 
@@ -331,6 +331,10 @@ var CSMJRoom = BaseRoom.extend({
             this.Button_setup1.x += tempSize - offx;
             this.roomName_label.x -= tempSize - offx;
             this.getWidget("mPanel1").x += tempSize;
+
+            this.getWidget("Image_infoBg").x -= tempSize - offx;
+            this.getWidget("Image_otherDi").x -= tempSize - offx;
+            this.getWidget("Image_dipai").x -= tempSize - offx;
         }
     },
 
@@ -612,6 +616,7 @@ var CSMJRoom = BaseRoom.extend({
                 }
             }
             this.piaoBtnNode.setVisible(true);
+            this.tuichuBtn.visible = false;
         }else{
             this.piaoBtnNode && this.piaoBtnNode.setVisible(false);
         }
@@ -630,6 +635,7 @@ var CSMJRoom = BaseRoom.extend({
                 this.addChild(this.waitPiaoImg,4);
             }
             this.waitPiaoImg.setVisible(true);
+            this.tuichuBtn.visible = false;
         }else{
             this.waitPiaoImg && this.waitPiaoImg.setVisible(false);
         }
