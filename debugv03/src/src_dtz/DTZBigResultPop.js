@@ -702,7 +702,7 @@ var DTZBigResultPop = BasePopup.extend({
         this.dealKlsxUI();
 
 
-        if( DTZRoomModel.tableType == 1&&ClosingInfoModel.groupLogId){//亲友圈房间才可见;
+        if(DTZRoomModel.tableType == 1){//亲友圈房间才可见;
             btn_start_another.visible = true;
         }else{
             btn_start_another.visible = false;

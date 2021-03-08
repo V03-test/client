@@ -214,6 +214,10 @@ var DTZRoom = BaseRoom.extend({
         //this.RoomIdRoot = this.getWidget("ImageRoomId"); //中间大房号根节点
         this.RoomScoreLable = this.getWidget("lableTitle_4");
         this.lableTitle_1 = this.getWidget("lableTitle_1");
+
+        this.Button_6.y -= 40;
+        this.Button_4.y -= 40;
+        this.Button_giveUp.y -= 40;
         
         UITools.addClickEvent(this.Button_sset, this, this.onZhanKai);
         this.visibleOpButton(false);
