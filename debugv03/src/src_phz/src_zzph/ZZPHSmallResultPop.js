@@ -100,6 +100,8 @@ var ZZPHSmallResultPop=BasePopup.extend({
 
         if (this.isRePlay){
             this.getWidget("replay_tip").visible =  true;
+			this.getWidget("replay_tip").x -= 220;
+			this.getWidget("replay_tip").setString("回放码:"+BaseRoomModel.curHfm);
         }
         // cc.log("ClosingInfoModel.leftCards =",JSON.stringify(ClosingInfoModel.leftCards));
         var leftCards = ClosingInfoModel.leftCards;

@@ -274,6 +274,7 @@ var CardPlayer = cc.Class.extend({
 				this.cardN.setString(this._playerVo.ext[6]);
 			}
 			cc.log("DTZRoomModel.isShowCardNumber()..." , DTZRoomModel.isShowCardNumber());
+			cc.log("this._playerVo.ext[6]..." , this._playerVo.ext[6]);
 			this.cardBg.visible = DTZRoomModel.isShowCardNumber(); //默认改为隐藏
 			if(this._playerVo.ext[6] == 0){
 				this.cardBg.visible = false;

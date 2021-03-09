@@ -129,13 +129,9 @@ var PDKRoom = BaseRoom.extend({//Room
 		this._lastCardPattern = null;
 		this.btnBreak.visible = this.Button_4.visible = false;
 		this.Button_30.visible = true;
-        this.Button_tuichu.visible = true;
-		this.Button_30.x = 960 + 200;
-		this.Button_tuichu.x = 960 - 200;
 		//PDKRoomModel.isPdkFangzhu(PDKRoomModel.getPlayerVo(PlayerModel.userId)) ||
 		if (PDKRoomModel.isStart || PDKRoomModel.nowBurCount > 1){
 			this.Button_tuichu.visible = false;
-			this.Button_30.x = 960;
 		}
 
 		if(this.countDownLabel && PDKRoomModel.isAutoPlay()){
@@ -242,7 +238,7 @@ var PDKRoom = BaseRoom.extend({//Room
 				}
 				if(p.status){
 					this.Button_30.visible = false;
-					this.Button_tuichu.x = 960;
+					//this.Button_tuichu.x = 960;
 				}
 
 				//判断是否需要显示 取消托管按钮
@@ -283,10 +279,10 @@ var PDKRoom = BaseRoom.extend({//Room
 				this.addChild(this.waitPiaoImg,4);
 			}
 			this.waitPiaoImg.setVisible(true);
+			this.Button_tuichu.visible = false;
 		}else{
 			this.waitPiaoImg && this.waitPiaoImg.setVisible(false);
 		}
-		this.Button_tuichu.visible = false;
 	},
 
 	showDaNiaoState:function(type){
@@ -555,6 +551,59 @@ var PDKRoom = BaseRoom.extend({//Room
 		}
 	},
 
+	//微信邀请按钮统一换资源，增加亲友圈邀请按钮
+	adjustInviteBtn:function(){
+		if(!this.Button_17){
+			this.Button_17 = this.getWidget("Button_17");//准备
+		}
+
+		var img_wx = "res/res_gameCom/Z_wechatInvitation.png";
+		var img_qyq = "res/res_gameCom/qyqInvite.png";
+		var img_back = "res/res_gameCom/backHall.png";
+		var btn_wx_invite = this.Button_17;
+		btn_wx_invite.loadTextureNormal(img_wx);
+		//cc.log("this.Button_17====",this.Button_17.x);
+		if(BaseRoomModel.curRoomData && BaseRoomModel.curRoomData.roomName){
+			var offsetX = 350;
+			var offsetY = 260;
+			this.btn_qyq_back = new ccui.Button(img_back,"","");
+			this.btn_qyq_back.setPosition(btn_wx_invite.width/2 - 2*offsetX,btn_wx_invite.height/2);
+			UITools.addClickEvent(this.btn_qyq_back,this,this.onBackToPyqHall);
+			btn_wx_invite.addChild(this.btn_qyq_back);
+
+			if(BaseRoomModel.curRoomData.strParams[4] == 1){
+				img_qyq = "res/ui/bjdmj/haoyouyaoqing.png";
+			}
+			this.btn_qyq_invite = new ccui.Button(img_qyq,"","");
+			this.btn_qyq_invite.visible = ClickClubModel.getIsForbidInvite();
+			this.btn_qyq_invite.setPosition(btn_wx_invite.width/2 - offsetX,btn_wx_invite.height/2);
+			UITools.addClickEvent(this.btn_qyq_invite,this,this.onShowInviteList);
+			btn_wx_invite.addChild(this.btn_qyq_invite);
+			//if(!ClubRecallDetailModel.isDTZWanfa(BaseRoomModel.curRoomData.wanfa)){
+			btn_wx_invite.setPosition(btn_wx_invite.x + (offsetX),offsetY);
+			//}else{
+			//    this.btn_qyq_invite.setPosition(btn_wx_invite.width/2,185);
+			//    this.btn_qyq_back.setPosition(btn_wx_invite.width/2,319);
+			//    btn_wx_invite.setPositionY(btn_wx_invite.y - 65);
+			//}
+		}
+
+		if(!this.Button_tuichu){
+			this.Button_tuichu = this.getWidget("Button_tuichu");//退出房间
+		}
+		this.Button_tuichu.visible = true;
+
+		var localX = this.Button_17.x;
+		this.Button_tuichu.y = this.Button_17.y;
+		if(BaseRoomModel.curRoomData && BaseRoomModel.curRoomData.roomName){
+			this.Button_tuichu.x = localX;
+		}else{
+			this.Button_tuichu.x = 960;
+		}
+		this.localTuichuX = this.Button_tuichu.x;
+		this.Button_17.opacity = 0;
+	},
+
 	onTuiChu:function(){
 		sySocket.sendComReqMsg(6);
 	},
@@ -616,7 +665,7 @@ var PDKRoom = BaseRoom.extend({//Room
 			this.Button_p1f.visible = false;
 			this.Button_p3f.visible = false;
 		}
-		this.Button_tuichu.visible = false;
+		this.Button_tuichu.visible = !(type == 3 || type == 4 || type == 5);
 	},
 
 	OnDeskHuiKan:function(message){
@@ -879,7 +928,7 @@ var PDKRoom = BaseRoom.extend({//Room
 		this._players[seat].showStatus(status);
 		if(seat == PDKRoomModel.mySeat){
 			this.Button_30.visible = /*this.Button_qiepai.visible =*/false;
-			this.Button_tuichu.x = 960;
+			//this.Button_tuichu.x = 960;
 			this.setInviteBtnState();
 		}
 	},
@@ -889,6 +938,14 @@ var PDKRoom = BaseRoom.extend({//Room
 
 		if(PDKRoomModel.isMatchRoom()){
 			this.Button_17.visible = false;
+		}
+
+		if(!this.Button_17.visible){
+			this.Button_tuichu.x = 960;
+		}else{
+			if(this.localTuichuX){
+				this.Button_tuichu.x = this.localTuichuX;
+			}
 		}
 	},
 

@@ -304,25 +304,24 @@ var BSMahjong = ccui.Widget.extend({
             }
         }
         var hdp = "d"+hdirect+"p"+hplace;
-        if (an === 1 || (direct == 3 && place == 1) || (direct == 4 && place == 1) || (direct == 2 && place == 1)) {
-        } else {
-            zipng = type + "mj_" + hdp + "_" + this._cardVo.t + "_" + this._cardVo.n + ".png";
+        if(type<3){
+            if(an===1 || (direct==3&&place==1) || (direct==4&&place==1) || (direct==2&&place==1)){
+            }else{
+                zipng = type + "mj_"+hdp+"_"+this._cardVo.t+"_"+this._cardVo.n+".png";
+            }
+        }else {
+            if(an===1 || (direct==3&&place==1) || (direct==4&&place==1) || (direct==2&&place==1)){
+            }else{
+                zipng = "xygmj_"+hdp+"_"+this._cardVo.t+"_"+this._cardVo.n+".png";
+            }
         }
         //cc.log("BSMJ zipng =",zipng);
         //var png = SetUpModel.getMahjongRes(zipng);
         if(zipng!=""){
             var frame = cc.spriteFrameCache.getSpriteFrame(zipng);
             this._zi.setSpriteFrame(frame);
-            if(hdirect == 4 && hplace == 3 && type != 3){
-                this._zi.scale = 0.8;
-            }else if(hdirect == 1 && hplace == 2 && type == 3){
+            if (hdirect == 1 && hplace == 3) {
                 this._zi.scale = 1.3;
-            }else if(hdirect == 1 && hplace == 1 && type == 3){
-                this._zi.scale = 1.35;
-            }else if(hdirect == 1 && hplace == 1 && type == 2){
-                this._zi.scale = 1.2;
-            }else{
-                this._zi.scale = 1;
             }
         }
     },
@@ -536,18 +535,24 @@ var BSMahjong = ccui.Widget.extend({
             mjScale = this._cardVo.mjScale;
         }
         var hdp = "d"+hdirect+"p"+hplace;
-        if (an === 1 || (direct == 3 && place == 1) || (direct == 4 && place == 1) || (direct == 2 && place == 1)) {
-            if (an === 1) {
+        if(an===1 || (direct==3&&place==1) || (direct==4&&place==1) || (direct==2&&place==1)){
+            if(an===1){
                 hdp += "_an";
             }
-            bgPng = bgstyle + "mjbg_" + hdp + ".png";
-        } else {
-            bgPng = bgstyle + "mjbg_" + hdp + ".png";
+            bgPng = bgstyle + "mjbg_"+hdp+".png";
+        }else{
+            bgPng = bgstyle + "mjbg_"+hdp+".png";
         }
-
-        if (an === 1 || (direct == 3 && place == 1) || (direct == 4 && place == 1) || (direct == 2 && place == 1)) {
-        } else {
-            png = mjstyle + "mj_" + hdp + "_" + this._cardVo.t + "_" + this._cardVo.n + ".png";
+        if(mjstyle<3){
+            if(an===1 || (direct==3&&place==1) || (direct==4&&place==1) || (direct==2&&place==1)){
+            }else{
+                png = mjstyle + "mj_"+hdp+"_"+this._cardVo.t+"_"+this._cardVo.n+".png";
+            }
+        }else {
+            if(an===1 || (direct==3&&place==1) || (direct==4&&place==1) || (direct==2&&place==1)){
+            }else{
+                png = "xygmj_"+hdp+"_"+this._cardVo.t+"_"+this._cardVo.n+".png";
+            }
         }
 
         this.anchorX=this.anchorY=0;

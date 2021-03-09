@@ -867,14 +867,20 @@ var MjSetUpPop = BasePopup.extend({
         this["CheckBox_bg1"].addEventListener(this.onClickPz1, this);
         this["CheckBox_bg2"] = this.getWidget("CheckBox_bg2");
         this["CheckBox_bg2"].addEventListener(this.onClickPz2, this);
-        this["CheckBox_pm1"] = this.getWidget("CheckBox_pm1");
-        this["CheckBox_pm1"].addEventListener(this.onClickPm1, this);
         this["CheckBox_pp1"] = this.getWidget("CheckBox_pp1");
         this["CheckBox_pp1"].addEventListener(this.onClickPp1, this);
         this["CheckBox_pp2"] = this.getWidget("CheckBox_pp2");
         this["CheckBox_pp2"].addEventListener(this.onClickPp2, this);
         this["CheckBox_pp3"] = this.getWidget("CheckBox_pp3");
         this["CheckBox_pp3"].addEventListener(this.onClickPp3, this);
+
+        this["CheckBox_pm1"] = this.getWidget("CheckBox_pm1");
+        this["CheckBox_pm1"].addEventListener(this.onClickPm1, this);
+        this["CheckBox_pm2"] = this.getWidget("CheckBox_pm2");
+        this["CheckBox_pm2"].addEventListener(this.onClickPm2, this);
+        this["CheckBox_pm3"] = this.getWidget("CheckBox_pm3");
+        this["CheckBox_pm3"].addEventListener(this.onClickPm3, this);
+
         if(this.isCSMJ){
             this["CheckBox_yy1"] = this.getWidget("CheckBox_yy1");
             this["CheckBox_yy1"].addEventListener(this.onClickYuyan1, this);
@@ -1001,6 +1007,8 @@ var MjSetUpPop = BasePopup.extend({
 
     displayPm:function(){
         this.getWidget("CheckBox_pm1").setSelected(this.pm==1);
+        this.getWidget("CheckBox_pm2").setSelected(this.pm==2);
+        this.getWidget("CheckBox_pm3").setSelected(this.pm==3);
         cc.sys.localStorage.setItem("pro003_mj_pm"+MJRoomModel.wanfa,this.pm);
         SyEventManager.dispatchEvent(SyEvent.CHANGE_MJ_CARDS,this.pm);
     },
@@ -1075,6 +1083,24 @@ var MjSetUpPop = BasePopup.extend({
     onClickPm1:function(obj,type){
         if (type == ccui.CheckBox.EVENT_SELECTED) {
             this.pm = 1
+        }
+        if(type == ccui.CheckBox.EVENT_UNSELECTED){
+            this.pm = 2
+        }
+        this.displayPm();
+    },
+    onClickPm2:function(obj,type){
+        if (type == ccui.CheckBox.EVENT_SELECTED) {
+            this.pm = 2
+        }
+        if(type == ccui.CheckBox.EVENT_UNSELECTED){
+            this.pm = 3
+        }
+        this.displayPm();
+    },
+    onClickPm3:function(obj,type){
+        if (type == ccui.CheckBox.EVENT_SELECTED) {
+            this.pm = 3
         }
         if(type == ccui.CheckBox.EVENT_UNSELECTED){
             this.pm = 1

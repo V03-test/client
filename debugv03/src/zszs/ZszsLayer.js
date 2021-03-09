@@ -16,38 +16,38 @@ var ZszsLayer = cc.Layer.extend({
     },
 
     initLayer:function(){
-        this.layerBg = new cc.Sprite("res/ui/bjdmj/popup/popup_bg_1.png");
+        this.layerBg = new cc.Sprite("res/res_ui/homeLayer/zszs/bg.png");
         this.layerBg.setPosition(cc.winSize.width/2,cc.winSize.height/2);
         this.addChild(this.layerBg);
 
-        var title = new cc.Sprite("res/ui/zszs/title_zszs.png");
-        title.setPosition(this.layerBg.width/2,this.layerBg.height - 45);
+        var title = new cc.Sprite("res/res_ui/homeLayer/zszs/title_tbzs.png");
+        title.setPosition(this.layerBg.width/2,this.layerBg.height - 100);
         this.layerBg.addChild(title);
 
-        var img = "res/ui/bjdmj/popup/x.png";
+        var img = "res/res_ui/homeLayer/zszs/btn_close.png";
         this.btn_close = new ccui.Button(img,img,"");
-        this.btn_close.setPosition(this.layerBg.width - 45,this.layerBg.height - 45);
+        this.btn_close.setPosition(this.layerBg.width - 75,this.layerBg.height - 80);
         this.btn_close.addTouchEventListener(this.onClickBtn,this);
         this.layerBg.addChild(this.btn_close,1);
 
         var label_1 = new ccui.Text("输入玩家ID:","res/font/bjdmj/fznt.ttf",45);
-        label_1.setColor(cc.color("#a45945"));
+        label_1.setColor(cc.color("#90371f"));
         label_1.setAnchorPoint(1,0.5);
         label_1.setPosition(this.layerBg.width/2 - 54,this.layerBg.height/2 + 75);
         this.layerBg.addChild(label_1);
 
         var label_2 = new ccui.Text("输入奖赏钻石数量:","res/font/bjdmj/fznt.ttf",45);
-        label_2.setColor(cc.color("#a45945"));
+        label_2.setColor(cc.color("#90371f"));
         label_2.setAnchorPoint(1,0.5);
         label_2.setPosition(label_1.x,label_1.y - 120);
         this.layerBg.addChild(label_2);
 
-        var inputbg_1 = new cc.Sprite("res/ui/zszs/bg_input_1.png");
+        var inputbg_1 = new cc.Sprite("res/res_ui/homeLayer/zszs/shuru.png");
         inputbg_1.setAnchorPoint(0,0.5);
         inputbg_1.setPosition(label_1.x + 10,label_1.y);
         this.layerBg.addChild(inputbg_1);
 
-        var inputbg_2 = new cc.Sprite("res/ui/zszs/bg_input_1.png");
+        var inputbg_2 = new cc.Sprite("res/res_ui/homeLayer/zszs/shuru.png");
         inputbg_2.setAnchorPoint(0,0.5);
         inputbg_2.setPosition(label_2.x + 10,label_2.y);
         this.layerBg.addChild(inputbg_2);
@@ -75,12 +75,17 @@ var ZszsLayer = cc.Layer.extend({
         inputbg_2.addChild(this.inputNum,1);
 
 
-        var img = "res/ui/zszs/btn_queding.png";
+        var img = "res/res_ui/homeLayer/zszs/btn_zs.png";
         this.btn_queding = new ccui.Button(img,img,"");
-        this.btn_queding.setPosition(this.layerBg.width/2,90);
+        this.btn_queding.setPosition(this.layerBg.width/2 - 250,180);
         this.btn_queding.addTouchEventListener(this.onClickBtn,this);
         this.layerBg.addChild(this.btn_queding,1);
 
+        var img = "res/res_ui/homeLayer/zszs/btn_buchang.png";
+        this.btn_buchang = new ccui.Button(img,img,"");
+        this.btn_buchang.setPosition(this.layerBg.width/2 + 250,180);
+        this.btn_buchang.addTouchEventListener(this.onClickBtn,this);
+        this.layerBg.addChild(this.btn_buchang,1);
     },
 
     onMsgBack:function(event){
@@ -100,7 +105,7 @@ var ZszsLayer = cc.Layer.extend({
 
             if(sender == this.btn_close){
                 PopupManager.remove(this);
-            }else if(sender == this.btn_queding){
+            }else if(sender == this.btn_queding || sender == this.btn_buchang){
                 var id = this.inputId.getString();
                 var num = this.inputNum.getString();
 
@@ -117,12 +122,14 @@ var ZszsLayer = cc.Layer.extend({
                     return;
                 }
 
-                var str = "是否给玩家" + id + "奖赏" + num + "钻石?";
+                var localType = sender == this.btn_buchang ? 2 : 1;
+                var localStr = sender == this.btn_buchang ? "补偿" : "奖赏";
+
+                var str = "是否给玩家" + id + localStr + num + "钻石?";
                 AlertPop.show(str, function () {
-                    sySocket.sendComReqMsg(1111,[6,id,num]);
+                    sySocket.sendComReqMsg(1111,[6,id,num,localType]);
                 });
             }
-
         }else if(type == ccui.Widget.TOUCH_CANCELED){
             sender.setColor(cc.color.WHITE);
         }

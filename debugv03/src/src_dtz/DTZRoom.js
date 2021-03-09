@@ -445,6 +445,59 @@ var DTZRoom = BaseRoom.extend({
                 this.getWidget("btn_cardNote").x += 30;
             }
         }
+
+        this.Button_30.y += 140;
+    },
+
+    //微信邀请按钮统一换资源，增加亲友圈邀请按钮
+    adjustInviteBtn:function(){
+        this.btnInvite.x = 960;
+
+        var img_wx = "res/res_gameCom/Z_wechatInvitation.png";
+        var img_qyq = "res/res_gameCom/qyqInvite.png";
+        var img_back = "res/res_gameCom/backHall.png";
+        var btn_wx_invite = this.btnInvite;
+        btn_wx_invite.loadTextureNormal(img_wx);
+        //cc.log("this.btnInvite====",this.btnInvite.x);
+        if(BaseRoomModel.curRoomData && BaseRoomModel.curRoomData.roomName){
+            var offsetX = 350;
+            var offsetY = 260;
+            this.btn_qyq_back = new ccui.Button(img_back,"","");
+            this.btn_qyq_back.setPosition(btn_wx_invite.width/2 - 2*offsetX,btn_wx_invite.height/2);
+            UITools.addClickEvent(this.btn_qyq_back,this,this.onBackToPyqHall);
+            btn_wx_invite.addChild(this.btn_qyq_back);
+
+            if(BaseRoomModel.curRoomData.strParams[4] == 1){
+                img_qyq = "res/ui/bjdmj/haoyouyaoqing.png";
+            }
+            this.btn_qyq_invite = new ccui.Button(img_qyq,"","");
+            this.btn_qyq_invite.visible = ClickClubModel.getIsForbidInvite();
+            this.btn_qyq_invite.setPosition(btn_wx_invite.width/2 - offsetX,btn_wx_invite.height/2);
+            UITools.addClickEvent(this.btn_qyq_invite,this,this.onShowInviteList);
+            btn_wx_invite.addChild(this.btn_qyq_invite);
+            //if(!ClubRecallDetailModel.isDTZWanfa(BaseRoomModel.curRoomData.wanfa)){
+                btn_wx_invite.setPosition(btn_wx_invite.x + (offsetX),offsetY);
+            //}else{
+            //    this.btn_qyq_invite.setPosition(btn_wx_invite.width/2,185);
+            //    this.btn_qyq_back.setPosition(btn_wx_invite.width/2,319);
+            //    btn_wx_invite.setPositionY(btn_wx_invite.y - 65);
+            //}
+        }
+
+        if(!this.Button_20){
+            this.Button_20 = this.getWidget("Button_tuichu");//退出房间
+        }
+
+        var localX = this.btnInvite.x;
+        this.Button_20.y = this.btnInvite.y;
+        if(BaseRoomModel.curRoomData && BaseRoomModel.curRoomData.roomName){
+            this.Button_20.x = localX;
+        }else{
+            this.Button_20.x = 960;
+        }
+        this.localTuichuX = this.Button_20.x;
+        //this.btnInvite.setEnabled(false);
+        this.btnInvite.opacity = 0;
     },
 
     NeedXipai:function(){
@@ -2533,7 +2586,7 @@ var DTZRoom = BaseRoom.extend({
         // this.bTeamScoreLable.setColor(color2);
         // this.curScoreLable.setColor(color2);
 
-        var type = this.getLocalItem("sy_dtz_pz") || 1;
+        var type = this.getLocalItem("DTZsy_dtz_pz") || 1;
         this.showBgColor(type);
     },
 

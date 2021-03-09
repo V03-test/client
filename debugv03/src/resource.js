@@ -1,6 +1,10 @@
 var res = {};
 
 //长沙麻将替换的新资源
+res.majiang_xygzi_plist = "res/plist/majiang_xygzi.plist";
+res.majiang_xygzi_png = "res/plist/majiang_xygzi.png";
+res.majiang_zi2_plist = "res/plist/majiang_zi2.plist";
+res.majiang_zi2_png = "res/plist/majiang_zi2.png";
 res.majiang_zi1_plist = "res/plist/majiang_zi1.plist";
 res.majiang_zi1_png = "res/plist/majiang_zi1.png";
 res.majiang_bg1_plist = "res/plist/majiang_bg1.plist";

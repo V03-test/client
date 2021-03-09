@@ -71,21 +71,21 @@ var ZsjlLayer = cc.Layer.extend({
     },
 
     initLayer:function(){
-        this.layerBg = new cc.Sprite("res/ui/zszs/bg_zsjl.png");
+        this.layerBg = new cc.Sprite("res/res_ui/qyq/common/commonKuang/tanchuan.png");
         this.layerBg.setPosition(cc.winSize.width/2,cc.winSize.height/2);
         this.addChild(this.layerBg);
 
-        var title = new cc.Sprite("res/ui/zszs/title_zsjl.png");
+        var title = new cc.Sprite("res/res_ui/homeLayer/zszs/title_zsjl.png");
         title.setPosition(this.layerBg.width/2,this.layerBg.height - 45);
         this.layerBg.addChild(title);
 
-        var img = "res/ui/bjdmj/popup/x.png";
+        var img = "res/res_ui/qyq/common/commonButton/cm_BtnClose.png";
         this.btn_close = new ccui.Button(img,img,"");
         this.btn_close.setPosition(this.layerBg.width - 45,this.layerBg.height - 45);
         this.btn_close.addTouchEventListener(this.onClickBtn,this);
         this.layerBg.addChild(this.btn_close,1);
 
-        var dateBg = new cc.Sprite("res/ui/zszs/bg_date.png");
+        var dateBg = new cc.Sprite("res/res_ui/homeLayer/zszs/riliDi.png");
         dateBg.setAnchorPoint(0,0.5);
         dateBg.setPosition(50,this.layerBg.height - 144);
         this.layerBg.addChild(dateBg);
@@ -114,7 +114,7 @@ var ZsjlLayer = cc.Layer.extend({
             this.layerBg.addChild(txt);
         }
 
-        var inputbg = new cc.Sprite("res/ui/zszs/bg_input_2.png");
+        var inputbg = new cc.Sprite("res/res_ui/homeLayer/zszs/shuru.png");
         inputbg.setPosition(this.layerBg.width/2 + 150,85);
         this.layerBg.addChild(inputbg);
 
@@ -135,8 +135,8 @@ var ZsjlLayer = cc.Layer.extend({
         this.btn_cbzsr.addTouchEventListener(this.onClickBtn,this);
         this.layerBg.addChild(this.btn_cbzsr,1);
 
-        var page_bg = new cc.Scale9Sprite("res/ui/bjdmj/popup/inputbg.png");
-        page_bg.setContentSize(100,80);
+        var page_bg = new cc.Sprite("res/res_ui/qyq/common/commonKuang/fenyeDi.png");
+        //page_bg.setContentSize(100,80);
         page_bg.setPosition(200,85);
         this.layerBg.addChild(page_bg);
 
@@ -144,13 +144,13 @@ var ZsjlLayer = cc.Layer.extend({
         this.label_page.setPosition(page_bg.width/2,page_bg.height/2);
         page_bg.addChild(this.label_page);
 
-        var img = "res/ui/bjdmj/popup/pyq/xiaozu/zuo1.png";
+        var img = "res/res_ui/qyq/common/commonButton/cm_BtnClose/btnLeft.png";
         this.btn_left = new ccui.Button(img,img,"");
         this.btn_left.setPosition(page_bg.width/2 - 100,page_bg.height/2);
         this.btn_left.addTouchEventListener(this.onClickBtn,this);
         page_bg.addChild(this.btn_left);
 
-        var img = "res/ui/bjdmj/popup/pyq/xiaozu/you1.png";
+        var img = "res/res_ui/qyq/common/commonButton/cm_BtnClose/btnRight.png";
         this.btn_right = new ccui.Button(img,img,"");
         this.btn_right.setPosition(page_bg.width/2 + 100,page_bg.height/2);
         this.btn_right.addTouchEventListener(this.onClickBtn,this);

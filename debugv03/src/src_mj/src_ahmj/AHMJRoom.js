@@ -3126,7 +3126,7 @@ var AHMJRoom = BaseRoom.extend({
         var seq = MJRoomModel.getPlayerSeq(p.userId,MJRoomModel.mySeat, p.seat);
         this._players[p.seat] = new AHMJPlayer(p,this.root,seq);
         var me = MJRoomModel.getPlayerVo();
-        this.btnInvite.visible = (ObjectUtil.size(this._players)<MJRoomModel.renshu);
+        this.setInviteBtnState();
 
         if (MJRoomModel.renshu != 2){
             var seats = MJRoomModel.isIpSame();

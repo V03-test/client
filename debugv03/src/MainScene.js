@@ -81,13 +81,12 @@ var MainScene = cc.Scene.extend({
 		 cc.spriteFrameCache.addSpriteFrames(res.qf_bcard_plist);
 		 cc.spriteFrameCache.addSpriteFrames(res.qf_scard_plist);
 		//长沙麻将新资源
+		cc.spriteFrameCache.addSpriteFrames(res.majiang_xygzi_plist);
 		cc.spriteFrameCache.addSpriteFrames(res.majiang_zi1_plist);
+		cc.spriteFrameCache.addSpriteFrames(res.majiang_zi2_plist);
 		cc.spriteFrameCache.addSpriteFrames(res.majiang_bg1_plist);
 		cc.spriteFrameCache.addSpriteFrames(res.majiang_bg2_plist);
 		cc.spriteFrameCache.addSpriteFrames(res.majiang_bg3_plist);
-
-
-
 
 		//cc.spriteFrameCache.addSpriteFrames(res.majiang_plist);
 			//cc.spriteFrameCache.addSpriteFrames(res.emoji_plist);

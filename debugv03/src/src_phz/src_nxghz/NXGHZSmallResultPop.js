@@ -411,6 +411,8 @@ var NXGHZSmallResultPop=BasePopup.extend({
 			this.getWidget("Label_jushu").setString("第" + PHZRePlayModel.playCount + "局");
 		}
 		this.getWidget("replay_tip").visible =  this.isRePlay;
+		this.getWidget("replay_tip").x -= 220;
+		this.getWidget("replay_tip").setString("回放码:"+BaseRoomModel.curHfm);
 
 		var xipai_btn = this.getWidget("xipai_btn");
 		UITools.addClickEvent(xipai_btn,this,function(){

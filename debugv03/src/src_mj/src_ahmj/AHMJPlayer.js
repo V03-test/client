@@ -129,6 +129,17 @@ var AHMJPlayer = BaseRoomPlayer.extend({
             this.piaofen_img.x = 120;
             this.piaofen_img.y = 40;
             this.piaofen_img.visible = false;
+            if(MJRoomModel.renshu == 2){
+                if(seq == 2){
+                    this.piaofen_img.x = 40;
+                    this.piaofen_img.y = 40;
+                }
+            }else if(MJRoomModel.renshu == 4){
+                if(seq == 3){
+                    this.piaofen_img.x = 40;
+                    this.piaofen_img.y = 40;
+                }
+            }
         }else{
             this.hidePiaoFenImg();
         }

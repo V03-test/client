@@ -342,9 +342,16 @@ var CSMahjong = ccui.Widget.extend({
             }
         }
         var hdp = "d"+hdirect+"p"+hplace;
-        if(an===1 || (direct==3&&place==1) || (direct==4&&place==1) || (direct==2&&place==1)){
+        if(type<3){
+            if(an===1 || (direct==3&&place==1) || (direct==4&&place==1) || (direct==2&&place==1)){
             }else{
                 zipng = type + "mj_"+hdp+"_"+this._cardVo.t+"_"+this._cardVo.n+".png";
+            }
+        }else {
+            if(an===1 || (direct==3&&place==1) || (direct==4&&place==1) || (direct==2&&place==1)){
+            }else{
+                zipng = "xygmj_"+hdp+"_"+this._cardVo.t+"_"+this._cardVo.n+".png";
+            }
         }
         if(zipng!=""){
             var frame = cc.spriteFrameCache.getSpriteFrame(zipng);
@@ -711,11 +718,17 @@ var CSMahjong = ccui.Widget.extend({
             bgPng = bgstyle + "mjbg_"+hdp+".png";
         }else{
             bgPng = bgstyle + "mjbg_"+hdp+".png";
-        } 
-
-        if(an===1 || (direct==3&&place==1) || (direct==4&&place==1) || (direct==2&&place==1)){
+        }
+        if(mjstyle<3){
+            if(an===1 || (direct==3&&place==1) || (direct==4&&place==1) || (direct==2&&place==1)){
             }else{
                 png = mjstyle + "mj_"+hdp+"_"+this._cardVo.t+"_"+this._cardVo.n+".png";
+            }
+        }else {
+            if(an===1 || (direct==3&&place==1) || (direct==4&&place==1) || (direct==2&&place==1)){
+            }else{
+                png = "xygmj_"+hdp+"_"+this._cardVo.t+"_"+this._cardVo.n+".png";
+            }
         }
         // cc.log("")
         // cc.log("csmj png =",png);

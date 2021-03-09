@@ -120,9 +120,20 @@ var YZWDMJPlayer = BaseRoomPlayer.extend({
             this.piaofen_img = new cc.Sprite("res/res_mj/mjSmallResult/biao_piao0.png");
             this.iconbg.addChild(this.piaofen_img,99999);
             this.piaofen_img.setName("piaofen_img");
-            this.piaofen_img.x = 75;
-            this.piaofen_img.y = 15;
+            this.piaofen_img.x = 120;
+            this.piaofen_img.y = 40;
             this.piaofen_img.visible = false;
+            if(MJRoomModel.renshu == 2){
+                if(seq == 2){
+                    this.piaofen_img.x = 40;
+                    this.piaofen_img.y = 40;
+                }
+            }else if(MJRoomModel.renshu == 4){
+                if(seq == 3){
+                    this.piaofen_img.x = 40;
+                    this.piaofen_img.y = 40;
+                }
+            }
         }
 
         this.jiachuiImg = ccui.helper.seekWidgetByName(root,"Image_chui"+seq);
