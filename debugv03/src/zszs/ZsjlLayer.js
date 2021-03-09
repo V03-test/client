@@ -1,7 +1,9 @@
-var ZsjlLayer = cc.Layer.extend({
+var ZsjlLayer = BasePopup.extend({
     ctor:function(){
-        this._super();
+        this._super("res/zsjlPop.json");
+    },
 
+    selfRender:function(){
         this.beginTime = this.endTime = new Date();
 
         this.curPage = 1;
@@ -9,19 +11,8 @@ var ZsjlLayer = cc.Layer.extend({
         SyEventManager.addEventListener(SyEvent.RESET_TIME, this, this.changeSearchTime);
         SyEventManager.addEventListener("Zszs_Back", this, this.onMsgBack);
 
-        cc.eventManager.addListener(cc.EventListener.create({
-            event: cc.EventListener.TOUCH_ONE_BY_ONE,
-            swallowTouches: true,
-            onTouchBegan:function(touch,event){
-                return true;
-            }
-        }), this);
-
         this.initLayer();
-    },
 
-    onEnterTransitionDidFinish:function(){
-        this._super();
         this.getRecordData(1);
     },
 
@@ -71,52 +62,17 @@ var ZsjlLayer = cc.Layer.extend({
     },
 
     initLayer:function(){
-        this.layerBg = new cc.Sprite("res/res_ui/qyq/common/commonKuang/tanchuan.png");
-        this.layerBg.setPosition(cc.winSize.width/2,cc.winSize.height/2);
-        this.addChild(this.layerBg);
-
-        var title = new cc.Sprite("res/res_ui/homeLayer/zszs/title_zsjl.png");
-        title.setPosition(this.layerBg.width/2,this.layerBg.height - 45);
-        this.layerBg.addChild(title);
-
-        var img = "res/res_ui/qyq/common/commonButton/cm_BtnClose.png";
-        this.btn_close = new ccui.Button(img,img,"");
-        this.btn_close.setPosition(this.layerBg.width - 45,this.layerBg.height - 45);
+        this.btn_close = this.getWidget("close_btn");
         this.btn_close.addTouchEventListener(this.onClickBtn,this);
-        this.layerBg.addChild(this.btn_close,1);
 
-        var dateBg = new cc.Sprite("res/res_ui/homeLayer/zszs/riliDi.png");
-        dateBg.setAnchorPoint(0,0.5);
-        dateBg.setPosition(50,this.layerBg.height - 144);
-        this.layerBg.addChild(dateBg);
-
-        var img = "res/ui/bjdmj/popup/light_touming.png";
-        this.btn_change_date = new ccui.Button(img,img,"");
-        this.btn_change_date.ignoreContentAdaptWithSize(false);
-        this.btn_change_date.setContentSize(dateBg.width,dateBg.height);
-        this.btn_change_date.setPosition(dateBg.width/2,dateBg.height/2);
+        this.btn_change_date = this.getWidget("Button_time");
         this.btn_change_date.addTouchEventListener(this.onClickBtn,this);
-        dateBg.addChild(this.btn_change_date);
 
-        this.label_date = new ccui.Text("10月26日-10月26日","res/font/bjdmj/fznt.ttf",42);
-        this.label_date.setPosition(dateBg.width/2 + 30,dateBg.height/2);
-        dateBg.addChild(this.label_date);
+        this.label_date = this.getWidget("Label_time");
 
         this.label_date.setString(UITools.formatTime(this.beginTime) + "-" + UITools.formatTime(this.endTime));
 
-        var txtArr = ["奖赏人","被奖赏人","奖赏数量","时间"];
-
-        var offsetX = 300;
-        var startX = this.layerBg.width/2 - (txtArr.length - 1)/2*offsetX;
-        for(var i = 0;i<txtArr.length;++i){
-            var txt = new ccui.Text(txtArr[i],"res/font/bjdmj/fznt.ttf",45);
-            txt.setPosition(startX + offsetX*i,this.layerBg.height - 240);
-            this.layerBg.addChild(txt);
-        }
-
-        var inputbg = new cc.Sprite("res/res_ui/homeLayer/zszs/shuru.png");
-        inputbg.setPosition(this.layerBg.width/2 + 150,85);
-        this.layerBg.addChild(inputbg);
+        var inputbg = this.getWidget("Image_InputUid");
 
         this.inputId = new cc.EditBox(cc.size(inputbg.width - 20, inputbg.height - 10),
             new cc.Scale9Sprite("res/ui/bjdmj/popup/light_touming.png"));
@@ -129,60 +85,86 @@ var ZsjlLayer = cc.Layer.extend({
         this.inputId.setPlaceholderFont("Arial" ,45);
         inputbg.addChild(this.inputId,1);
 
-        var img = "res/ui/zszs/btn_cbzsr.png";
-        this.btn_cbzsr = new ccui.Button(img,img,"");
-        this.btn_cbzsr.setPosition(this.layerBg.width - 170,80);
+        this.btn_cbzsr = this.getWidget("Button_cbzsr");
         this.btn_cbzsr.addTouchEventListener(this.onClickBtn,this);
-        this.layerBg.addChild(this.btn_cbzsr,1);
 
-        var page_bg = new cc.Sprite("res/res_ui/qyq/common/commonKuang/fenyeDi.png");
-        //page_bg.setContentSize(100,80);
-        page_bg.setPosition(200,85);
-        this.layerBg.addChild(page_bg);
+        this.label_page = this.getWidget("Label_yema");
 
-        this.label_page = new cc.LabelTTF("1","Arial",54);
-        this.label_page.setPosition(page_bg.width/2,page_bg.height/2);
-        page_bg.addChild(this.label_page);
-
-        var img = "res/res_ui/qyq/common/commonButton/cm_BtnClose/btnLeft.png";
-        this.btn_left = new ccui.Button(img,img,"");
-        this.btn_left.setPosition(page_bg.width/2 - 100,page_bg.height/2);
+        this.btn_left = this.getWidget("Button_left");
         this.btn_left.addTouchEventListener(this.onClickBtn,this);
-        page_bg.addChild(this.btn_left);
 
-        var img = "res/res_ui/qyq/common/commonButton/cm_BtnClose/btnRight.png";
-        this.btn_right = new ccui.Button(img,img,"");
-        this.btn_right.setPosition(page_bg.width/2 + 100,page_bg.height/2);
+        this.btn_right = this.getWidget("Button_right");
         this.btn_right.addTouchEventListener(this.onClickBtn,this);
-        page_bg.addChild(this.btn_right);
 
-        this.scrollView = new ccui.ScrollView();
-        this.scrollView.setDirection(ccui.ScrollView.DIR_VERTICAL);
-        this.scrollView.setContentSize(this.layerBg.width,420);
-        this.scrollView.setPosition(0,160);
-        this.layerBg.addChild(this.scrollView,1);
+        this.ListView_list = this.getWidget("ListView_list");
+
+        this.layerBg = this.getWidget("mainPopup");
 
         this.label_no_data = new ccui.Text("暂无数据","res/font/bjdmj/fznt.ttf",45);
         this.label_no_data.setPosition(this.layerBg.width/2,this.layerBg.height/2 - 30);
         this.label_no_data.setVisible(false);
         this.layerBg.addChild(this.label_no_data);
-
     },
 
     updateScrollItem:function(data){
-        this.scrollView.removeAllChildren();
+        this.ListView_list.removeAllChildren();
 
-        var num = data.length;
+        var num = Array.isArray(data) ? data.length : 0;
         var itemH = 125;
-        var contentH = Math.max(this.scrollView.height,itemH*num);
-        this.scrollView.setInnerContainerSize(cc.size(this.scrollView.width,contentH));
+        var contentH = Math.max(this.ListView_list.height,itemH*num);
+        this.ListView_list.setInnerContainerSize(cc.size(this.ListView_list.width,contentH));
+
+        var itemNode = this.getWidget("Image_item");
 
         for(var i = 0;i<num;++i){
-            var item = new ZsjlItem();
-            item.setItemWithData(data[i]);
-            item.setPosition(this.scrollView.width/2,contentH - (i+0.5)*itemH);
-            this.scrollView.addChild(item);
+            var tempNode = itemNode.clone();
+            tempNode.visible = true;
+            this.setItemWithData(tempNode,data[i]);
+            this.ListView_list.addChild(tempNode);
         }
+    },
+
+    setItemWithData:function(widget,data){
+        var sendName = UITools.truncateLabel(data.sendName,5);
+        var sendId = data.sendUserid;
+        var acceptName = UITools.truncateLabel(data.acceptName,5);
+        var acceptId = data.acceptUserid;
+        var num = data.diamondNum;
+        var time = data.sendTime;
+
+        var Label_zsrName = ccui.helper.seekWidgetByName(widget,"Label_zsrName");
+        var Label_zsrID = ccui.helper.seekWidgetByName(widget,"Label_zsrID");
+        var Label_bzsrName = ccui.helper.seekWidgetByName(widget,"Label_bzsrName");
+        var Label_bzsrID = ccui.helper.seekWidgetByName(widget,"Label_bzsrID");
+        var Label_zssj = ccui.helper.seekWidgetByName(widget,"Label_zssj");
+        var Label_lx = ccui.helper.seekWidgetByName(widget,"Label_lx");
+        var Label_sj = ccui.helper.seekWidgetByName(widget,"Label_sj");
+
+        Label_zsrName.setString(sendName);
+        Label_zsrID.setString("ID:" + sendId);
+        Label_bzsrName.setString(acceptName);
+        Label_bzsrID.setString("ID:" + acceptId);
+        Label_zssj.setString(""+num);
+        Label_lx.setString(data.sendType == 1 ? "补偿" : "赠送");
+        Label_sj.setString(this.getTimeStrMore(time));
+    },
+
+    getTimeStrMore:function(time){
+        var date = new Date(time);
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
+        var hour = date.getHours();
+        var min = date.getMinutes();
+        var sec = date.getSeconds();
+
+        if(month < 10) month = "0" + month;
+        if(day < 10) day = "0" + day;
+        if(hour < 10) hour = "0" + hour;
+        if(min < 10) min = "0" + min;
+        if(sec < 10) sec = "0" + sec;
+
+        return year + "/" + month + "/" + day + "\n" + hour + ":" + min + ":" + sec;
     },
 
     changeSearchTime:function(event){
@@ -209,6 +191,12 @@ var ZsjlLayer = cc.Layer.extend({
                 PopupManager.addPopup(mc);
             }else if(sender == this.btn_cbzsr){
                 var userId = this.inputId.getString();
+
+                if(userId.length == 0){
+                    FloatLabelUtil.comText("玩家ID不能为空！！！");
+                   return;
+                }
+
                 this.getRecordData(1,userId);
             }else if(sender == this.btn_left){
                 var userId = this.inputId.getString();
@@ -243,73 +231,5 @@ var ZsjlLayer = cc.Layer.extend({
     onOpen : function(){
     },
     onDealClose:function(){
-    },
-});
-
-var ZsjlItem = cc.Node.extend({
-    ctor:function(){
-        this._super();
-
-        this.initNode();
-    },
-
-    initNode:function(){
-        this.itembg = new cc.Scale9Sprite("res/ui/bjdmj/popup/pyq/tiao.png");
-        this.itembg.setContentSize(1240,120);
-        this.addChild(this.itembg);
-
-        this.labelArr = [];
-
-        var txtArr = ["玩家的名字\nID:1234567","玩家的名字\nID:1234567","9999","2020/12/29\n12:12"];
-
-        var offsetX = 300;
-        var startX = this.itembg.width/2 - (txtArr.length - 1)/2*offsetX;
-        for(var i = 0;i<txtArr.length;++i){
-            var txt = new ccui.Text(txtArr[i],"res/font/bjdmj/fznt.ttf",42);
-            txt.setColor(cc.color("#b37e5d"));
-            txt.setPosition(startX + offsetX*i,this.itembg.height/2);
-            txt.setTextHorizontalAlignment(cc.TEXT_ALIGNMENT_CENTER);
-            this.itembg.addChild(txt);
-            this.labelArr.push(txt);
-        }
-    },
-
-    setItemWithData:function(data){
-        var sendName = UITools.truncateLabel(data.sendName,5);
-        var sendId = data.sendUserid;
-        var acceptName = UITools.truncateLabel(data.acceptName,5);
-        var acceptId = data.acceptUserid;
-        var num = data.diamondNum;
-        var time = data.sendTime;
-
-        var strArr = [];
-
-        strArr.push(sendName + "\nID:" + sendId);
-        strArr.push(acceptName + "\nID:" + acceptId);
-        strArr.push(num);
-        strArr.push(this.getTimeStr(time));
-
-        for(var i = 0;i<this.labelArr.length;++i){
-            var label = this.labelArr[i];
-            label.setString(strArr[i]);
-        }
-    },
-
-    getTimeStr:function(time){
-        var date = new Date(time);
-        var year = date.getFullYear();
-        var month = date.getMonth() + 1;
-        var day = date.getDate();
-        var hour = date.getHours();
-        var min = date.getMinutes();
-        var sec = date.getSeconds();
-
-        if(month < 10) month = "0" + month;
-        if(day < 10) day = "0" + day;
-        if(hour < 10) hour = "0" + hour;
-        if(min < 10) min = "0" + min;
-        if(sec < 10) sec = "0" + sec;
-
-        return year + "/" + month + "/" + day + "\n" + hour + ":" + min + ":" + sec;
     },
 });

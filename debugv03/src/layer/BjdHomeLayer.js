@@ -66,14 +66,14 @@ var BjdHomeLayer = BaseLayer.extend({
         // this.btn_bind.visible = false;//PlayerModel.isHasBind;
 
 
-        // this.btn_zszs = this.getWidget("btn_zszs");
-        // this.btn_zsjl = this.getWidget("btn_zsjl");
-        // // this.btn_zszs.visible = this.btn_zsjl.visible = false;
+         this.btn_zszs = this.getWidget("btn_zszs");
+         this.btn_zsjl = this.getWidget("btn_zsjl");
+         // this.btn_zszs.visible = this.btn_zsjl.visible = false;
 
-        // SyEventManager.addEventListener(SyEvent.SOCKET_OPENED,this,this.onSocketOpen);
+         SyEventManager.addEventListener(SyEvent.SOCKET_OPENED,this,this.onSocketOpen);
 
-        // UITools.addClickEvent(this.btn_zszs,this,this.onClickZszs);
-        // UITools.addClickEvent(this.btn_zsjl,this,this.onClickZsjl);
+         UITools.addClickEvent(this.btn_zszs,this,this.onClickZszs);
+         UITools.addClickEvent(this.btn_zsjl,this,this.onClickZsjl);
 
         // this.btn_qxgl = this.getWidget("btn_qxgl");
         // this.btn_qxgl.visible = false;
@@ -293,8 +293,8 @@ var BjdHomeLayer = BaseLayer.extend({
     },
 
     onSocketOpen:function(){
-        // this.btn_zszs.visible = this.btn_zsjl.visible = PlayerModel.canZszs;
-        // this.btn_qxgl.visible = PlayerModel.canPowerManage;
+         this.btn_zszs.visible = this.btn_zsjl.visible = PlayerModel.canZszs;
+         //this.btn_qxgl.visible = PlayerModel.canPowerManage;
     },
 
     onClickBind:function(){
