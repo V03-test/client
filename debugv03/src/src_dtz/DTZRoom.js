@@ -2586,7 +2586,7 @@ var DTZRoom = BaseRoom.extend({
         // this.bTeamScoreLable.setColor(color2);
         // this.curScoreLable.setColor(color2);
 
-        var type = this.getLocalItem("DTZsy_dtz_pz") || 1;
+        var type = this.getLocalItem("DTZsy_pdk_pz") || 1;
         this.showBgColor(type);
     },
 
