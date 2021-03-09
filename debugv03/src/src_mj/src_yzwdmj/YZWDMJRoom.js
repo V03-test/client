@@ -114,8 +114,8 @@ var YZWDMJRoom = BaseRoom.extend({
             this.roomName_label.setColor(cc.color(214,203,173));
             this.roomName_label.setHorizontalAlignment(cc.TEXT_ALIGNMENT_CENTER);
             this.roomName_label.setVerticalAlignment(cc.VERTICAL_TEXT_ALIGNMENT_CENTER);
-            this.roomName_label.x = cc.winSize.width/2 - 840;
-            this.roomName_label.y = cc.winSize.height/2 + 300;
+            this.roomName_label.x = cc.winSize.width/2 - 960;
+            this.roomName_label.y = cc.winSize.height/2 + 370;
         }
         
         this.btn_CancelTuoguan = this.getWidget("btn_CancelTuoguan");//取消托管按钮
