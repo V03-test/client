@@ -1,56 +1,21 @@
-var ZszsLayer = cc.Layer.extend({
+var ZszsLayer = BasePopup.extend({
     ctor:function(){
-        this._super();
+        this._super("res/zszsPop.json");
+    },
 
+    selfRender:function(){
         SyEventManager.addEventListener("Zszs_Back", this, this.onMsgBack);
-
-        cc.eventManager.addListener(cc.EventListener.create({
-            event: cc.EventListener.TOUCH_ONE_BY_ONE,
-            swallowTouches: true,
-            onTouchBegan:function(touch,event){
-                return true;
-            }
-        }), this);
 
         this.initLayer();
     },
 
     initLayer:function(){
-        this.layerBg = new cc.Sprite("res/res_ui/homeLayer/zszs/bg.png");
-        this.layerBg.setPosition(cc.winSize.width/2,cc.winSize.height/2);
-        this.addChild(this.layerBg);
-
-        var title = new cc.Sprite("res/res_ui/homeLayer/zszs/title_tbzs.png");
-        title.setPosition(this.layerBg.width/2,this.layerBg.height - 100);
-        this.layerBg.addChild(title);
-
-        var img = "res/res_ui/homeLayer/zszs/btn_close.png";
-        this.btn_close = new ccui.Button(img,img,"");
-        this.btn_close.setPosition(this.layerBg.width - 75,this.layerBg.height - 80);
+        this.btn_close = this.getWidget("close_btn");
         this.btn_close.addTouchEventListener(this.onClickBtn,this);
-        this.layerBg.addChild(this.btn_close,1);
 
-        var label_1 = new ccui.Text("输入玩家ID:","res/font/bjdmj/fznt.ttf",45);
-        label_1.setColor(cc.color("#90371f"));
-        label_1.setAnchorPoint(1,0.5);
-        label_1.setPosition(this.layerBg.width/2 - 54,this.layerBg.height/2 + 75);
-        this.layerBg.addChild(label_1);
+        var inputbg_1 = this.getWidget("Image_uid");
 
-        var label_2 = new ccui.Text("输入奖赏钻石数量:","res/font/bjdmj/fznt.ttf",45);
-        label_2.setColor(cc.color("#90371f"));
-        label_2.setAnchorPoint(1,0.5);
-        label_2.setPosition(label_1.x,label_1.y - 120);
-        this.layerBg.addChild(label_2);
-
-        var inputbg_1 = new cc.Sprite("res/res_ui/homeLayer/zszs/shuru.png");
-        inputbg_1.setAnchorPoint(0,0.5);
-        inputbg_1.setPosition(label_1.x + 10,label_1.y);
-        this.layerBg.addChild(inputbg_1);
-
-        var inputbg_2 = new cc.Sprite("res/res_ui/homeLayer/zszs/shuru.png");
-        inputbg_2.setAnchorPoint(0,0.5);
-        inputbg_2.setPosition(label_2.x + 10,label_2.y);
-        this.layerBg.addChild(inputbg_2);
+        var inputbg_2 = this.getWidget("Image_zs");
 
         this.inputId = new cc.EditBox(cc.size(inputbg_1.width - 20, inputbg_1.height - 10),
             new cc.Scale9Sprite("res/ui/bjdmj/popup/light_touming.png"));
@@ -74,18 +39,11 @@ var ZszsLayer = cc.Layer.extend({
         this.inputNum.setPlaceholderFont("Arial" ,45);
         inputbg_2.addChild(this.inputNum,1);
 
-
-        var img = "res/res_ui/homeLayer/zszs/btn_zs.png";
-        this.btn_queding = new ccui.Button(img,img,"");
-        this.btn_queding.setPosition(this.layerBg.width/2 - 250,180);
+        this.btn_queding = this.getWidget("Button_zs");
         this.btn_queding.addTouchEventListener(this.onClickBtn,this);
-        this.layerBg.addChild(this.btn_queding,1);
 
-        var img = "res/res_ui/homeLayer/zszs/btn_buchang.png";
-        this.btn_buchang = new ccui.Button(img,img,"");
-        this.btn_buchang.setPosition(this.layerBg.width/2 + 250,180);
+        this.btn_buchang = this.getWidget("Button_bc");
         this.btn_buchang.addTouchEventListener(this.onClickBtn,this);
-        this.layerBg.addChild(this.btn_buchang,1);
     },
 
     onMsgBack:function(event){
