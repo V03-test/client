@@ -21,7 +21,7 @@ var ClubCreditCreatePop = BasePopup.extend({
         this.Button_36 = this.getWidget("Button_36");
         UITools.addClickEvent(this.Button_36,this,this.onTrue);
 
-        //选择固定还是比例的奖赏
+        //选择固定还是比例的赠送
         var widgetGive = {"Button_give1" : 1  , "Label_give1" : 1,"Button_give2":2,"Label_give2":2};
         this.addDtzClickEvent(widgetGive,this.onGiveType);
         this.displayGiveType();
@@ -32,7 +32,7 @@ var ClubCreditCreatePop = BasePopup.extend({
         this.displayGiveWay();
 
 
-        //隐藏比例奖赏，所有赢家
+        //隐藏比例赠送，所有赢家
         this.Button_give2.visible = this.Label_give2.visible = this.Button_giveWay2.visible = this.Label_giveWay2.visible = false;
 
 
@@ -43,27 +43,23 @@ var ClubCreditCreatePop = BasePopup.extend({
                 this.Image_xpkf.setVisible(true);
                 this.isXiPai = 1;
             }else if(type == ccui.CheckBox.EVENT_UNSELECTED){
-                this.Image_xpkf.setVisible(false); 
+                this.Image_xpkf.setVisible(false);
                 this.isXiPai = 0;
                 this.xpkfFen = 0;
             }
         },this);
 
         this.CheckAAPay = this.getWidget("CheckAAPay");
+
         this.CheckAAPay.addEventListener(function (target,type) {
             if(type == ccui.CheckBox.EVENT_SELECTED){
                 this.isAAPay = 1;
+                this.updateBDZS();
             }else if(type == ccui.CheckBox.EVENT_UNSELECTED){
                 this.isAAPay = 0;
+                this.updateBDZS();
             }
-            this.getWidget("Label_22").visible =
-            this.getWidget("Panel_giveRange").visible =
-            this.getWidget("Image_score_start").visible = this.isAAPay == 0;
         },this);
-
-        this.getWidget("Label_22").visible =
-        this.getWidget("Panel_giveRange").visible =
-        this.getWidget("Image_score_start").visible = this.isAAPay == 0;
 
         this.inputJoin = this.getWidget("Label_join");
         this.inputExit = this.getWidget("Label_exit");
@@ -100,6 +96,12 @@ var ClubCreditCreatePop = BasePopup.extend({
         Label_tips.visible = ClickClubModel.getIsSwitchCoin()
     },
 
+    updateBDZS:function(){
+        this.getWidget("Panel_giveRange").setVisible(this.isAAPay == 0);
+        this.getWidget("Image_score_start").setVisible(this.isAAPay == 0);
+        this.getWidget("Label_22").setVisible(this.isAAPay == 0);
+    },
+
     onClickHelpBtn:function(sender,type){
         if(type == ccui.Widget.TOUCH_BEGAN){
             this.showHelp(true);
@@ -118,7 +120,7 @@ var ClubCreditCreatePop = BasePopup.extend({
 
                 this.helpBg = di;
 
-                var str  = "该保底奖赏分在未产生奖赏分且擂台输赢分不为0时触发，且仅提供给擂主,不参与奖赏分成";
+                var str  = "该保底赠送分在未产生赠送分且比赛输赢分不为0时触发，且仅提供给群主,不参与赠送分成";
 
                 var label = new cc.LabelTTF(str,"Arial",24);
                 label.setColor(cc.color.BLACK);
@@ -169,7 +171,7 @@ var ClubCreditCreatePop = BasePopup.extend({
             }
             for(var i = 1; i <= 3; i++) {
                 if (numStr < Number(this["Label_keep" + i].getString())) {
-                    FloatLabelUtil.comText("奖赏擂主分不能小于奖赏保底值");
+                    FloatLabelUtil.comText("赠送群主分不能小于赠送保底值");
                     return
                 }
             }
@@ -190,7 +192,7 @@ var ClubCreditCreatePop = BasePopup.extend({
             }
 
             if ( numStr <= this.giveScore){
-                FloatLabelUtil.comText("初始奖赏分必须大于奖赏分");
+                FloatLabelUtil.comText("初始赠送分必须大于赠送分");
                 return
             }
             var rangeScoreMax = 0;
@@ -201,7 +203,7 @@ var ClubCreditCreatePop = BasePopup.extend({
             }
 
             if (numStr <  rangeScoreMax){
-                FloatLabelUtil.comText("奖赏初始分不能小于保底区间值");
+                FloatLabelUtil.comText("赠送初始分不能小于保底区间值");
                 return
             }
             this["Label_range" + 3].setString("" + numStr);
@@ -213,7 +215,7 @@ var ClubCreditCreatePop = BasePopup.extend({
                 return
             }
             if ( numStr > this.giveScore){
-                FloatLabelUtil.comText("擂主保底奖赏分不能大于奖赏分");
+                FloatLabelUtil.comText("群主保底赠送分不能大于赠送分");
                 return
             }
             this.qzbdFen = numStr;
@@ -228,21 +230,21 @@ var ClubCreditCreatePop = BasePopup.extend({
                 //cc.log("keepParams[i-1]==",keepParams[i-1],temp)
                 if (temp == keepParams[i-1]){
                     if (numStr > this.giveScore){
-                        FloatLabelUtil.comText("保底值不能大于奖赏擂主分");
+                        FloatLabelUtil.comText("保底值不能大于赠送群主分");
                         return
                     }
                     this["Label_keep"+i].setString(""+numStr);
                 }
                 if (temp == rangeParams[i-1]){
                     if ( i == 1 && numStr > Number(this["Label_range" + (i+1)].getString()) && Number(this["Label_range" + (i+1)].getString()) != 0){
-                        FloatLabelUtil.comText("奖赏区间1不能大于奖赏区间2");
+                        FloatLabelUtil.comText("赠送区间1不能大于赠送区间2");
                         return
                     }else if ( i == 2 && numStr <  Number(this["Label_range" + (i-1)].getString()) && Number(this["Label_range" + (i-1)].getString()) != 0 ){
-                        FloatLabelUtil.comText("奖赏区间2不能小于奖赏区间1");
+                        FloatLabelUtil.comText("赠送区间2不能小于赠送区间1");
                         return
                     }
                     if (numStr > this.giveStart){
-                        FloatLabelUtil.comText("奖赏区间不能大于奖赏初始分");
+                        FloatLabelUtil.comText("赠送区间不能大于赠送初始分");
                         return
                     } else if (numStr < this.giveStart){
                         this["Label_rangeNum" + (i + 1)].setString("" + (numStr + 0.01));
@@ -276,7 +278,7 @@ var ClubCreditCreatePop = BasePopup.extend({
     showInitData: function() {
         var _xpBool = this.isXiPai == 1?true:false;
         this.CheckBox_xipai.setSelected(_xpBool);
-        var _aapayBool = this.isAAPay == 1?true:false;
+        var _aapayBool = this.isAAPay == 0?false:true;
         this.CheckAAPay.setSelected(_aapayBool);
         this.Image_xpkf.setVisible(_xpBool);
         this.inputJoin.setString(this.joinScore);
@@ -310,8 +312,7 @@ var ClubCreditCreatePop = BasePopup.extend({
         this.Label_keep2 = this.Image_range2_2.getChildByName("Label_range2_2");
         this.Label_keep3 = this.Image_range3_2.getChildByName("Label_range3_2");
 
-
-
+        this.updateBDZS();
 
         if (this.giveRanges){
             var sParams = this.giveRanges.split("#");
@@ -344,24 +345,24 @@ var ClubCreditCreatePop = BasePopup.extend({
         this.exitScore = this.creditParms[1] || 1;
         //底分
         this.dfScore = this.creditParms[2] || 1;
-        //奖赏分
+        //赠送分
         this.giveScore = this.creditParms[3] || 0;
         //1固定2比例
         this.giveType = this.creditParms[4] || 1;
         //1大赢家2是AA制
         this.giveWay = this.creditParms[5] || 1;
-        //奖赏初始分
+        //赠送初始分
         this.giveStart = this.creditParms[6] || 0;
         //是否除以100
         this.isDivide = this.creditParms[7] || 0;
-        //擂主保底奖赏分
+        //群主保底赠送分
         this.qzbdFen = this.creditParms[8] || 0;
         //是否选择洗牌
         this.isXiPai = this.creditParms[10] || 0;
         //洗牌扣分
         this.xpkfFen = this.creditParms[11] || 0;
         //是否AA支付
-        this.isAAPay = this.creditParms[12] || 0;
+        this.isAAPay = Math.floor(this.creditParms[12] || 0);
     },
 
     isHasData: function(_string) {
@@ -450,7 +451,6 @@ var ClubCreditCreatePop = BasePopup.extend({
             }
         }
         this.giveWay = values[temp -1];
-
     },
 
     displayGiveWay:function(){
@@ -484,7 +484,7 @@ var ClubCreditCreatePop = BasePopup.extend({
         var creditParms = [this.joinScore,this.exitScore,this.dfScore,this.giveScore,this.giveType,this.giveWay,
             this.giveStart,this.isDivide,this.qzbdFen,giveRanges,this.isXiPai,this.xpkfFen,this.isAAPay];
         SyEventManager.dispatchEvent(SyEvent.UPDATA_CREDIT_PARMS,creditParms);
-        // cc.log("creditParms =",JSON.stringify(creditParms));
+         cc.log("creditParms =",JSON.stringify(creditParms));
         //return creditParms;
         PopupManager.remove(this);
     },

@@ -84,6 +84,12 @@ var QFSmallResultPop = BasePopup.extend({
         label_xpkf.setPosition(200,70);
         this.btn_xipai.addChild(label_xpkf);
 
+        if (this.isRePlay){
+            this.getWidget("replay_tip").visible =  true;
+            this.getWidget("replay_tip").x -= 220;
+            this.getWidget("replay_tip").setString("回放码:"+BaseRoomModel.curHfm);
+        }
+
         this.btn_xipai.addTouchEventListener(this.onClickBtn, this);
     },
 
