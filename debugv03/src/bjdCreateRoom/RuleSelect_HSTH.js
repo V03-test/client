@@ -89,7 +89,7 @@ var RuleSelect_HSTH = RuleSelectBase.extend({
         }
 
         var zsNum = 3;
-        var zsNumArr = [1,3,4,5];
+        var zsNumArr = [1,3,5,5];
         var temp = 0;
         var renshu = 4;
         if(this.getItemByIdx(2,1).isSelected())renshu = 2;
@@ -347,7 +347,10 @@ var RuleSelect_HSTH = RuleSelectBase.extend({
     readSelectData:function(params){
         var defaultConfig = [[0],[1],[0],[0],[],[0],[0],[0],[0],[]];
 
-        defaultConfig[0][0] = params[0] == 1?0:((params[0]/2 - 1) || 0);
+        var jushuList = [1,2,4,6];
+        var index = jushuList.indexOf(parseInt(params[0]));
+        defaultConfig[0][0] = index != -1 ? index : 0;
+
         defaultConfig[1][0] = params[2] == 3||params[2] == 4?0:params[2] - 1;
         defaultConfig[2][0] = params[7] == 2?1:0;
 

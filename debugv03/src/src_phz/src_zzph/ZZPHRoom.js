@@ -151,7 +151,7 @@ var ZZPHRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         //UITools.addClickEvent(this.Button_sset,this,this.onShowSet);
         //UITools.addClickEvent(this.Panel_20,this,this.onCancelSelect,false);
 
-        UITools.addClickEvent(this.Button_invite,this,this.onInvite);
+        //UITools.addClickEvent(this.Button_invite,this,this.onInvite);
         UITools.addClickEvent(this.Button_ready,this,this.onReady);
         //UITools.addClickEvent(this.Button_7,this,this.onLeave);
 
@@ -299,11 +299,14 @@ var ZZPHRoom = BaseLayer.extend({ //BaseLayer BaseRoom
             //this.jiesanBtn.loadTextureNormal("res/res_phz/guize.png");
         }
 
-        this.tuichuBtn = this.getWidget("btn_tuichu");//退出房间
-        UITools.addClickEvent(this.tuichuBtn ,this,this.onTuiChu);
+        var tuichuBtn = this.getWidget("btn_tuichu");//退出房间
 
         this.jiesanBtn.visible = true;
-        // this.tuichuBtn.visible = false;
+        tuichuBtn.visible = false;
+
+        this.tuichuBtn = new ccui.Button("res/res_gameCom/room_tuichu.png","","");
+        this.Panel_20.addChild(this.tuichuBtn);
+        UITools.addClickEvent(this.tuichuBtn ,this,this.onTuiChu);
 
         this.initGameBtn();
 
@@ -360,6 +363,13 @@ var ZZPHRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         UITools.addClickEvent(this.btn_n16f,this,this.onDaNiao);
 
         SyEventManager.addEventListener("QXQQHD_UPDATE_REDPOINT",this,this.getRedPointData);
+
+
+        var panel_set = this.getWidget("panel_set");
+        panel_set.height = 280;
+        panel_set.y = 810;
+        this.jiesanBtn.y = 200;
+        this.Button_75.y = 80;
     },
 
     onQXQQClickBtn:function(){
@@ -604,6 +614,25 @@ var ZZPHRoom = BaseLayer.extend({ //BaseLayer BaseRoom
 
             btn_wx_invite.setPositionX(btn_wx_invite.x + (offsetX));
 
+        }
+        btn_wx_invite.opacity = 0;
+        this.tuichuBtn.x = btn_wx_invite.x;
+        this.tuichuBtn.y = btn_wx_invite.y;
+        this.localTuichuX = this.tuichuBtn.x;
+    },
+
+    setInviteBtnState:function(){
+        this.Button_invite.visible = (PHZRoomModel.players.length<PHZRoomModel.renshu);
+        if(PHZRoomModel.isMatchRoom()){
+            this.Button_invite.visible = false;
+        }
+
+        if(!this.Button_invite.visible){
+            this.tuichuBtn.x = 960;
+        }else{
+            if(this.localTuichuX){
+                this.tuichuBtn.x = this.localTuichuX;
+            }
         }
     },
 
@@ -1461,24 +1490,16 @@ var ZZPHRoom = BaseLayer.extend({ //BaseLayer BaseRoom
     initGameBtn:function(){
         if (PHZRoomModel.getFangZhu(PHZRoomModel.getPlayerVo(PlayerModel.userId)) == 1 || PHZRoomModel.isStart || PHZRoomModel.nowBurCount > 1 ){
             if (PHZRoomModel.isStart || PHZRoomModel.nowBurCount > 1){
-                // this.tuichuBtn.visible = false;
-                // this.Button_ready.x = 640;
             }else{
                 if (PHZRoomModel.isClubRoom(PHZRoomModel.tableType)){
-                    // this.Button_ready.x = 800;
                     this.tuichuBtn.visible = true;
-                    // this.tuichuBtn.x = 480;
                 }else{
-                    // this.tuichuBtn.visible = false;
-                    // this.Button_ready.x = 640;
                 }
             }
             this.jiesanBtn.setBright(true);
             this.jiesanBtn.setTouchEnabled(true);
         }else{
             this.tuichuBtn.visible = true;
-            // this.tuichuBtn.x = 480;
-            // this.Button_ready.x = 800;
         }
     },
 
@@ -1571,7 +1592,8 @@ var ZZPHRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         this.btnPanel.visible = false;
         this.Button_ready.visible = true;
         this.fapai.visible = this.Label_remain.visible = false;
-        this.Button_invite.visible = (players.length<PHZRoomModel.renshu);
+        //this.Button_invite.visible = (players.length<PHZRoomModel.renshu);
+        this.setInviteBtnState();
         //得到最后一个人的出牌
         for(var i=0;i<players.length;i++){
             var p = players[i];
@@ -3173,7 +3195,8 @@ var ZZPHRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         var p = event.getUserData();
         var seq = PHZRoomModel.getPlayerSeq(p.userId,p.seat);
         this._players[p.seat] = new ZZPHPlayer(p,this.root,seq);
-        this.Button_invite.visible = (ObjectUtil.size(this._players)<PHZRoomModel.renshu);
+        //this.Button_invite.visible = (ObjectUtil.size(this._players)<PHZRoomModel.renshu);
+        this.setInviteBtnState();
         var seats = PHZRoomModel.isIpSame();
         if(seats.length>0 && PHZRoomModel.renshu != 2 ){
             for(var i=0;i<seats.length;i++) {
@@ -3204,7 +3227,8 @@ var ZZPHRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         this._players[p.seat].exitRoom();
         delete this._players[p.seat];
         var seats = PHZRoomModel.isIpSame();
-        this.Button_invite.visible = (ObjectUtil.size(this._players)<PHZRoomModel.renshu);
+        //this.Button_invite.visible = (ObjectUtil.size(this._players)<PHZRoomModel.renshu);
+        this.setInviteBtnState();
         for (var key in this._players) {
             if (ArrayUtil.indexOf(seats, key) < 0) {
                 this._players[key].isIpSame(false);
