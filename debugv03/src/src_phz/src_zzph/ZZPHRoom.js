@@ -431,6 +431,7 @@ var ZZPHRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         // cc.log("PHZRoomModel.mySeat =",PHZRoomModel.mySeat);
         if(seat == PHZRoomModel.mySeat){
             this.Panel_daniao.visible = false;
+            this.tuichuBtn.visible = false;
         }
         this.Button_ready.visible = false;
         this._players[seat].showDaNiaoImg(score);
@@ -439,6 +440,7 @@ var ZZPHRoom = BaseLayer.extend({ //BaseLayer BaseRoom
     },
     showDaNiaoPanle:function(type) {
         // cc.log("type =",type);
+        this.tuichuBtn.visible = false;
         this.Button_ready.visible = false;
         this.Panel_daniao.visible = true;
         this.btn_bdn.visible = this.btn_n5f.visible = this.btn_n10f.visible = type == 4;
@@ -1490,10 +1492,12 @@ var ZZPHRoom = BaseLayer.extend({ //BaseLayer BaseRoom
     initGameBtn:function(){
         if (PHZRoomModel.getFangZhu(PHZRoomModel.getPlayerVo(PlayerModel.userId)) == 1 || PHZRoomModel.isStart || PHZRoomModel.nowBurCount > 1 ){
             if (PHZRoomModel.isStart || PHZRoomModel.nowBurCount > 1){
+                this.tuichuBtn.visible = false;
             }else{
                 if (PHZRoomModel.isClubRoom(PHZRoomModel.tableType)){
                     this.tuichuBtn.visible = true;
                 }else{
+                    this.tuichuBtn.visible = false;
                 }
             }
             this.jiesanBtn.setBright(true);
@@ -1625,8 +1629,10 @@ var ZZPHRoom = BaseLayer.extend({ //BaseLayer BaseRoom
                 }
                 if(p.ext[5] > -1){
                     cardPlayer.showDaNiaoImg(p.ext[5]);
+                    this.tuichuBtn.visible = false;
                 }else if(PHZRoomModel.ext[9] == 1){
                     cardPlayer.showDaNiaoType();
+                    this.tuichuBtn.visible = false;
                 }
             }
 
@@ -2422,7 +2428,7 @@ var ZZPHRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         this.jiesanBtn.visible = true;
         this.jiesanBtn.setBright(true);
         this.jiesanBtn.setTouchEnabled(true);
-        // this.tuichuBtn.visible = false;
+        this.tuichuBtn.visible = false;
         this.lastMoPHZ=this.lastLetOutMJ=this.lastLetOutSeat=0;
         this.updateRoomInfo();
         if(this.root.getChildByTag(3003))

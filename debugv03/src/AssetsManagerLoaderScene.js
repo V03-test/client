@@ -7,6 +7,122 @@ var startEnterGame = function() {
 	sy.assetsScene.initDt();
 }
 
+var initConfigList = {
+
+	initConfig:function(onSuc){
+		var self = this;
+		var url = "http://testxsg.tuishey.cn/configList.json"
+		var xhr = cc.loader.getXMLHttpRequest();
+		xhr.open("GET", url);
+		xhr.timeout = 12000;
+		xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=utf-8");
+		var self = this;
+		var onerror = function(){
+//		    onSuc();
+			xhr.abort();
+		};
+		xhr.onerror = onerror;
+		xhr.onreadystatechange = function () {
+			if (xhr.readyState == 4) {
+				if(xhr.status == 200){
+					var data = JSON.parse(xhr.responseText);
+					cc.log("initConfig===",JSON.stringify(data))
+					var url = (data && data.hotList && data.hotList.ips) ? data.hotList.ips : null;
+					if (url){
+						self.checkNeedModifyManifest(data.hotList.ips,"res/project.manifest",onSuc);
+					}
+				}else{
+					onerror.call(self);
+				}
+			}
+		}
+		xhr.send();
+	},
+	/**
+	 * 检测是否需要修改.manifest文件
+	 * @param {新的升级包地址} newAppHotUpdateUrl
+	 * @param {本地project.manifest文件地址} localManifestPath
+	 * @param {修改manifest文件后回调} resultCallback
+	 */
+	checkNeedModifyManifest:function(newAppHotUpdateUrl, localManifestPath, resultCallback) {
+		if (!cc.sys.isNative) return;
+		var tempUpdateUrl = cc.sys.localStorage.getItem("appHotUpdateUrl2");
+		//第一次安装并启动的时候，本地没有存储“appHotUpdateUrl”,所以需要将App内的原始升级包地址存放在下面
+		if (!tempUpdateUrl) {
+			cc.sys.localStorage.setItem("appHotUpdateUrl2", "");
+		}
+		tempUpdateUrl = cc.sys.localStorage.getItem('appHotUpdateUrl2');
+		console.log("tempUpdateUrl : ", tempUpdateUrl);
+		console.log("newAppHotUpdateUrl : ", newAppHotUpdateUrl);
+//		if (tempUpdateUrl) {
+			//如果本地存储的升级包地址和服务器返回的升级包地址相同，则不需要修改.manifest文件。
+			// if (tempUpdateUrl == newAppHotUpdateUrl) return;
+			//否则 --> 修改manifest文件下载地址
+			this.modifyAppLoadUrlForManifestFile(newAppHotUpdateUrl, localManifestPath, function(manifestPath) {
+				resultCallback(manifestPath);
+			});
+//		}
+	},
+	/**
+	 * 修改.manifest文件
+	 * @param {新的升级包地址} newAppHotUpdateUrl
+	 * @param {本地project.manifest文件地址} localManifestPath
+	 * @param {修改manifest文件后回调} resultCallback
+	 */
+	modifyAppLoadUrlForManifestFile:function(newAppHotUpdateUrl, localManifestPath, resultCallback) {
+		try {
+		    cc.log("jsb.fileUtils.getWritablePath()==",jsb.fileUtils.getWritablePath())
+			if (jsb.fileUtils.isFileExist(jsb.fileUtils.getWritablePath() + "/project.manifest")) {
+			    cc.log("&&&&&&&&&&&&&&&1")
+				console.log("有下载的manifest文件");
+				var storagePath = (jsb.fileUtils ? jsb.fileUtils.getWritablePath() : "");
+				console.log("StoragePath for remote asset : ", storagePath);
+				var loadManifest = jsb.fileUtils.getStringFromFile(storagePath + '/project.manifest');
+				var manifestObject = JSON.parse(loadManifest);
+				manifestObject.packageUrl = newAppHotUpdateUrl;
+				manifestObject.remoteManifestUrl = manifestObject.packageUrl + "project.manifest";
+				manifestObject.remoteVersionUrl = manifestObject.packageUrl + "version.manifest";
+				resultCallback(storagePath + "/project.manifest");
+				var afterString = JSON.stringify(manifestObject);
+				var isWritten = jsb.fileUtils.writeStringToFile(afterString, storagePath + "/project.manifest");
+				//更新数据库中的新请求地址，下次如果检测到不一致就重新修改 manifest 文件
+				console.log("StoragePath for remote asset : ", storagePath);
+				if (isWritten) {
+					cc.sys.localStorage.setItem("appHotUpdateUrl2", newAppHotUpdateUrl);
+				}
+				// console.log("Written Status : ", isWritten);
+			} else {
+                cc.log("&&&&&&&&&&&&&&&2")
+				var initializedManifestPath = (jsb.fileUtils ? jsb.fileUtils.getWritablePath() : "");
+				if (!jsb.fileUtils.isDirectoryExist(initializedManifestPath)) jsb.fileUtils.createDirectory(initializedManifestPath);
+				//修改原始manifest文件
+
+				var originManifestPath = localManifestPath;
+
+				var originManifest = jsb.fileUtils.getStringFromFile(originManifestPath);
+				var originManifestObject = JSON.parse(originManifest);
+				cc.log("originManifestObject===",initializedManifestPath,JSON.stringify(originManifestObject));
+				originManifestObject.packageUrl = newAppHotUpdateUrl;
+				originManifestObject.remoteManifestUrl = originManifestObject.packageUrl + 'project.manifest';
+				originManifestObject.remoteVersionUrl = originManifestObject.packageUrl + 'version.manifest';
+				var afterString = JSON.stringify(originManifestObject);
+				var isWritten = jsb.fileUtils.writeStringToFile(afterString, initializedManifestPath + '/project.manifest');
+				resultCallback(initializedManifestPath + "project.manifest");
+
+                cc.log("originManifestObject===",JSON.stringify(originManifestObject))
+				if (isWritten) {
+				    cc.log("&&&&&&&&&&&&&&&3")
+					cc.sys.localStorage.setItem("appHotUpdateUrl2", newAppHotUpdateUrl);
+				}
+				// console.log("Written Status : ", isWritten);
+			}
+
+		} catch (error) {
+			console.log("读写manifest文件错误!!!(请看错误详情-->) ", error);
+		}
+	}
+}
+
 var AssetsUpdateFailedPopup = cc.Layer.extend({
 	root:null,
 	mainpopup : null,
@@ -79,19 +195,14 @@ var AssetsManagerLoaderScene = cc.Scene.extend({
 	_popupLayer:null,
     _checkNetworkNode: null,
 	_manifestList: null,
-	_manifestIndex: 0,
-	_manifestFailCount:0,
-	_manifestMaxFailCount:6,
 	onEnter:function(){
 		this._super();
 		sy.assetsScene = this;
 		AssetsUpdateModel.init();
 		var self = this;
-		this._manifestList = [
-			"res/project.manifest",
-			"res/project_copy1.manifest"
-		];
-		this._manifestIndex = cc.sys.localStorage.getItem("manifestIndex") || 0;
+
+		this._manifestList = null;
+
         this._checkNetworkNode = new cc.Layer();
         this.addChild(this._checkNetworkNode);
 		// this.timeId = setTimeout(function() {
@@ -135,35 +246,50 @@ var AssetsManagerLoaderScene = cc.Scene.extend({
 		nettip.x = winSize.width / 2;
 		nettip.y = 100;
 		this._normalLayer.addChild(nettip, 3);
-		//load config
-		cc.loader.loadJson("syconfig.json", function(err, configJson){
-			if(err){
-				cc.log("load syconfig.json error");
-			}else{
-				SyConfig.init(configJson);
-				if (SyConfig.IS_STARTANI) {
-					var pre_time = parseInt(cc.sys.localStorage.getItem("playVedioTime"));
-					var cur_time = new Date().getTime();
-					cc.sys.localStorage.setItem("playVedioTime", cur_time);
-					var starlogo = new cc.Sprite("res/starlogo/startBg.jpg");
-					self.starlogo = starlogo;
-					starlogo.setPosition(winSize.width / 2, winSize.height / 2);
-					self._normalLayer.addChild(starlogo, 0);
-					self.logo.visible = false;
-					self.bgLayer.visible = false;
-					self.starlogo.runAction(cc.sequence(
-						cc.delayTime(1),
-						cc.fadeOut(1),
-						cc.delayTime(0.1),
-						cc.callFunc(function () {
-							startEnterGame();
-						}, this))
-					)
-				} else {
-					startEnterGame();
-				}
-			}
-		})
+
+        var onSuc = function(path){
+            self._manifestList = path ? path : self._manifestList;
+            cc.log("path===",path,self._manifestList)
+            self.initSyConfig();
+
+        };
+        initConfigList.initConfig(onSuc);
+	},
+
+	initSyConfig:function(){
+	var self = this;
+	var winSize = cc.director.getWinSize();
+	cc.log("************3")
+	    //load config
+        cc.loader.loadJson("syconfig.json", function(err, configJson){
+            if(err){
+                cc.log("load syconfig.json error");
+            }else{
+                // cc.log("configJson===",JSON.stringify(configJson))
+                SyConfig.init(configJson);
+                if (SyConfig.IS_STARTANI) {
+                    var pre_time = parseInt(cc.sys.localStorage.getItem("playVedioTime"));
+                    var cur_time = new Date().getTime();
+                    cc.sys.localStorage.setItem("playVedioTime", cur_time);
+                    var starlogo = new cc.Sprite("res/starlogo/startBg.jpg");
+                    self.starlogo = starlogo;
+                    starlogo.setPosition(winSize.width / 2, winSize.height / 2);
+                    self._normalLayer.addChild(starlogo, 0);
+                    self.logo.visible = false;
+                    self.bgLayer.visible = false;
+                    self.starlogo.runAction(cc.sequence(
+                        cc.delayTime(1),
+                        cc.fadeOut(1),
+                        cc.delayTime(0.1),
+                        cc.callFunc(function () {
+                            startEnterGame();
+                        }, this))
+                    )
+                } else {
+                    startEnterGame();
+                }
+            }
+        })
 	},
 
 	isAcrossDay: function(c_time, p_time) {
@@ -268,8 +394,8 @@ var AssetsManagerLoaderScene = cc.Scene.extend({
 		}
 
 		var storagePath = (jsb.fileUtils ? jsb.fileUtils.getWritablePath() : "./");
-		cc.log("this._manifestList[0]==",this._manifestIndex,this._manifestList[this._manifestIndex]);
-		this._am = new jsb.AssetsManager(""+this._manifestList[this._manifestIndex], storagePath);
+		cc.log("this._manifestList[0]==",storagePath,this._manifestList);
+		this._am = new jsb.AssetsManager(""+this._manifestList, storagePath);
 		this._am.retain();
 		if (!this._am.getLocalManifest().isLoaded()) {
 			AssetsUpdateModel.log("i4");
@@ -279,6 +405,7 @@ var AssetsManagerLoaderScene = cc.Scene.extend({
 			var that = this;
 			var listener = new jsb.EventListenerAssetsManager(this._am, function(event) {
 				switch (event.getEventCode()) {
+//				        cc.log("event.getEventCode()==",event.getEventCode())
 					case jsb.EventAssetsManager.ERROR_NO_LOCAL_MANIFEST:
 						AssetsUpdateModel.log("e1");
 						cc.log("No local manifest file found, skip assets update.");
@@ -292,16 +419,7 @@ var AssetsManagerLoaderScene = cc.Scene.extend({
 					case jsb.EventAssetsManager.ERROR_PARSE_MANIFEST:
 						AssetsUpdateModel.log("e2");
 						cc.log("Fail to download manifest file, update skipped.");
-						that._manifestIndex++;
-						if (that._manifestIndex >= that._manifestList.length){
-							that._manifestIndex = 0;
-						}
-						that._manifestFailCount++;
-						if (that._manifestFailCount < that._manifestMaxFailCount){
-							that.checkManifest();
-						}else {
-							that.loadGame();
-						}
+						that.loadGame();
 						break;
 					case jsb.EventAssetsManager.ALREADY_UP_TO_DATE:
 						AssetsUpdateModel.log("e3");
@@ -317,8 +435,7 @@ var AssetsManagerLoaderScene = cc.Scene.extend({
 						AssetsUpdateModel.log("e5");
 						cc.log("Update failed. " + event.getMessage());
 						failCount++;
-						if (failCount < maxFailCount)
-						{
+						if (failCount < maxFailCount) {
 							that._am.downloadFailedAssets();
 						}else{
 							cc.log("Reach maximum fail count, exit update process");
@@ -329,7 +446,7 @@ var AssetsManagerLoaderScene = cc.Scene.extend({
 					case jsb.EventAssetsManager.ERROR_UPDATING:
 						AssetsUpdateModel.log("e6");
 						cc.log("Asset update error: " + event.getAssetId() + ", " + event.getMessage());
-						//that.loadGame();
+						that.loadGame();
 						break;
 					case jsb.EventAssetsManager.ERROR_DECOMPRESS:
 						AssetsUpdateModel.log("e7");

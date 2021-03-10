@@ -186,8 +186,8 @@ var RuleSelect_ZZPH = RuleSelectBase.extend({
             return;
         }
 
-        var zsNum = 5;
-        var zsNumArr = [3,5,10];
+        var zsNum = 3;
+        var zsNumArr = [3,6,10];
         var temp = 0;
         var renshu = 4;
         for(var i = 0;i<3;++i){
@@ -213,8 +213,8 @@ var RuleSelect_ZZPH = RuleSelectBase.extend({
             }else{
                 zsNum = zsNumArr[temp]
             }
+            zsNum = 10;
         }
-        zsNum = 0;
         this.createRoomLayer && this.createRoomLayer.updateZsNum(zsNum);
     },
 

@@ -121,7 +121,10 @@ var ZZPHSmallResultPop=BasePopup.extend({
         UITools.addClickEvent(this.getWidget("Button_23"), this, this.onJieSuan);
         UITools.addClickEvent(btn_ok,this,this.onOk);
 		UITools.addClickEvent(btn_left_card,this,this.ShowLeftCards);
-		
+
+		var Image_182 = this.getWidget("Image_182");
+		Image_182.scale = 0.9;
+
 		var xipai_btn = this.getWidget("xipai_btn");
 		UITools.addClickEvent(xipai_btn, this, function () {
 			sySocket.sendComReqMsg(4501, [], "");
