@@ -215,6 +215,7 @@ var RuleSelect_ZZPH = RuleSelectBase.extend({
             }
             zsNum = 10;
         }
+        zsNum = 0;
         this.createRoomLayer && this.createRoomLayer.updateZsNum(zsNum);
     },
 

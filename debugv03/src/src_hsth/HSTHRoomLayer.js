@@ -637,7 +637,9 @@ var HSTHRoomLayer = HSTHBaseRoomLayer.extend({
                     break;
                 }
             }
-            if((HSTHRoomModel.tableType != 1 && data.masterId == PlayerModel.userId) || isStart){
+            if(!isStart){
+                this.btn_tuichu.visible = true;
+            }else if((HSTHRoomModel.tableType != 1 && data.masterId == PlayerModel.userId) || isStart){
                 this.updateQyqButton(false);
             }
         }

@@ -7,18 +7,20 @@ var startEnterGame = function() {
 	sy.assetsScene.initDt();
 }
 
-var initConfigList = {
+var InitConfigList = {
+	_httpUrlList:null,
+	_loginUrlList:null,
 
-	initConfig:function(onSuc){
+	initConfig:function(manifestPath,onSuc){
 		var self = this;
-		var url = "http://testxsg.tuishey.cn/configList.json"
+		var url = "http://test-xyqp.oss-cn-beijing.aliyuncs.com/test/configList.json"
 		var xhr = cc.loader.getXMLHttpRequest();
 		xhr.open("GET", url);
 		xhr.timeout = 12000;
 		xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=utf-8");
 		var self = this;
 		var onerror = function(){
-//		    onSuc();
+		    onSuc();
 			xhr.abort();
 		};
 		xhr.onerror = onerror;
@@ -26,14 +28,24 @@ var initConfigList = {
 			if (xhr.readyState == 4) {
 				if(xhr.status == 200){
 					var data = JSON.parse(xhr.responseText);
-					cc.log("initConfig===",JSON.stringify(data))
-					var url = (data && data.hotList && data.hotList.ips) ? data.hotList.ips : null;
-					if (url){
-						self.checkNeedModifyManifest(data.hotList.ips,"res/project.manifest",onSuc);
+					// cc.log("initConfig===",JSON.stringify(data))
+					var hotUrl = (data && data.hotList && data.hotList.ips) ? data.hotList.ips : null;
+					if (hotUrl){
+						self.checkNeedModifyManifest(hotUrl,manifestPath,onSuc);
+					}
+					var httpUrl = (data && data.httpList) ? data.httpList : null;
+					if (httpUrl) {
+						self._httpUrlList = httpUrl;
+					}
+					var loginUrl = (data && data.loginList) ? data.loginList : null;
+					if (loginUrl){
+						self._loginUrlList = loginUrl;
 					}
 				}else{
 					onerror.call(self);
 				}
+			}else {
+				onerror.call(self);
 			}
 		}
 		xhr.send();
@@ -46,22 +58,22 @@ var initConfigList = {
 	 */
 	checkNeedModifyManifest:function(newAppHotUpdateUrl, localManifestPath, resultCallback) {
 		if (!cc.sys.isNative) return;
-		var tempUpdateUrl = cc.sys.localStorage.getItem("appHotUpdateUrl2");
+		var tempUpdateUrl = cc.sys.localStorage.getItem("appHotUpdateUrl");
 		//第一次安装并启动的时候，本地没有存储“appHotUpdateUrl”,所以需要将App内的原始升级包地址存放在下面
 		if (!tempUpdateUrl) {
-			cc.sys.localStorage.setItem("appHotUpdateUrl2", "");
+			cc.sys.localStorage.setItem("appHotUpdateUrl", "");
 		}
-		tempUpdateUrl = cc.sys.localStorage.getItem('appHotUpdateUrl2');
-		console.log("tempUpdateUrl : ", tempUpdateUrl);
-		console.log("newAppHotUpdateUrl : ", newAppHotUpdateUrl);
-//		if (tempUpdateUrl) {
+		tempUpdateUrl = cc.sys.localStorage.getItem('appHotUpdateUrl');
+		// console.log("tempUpdateUrl : ", tempUpdateUrl);
+		// console.log("newAppHotUpdateUrl : ", newAppHotUpdateUrl);
+		// if (tempUpdateUrl) {
 			//如果本地存储的升级包地址和服务器返回的升级包地址相同，则不需要修改.manifest文件。
-			// if (tempUpdateUrl == newAppHotUpdateUrl) return;
-			//否则 --> 修改manifest文件下载地址
-			this.modifyAppLoadUrlForManifestFile(newAppHotUpdateUrl, localManifestPath, function(manifestPath) {
-				resultCallback(manifestPath);
-			});
-//		}
+		if (tempUpdateUrl == newAppHotUpdateUrl) return;
+		//否则 --> 修改manifest文件下载地址
+		this.modifyAppLoadUrlForManifestFile(newAppHotUpdateUrl, localManifestPath, function(manifestPath) {
+			resultCallback(manifestPath);
+		});
+		// }
 	},
 	/**
 	 * 修改.manifest文件
@@ -73,10 +85,9 @@ var initConfigList = {
 		try {
 		    cc.log("jsb.fileUtils.getWritablePath()==",jsb.fileUtils.getWritablePath())
 			if (jsb.fileUtils.isFileExist(jsb.fileUtils.getWritablePath() + "/project.manifest")) {
-			    cc.log("&&&&&&&&&&&&&&&1")
-				console.log("有下载的manifest文件");
+				// console.log("有下载的manifest文件");
 				var storagePath = (jsb.fileUtils ? jsb.fileUtils.getWritablePath() : "");
-				console.log("StoragePath for remote asset : ", storagePath);
+				// console.log("StoragePath for remote asset : ", storagePath);
 				var loadManifest = jsb.fileUtils.getStringFromFile(storagePath + '/project.manifest');
 				var manifestObject = JSON.parse(loadManifest);
 				manifestObject.packageUrl = newAppHotUpdateUrl;
@@ -86,33 +97,28 @@ var initConfigList = {
 				var afterString = JSON.stringify(manifestObject);
 				var isWritten = jsb.fileUtils.writeStringToFile(afterString, storagePath + "/project.manifest");
 				//更新数据库中的新请求地址，下次如果检测到不一致就重新修改 manifest 文件
-				console.log("StoragePath for remote asset : ", storagePath);
+				// console.log("StoragePath for remote asset : ", storagePath);
 				if (isWritten) {
-					cc.sys.localStorage.setItem("appHotUpdateUrl2", newAppHotUpdateUrl);
+					cc.sys.localStorage.setItem("appHotUpdateUrl", newAppHotUpdateUrl);
 				}
 				// console.log("Written Status : ", isWritten);
 			} else {
-                cc.log("&&&&&&&&&&&&&&&2")
 				var initializedManifestPath = (jsb.fileUtils ? jsb.fileUtils.getWritablePath() : "");
 				if (!jsb.fileUtils.isDirectoryExist(initializedManifestPath)) jsb.fileUtils.createDirectory(initializedManifestPath);
 				//修改原始manifest文件
-
 				var originManifestPath = localManifestPath;
-
 				var originManifest = jsb.fileUtils.getStringFromFile(originManifestPath);
 				var originManifestObject = JSON.parse(originManifest);
-				cc.log("originManifestObject===",initializedManifestPath,JSON.stringify(originManifestObject));
+				// cc.log("originManifestObject===",initializedManifestPath,JSON.stringify(originManifestObject));
 				originManifestObject.packageUrl = newAppHotUpdateUrl;
 				originManifestObject.remoteManifestUrl = originManifestObject.packageUrl + 'project.manifest';
 				originManifestObject.remoteVersionUrl = originManifestObject.packageUrl + 'version.manifest';
 				var afterString = JSON.stringify(originManifestObject);
 				var isWritten = jsb.fileUtils.writeStringToFile(afterString, initializedManifestPath + '/project.manifest');
 				resultCallback(initializedManifestPath + "project.manifest");
-
-                cc.log("originManifestObject===",JSON.stringify(originManifestObject))
+                // cc.log("originManifestObject===",JSON.stringify(originManifestObject))
 				if (isWritten) {
-				    cc.log("&&&&&&&&&&&&&&&3")
-					cc.sys.localStorage.setItem("appHotUpdateUrl2", newAppHotUpdateUrl);
+					cc.sys.localStorage.setItem("appHotUpdateUrl", newAppHotUpdateUrl);
 				}
 				// console.log("Written Status : ", isWritten);
 			}
@@ -201,7 +207,7 @@ var AssetsManagerLoaderScene = cc.Scene.extend({
 		AssetsUpdateModel.init();
 		var self = this;
 
-		this._manifestList = null;
+		this._manifestList = "res/project.manifest";
 
         this._checkNetworkNode = new cc.Layer();
         this.addChild(this._checkNetworkNode);
@@ -220,13 +226,6 @@ var AssetsManagerLoaderScene = cc.Scene.extend({
 		this.bgLayer = bgLayer;
 		this._normalLayer.addChild(bgLayer, 1);
 
-		// ccs.armatureDataManager.addArmatureFileInfo("res/bjdani/csd/csd.ExportJson");
-		// var logo = new ccs.Armature("csd");
-		// logo.setPosition(cc.winSize.width/2 + 90  ,cc.winSize.height/2 + 140);
-		// logo.getAnimation().play("Animation1",-1,1);
-		// this.logo = logo;
-		// this._normalLayer.addChild(logo, 2);
-
 
 		var logo = new cc.Sprite("res/res_ui/login/logo1.png");
 		logo.setPosition(cc.winSize.width/2 + 90  ,cc.winSize.height/2 + 140);
@@ -234,7 +233,6 @@ var AssetsManagerLoaderScene = cc.Scene.extend({
 		this._normalLayer.addChild(logo, 2);
 
 		AssetsUpdateModel.log("i1");
-
 		var nettip = this.noNetworkLabel = new cc.Sprite("res/starlogo/nettip.png");
 		var nettip_size = nettip.getContentSize();
 		var nettip_txt = new cc.LabelTTF("请在设置中找到湘娱棋牌，查看网络是否打开...", "Arial", 36);
@@ -249,17 +247,15 @@ var AssetsManagerLoaderScene = cc.Scene.extend({
 
         var onSuc = function(path){
             self._manifestList = path ? path : self._manifestList;
-            cc.log("path===",path,self._manifestList)
+            // cc.log("path===",path,self._manifestList)
             self.initSyConfig();
-
         };
-        initConfigList.initConfig(onSuc);
+		InitConfigList.initConfig(this._manifestList,onSuc);
 	},
 
 	initSyConfig:function(){
-	var self = this;
-	var winSize = cc.director.getWinSize();
-	cc.log("************3")
+		var self = this;
+		var winSize = cc.director.getWinSize();
 	    //load config
         cc.loader.loadJson("syconfig.json", function(err, configJson){
             if(err){
@@ -394,7 +390,7 @@ var AssetsManagerLoaderScene = cc.Scene.extend({
 		}
 
 		var storagePath = (jsb.fileUtils ? jsb.fileUtils.getWritablePath() : "./");
-		cc.log("this._manifestList[0]==",storagePath,this._manifestList);
+		// cc.log("this._manifestList[0]==",storagePath,this._manifestList);
 		this._am = new jsb.AssetsManager(""+this._manifestList, storagePath);
 		this._am.retain();
 		if (!this._am.getLocalManifest().isLoaded()) {

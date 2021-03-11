@@ -200,7 +200,7 @@ var SySocket = cc.Class.extend({
                     connectStr = "connect|12";
                     NetErrorPop.show(true);
                 } else {
-                    SocketErrorModel.updateGameIndex();
+                    SocketErrorModel.updateLoginIndex();
                     if (_this.url){
                         cc.log("登录失败url===",_this.url)
                     }

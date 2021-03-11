@@ -170,6 +170,9 @@ var PDKRoom = BaseRoom.extend({//Room
 				if(p.status && isShowStatus){
 					cardPlayer.showStatus(p.status);
 				}
+				if(!PDKRoomModel.isStart && PDKRoomModel.nowBurCount == 1){
+
+				}
 			}else{//恢复牌局
 				if(p.outCardIds.length>0){//模拟最后一个人出牌
 					if(p.userId == PlayerModel.userId && PDKRoomModel.nextSeat== p.seat){

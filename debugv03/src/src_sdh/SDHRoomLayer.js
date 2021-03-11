@@ -862,7 +862,9 @@ var SDHRoomLayer = SDHBaseRoomLayer.extend({
                     break;
                 }
             }
-            if((SDHRoomModel.tableType != 1 && data.masterId == PlayerModel.userId) || isStart || SDHRoomModel.nowBurCount > 1){
+            if(!isStart){
+                this.btn_tuichu.visible = true;
+            }else if((SDHRoomModel.tableType != 1 && data.masterId == PlayerModel.userId) || isStart || SDHRoomModel.nowBurCount > 1){
                 this.updateQyqButton(false);
             }
         }

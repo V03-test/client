@@ -67,7 +67,7 @@ var NetErrorPop = BasePopup.extend({
                 self.errorLinkTimes+=1;
                 if (self.errorLinkTimes > 3){
                     self.errorLinkTimes = 0;
-                    SocketErrorModel.updateGameIndex();
+                    SocketErrorModel.updateLoginIndex();
                 }
                 this.timeId = setTimeout(function(){
                     var time = new Date().getTime();

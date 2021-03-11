@@ -1,6 +1,7 @@
 var CSMJBigResultPop = BasePopup.extend({
     user:null,
     ctor: function (data,isDaiKai) {
+        MJRoomModel.isStart = false;
         this.data = data;
         this.isDaiKai = isDaiKai;
         var path = "res/bigResultPop.json";
