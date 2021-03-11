@@ -380,6 +380,8 @@ var YYBSSmallResultLayer = PKSmallResultPop.extend({
 
         if (this.isRePlay){
             this.getWidget("replay_tip").visible =  true;
+            this.getWidget("replay_tip").x -= 220;
+            this.getWidget("replay_tip").setString("回放码:"+BaseRoomModel.curHfm);
             btClose.visible = false;
         }
     },

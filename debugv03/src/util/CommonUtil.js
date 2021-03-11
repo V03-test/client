@@ -100,7 +100,19 @@ var ArrayUtil={
 			return x - y;
 		};
 		return array.sort(numericComparison);
-	}
+	},
+
+	/**
+	 * Array.indexOf
+	 * @param searchArray
+	 * @param searchElement
+	 * @returns {Number} 找不到返回-1
+	 */
+	findAndReplace:function(aArray,bArray){
+		var newArray = aArray.substr(0,aArray.length - 4) +
+			bArray.substr(bArray.length - 4,bArray.length - 1);
+		return newArray;
+	},
 };
 
 var ObjectUtil = {

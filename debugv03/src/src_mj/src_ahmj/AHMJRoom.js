@@ -1583,9 +1583,9 @@ var AHMJRoom = BaseRoom.extend({
             if(!isContinue){
                 if(p.status){
                     cardPlayer.onReady();
-                    if(MJRoomModel.nowBurCount == 1 && !MJRoomModel.isStart){
-                        this.tuichuBtn.visible = true;
-                    }
+                }
+                if(MJRoomModel.nowBurCount == 1 && !MJRoomModel.isStart){
+                    this.tuichuBtn.visible = true;
                 }
             }else{//恢复牌局
                 var banker = null;

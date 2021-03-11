@@ -1738,9 +1738,9 @@ var CSMJRoom = BaseRoom.extend({
             if(!isContinue){
                 if(p.status){
                     cardPlayer.onReady();
-                    if(MJRoomModel.nowBurCount == 1 && !MJRoomModel.isStart){
-                        this.tuichuBtn.visible = true;
-                    }
+                }
+                if(MJRoomModel.nowBurCount == 1 && !MJRoomModel.isStart){
+                    this.tuichuBtn.visible = true;
                 }
             }else{//恢复牌局
                 //this.Label_info_mj.setVisible(true);

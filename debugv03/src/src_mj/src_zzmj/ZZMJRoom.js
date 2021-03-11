@@ -1136,9 +1136,9 @@ var ZZMJRoom = BaseRoom.extend({
             if(!isContinue){
                 if(p.status && MJRoomModel.intParams[20] != 4 && MJRoomModel.intParams[20] != 5 ){
                     cardPlayer.onReady();
-                    if(MJRoomModel.nowBurCount == 1 && !MJRoomModel.isStart){
-                        this.tuichuBtn.visible = true;
-                    }
+                }
+                if(MJRoomModel.nowBurCount == 1 && !MJRoomModel.isStart){
+                    this.tuichuBtn.visible = true;
                 }
             }else{//恢复牌局
                 var banker = null;

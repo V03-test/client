@@ -186,7 +186,7 @@ var RuleSelect_LYZP = RuleSelectBase.extend({
         }
 
         var zsNum = 5;
-        var zsNumArr = [1,4,8];
+        var zsNumArr = [1,5,8];
         var renshu = 3; 
         var temp = 0;
         for(var i = 0;i<2;++i){

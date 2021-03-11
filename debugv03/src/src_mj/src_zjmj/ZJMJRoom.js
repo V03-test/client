@@ -1155,6 +1155,9 @@ var ZJMJRoom = BaseRoom.extend({
             if(!isContinue){
                 if(p.status)
                     cardPlayer.onReady();
+                if(MJRoomModel.nowBurCount == 1 && !MJRoomModel.isStart){
+                    this.tuichuBtn.visible = true;
+                }
             }else{//恢复牌局
                 this.Panel_20.getChildByName("Label_info_mj").setVisible(true);
                 this.Panel_20.getChildByName("Image_info1").setVisible(true);

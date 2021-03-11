@@ -108,6 +108,7 @@ var YZWDMJRoom = BaseRoom.extend({
         this.btnInvite.y = 520;
         // this.btnInvite.setScale(1.2);
         this.roomName_label = new cc.LabelTTF("","Arial",32,cc.size(500, 40));
+        this.roomName_label.setAnchorPoint(0,0.5);
         this.Main.addChild(this.roomName_label);
         if (MJRoomModel.roomName){
             this.roomName_label.setString(MJRoomModel.roomName);
@@ -1147,9 +1148,9 @@ var YZWDMJRoom = BaseRoom.extend({
             if(!isContinue){
                 if(p.status){
                     cardPlayer.onReady();
-                    if(MJRoomModel.nowBurCount == 1 && !MJRoomModel.isStart){
-                        this.tuichuBtn.visible = true;
-                    }
+                }
+                if(MJRoomModel.nowBurCount == 1 && !MJRoomModel.isStart){
+                    this.tuichuBtn.visible = true;
                 }
             }else{//恢复牌局
                 var banker = null;

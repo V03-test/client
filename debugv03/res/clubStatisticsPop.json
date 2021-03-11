@@ -1302,7 +1302,7 @@
                           "customProperty": "",
                           "flipX": false,
                           "flipY": false,
-                          "height": 77,
+                          "height": 96,
                           "ignoreSize": true,
                           "layoutParameter": null,
                           "opacity": 255,
@@ -1319,7 +1319,7 @@
                           "touchAble": true,
                           "useMergedTexture": false,
                           "visible": true,
-                          "width": 189,
+                          "width": 242,
                           "x": 790,
                           "y": 0,
                           "capInsetsHeight": 1,
@@ -1348,8 +1348,8 @@
                             "resourceType": 0
                           },
                           "scale9Enable": false,
-                          "scale9Height": 77,
-                          "scale9Width": 189,
+                          "scale9Height": 96,
+                          "scale9Width": 242,
                           "text": "",
                           "textColorB": 255,
                           "textColorG": 255,
@@ -1709,18 +1709,18 @@
                   "customProperty": "",
                   "flipX": false,
                   "flipY": false,
-                  "height": 480,
+                  "height": 440,
                   "ignoreSize": false,
                   "layoutParameter": null,
                   "opacity": 255,
                   "positionPercentX": -4.7,
-                  "positionPercentY": -2.375,
+                  "positionPercentY": -2.15,
                   "positionType": 0,
                   "rotation": 0,
                   "scaleX": 1,
                   "scaleY": 1,
                   "sizePercentX": 9.4,
-                  "sizePercentY": 2.4,
+                  "sizePercentY": 2.2,
                   "sizeType": 0,
                   "tag": 1000584897,
                   "touchAble": true,
@@ -1728,7 +1728,7 @@
                   "visible": true,
                   "width": 1880,
                   "x": -940,
-                  "y": -475,
+                  "y": -430,
                   "backGroundImage": null,
                   "backGroundImageData": null,
                   "backGroundScale9Enable": false,
@@ -2990,7 +2990,7 @@
                           "customProperty": "",
                           "flipX": false,
                           "flipY": false,
-                          "height": 96,
+                          "height": 40,
                           "ignoreSize": true,
                           "layoutParameter": null,
                           "opacity": 255,
@@ -3007,7 +3007,7 @@
                           "touchAble": true,
                           "useMergedTexture": false,
                           "visible": false,
-                          "width": 257,
+                          "width": 103,
                           "x": 260,
                           "y": -2,
                           "capInsetsHeight": 1,
@@ -3025,9 +3025,9 @@
                           "fontType": 0,
                           "normal": null,
                           "normalData": {
-                            "path": "ui/bjdmj/popup/pyq/tongji/chazhao.png",
+                            "path": "F:\\cocosStudio\\EditorDefaultRes\\GUI/button.png",
                             "plistFile": "",
-                            "resourceType": 0
+                            "resourceType": 2
                           },
                           "pressed": null,
                           "pressedData": {
@@ -3036,8 +3036,8 @@
                             "resourceType": 0
                           },
                           "scale9Enable": false,
-                          "scale9Height": 96,
-                          "scale9Width": 257,
+                          "scale9Height": 40,
+                          "scale9Width": 103,
                           "text": "",
                           "textColorB": 255,
                           "textColorG": 255,
@@ -3271,7 +3271,7 @@
                           "customProperty": "",
                           "flipX": false,
                           "flipY": false,
-                          "height": 11,
+                          "height": 80,
                           "ignoreSize": true,
                           "layoutParameter": null,
                           "opacity": 255,
@@ -3288,7 +3288,7 @@
                           "touchAble": false,
                           "useMergedTexture": false,
                           "visible": true,
-                          "width": 52,
+                          "width": 80,
                           "x": 140,
                           "y": 0,
                           "capInsetsHeight": 1,
@@ -3297,13 +3297,13 @@
                           "capInsetsY": 0,
                           "fileName": null,
                           "fileNameData": {
-                            "path": "ui/bjdmj/popup/pyq/tongji/gang.png",
+                            "path": "F:\\cocosStudio\\EditorDefaultRes\\GUI/image.png",
                             "plistFile": "",
-                            "resourceType": 0
+                            "resourceType": 2
                           },
                           "scale9Enable": false,
-                          "scale9Height": 11,
-                          "scale9Width": 52
+                          "scale9Height": 80,
+                          "scale9Width": 80
                         }
                       }
                     ],
@@ -5319,7 +5319,7 @@
                       "customProperty": "",
                       "flipX": false,
                       "flipY": false,
-                      "height": 47,
+                      "height": 40,
                       "ignoreSize": true,
                       "layoutParameter": null,
                       "opacity": 255,
@@ -5336,7 +5336,7 @@
                       "touchAble": true,
                       "useMergedTexture": false,
                       "visible": false,
-                      "width": 130,
+                      "width": 103,
                       "x": 319,
                       "y": -2,
                       "capInsetsHeight": 1,
@@ -5354,9 +5354,9 @@
                       "fontType": 0,
                       "normal": null,
                       "normalData": {
-                        "path": "ui/bjdmj/popup/pyq/tongji/meiyuexiaohao.png",
+                        "path": "F:\\cocosStudio\\EditorDefaultRes\\GUI/button.png",
                         "plistFile": "",
-                        "resourceType": 0
+                        "resourceType": 2
                       },
                       "pressed": null,
                       "pressedData": {
@@ -5365,8 +5365,8 @@
                         "resourceType": 0
                       },
                       "scale9Enable": false,
-                      "scale9Height": 47,
-                      "scale9Width": 130,
+                      "scale9Height": 40,
+                      "scale9Width": 103,
                       "text": "",
                       "textColorB": 255,
                       "textColorG": 255,
@@ -5392,7 +5392,7 @@
                       "customProperty": "",
                       "flipX": false,
                       "flipY": false,
-                      "height": 47,
+                      "height": 40,
                       "ignoreSize": true,
                       "layoutParameter": null,
                       "opacity": 255,
@@ -5409,7 +5409,7 @@
                       "touchAble": true,
                       "useMergedTexture": false,
                       "visible": false,
-                      "width": 130,
+                      "width": 103,
                       "x": 150,
                       "y": -1,
                       "capInsetsHeight": 1,
@@ -5427,9 +5427,9 @@
                       "fontType": 0,
                       "normal": null,
                       "normalData": {
-                        "path": "ui/bjdmj/popup/pyq/tongji/meirixiaohao.png",
+                        "path": "F:\\cocosStudio\\EditorDefaultRes\\GUI/button.png",
                         "plistFile": "",
-                        "resourceType": 0
+                        "resourceType": 2
                       },
                       "pressed": null,
                       "pressedData": {
@@ -5438,8 +5438,8 @@
                         "resourceType": 0
                       },
                       "scale9Enable": false,
-                      "scale9Height": 47,
-                      "scale9Width": 130,
+                      "scale9Height": 40,
+                      "scale9Width": 103,
                       "text": "",
                       "textColorB": 255,
                       "textColorG": 255,

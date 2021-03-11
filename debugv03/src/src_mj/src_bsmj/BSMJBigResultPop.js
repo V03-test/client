@@ -4,6 +4,7 @@
 var BSMJBigResultPop = BasePopup.extend({
     user:null,
     ctor: function (data,isDaiKai) {
+        MJRoomModel.isStart = false;
         this.data = data;
         this.isDaiKai = isDaiKai;
         this._super("res/mjBigResult.json");

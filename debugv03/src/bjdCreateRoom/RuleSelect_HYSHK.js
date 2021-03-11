@@ -138,9 +138,9 @@ var RuleSelect_HYSHK = RuleSelectBase.extend({
             return;
         }
 
-        var zsNum = 4;
+        var zsNum = 5;
         var renshu = 3;
-        var zsNumArr = [4,4,4,8];
+        var zsNumArr = [1,5,5,8];
         var temp = 0;
         for(var i = 0;i<2;++i){
             if(this.getItemByIdx(1,i).isSelected()){

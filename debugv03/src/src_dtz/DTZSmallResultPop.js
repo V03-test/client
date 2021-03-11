@@ -321,6 +321,12 @@ var DTZSmallResultPop = BasePopup.extend({
         var xpkf = DTZRoomModel.creditXpkf.toString() || 0;
         this.getWidget("label_xpkf").setString(xpkf);
 
+        if (this.isRePlay){
+            this.getWidget("replay_tip").visible =  true;
+            this.getWidget("replay_tip").x -= 220;
+            this.getWidget("replay_tip").setString("回放码:"+BaseRoomModel.curHfm);
+        }
+
     },
 
 

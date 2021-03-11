@@ -50,7 +50,7 @@ var ZszsLayer = BasePopup.extend({
         var msg = event.getUserData();
 
         if(msg.params[0] == 2){
-            FloatLabelUtil.comText("奖赏成功");
+            FloatLabelUtil.comText((msg.params[1]==1?"补偿":"赠送")+"成功");
             this.inputNum.setString("");
         }
     },
@@ -80,8 +80,8 @@ var ZszsLayer = BasePopup.extend({
                     return;
                 }
 
-                var localType = sender == this.btn_buchang ? 2 : 1;
-                var localStr = sender == this.btn_buchang ? "补偿" : "奖赏";
+                var localType = sender == this.btn_buchang ? 1 : 2;
+                var localStr = sender == this.btn_buchang ? "补偿" : "赠送";
 
                 var str = "是否给玩家" + id + localStr + num + "钻石?";
                 AlertPop.show(str, function () {

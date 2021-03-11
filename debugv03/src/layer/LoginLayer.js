@@ -159,7 +159,6 @@ var LoginLayer = BaseLayer.extend({
         //sy.scene.showLoading("正在创建房间");
         //强制每次都弹出开屏广告
         SdkUtil.upOpenAd();
-
     },
     addPlistAni:function(){
         //var hudieSystem1 = new cc.ParticleSystem("res/plist/hudie.plist");

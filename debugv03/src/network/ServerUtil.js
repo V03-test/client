@@ -53,7 +53,7 @@ var ServerUtil = {
      */
     smartChooseSocketUrl:function(data){
         PlayerModel.clubTableId = data.tId;
-        //cc.log("smartChooseSocketUrl"+JSON.stringify(data));
+        cc.log("smartChooseSocketUrl"+JSON.stringify(data));
         this.backupSocketUrl = "";
     	if(data.code==0){
             //备用线路
@@ -63,9 +63,13 @@ var ServerUtil = {
             GoldRoomConfigModel.goldRoomId = data.goldRoomId || 0;
     		if(data.hasOwnProperty("blockIconTime"))
     			LoginData.updateBlockIconTime(data.blockIconTime);
+    		if (data.server.connectHost && data.server.connectHost != url){
+                data.server.connectHost = ArrayUtil.findAndReplace(sySocket.url,data.server.connectHost);
+            }
+    		// cc.log("data.server.connectHost",data.server.connectHost,sySocket.url)
     		var url = data.server.connectHost;
             var isCrossServer = (sySocket.url != url);
-    		PlayerModel.updateServerInfo(data.server);
+            PlayerModel.updateServerInfo(data.server);
     		if(isCrossServer){
     			sySocket.url = url;
     			sySocket.isCrossServer = true;
@@ -75,6 +79,7 @@ var ServerUtil = {
     		}else{
     			SyEventManager.dispatchEvent(SyEvent.GET_SERVER_SUC,ServerUtil.NO_NEED_CHANGE_SOCKET);
     		}
+
     	}else{
     		SyEventManager.dispatchEvent(SyEvent.NOGET_SERVER_ERR,ServerUtil.GET_SERVER_ERROR);
     	}

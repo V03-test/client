@@ -661,13 +661,13 @@ var HSTHCardLayer = cc.Layer.extend({
         this.isTuoguan = isTuoGuan;
         if(isTuoGuan){
             if(!this.tgSpr){
-                this.tgSpr = new cc.Scale9Sprite("res/res_hsth/tgdi.png");
+                this.tgSpr = new cc.Scale9Sprite("res/res_gameCom/tuoguanBg.png");
                 this.tgSpr.setContentSize(cc.winSize.width,this.tgSpr.height);
                 this.tgSpr.setAnchorPoint(0.5,0);
                 this.tgSpr.setPosition(cc.winSize.width/2,0);
                 this.addChild(this.tgSpr,200);
 
-                this.btn_qxtg = new ccui.Button("res/res_hsth/btn_quxiaotg.png","res/res_hsth/btn_quxiaotg.png");
+                this.btn_qxtg = new ccui.Button("res/res_gameCom/cancelTuoguan.png","res/res_gameCom/cancelTuoguan.png");
                 this.btn_qxtg.setPosition(this.tgSpr.width/2,225);
                 this.tgSpr.addChild(this.btn_qxtg);
                 this.btn_qxtg.addTouchEventListener(this.onClickBtn,this);

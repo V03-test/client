@@ -761,7 +761,9 @@ var CDTLJRoomLayer = CDTLJBaseRoomLayer.extend({
                     break;
                 }
             }
-            if((CDTLJRoomModel.tableType != 1 && data.masterId == PlayerModel.userId) || isStart || CDTLJRoomModel.nowBurCount > 1){
+            if(!isStart){
+                this.btn_tuichu.visible = true;
+            }else if((CDTLJRoomModel.tableType != 1 && data.masterId == PlayerModel.userId) || isStart || CDTLJRoomModel.nowBurCount > 1){
                 this.updateQyqButton(false);
             }
         }

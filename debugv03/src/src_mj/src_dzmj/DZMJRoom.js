@@ -1125,6 +1125,10 @@ var DZMJRoom = BaseRoom.extend({
             self.getLayout(seq).tanPai(p.handPais);
         }
 
+        if (this.wang_card) {
+            this.wang_card.removeFromParent(true);
+            this.wang_card = null;
+        }
 
         var t1 = 100;
         this.overNiaoTimeout = setTimeout(function(){//延迟弹出结算框
@@ -1235,9 +1239,9 @@ var DZMJRoom = BaseRoom.extend({
             if(!isContinue){
                 if(p.status){
                     cardPlayer.onReady();
-                    if(MJRoomModel.nowBurCount == 1 && !MJRoomModel.isStart){
-                        this.tuichuBtn.visible = true;
-                    }
+                }
+                if(MJRoomModel.nowBurCount == 1 && !MJRoomModel.isStart){
+                    this.tuichuBtn.visible = true;
                 }
             }else{//恢复牌局
                 var banker = null;

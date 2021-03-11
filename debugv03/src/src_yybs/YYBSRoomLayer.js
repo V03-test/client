@@ -797,7 +797,9 @@ var YYBSRoomLayer = YYBSBaseRoomLayer.extend({
                     break;
                 }
             }
-            if((YYBSRoomModel.tableType != 1 && data.masterId == PlayerModel.userId) || isStart || YYBSRoomModel.nowBurCount > 1){
+            if(!isStart){
+                this.btn_tuichu.visible = true;
+            }else if((YYBSRoomModel.tableType != 1 && data.masterId == PlayerModel.userId) || isStart || YYBSRoomModel.nowBurCount > 1){
                 this.updateQyqButton(false);
             }
         }

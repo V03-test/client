@@ -575,6 +575,12 @@ var DZMJSmallResultPop = BasePopup.extend({
         Button_yupai.visible = true;
     },
 
+    onBreak:function(){
+        PHZAlertPop.show("解散房间需所有玩家同意，确定要申请解散吗？",function(){
+            sySocket.sendComReqMsg(7);
+        })
+    },
+
     showBirds: function() {
         var sbirdList = {
             1:[1,5,9],
