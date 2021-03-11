@@ -171,7 +171,7 @@ var PDKRoom = BaseRoom.extend({//Room
 					cardPlayer.showStatus(p.status);
 				}
 				if(!PDKRoomModel.isStart && PDKRoomModel.nowBurCount == 1){
-
+                    this.Button_tuichu.visible = true;
 				}
 			}else{//恢复牌局
 				if(p.outCardIds.length>0){//模拟最后一个人出牌

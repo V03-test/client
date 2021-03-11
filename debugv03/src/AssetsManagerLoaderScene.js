@@ -28,7 +28,7 @@ var InitConfigList = {
 			if (xhr.readyState == 4) {
 				if(xhr.status == 200){
 					var data = JSON.parse(xhr.responseText);
-					// cc.log("initConfig===",JSON.stringify(data))
+					cc.log("initConfig===",JSON.stringify(data))
 					var hotUrl = (data && data.hotList && data.hotList.ips) ? data.hotList.ips : null;
 					if (hotUrl){
 						self.checkNeedModifyManifest(hotUrl,manifestPath,onSuc);
@@ -68,7 +68,10 @@ var InitConfigList = {
 		// console.log("newAppHotUpdateUrl : ", newAppHotUpdateUrl);
 		// if (tempUpdateUrl) {
 			//如果本地存储的升级包地址和服务器返回的升级包地址相同，则不需要修改.manifest文件。
-		if (tempUpdateUrl == newAppHotUpdateUrl) return;
+		if (tempUpdateUrl == newAppHotUpdateUrl) {
+			resultCallback(tempUpdateUrl+ "project.manifest" );
+			return;
+		}
 		//否则 --> 修改manifest文件下载地址
 		this.modifyAppLoadUrlForManifestFile(newAppHotUpdateUrl, localManifestPath, function(manifestPath) {
 			resultCallback(manifestPath);
@@ -247,7 +250,7 @@ var AssetsManagerLoaderScene = cc.Scene.extend({
 
         var onSuc = function(path){
             self._manifestList = path ? path : self._manifestList;
-            // cc.log("path===",path,self._manifestList)
+            cc.log("path===",path,self._manifestList)
             self.initSyConfig();
         };
 		InitConfigList.initConfig(this._manifestList,onSuc);
