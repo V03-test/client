@@ -1,0 +1,14 @@
+{
+    "packageUrl":"http://hotcdn.tiaoguoshi.cn/debugv05/",
+    "remoteManifestUrl":"http://hotcdn.tiaoguoshi.cn/debugv05/project.manifest",
+    "remoteVersionUrl":"http://hotcdn.tiaoguoshi.cn/debugv05/version.manifest",
+    "version":"1.0.0",
+    "groupVersions":{
+        "1":"1.0.1"
+    },
+    "engineVersion":"3.1",
+    "searchPaths":[],
+    "assets":{
+
+    }
+}
