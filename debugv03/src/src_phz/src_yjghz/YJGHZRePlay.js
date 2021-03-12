@@ -428,6 +428,10 @@ var YJGHZReplay = BaseLayer.extend({
         }
     },
 
+    isForceRemove:function(){
+        return true;
+    },
+
     onReturnHome:function(){
         for(var i=1;i<=PHZRePlayModel.players.length;i++){
             this._players[i].hideQiHuImg();

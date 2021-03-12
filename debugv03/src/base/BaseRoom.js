@@ -277,8 +277,8 @@ var BaseRoom = BaseLayer.extend({
     * 设置语音按钮的按钮资源 可点击和 灰化按钮
      */
     setRadioBtnImg:function(){
-        this.audioBtnImg = "res/res_gameCom/voiceNormal.png";//"res/ui/common/pdkRoom_4.png";
-        this.btnUntouchImg = "res/res_gameCom/voiceNormal.png";//"res/ui/common/pdkRoom_5.png";
+        this.audioBtnImg = "res/res_gameCom/voiceNormal.png";
+        this.btnUntouchImg = "res/res_gameCom/voiceNormal.png";
     },
 
     /**

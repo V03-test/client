@@ -389,13 +389,8 @@ var AHPHZLayout = cc.Class.extend({
             if(this.direct!=3){
                 initVal = 290;
             }
-            //if(this.direct==2){
-            //    initVal = 290;
-            //}else if(this.direct==1){
-            //    initVal = 310;
-            //}
         }else{
-            localNum = 7;
+            localNum = 6;
             initVal=(this.direct==1) ? 300 : 10;
         }
         for(var i=0;i<this.mahjongs3.length;i++){

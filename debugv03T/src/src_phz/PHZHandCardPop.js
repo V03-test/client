@@ -108,13 +108,13 @@ var PHZHandCardPop=BasePopup.extend({
 });
 
 var onCell = ccui.Widget.extend({
-	ctor:function(data){
+	ctor:function(data,isNotAdd){
 		this._super();
 		this.anchorX=0;
 		this.anchorY=0;
 		this.scale = 0.80;
 		this.setContentSize(50,300);
-		var tempY = 50;
+		var tempY = isNotAdd ? 0 : 50;
 
 		for(var i=0;i<data.length;i++){
 			var card = new PHZCard(PHZAI.getDisplayVo(this.direct,3),data[i]);

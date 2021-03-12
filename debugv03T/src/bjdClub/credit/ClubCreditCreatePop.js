@@ -362,7 +362,7 @@ var ClubCreditCreatePop = BasePopup.extend({
         //洗牌扣分
         this.xpkfFen = this.creditParms[11] || 0;
         //是否AA支付
-        this.isAAPay = Math.floor(this.creditParms[12] || 0);
+        this.isAAPay = Math.floor(this.creditParms[12]) == 0 ? 0 : 1;
     },
 
     isHasData: function(_string) {

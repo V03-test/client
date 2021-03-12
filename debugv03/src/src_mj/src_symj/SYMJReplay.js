@@ -110,6 +110,10 @@ var SYMJReplay = BaseLayer.extend({
         }
     },
 
+    isForceRemove:function(){
+        return true;
+    },
+
     onReturnHome:function(){
         PopupManager.showPopup(TotalRecordPop);
         if(PopupManager.getClassByPopup(PyqHall)){

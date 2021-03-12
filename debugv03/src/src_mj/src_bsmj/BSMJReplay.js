@@ -119,6 +119,10 @@ var BSMJReplay = BaseLayer.extend({
         }
     },
 
+    isForceRemove:function(){
+        return true;
+    },
+
     onReturnHome:function(){
 
 

@@ -21,22 +21,22 @@ var SocketErrorModel = {
         this._httpIndex  = UITools.getLocalItem("Socket_httpIndex")  || 0;
         this._loginIndex = UITools.getLocalItem("Socket_loginIndex") || 0;
 
-        // if (InitConfigList){
-        //     if (InitConfigList._httpUrlList){
-        //         if (InitConfigList._httpUrlList.ips && InitConfigList._httpUrlList.ips != ""){
-        //             this._socketList.http.ips = this._socketList.http.ips + "," + InitConfigList._httpUrlList.ips;
-        //         }
-        //     }
-        //
-        //     if (InitConfigList._loginUrlList){
-        //         if (InitConfigList._loginUrlList.ips && InitConfigList._loginUrlList.ips != ""){
-        //             this._socketList.login.ips = this._socketList.login.ips + "," + InitConfigList._loginUrlList.ips;
-        //         }
-        //         if (InitConfigList._loginUrlList.ports && InitConfigList._loginUrlList.ports != ""){
-        //             this._socketList.login.ports = this._socketList.login.ports + "," + InitConfigList._loginUrlList.ports;
-        //         }
-        //     }
-        // }
+        if (SyConfig.IS_CONFIGLIST){
+            if (InitConfigList._httpUrlList){
+                if (InitConfigList._httpUrlList.ips && InitConfigList._httpUrlList.ips != ""){
+                    this._socketList.http.ips = this._socketList.http.ips + "," + InitConfigList._httpUrlList.ips;
+                }
+            }
+
+            if (InitConfigList._loginUrlList){
+                if (InitConfigList._loginUrlList.ips && InitConfigList._loginUrlList.ips != ""){
+                    this._socketList.login.ips = this._socketList.login.ips + "," + InitConfigList._loginUrlList.ips;
+                }
+                if (InitConfigList._loginUrlList.ports && InitConfigList._loginUrlList.ports != ""){
+                    this._socketList.login.ports = this._socketList.login.ports + "," + InitConfigList._loginUrlList.ports;
+                }
+            }
+        }
 
 
         var _http = this._socketList.http;

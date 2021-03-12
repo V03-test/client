@@ -351,8 +351,8 @@ var YZLCSmallResultPop=BasePopup.extend({
 
     onOk:function(){
         if(ClosingInfoModel.isReplay || !LayerManager.isInRoom()){
-            if(PopupManager.getClassByPopup(YZLCReplay)){
-                PopupManager.removeClassByPopup(YZLCReplay);
+            if (ClosingInfoModel.isReplay){
+                LayerManager.showLayer(LayerFactory.HOME);
             }
             PopupManager.remove(this);
             return;

@@ -110,6 +110,10 @@ var CQXZMJReplay = BaseLayer.extend({
         }
     },
 
+    isForceRemove:function(){
+        return true;
+    },
+
     onReturnHome:function(){
         for (var i = 0; i < this._players.length; i++) {
             this._players[i].removeHuanZhangCards();

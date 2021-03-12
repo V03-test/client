@@ -317,9 +317,7 @@ var HBGZPSmallResultPop=BasePopup.extend({
 
     onOk:function(){
         if(ClosingInfoModel.isReplay || !LayerManager.isInRoom()){
-            if(PopupManager.getClassByPopup(HBGZPReplay)){
-                PopupManager.removeClassByPopup(HBGZPReplay);
-            }
+            LayerManager.showLayer(LayerFactory.HOME);
             PopupManager.remove(this);
             return;
         }

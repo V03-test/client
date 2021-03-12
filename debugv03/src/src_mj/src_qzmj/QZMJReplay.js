@@ -255,6 +255,10 @@ var QZMJReplay = BaseLayer.extend({
         }
     },
 
+    isForceRemove:function(){
+        return true;
+    },
+
     onReturnHome:function(){
         for (var i = 0; i < MJReplayModel.closingData.length; i++) {
             // cc.log("MJReplayModel.closingData[i].ext[0] = ",MJReplayModel.closingData[i].ext[0]);

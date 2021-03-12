@@ -1975,23 +1975,28 @@ var AHPHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
             }
         }
 
-        var message = {closingPlayers:[{userId:"120004",name:"lx1234",point:1,totalPoint:1,winCount:1,lostCount:0,maxPoint:1,seat:1,sex:1,icon:"",bopiPoint:null,
-            cards:[12,61,2,14,25,32,36,42],isShuXing:null,renewStatus:null,firstCards:[48,3,19,12,29,61,2,14,70,77,25,32,47,36,1,20,8,42,23,54],
-            strExt:["1","1","0","0","0","0","0","0","0","0","-1"],winLoseCredit:0,commissionCredit:null,allHuxi:1,finalPoint:1,moldCards:[],
-            goldFlag:null},{userId:"120098",name:"lx44551",point:-1,totalPoint:-1,winCount:0,lostCount:1,maxPoint:0,seat:2,sex:1,
-            icon:"C:/Users/Administrator/AppData/Local/newGameProject/user_head_icon_120098.jpg",bopiPoint:null,
-            cards:[18,45,41,71,51,28,35,17,55,46,6,15,5,56],isShuXing:null,renewStatus:null,
-            firstCards:[33,18,45,64,41,71,51,80,59,28,35,17,55,10,24,40,46,6,15,5,56],strExt:["0","0","0","0","0","0","0","0","0","0","-1"],
-            winLoseCredit:0,commissionCredit:null,allHuxi:-1,finalPoint:-1,moldCards:[],goldFlag:null}],
-            isBreak:0,wanfa:4,ext:["625207","120004","2020-12-08 16:55:12","238","0","1","0","2","0","","0","1","5","","0","0","0","0","0","0","0","0","0","0","10","2","2"],
-            matchExt:[],cards:[{action:4,cards:[23,13,3,33],huxi:9},{action:7,cards:[44,54,74,64],huxi:9},{action:6,cards:[43,62,71],huxi:6},
-                {action:8,cards:[77,57,67],huxi:6},{action:0,cards:[80,60],huxi:0},{action:0,cards:[12,22,72],huxi:0},{action:0,cards:[36,27,28],huxi:0}],
-            leftCards:[11,1,61,58,41,39,25,34,52,73,78,4,32,31,63,45,30,14,5,15,53,79,48,10,9,2,49,18,17,56],tun:12,fan:12,huxi:30,huSeat:2,huCard:72,
-            totalTun:12,fanTypes:[6],isRenew:null,renewCount:null,pointRecord:null,startLeftCards:[35,24,44,29,43,68,16,59,72,11,1,61,58,41,39,25,34,52,73,78,4,32,31,63,45,30,14,5,15,53,79,48,10,9,2,49,18,17,56],
-            groupLogId:null,chouCards:[],intParams:[],allCardsCombo:[]};
+        var message = { closingPlayers :[{ userId : 2517495 , name : "lx67" , point :1, totalPoint :1, winCount :1, lostCount :0, maxPoint :1, seat :1,
+            sex :2, icon : "res/res_icon/15.png" , bopiPoint :null, cards :[34,40,73,45,25,6,39,64,16,28], isShuXing :null, renewStatus :null,
+            firstCards :[27,34,37,80,71,67,40,73,31,45,47,25,6,2,39,46,64,16,79,28], strExt :[ 1 , 1 , 0 , 1 , 0 , 0 , 0 , 0 , 100 , 0 , -1 ],
+            winLoseCredit :{ low :100, high :0, unsigned :false}, commissionCredit :{ low :0, high :0, unsigned :false}, allHuxi :1,
+            finalPoint :1, moldCards :[], goldFlag :null},{ userId : 7664459 , name : "lx45" , point :-1, totalPoint :-1, winCount :0,
+            lostCount :1, maxPoint :0, seat :2, sex :1, icon : "res/res_icon/20.png" , bopiPoint :null, cards :[42,76,13,26,61,36,15,53],
+            isShuXing :null, renewStatus :null, firstCards :[30,14,42,76,13,78,9,26,61,58,54,19,21,36,17,44,15,53,55,22,12],
+            strExt :[ 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , -100 , 0 , -1 ], winLoseCredit :{ low :-100, high :-1, unsigned :false},
+            commissionCredit :{ low :0, high :0, unsigned :false}, allHuxi :-1, finalPoint :-1, moldCards :[], goldFlag :null}],
+            isBreak :0, wanfa :4, ext :[ 138957 , 7664459 , "2021-03-11 15:21:45" , 238 , 0 , 1 , 0 , 2 , 1 ,  , 0 , 1 , 5 , 7496 , 0 , 1 , 10000 , 100 ,
+            100 , 0 , 1 , 1 , 0 , 0 , 10 , 2 , 2 ], matchExt :[], cards :[{ action :7, cards :[7,17,27,37], huxi :6},{ action :6, cards :[72,67,80], huxi :6},
+            { action :6, cards :[33,2,31], huxi :3},{ action :0, cards :[6,16], huxi :0},{ action :0, cards :[3,34,25], huxi :0},{ action :0, cards :[73,64,45], huxi :0},
+            { action :0, cards :[28,39,40], huxi :0}], leftCards :[23,48], tun :1, fan :1, huxi :15, huSeat :1, huCard :3, totalTun :1, fanTypes :[],
+            isRenew :null, renewCount :null, pointRecord :null, startLeftCards :[74,75,51,20,32,7,10,18,43,8,66,35,50,59,72,33,60,41,56,77,70,29,57,62
+            ,63,69,52,65,49,24,1,5,4,68,38,11,3,23,48], groupLogId :null, chouCards :[], intParams :[],
+            allCardsCombo :[{ seat :2, phzCard :[{ action :7, cards :[7,17,27,37], huxi :6},{ action :6, cards :[72,67,80], huxi :6},{ action :6, cards :[33,2,31], huxi :3},
+            { action :0, cards :[6,16], huxi :0},{ action :0, cards :[3,34,25], huxi :0},{ action :0, cards :[73,64,45], huxi :0},{ action :0, cards :[28,39,40], huxi :0}]},
+            { seat :1, phzCard :[{ action :2, cards :[74,54,44], huxi :3},{ action :3, cards :[32,22,12], huxi :3},{ action :6, cards :[79,19,9], huxi :0},
+                { action :2, cards :[68,78,58], huxi :3},{ action :0, cards :[42,76,13,26,61,36,15,53], huxi :0}]}]}
 
         //ClosingInfoModel.init(message);
-        //var mc = new PHZBigResultPop(message.closingPlayers);
+        //var mc = new PHZSmallResultPop(message.closingPlayers);
         //PopupManager.addPopup(mc);
     },
 

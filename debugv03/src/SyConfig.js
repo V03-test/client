@@ -29,6 +29,7 @@ var SyConfig = {
 	IS_LOAD_AD_NEW: false,//大胜跑得快
 	IS_FC_PARAMS: false,
 	IS_STARTANI:false,
+	IS_CONFIGLIST:false,
 	init:function(json){
 		this.DEBUG = json.debug;
 		this.H5_PUBLISH = json.h5_publish;
@@ -55,6 +56,7 @@ var SyConfig = {
 		this.IS_LOAD_AD_NEW = json.isLoadAdNew ? json.isLoadAdNew : false;
 		this.IS_FC_PARAMS = json.isFcParams ? json.isFcParams : false;
 		this.IS_STARTANI = json.isStartAni ? json.isStartAni : false;
+		this.IS_CONFIGLIST = json.isConfigList ? json.isConfigList : false;
 	},
 
 	isSdk:function(){
@@ -74,9 +76,5 @@ var SyConfig = {
 
 	isWX:function(){
 		return (this.PF.indexOf("weixin")!=-1 || this.PF.indexOf("xianliao")!=-1);
-	},
-
-	isWX:function(){
-    		return (this.PF.indexOf("weixin")!=-1 || this.PF.indexOf("xianliao")!=-1);
-    	}
+	}
 }

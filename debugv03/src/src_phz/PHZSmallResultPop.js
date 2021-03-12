@@ -826,7 +826,8 @@ var PHZSmallResultPop=BasePopup.extend({
 
     onClickUserBg:function(event){
         var data = event.temp;
-        var mc = new PHZUserHandCardPop(data);
+		var tempData = event.tempData;
+        var mc = new PHZUserHandCardPop(data,tempData);
         PopupManager.addPopup(mc);
     },
 
@@ -846,6 +847,13 @@ var PHZSmallResultPop=BasePopup.extend({
 
         var Button_click = ccui.helper.seekWidgetByName(widget,"Button_click");
         Button_click.temp = user;
+		if(ClosingInfoModel.allCardsCombo && ClosingInfoModel.allCardsCombo.length == 2){
+			for(var i = 0;i < ClosingInfoModel.allCardsCombo.length;++i){
+				if(ClosingInfoModel.allCardsCombo[i].seat == user.seat){
+					Button_click.tempData = ClosingInfoModel.allCardsCombo[i];
+				}
+			}
+		}
         UITools.addClickEvent(Button_click,this,this.onClickUserBg);
 
 		ccui.helper.seekWidgetByName(widget,"name").setString(user.name);
