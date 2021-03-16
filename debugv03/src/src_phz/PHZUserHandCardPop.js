@@ -31,6 +31,21 @@ var PHZUserHandCardPop = BasePopup.extend({
                     }
                 }
             }
+        }else if(PHZRoomModel.wanfa == GameTypeEunmZP.YJGHZ || PHZRoomModel.wanfa == GameTypeEunmZP.NXGHZ || PHZRoomModel.wanfa == GameTypeEunmZP.YYWHZ){
+            var localCards = this.data.mcards || [];
+            for(var i=0;i < localCards.length;i++) {
+                if(localCards[i].huxi > 0 || (localCards[i].action > 0 && localCards[i].huxi == 0)){
+                    var cell = new PHZUserHandCardCell(localCards[i], PHZRoomModel.wanfa);
+                    list.pushBackCustomItem(cell);
+                }else{
+                    var cardVo = PHZAI.getVoArray(localCards[i].cards);//剩余的牌
+                    var result = PHZAI.sortHandsVo(cardVo);
+                    for(var j=0;j<result.length;j++){
+                        var cell = new onCell(result[j],true);
+                        list.pushBackCustomItem(cell);
+                    }
+                }
+            }
         }else if(this.data.firstCards){
             for(var i=0;i<this.data.firstCards.length;i++){
                 voArray.push(PHZAI.getPHZDef(this.data.firstCards[i]));

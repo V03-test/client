@@ -175,7 +175,7 @@ var NXGHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         if (PHZRoomModel.renshu == 2){
             this.getWidget("Panel_right").x = (SyConfig.DESIGN_WIDTH - cc.winSize.width)/2 +this.getWidget("Panel_right").x;
             this.getWidget("oPanel1").x = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2 + SyConfig.DESIGN_WIDTH - disXForIphoneX - 20;
-            this.getWidget("oPanel2").x = this.getWidget("sPanel2").x = this.getWidget("mPanel2").x = (SyConfig.DESIGN_WIDTH -cc.winSize.width)/2 + disXForIphoneX;
+            this.getWidget("oPanel2").x = this.getWidget("mPanel2").x = (SyConfig.DESIGN_WIDTH -cc.winSize.width)/2 + disXForIphoneX;
         }else if (PHZRoomModel.renshu == 3){
             this.getWidget("Panel_right").x = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2 +this.getWidget("Panel_right").x;
             this.getWidget("oPanel1").x =  this.getWidget("oPanel2").x = this.getWidget("sPanel2").x
@@ -1780,14 +1780,14 @@ var NXGHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         //清理听牌的显示
         var self = this;
         var t = 1300;
-        if(PHZRoomModel.wanfa == GameTypeEunmZP.YYWHZ) t = 2500
+        if(PHZRoomModel.wanfa == GameTypeEunmZP.YYWHZ) t = 2500;
         var t1 = 800;//延时展示其他玩家的剩余牌的时间
         PHZRoomModel.isStart = false;
-        //this.showSparePaiTimeOutHandle = setTimeout(function() {//延时展示其他玩家的剩余牌
-        //    if (!PHZRoomModel.isStart){
-        //        self.showSparePai(ClosingInfoModel);
-        //    }
-        //},t1);
+        this.showSparePaiTimeOutHandle = setTimeout(function() {//延时展示其他玩家的剩余牌
+            if (!PHZRoomModel.isStart){
+                self.showSparePai(ClosingInfoModel);
+            }
+        },t1);
 
         this.showResultTimeOutHandle = setTimeout(function(){//延迟弹出结算框
         	self.isShowReadyBtn = true;
@@ -1806,7 +1806,7 @@ var NXGHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
             	var mc = new HongBaoPop(obj.type,obj.data);
             	PopupManager.addPopup(mc);
             }
-        },t1);
+        },t);
     },
 
     //落地扫和永州扯胡子结算时把倾和啸显示出来
@@ -3779,6 +3779,10 @@ var NXGHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
     },
     updateBgColor:function(){
         var gameTypeUrl = "res/res_phz/wanfaFront/nxghz.png";
+
+        if (PHZRoomModel.wanfa == GameTypeEunmZP.YYWHZ){
+            gameTypeUrl = "res/res_phz/wanfaFront/yywhz.png";
+        }
 
         var bgTexture = "res/res_phz/roombg/room_bg4.jpg";
         if (PHZSetModel.zmbj > 0 && PHZSetModel.zmbj < 5){

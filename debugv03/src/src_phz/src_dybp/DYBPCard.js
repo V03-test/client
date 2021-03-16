@@ -57,17 +57,18 @@ var DYBPCard = ccui.Widget.extend({
 
     refreshCardByOpenTex:function() {
         if (this.numberImg){
-            var color = this._cardVo.t == 1 ? "s" : "b";
-            var number = this._cardVo.n;
-            var paiType = PHZSetModel.zpxz == 3 ? 3 : 1;
-            var pngName = "big_cards" + paiType + "_" + number + color + ".png";
-            var place = this._displayVo.place;
-            if(place != 1){
-                pngName= "small_cards" + paiType + "_" + number + color + ".png";
-            }
-            var frame = cc.spriteFrameCache.getSpriteFrame(pngName);
-            this.numberImg.setSpriteFrame(frame);
-            // this.refreshCardBgByOpenTex()
+            //var color = this._cardVo.t == 1 ? "s" : "b";
+            //var number = this._cardVo.n;
+            //var paiType = PHZSetModel.zpxz == 3 ? 3 : 1;
+            //var pngName = "big_cards" + paiType + "_" + number + color + ".png";
+            //var place = this._displayVo.place;
+            //if(place != 1){
+            //    pngName= "small_cards" + paiType + "_" + number + color + ".png";
+            //}
+            //var frame = cc.spriteFrameCache.getSpriteFrame(pngName);
+            //this.numberImg.setSpriteFrame(frame);
+
+            this.diplay();
         }else{
             //cc.log("this._cardVo.n::"+this._cardVo.n)
             //cc.log("this._cardVo.t::"+this._cardVo.t)
@@ -376,6 +377,7 @@ var DYBPCard = ccui.Widget.extend({
             if (place == 1){
                 bgPng = "big_half_face_"+pmType+".png";
                 //bgPng = PHZSetModel.zpdx == 1 ? "big_half_face_"+pmType+".png" : "big_half_face2_"+pmType+".png";
+                scaleX = PHZSetModel.zpdx == 4 ? 1.1 : 1;
             }else{
                 //scale = 0.8;
                 bgPng = "small_half_face_"+pmType+".png";
@@ -415,11 +417,7 @@ var DYBPCard = ccui.Widget.extend({
             bg.y = this._bg.height*0.62;
             bgImg.addChild(bg);
             if (place == 1){
-                // if (PHZSetModel.zpdx == 4){
-                //bg.scale = 1.2;
-                // }else if (PHZSetModel.zpdx == 2 || PHZSetModel.zpdx == 3){
-                //     bg.scale = 1.1;
-                // }
+                bg.scale = PHZSetModel.zpdx == 4 ? 1.1 : 1;
             }
         }
 

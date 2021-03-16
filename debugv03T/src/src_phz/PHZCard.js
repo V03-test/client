@@ -401,6 +401,7 @@ var PHZCard = ccui.Widget.extend({
                 //    }
                 //}
                 png = "big_cards" + paiType + "_" + this._cardVo.n + t + ".png";
+                scaleX = PHZSetModel.zpdx == 4 ? 1.1 : 1;
             }else {
                 png = "small_cards" + paiType + "_" + this._cardVo.n + t + ".png";
             }
@@ -436,14 +437,7 @@ var PHZCard = ccui.Widget.extend({
             bg.y = this._bg.height*0.62;
             bgImg.addChild(bg);
             if (place == 1){
-                //if (PHZSetModel.zpdx == 4){
-                //    bg.scale = 1.1;
-                //}else if (PHZSetModel.zpdx == 2 || PHZSetModel.zpdx == 3){
-                //    // bg.scale = 1.1;
-                //}
-                //if(PHZRoomModel.wanfa == GameTypeEunmZP.HSPHZ && paiType == 3){
-                //    bg.scale = bg.scale*1.1;
-                //}
+                bg.scale = PHZSetModel.zpdx == 4 ? 1.1 : 1;
             }
         }
 

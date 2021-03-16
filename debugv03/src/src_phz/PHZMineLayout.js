@@ -16,18 +16,7 @@ var PHZMineLayout = {
     },
 
     getCardOffX:function(){
-        return 132;
-        var w = PHZSetModel.zpdx == 1 ? 114 : 132; //75
-        if (PHZSetModel.zpdx == 3 || PHZSetModel.zpdx == 4 ){
-            w = w *1.1;
-        }
-        if (PHZRoomModel.getIs_LHQ_SHK_16() && PHZSetModel.zpdx == 4){
-            w = 132 *1.25;
-        }
-        if(PHZRoomModel.wanfa == GameTypeEunmZP.XPPHZ){
-            w = 177;
-        }
-        return w
+        return PHZSetModel.zpdx == 4 ? 132*1.1:132;
     },
 
     getCardOffXForYZCHZ:function(){

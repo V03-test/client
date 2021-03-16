@@ -195,7 +195,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         if (PHZRoomModel.renshu == 2){
             this.getWidget("Panel_right").x = (SyConfig.DESIGN_WIDTH - cc.winSize.width)/2 +this.getWidget("Panel_right").x;
             this.getWidget("oPanel1").x = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2 + SyConfig.DESIGN_WIDTH - disXForIphoneX - 20;
-            this.getWidget("oPanel2").x = this.getWidget("sPanel2").x = this.getWidget("mPanel2").x = (SyConfig.DESIGN_WIDTH -cc.winSize.width)/2 + disXForIphoneX;
+            this.getWidget("oPanel2").x = this.getWidget("mPanel2").x = (SyConfig.DESIGN_WIDTH -cc.winSize.width)/2 + disXForIphoneX;
         }else if (PHZRoomModel.renshu == 3){
             this.getWidget("Panel_right").x = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2 +this.getWidget("Panel_right").x;
             this.getWidget("oPanel1").x =  this.getWidget("oPanel2").x = this.getWidget("sPanel2").x
@@ -1727,11 +1727,11 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         if(PHZRoomModel.wanfa == GameTypeEunmZP.GLZP){//暂时去掉手牌展示
             t = 2000 + addTime;
         }else{
-            //this.showSparePaiTimeOutHandle = setTimeout(function() {//延时展示其他玩家的剩余牌
-            //    if (!PHZRoomModel.isStart){
-            //        self.showSparePai(ClosingInfoModel);
-            //    }
-            //},t1);
+            this.showSparePaiTimeOutHandle = setTimeout(function() {//延时展示其他玩家的剩余牌
+                if (!PHZRoomModel.isStart){
+                    self.showSparePai(ClosingInfoModel);
+                }
+            },t1);
         }
         if ((PHZRoomModel.wanfa == GameTypeEunmZP.HYLHQ || PHZRoomModel.wanfa == GameTypeEunmZP.HYSHK) && PHZRoomModel.intParams[10] == 2){
             PHZRoomEffects.chuPai(this.getWidget("cp"+1),PHZAI.getPHZDef(ClosingInfoModel.ext[25]),ClosingInfoModel.ext[25],PHZRoomModel.renshu,1,this.getWidget("oPanel"+1));
@@ -1766,7 +1766,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
                 var mc = new HongBaoPop(obj.type,obj.data);
                 PopupManager.addPopup(mc);
             }
-        },t1);
+        },t);
     },
 
     showDipai:function(valArr){//桂林字牌显示底牌

@@ -166,7 +166,7 @@ var YJGHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         if (PHZRoomModel.renshu == 2){
             this.getWidget("Panel_right").x = (SyConfig.DESIGN_WIDTH - cc.winSize.width)/2 +this.getWidget("Panel_right").x;
             this.getWidget("oPanel1").x = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2 + SyConfig.DESIGN_WIDTH - disXForIphoneX - 20;
-            this.getWidget("oPanel2").x = this.getWidget("sPanel2").x = this.getWidget("mPanel2").x = (SyConfig.DESIGN_WIDTH -cc.winSize.width)/2 + disXForIphoneX;
+            this.getWidget("oPanel2").x = this.getWidget("mPanel2").x = (SyConfig.DESIGN_WIDTH -cc.winSize.width)/2 + disXForIphoneX;
         }else if (PHZRoomModel.renshu == 3){
             this.getWidget("Panel_right").x = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2 +this.getWidget("Panel_right").x;
             this.getWidget("oPanel1").x =  this.getWidget("oPanel2").x = this.getWidget("sPanel2").x
@@ -1578,11 +1578,11 @@ var YJGHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         var t = 1300;
         var t1 = 800;//延时展示其他玩家的剩余牌的时间
         PHZRoomModel.isStart = false;
-        //this.showSparePaiTimeOutHandle = setTimeout(function() {//延时展示其他玩家的剩余牌
-        //    if (!PHZRoomModel.isStart){
-        //        self.showSparePai(ClosingInfoModel);
-        //    }
-        //},t1);
+        this.showSparePaiTimeOutHandle = setTimeout(function() {//延时展示其他玩家的剩余牌
+            if (!PHZRoomModel.isStart){
+                self.showSparePai(ClosingInfoModel);
+            }
+        },t1);
 
         this.showResultTimeOutHandle = setTimeout(function(){//延迟弹出结算框
         	self.isShowReadyBtn = true;
@@ -1601,7 +1601,7 @@ var YJGHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
             	var mc = new HongBaoPop(obj.type,obj.data);
             	PopupManager.addPopup(mc);
             }
-        },t1);
+        },t);
     },
 
     //落地扫和永州扯胡子结算时把倾和啸显示出来
@@ -1846,24 +1846,25 @@ var YJGHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
             }
         }
 
-        var message = {closingPlayers:[{userId:"120073",name:"lx7788",point:-20,totalPoint:-10,winCount:null,lostCount:null,
-            maxPoint:null,seat:1,sex:1,icon:"http://thirdwx.qlogo.cn/mmopen/vi_32/Dv2csZTBP5wJupj6zKibIuaaZkwphVDBX012k4btO0wticrvROE4UhYkxAsF0hETSXgibtLgTFxu2DSNRzkDTsEFw/132",
-            bopiPoint:null,cards:[35,27,61,43,28,16,42],isShuXing:null,renewStatus:null,firstCards:[52,68,35,8,17,53,27,60,61,78,43,3,79,11,24,59,75,28,16,42],dahus:[],
-            dahuCounts:[],neiYuanNum:null,waiYuanNum:null,mcards:[{action:6,cards:[36,17,8],huxi:0},{action:6,cards:[71,52,53],huxi:0},
-                {action:3,cards:[49,79,59],huxi:1},{action:5,cards:[58,68,78],huxi:1},{action:-1,cards:[35,27,61,43,28,16,42],huxi:0}],
-            zhuaHao:null,qingHao:null,waiHao:null,credit:null,winLoseCredit:null,commissionCredit:null},{userId:"120004",name:"lx1234",
-            point:20,totalPoint:10,winCount:null,lostCount:null,maxPoint:null,seat:2,sex:1,icon:"",bopiPoint:null,cards:[63],
-            isShuXing:null,renewStatus:null,firstCards:[7,30,57,74,14,2,50,1,58,20,29,63,41,71,26,47,64,80,66],dahus:[],dahuCounts:[],
-            neiYuanNum:0,waiYuanNum:1,mcards:[{action:5,cards:[60,50,80],huxi:1},{action:6,cards:[15,26,7],huxi:0},{action:6,cards:[33,2,1],
-                huxi:0},{action:3,cards:[54,74,64],huxi:1},{action:2,cards:[77,67,57,47],huxi:1},{action:5,cards:[10,30,20],huxi:1},
-                {action:5,cards:[73,63],huxi:1}],zhuaHao:null,qingHao:null,waiHao:null,credit:null,winLoseCredit:null,
-            commissionCredit:null}],isBreak:0,wanfa:39,ext:[369712,120004,"2020-12-10 11:58:12",39,0,2,0,2,100,1,1,1,0,0],matchExt:[],
-            leftCards:[25,76,69,40,37],tun:null,fan:1,huxi:20,huSeat:2,huCard:73,totalTun:20,fanTypes:[],isRenew:null,renewCount:null,
-            pointRecord:null,startLeftCards:[12,36,21,15,39,31,46,56,5,33,13,22,67,49,54,77,32,51,19,45,4,6,62,48,70,38,10,9,65,55,72,34,18,44,23,73,25,76,69,40,37],
-            groupLogId:0}
+        var message = { closingPlayers :[{ userId : 120099 , name : "lx6677" , point :80, totalPoint :80, winCount :null, lostCount :null,
+            maxPoint :null, seat :1, sex :1, icon :  "", bopiPoint :null, cards :[10,60,12,9,49,38,78], isShuXing :null, renewStatus :null,
+            firstCards :[26,3,10,60,12,46,66,24,6,37,9,21,36,4,49,38,55,7,78,19], dahus :[], dahuCounts :[], neiYuanNum :1, waiYuanNum :1,
+            mcards :[{ action :11, cards :[26,6,36,16], huxi :1},{ action :5, cards :[34,24,4], huxi :1},{ action :5, cards :[56,46,66], huxi :1},
+                { action :5, cards :[27,37,7], huxi :1},{ action :15, cards :[78,49,60], huxi :0},{ action :15, cards :[17,12,10], huxi :1},
+                { action :15, cards :[9,38], huxi :0}], zhuaHao :null, qingHao :null, waiHao :null, credit :null, winLoseCredit :null, commissionCredit :null},
+            { userId : 120098 , name : "lx44551" , point :-80, totalPoint :-80, winCount :null, lostCount :null, maxPoint :null, seat :2, sex :1,
+                icon : "http://cdncfgh5.52bjd.com/upload/player/1060/120098_1592632713.png" , bopiPoint :null, cards :[42,77,29,58], isShuXing :null
+                , renewStatus :null, firstCards :[61,73,30,74,54,31,28,42,77,64,20,5,63,29,23,1,58,71,45], dahus :[], dahuCounts :[], neiYuanNum :null, waiYuanNum :null,
+                mcards :[{ action :3, cards :[41,61,71], huxi :1},{ action :11, cards :[74,54,64,44], huxi :1},{ action :5, cards :[40,30,20], huxi :1},
+                    { action :6, cards :[22,31,23], huxi :0},{ action :5, cards :[43,73,63], huxi :1},{ action :-1, cards :[42,77,29,58], huxi :0}],
+                zhuaHao :null, qingHao :null, waiHao :null, credit :null, winLoseCredit :null, commissionCredit :null}], isBreak :0, wanfa :39,
+            ext :[ 540076 , 120098 ," 2021-03-15 16:20:19 ", 39 , 0 , 1 , 0 , 2 , 100 , 1 , 1 , 1 , 0 , 0 ], matchExt :[],
+            leftCards :[53,50,15,80,14,76,70,35], tun :null, fan :1, huxi :80, huSeat :1, huCard :17, totalTun :80, fanTypes :[],
+            isRenew :null, renewCount :null, pointRecord :null, startLeftCards :[67,79,33,65,41,47,44,40,22,16,34,56,39,32,62,59,2,43,48,18,52,11,
+                51,27,69,57,13,75,8,72,25,68,17,53,50,15,80,14,76,70,35], groupLogId :0};
 
         //ClosingInfoModel.init(message);
-        //var mc = new YJGHZBigResultPop(message);
+        //var mc = new YJGHZSmallResultPop(message);
         //PopupManager.addPopup(mc);
     },
 
@@ -3600,8 +3601,8 @@ var YJGHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
                         var sPanel = this.getWidget("sPanel" + seq);
                         sPanel.addChild(card, zorder);
                         card.scale = scale;
-                        var gx = 39*scale;
-                        var gy = 40*scale;
+                        var gx = 48*scale;
+                        var gy = 50*scale;
                         if(PHZRoomModel.renshu>3){
                             if(seq!=3){
                                 card.x = (seq == 2) ? -190 +  i * gx : 350 - i * gx;

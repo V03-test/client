@@ -153,8 +153,9 @@ var PHZNewSetUpPop = BasePopup.extend({
 
         this["Button_zpdx1"].visible = false;
         this["Button_zpdx2"].visible = false;
-        this["Button_zpdx4"].visible = false;
+        //this["Button_zpdx4"].visible = false;
         this["Button_zpdx3"].x = this["Button_zpdx1"].x;
+        this["Button_zpdx4"].x = this["Button_zpdx2"].x;
 
         //虚线选择
         var widgetXxxz = {"Button_xxxz1":1,"Button_xxxz2":2,"Image_xxxz1":1,"Image_xxxz2":2};
@@ -242,9 +243,10 @@ var PHZNewSetUpPop = BasePopup.extend({
 
         this.zpxz = this.zpxz == 3 ? 3 : 1;
         this.pmxz = 1;
-        this.zpdx = 3;
+        this.zpdx = this.zpdx == 4 ? 4 : 3;
 
         this.zmbj = PHZSetModel.zmbj;
+        this.zpdx = PHZSetModel.zpdx;
     },
 
     setDefaultAllData:function(){
@@ -416,9 +418,8 @@ var PHZNewSetUpPop = BasePopup.extend({
                 btn.setBright(false);
             }
         }
-        return;
-        this.zpdx = values[temp-1];
-        if (PHZSetModel.getValue("pro003_phz_zpdx") != this.zpdx){
+        this.zpdx = temp;
+        if (PHZSetModel.getValue("pro003_phz_zpdx"+PHZRoomModel.wanfa) != this.zpdx){
             PHZSetModel.zpdx = this.zpdx;
             this.setLocalItem("pro003_phz_zpdx"+PHZRoomModel.wanfa,this.zpdx);  //0,1
             SyEventManager.dispatchEvent(SyEvent.UPDATE_SET_ZPDX);

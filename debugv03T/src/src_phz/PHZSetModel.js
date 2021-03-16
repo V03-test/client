@@ -34,12 +34,18 @@ var PHZSetModel = {
 
         this.zpxz = this.zpxz == 3 ? 3 : 1;
         this.pmxz = 1;
-        this.zpdx = 3;
+        this.zpdx = this.zpdx == 4 ? 4 : 3;
 
         var setBg = this.getLocalItem("pro003_phz_set_bg"+PHZRoomModel.wanfa);
         if(setBg != 1){
             this.zmbj = 4;
             this.setLocalItem("pro003_phz_set_bg"+PHZRoomModel.wanfa,1);
+        }
+
+        var setZpdx = this.getLocalItem("pro003_phz_zpdx"+PHZRoomModel.wanfa + "first");
+        if(setZpdx != 1){
+            this.zpdx = 3;
+            this.setLocalItem("pro003_phz_zpdx"+PHZRoomModel.wanfa + "first",1);
         }
     },
     setDefaultAllData:function(){
