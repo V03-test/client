@@ -21,7 +21,7 @@ var PHZRoomEffects = {
         }
         var pmType = PHZSetModel.pmxz == 3 ? 3 : 1;
 
-        var endScale = 1;
+        var endScale = 1.3;
         this.phzVo = phzVo || null;
         var kuangText = "big_face"+pmType+".png";
         if(phzVo.c == 0){
