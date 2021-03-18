@@ -120,18 +120,8 @@ var LoginLayer = BaseLayer.extend({
         //显示版本号
         if(this.getWidget("Label_version")){
             this.getWidget("Label_version").setString(SyVersion.v + "_" + cc.sys.os);
+            this.getWidget("Label_version").setColor(cc.color(0,0,0));
         }
-
-        // ccs.armatureDataManager.addArmatureFileInfo(
-        //     "res/plist/NewAnimation0.png",
-        //     "res/plist/NewAnimation0.plist",
-        //     "res/plist/NewAnimation.ExportJson");
-        // this.waitAnimation = new ccs.Armature("NewAnimation");
-        // this.waitAnimation.x = 640;
-        // this.waitAnimation.y = 360;
-        // this.bg.addChild(this.waitAnimation,99);
-        // // this.waitAnimation.setScale(0.6);
-        // this.waitAnimation.getAnimation().play("Animation1",-1,1);
 
         this.uploadUpdateErrorLog();
 
@@ -156,7 +146,6 @@ var LoginLayer = BaseLayer.extend({
         //显示登陆按钮
         this.displayLoginBtn();
 
-        //sy.scene.showLoading("正在创建房间");
         //强制每次都弹出开屏广告
         SdkUtil.upOpenAd();
     },

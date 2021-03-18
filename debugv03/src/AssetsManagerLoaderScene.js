@@ -6,7 +6,6 @@ var startEnterGame = function() {
 	sy.assetsScene.bgLayer.visible = true;
 	sy.assetsScene.initDt();
 }
-
 var InitConfigList = {
 	_httpUrlList:null,
 	_loginUrlList:null,
@@ -27,7 +26,10 @@ var InitConfigList = {
 		xhr.onreadystatechange = function () {
 			if (xhr.readyState == 4) {
 				if(xhr.status == 200){
-					var data = JSON.parse(xhr.responseText);
+					var configData = decodeURIComponent(xhr.responseText);
+					var _data = self.decryptHttp(configData);
+					var data = JSON.parse(_data);
+					// var data = JSON.parse(xhr.responseText);
 					cc.log("initConfig===",JSON.stringify(data))
 					var hotUrl = (data && data.hotList && data.hotList.ips) ? data.hotList.ips : null;
 					if (hotUrl){
@@ -63,15 +65,15 @@ var InitConfigList = {
 		if (!tempUpdateUrl) {
 			cc.sys.localStorage.setItem("appHotUpdateUrl", "");
 		}
-		tempUpdateUrl = cc.sys.localStorage.getItem('appHotUpdateUrl');
+		tempUpdateUrl = cc.sys.localStorage.getItem("appHotUpdateUrl");
 		// console.log("tempUpdateUrl : ", tempUpdateUrl);
 		// console.log("newAppHotUpdateUrl : ", newAppHotUpdateUrl);
 		// if (tempUpdateUrl) {
 			//如果本地存储的升级包地址和服务器返回的升级包地址相同，则不需要修改.manifest文件。
-		if (tempUpdateUrl == newAppHotUpdateUrl) {
-			resultCallback(tempUpdateUrl+ "project.manifest" );
-			return;
-		}
+//		if (tempUpdateUrl == newAppHotUpdateUrl) {
+//			resultCallback(tempUpdateUrl+ "project.manifest" );
+//			return;
+//		}
 		//否则 --> 修改manifest文件下载地址
 		this.modifyAppLoadUrlForManifestFile(newAppHotUpdateUrl, localManifestPath, function(manifestPath) {
 			resultCallback(manifestPath);
@@ -87,18 +89,18 @@ var InitConfigList = {
 	modifyAppLoadUrlForManifestFile:function(newAppHotUpdateUrl, localManifestPath, resultCallback) {
 		try {
 		    cc.log("jsb.fileUtils.getWritablePath()==",jsb.fileUtils.getWritablePath())
-			if (jsb.fileUtils.isFileExist(jsb.fileUtils.getWritablePath() + "/project.manifest")) {
+			if (jsb.fileUtils.isFileExist(jsb.fileUtils.getWritablePath() + "project.manifest")) {
 				// console.log("有下载的manifest文件");
 				var storagePath = (jsb.fileUtils ? jsb.fileUtils.getWritablePath() : "");
 				// console.log("StoragePath for remote asset : ", storagePath);
-				var loadManifest = jsb.fileUtils.getStringFromFile(storagePath + '/project.manifest');
+				var loadManifest = jsb.fileUtils.getStringFromFile(storagePath + "project.manifest");
 				var manifestObject = JSON.parse(loadManifest);
 				manifestObject.packageUrl = newAppHotUpdateUrl;
 				manifestObject.remoteManifestUrl = manifestObject.packageUrl + "project.manifest";
 				manifestObject.remoteVersionUrl = manifestObject.packageUrl + "version.manifest";
-				resultCallback(storagePath + "/project.manifest");
+				resultCallback(storagePath + "project.manifest");
 				var afterString = JSON.stringify(manifestObject);
-				var isWritten = jsb.fileUtils.writeStringToFile(afterString, storagePath + "/project.manifest");
+				var isWritten = jsb.fileUtils.writeStringToFile(afterString, storagePath + "project.manifest");
 				//更新数据库中的新请求地址，下次如果检测到不一致就重新修改 manifest 文件
 				// console.log("StoragePath for remote asset : ", storagePath);
 				if (isWritten) {
@@ -114,10 +116,10 @@ var InitConfigList = {
 				var originManifestObject = JSON.parse(originManifest);
 				// cc.log("originManifestObject===",initializedManifestPath,JSON.stringify(originManifestObject));
 				originManifestObject.packageUrl = newAppHotUpdateUrl;
-				originManifestObject.remoteManifestUrl = originManifestObject.packageUrl + 'project.manifest';
-				originManifestObject.remoteVersionUrl = originManifestObject.packageUrl + 'version.manifest';
+				originManifestObject.remoteManifestUrl = originManifestObject.packageUrl + "project.manifest";
+				originManifestObject.remoteVersionUrl = originManifestObject.packageUrl + "version.manifest";
 				var afterString = JSON.stringify(originManifestObject);
-				var isWritten = jsb.fileUtils.writeStringToFile(afterString, initializedManifestPath + '/project.manifest');
+				var isWritten = jsb.fileUtils.writeStringToFile(afterString, initializedManifestPath + "project.manifest");
 				resultCallback(initializedManifestPath + "project.manifest");
                 // cc.log("originManifestObject===",JSON.stringify(originManifestObject))
 				if (isWritten) {
@@ -129,6 +131,23 @@ var InitConfigList = {
 		} catch (error) {
 			console.log("读写manifest文件错误!!!(请看错误详情-->) ", error);
 		}
+	},
+
+	decryptCBC:function(cipherText, textKey) {
+		var key = CryptoJS.enc.Utf8.parse(textKey);
+		var decrypt = CryptoJS.AES.decrypt(cipherText, key, {
+			iv: key,
+			mode: CryptoJS.mode.CBC,
+			padding: CryptoJS.pad.Pkcs7
+		});
+		// 解密返回转为UTF-8明文(解密也经过一次base64解密)
+		return decrypt.toString(CryptoJS.enc.Utf8);
+	},
+
+
+	decryptHttp:function(cipherText) {
+		var  _text  = this.decryptCBC(cipherText,"dKPVJ60PJS8mlONb");
+		return _text;
 	}
 }
 

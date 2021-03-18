@@ -72,7 +72,7 @@ var NetErrorPop = BasePopup.extend({
                 this.timeId = setTimeout(function(){
                     var time = new Date().getTime();
                     time = UITools.formatDetailTime(time,2);
-                    var str = (SocketErrorModel._gameIndex + "连接次数" + self.errorTimes +",ID:"+PlayerModel.userId + "\n" + time);
+                    var str = (SocketErrorModel._loginIndex + "连接次数" + self.errorTimes +",ID:"+PlayerModel.userId + "\n" + time);
                     self.setTipStr(str);
                     self.timeId = -1;
                     sySocket.connect(null,10);

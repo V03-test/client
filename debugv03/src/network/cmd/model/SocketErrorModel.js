@@ -9,17 +9,17 @@ var SocketErrorModel = {
         }
         this._socketList = {
             http:{
-                ips:"http://login.lemaitrading.cn/,http://login.5mh1oqm.cn/",
+                ips:"http://login.lemaitrading.cn/",
                 ports:""
             },
             login:{
-                ips:"login.5mh1oqm.cn",
-                ports:"8001,8002,8003,8004"
+                ips:"login.lemaitrading.cn",
+                ports:"8001,8002,8003,8004,8005,8006,8007,8008"
             }
         }
 
-        this._httpIndex  = UITools.getLocalItem("Socket_httpIndex")  || 0;
-        this._loginIndex = UITools.getLocalItem("Socket_loginIndex") || 0;
+        this._httpIndex  = UITools.getLocalItem("Socket_new_httpIndex")  || 0;
+        this._loginIndex = UITools.getLocalItem("Socket_new_loginIndex") || 0;
 
         if (SyConfig.IS_CONFIGLIST){
             if (InitConfigList._httpUrlList){
@@ -57,12 +57,12 @@ var SocketErrorModel = {
 
     setHttpIndex:function(_httpIndex){
         this._httpIndex = _httpIndex;
-        UITools.setLocalItem("Socket_httpIndex",_httpIndex);
+        UITools.setLocalItem("Socket_new_httpIndex",_httpIndex);
     },
 
     setLoginIndex:function(_LoginIndex){
         this._loginIndex = _LoginIndex;
-        UITools.setLocalItem("Socket_loginIndex",_LoginIndex);
+        UITools.setLocalItem("Socket_new_loginIndex",_LoginIndex);
     },
 
     updateHttpIndex:function(){
@@ -77,7 +77,6 @@ var SocketErrorModel = {
             SyConfig.REQ_URL   =  _httpHosts[this._httpIndex] + "pdklogin/" + "{0}!{1}.action";
             SyConfig.LOGIN_URL =  _httpHosts[this._httpIndex] + "pdklogin/" + "{0}!{1}.guajilogin";
             SyConfig.LOGIN_URL_NEW = _httpHosts[this._httpIndex];
-            UITools.setLocalItem("Socket_httpIndex",this._httpIndex);
             this.setHttpIndex(this._httpIndex);
             cc.log("updateHttpIndex===",this._httpIndex,SyConfig.REQ_URL,SyConfig.LOGIN_URL)
         }

@@ -586,9 +586,9 @@ var SdkUtil = {
     },
 
     upOpenAd:function(){
-        if (this.fcNewParams && this.fcNewParams.isSplash) {
-           jsb.reflection.callStaticMethod("net/sy599/push/Cocos2dxLocalStorage", "saveSettingNote", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V","bjdgq", "isOpenad","CLOSE");
-        }
+        // if (this.fcNewParams && this.fcNewParams.isSplash) {
+        //    jsb.reflection.callStaticMethod("net/sy599/push/Cocos2dxLocalStorage", "saveSettingNote", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V","bjdgq", "isOpenad","CLOSE");
+        // }
     },
 
     initNewFcParams:function(){

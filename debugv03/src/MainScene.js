@@ -234,12 +234,15 @@ var MainScene = cc.Scene.extend({
 
 	onSocketOpen:function(event){
 		var data = event.getUserData();
-		if(data.roomId==0)
-			sy.scene.hideLoading();
-		if(data.urlscheme=="fromUrlScheme"&&PlayerModel.isDirect2Room()){//直接进房间
-			sySocket.sendComReqMsg(2,[parseInt(PlayerModel.urlSchemeRoomId)]);
-			PlayerModel.urlSchemeRoomId = 0;
+		if (data){
+			if(data.roomId==0)
+				sy.scene.hideLoading();
+			if(data.urlscheme=="fromUrlScheme"&&PlayerModel.isDirect2Room()){//直接进房间
+				sySocket.sendComReqMsg(2,[parseInt(PlayerModel.urlSchemeRoomId)]);
+				PlayerModel.urlSchemeRoomId = 0;
+			}
 		}
+
 		if(PlayerModel.gps==null){
 			GPSSdkUtil.startLocation();
 		}
