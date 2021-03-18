@@ -9,11 +9,11 @@ var SocketErrorModel = {
         }
         this._socketList = {
             http:{
-                ips:"http://login.lemaitrading.cn/",
+                ips:"http://login.lemaitrading.cn/,http://login.yzj256.cn/",
                 ports:""
             },
             login:{
-                ips:"login.lemaitrading.cn",
+                ips:"login.lemaitrading.cn,login.yzj256.cn",
                 ports:"8001,8002,8003,8004,8005,8006,8007,8008"
             }
         }
