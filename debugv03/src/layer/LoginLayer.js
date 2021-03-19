@@ -65,13 +65,13 @@ var LoginLayer = BaseLayer.extend({
 
 
         SyConfig.TJD = false;
-        SyConfig.WS_HOST = "login.5mh1oqm.cn";
+        SyConfig.WS_HOST = "login.lemaitrading.cn";
         SyConfig.WS_PORT = ports;
-        SyConfig.REQ_URL = "http://login.5mh1oqm.cn/pdklogin/{0}!{1}.action";
-        SyConfig.LOGIN_URL = "http://login.5mh1oqm.cn/pdklogin/{0}!{1}.guajilogin";
+        SyConfig.REQ_URL = "http://login.lemaitrading.cn/pdklogin/{0}!{1}.action";
+        SyConfig.LOGIN_URL = "http://login.lemaitrading.cn/pdklogin/{0}!{1}.guajilogin";
         ServerUtil.defaultLoginUrl = SyConfig.LOGIN_URL;
         ServerUtil.defaultReqUrl = SyConfig.REQ_URL;
-        SyConfig.LOGIN_URL_NEW = "http://login.5mh1oqm.cn";
+        SyConfig.LOGIN_URL_NEW = "http://login.lemaitrading.cn";
 
         var timeRound = UITools.getLocalItem("Socket_timeRound1");
         if (!timeRound || timeRound == ""){
