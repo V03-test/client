@@ -336,12 +336,12 @@ var PHZReplay = BaseLayer.extend({
         };
 
         if(PHZRoomModel.wanfa == GameTypeEunmZP.LDS || PHZRoomModel.wanfa == GameTypeEunmZP.YZCHZ || PHZRoomModel.wanfa == GameTypeEunmZP.JHSWZ){
-            textureMap[7] = {t:"res/res_phz/wangdiao.png",v:15};
-            textureMap[8] = {t:"res/res_phz/wangchuang.png",v:16};
-            textureMap[9] = {t:"res/res_phz/wangzha.png",v:19};
-            textureMap[10] = {t:"res/res_phz/wangzha.png",v:20};
-            textureMap[11] = {t:"res/res_phz/wangchuang.png",v:18};
-            textureMap[12] = {t:"res/res_phz/wangdiao.png",v:17};
+            textureMap[7] = {t:"res/res_phz/act_button/wangdiao.png",v:15};
+            textureMap[8] = {t:"res/res_phz/act_button/wangchuang.png",v:16};
+            textureMap[9] = {t:"res/res_phz/act_button/wangzha.png",v:19};
+            textureMap[10] = {t:"res/res_phz/act_button/wangzha.png",v:20};
+            textureMap[11] = {t:"res/res_phz/act_button/wangchuang.png",v:18};
+            textureMap[12] = {t:"res/res_phz/act_button/wangdiao.png",v:17};
         }
 
         if(PHZRoomModel.wanfa == GameTypeEunmZP.AXWMQ){
@@ -829,6 +829,16 @@ var PHZReplay = BaseLayer.extend({
                     this._players[seat].showWuFuBaojingAni();
                     this.baojingStep = this.playedStep;
                     break;
+                case 30:
+                    if(PHZRoomModel.wanfa == GameTypeEunmZP.LDS || PHZRoomModel.wanfa == GameTypeEunmZP.YZCHZ || PHZRoomModel.wanfa == GameTypeEunmZP.JHSWZ) {
+                        var localID = parseInt(step.type);
+                        if(!localID){
+                            return;
+                        }
+                        PHZRoomEffects.chuPai(this.getWidget("cp"+seq),PHZAI.getPHZDef(localID),1,PHZRePlayModel.players.length,seq);
+                        PHZRoomSound.letOutSound(userId,PHZAI.getPHZDef(localID));
+                    }
+                        break;
             }
 
             // this.lastAction = action;
