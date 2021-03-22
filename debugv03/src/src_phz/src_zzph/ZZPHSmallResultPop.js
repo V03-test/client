@@ -137,7 +137,7 @@ var ZZPHSmallResultPop=BasePopup.extend({
 		} else {
 			xipai_btn.visible = PHZRoomModel.creditConfig[10] == 1;
 		}
-		var xpkf = PHZRoomModel.creditXpkf.toString() || 0;
+		var xpkf = (PHZRoomModel.creditXpkf || 0).toString();
 		this.getWidget("label_xpkf").setString(xpkf);
 		if(PHZRoomModel.isMoneyRoom()){
 			btn_zm.loadTextureNormal("res/res_phz/phzBigResult/btn_return_hall.png");

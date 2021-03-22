@@ -19,7 +19,7 @@ var RuleSelect_CZZP = RuleSelectBase.extend({
 
     setConfigData:function(){
         this.ruleConfig = [
-            {title:"局数",type:1,content:["8局","12局","16局"]},//0
+            {title:"局数",type:1,content:["1局","8局","12局","16局"]},//0
             {title:"房费",type:1,content:["AA支付","房主支付"]},//1
             {title:"人数",type:1,content:["4人","3人","2人"]},//2
             {title:"囤息转换",type:1,content:["3息一囤","1息一囤"]},//3
@@ -256,7 +256,7 @@ var RuleSelect_CZZP = RuleSelectBase.extend({
         }
 
         var zsNum = 4;
-        var zsNumArr = [4,6,8]
+        var zsNumArr = [2,4,6,8];
         var renshu = 4;
         var temp = 0;
         for(var i = 0;i<3;++i){
@@ -265,7 +265,7 @@ var RuleSelect_CZZP = RuleSelectBase.extend({
                 break;
             }
         }
-        for(var i = 0;i<3;++i){
+        for(var i = 0;i<zsNumArr.length;++i){
             var item = this.getItemByIdx(0,i);
             if(item.isSelected()){
                 temp = i;
@@ -310,9 +310,10 @@ var RuleSelect_CZZP = RuleSelectBase.extend({
 
     getSocketRuleData:function(){
         var data = {params:[],strParams:""};
-        var jushu = 8;
-        if (this.getItemByIdx(0,1).isSelected()) jushu = 12;
-        if (this.getItemByIdx(0,2).isSelected()) jushu = 16;
+        var jushu = 1;
+        if (this.getItemByIdx(0,1).isSelected()) jushu = 8;
+        if (this.getItemByIdx(0,2).isSelected()) jushu = 12;
+        if (this.getItemByIdx(0,3).isSelected()) jushu = 16;
 
         var costWay = 1;
         if(this.createRoomLayer.clubData && ClickClubModel.getClubIsGold()) {
@@ -475,9 +476,10 @@ var RuleSelect_CZZP = RuleSelectBase.extend({
     //单独获取游戏类型id,支付方式选项,局数,人数的选择项
     //用于俱乐部的创建
     getWanfas:function(){
-        var jushu = 8;
-        if (this.getItemByIdx(0,1).isSelected()) jushu = 12;
-        if (this.getItemByIdx(0,2).isSelected()) jushu = 16;
+        var jushu = 1;
+        if (this.getItemByIdx(0,1).isSelected()) jushu = 8;
+        if (this.getItemByIdx(0,2).isSelected()) jushu = 12;
+        if (this.getItemByIdx(0,3).isSelected()) jushu = 16;
 
         var renshu = 4;
         for(var i = 0;i<3;++i){
@@ -505,7 +507,7 @@ var RuleSelect_CZZP = RuleSelectBase.extend({
         cc.log("===========readSelectData============" + params);
         var defaultConfig = [[1],[1],[1],[0],[0],[0],[0],[0],[],[0],[0],[0],[0],[1],[0],[0],[0],[]];
 
-        defaultConfig[0][0] = params[0] == 8?0:params[0]==12?1:2;
+        defaultConfig[0][0] = params[0] == 1?0:params[0]==8?1:params[0] == 12?2:3;
         defaultConfig[1][0] = params[9] == 3||params[9] == 4?0:params[9] - 1;
         defaultConfig[2][0] = params[7] == 3?1:params[7] == 2?2:0;
         defaultConfig[3][0] = params[10]-1;

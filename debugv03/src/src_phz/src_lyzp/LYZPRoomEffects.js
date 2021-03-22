@@ -1,7 +1,7 @@
 /**
- * Created by zhoufan on 2016/11/11.
+ * Created by Administrator on 2021/3/22 0022.
  */
-var PHZRoomEffects = {
+var LYZPRoomEffects = {
 
     getSprite:function(texture){
         var frame = cc.spriteFrameCache.getSpriteFrame(texture);
@@ -27,7 +27,7 @@ var PHZRoomEffects = {
         if(phzVo.c == 0){
             kuangText = "cards_back.png";
         }
-        
+
         var per = 0.2;
         var kuang = this.kuang = this.getSprite(kuangText);
         if (phzVo.c != 0){
@@ -61,28 +61,17 @@ var PHZRoomEffects = {
         if(renshu == 4){
             endPosX = 0;
             endPosY = 0;
-        }else if(renshu == 2){
-            if(seq == 1){
-                endPosX = 360;
-                endPosY = 240;
-            }else{
-                endPosX = 0;
-                endPosY = 0;
-            }
         }else{
             if(seq == 1){
-                endPosX = 360;
+                endPosX = -360;
                 endPosY = 240;
+            }else if(seq == 2){
+                endPosX = -280;
+                endPosY = 220;
+            }else if(seq == 3){
+                endPosX = -80;
+                endPosY = 20;
             }
-            //else if(seq == 2){
-            //    endPosX = -280;
-            //    endPosY = 220;
-            //}else if(seq == 3){
-            //    endPosX = -80;
-            //    endPosY = 20;
-            //}
-            endPosX = 0;
-            endPosY = 0;
         }
 
         PHZRoomModel.isSelfOutCard = false;
@@ -111,7 +100,7 @@ var PHZRoomEffects = {
 
         //var worldPos = root.convertToWorldSpace(kuang.getPosition());
 
-        var time = PHZRoomModel.wanfa == GameTypeEunmZP.LYZP ? 0.2 : 0.1;
+        var time = 0.2;
         //var time = 0.08 + (PHZSetModel.cpsd-1)*0.03;
         var lyzpDelaytime = 0;
         //if (PHZRoomModel.wanfa == GameTypeEunmZP.LYZP || PHZRoomModel.wanfa == GameTypeEunmZP.LDFPF
@@ -328,19 +317,19 @@ var PHZRoomEffects = {
         }
         root.addChild(armature,999);
         armature.runAction(cc.sequence(cc.scaleTo(2,2.25,2.25),cc.delayTime(0.6),cc.fadeTo(0.5,0),cc.callFunc(function(){
-        	armature.removeFromParent(true);
+            armature.removeFromParent(true);
         })));
     },
-    
+
     huangzhuang:function(root){
-    	var huangImg = "res/res_phz/huang.png";
-    	var huang = new cc.Sprite(huangImg);
-    	huang.x = 960;
-    	huang.y = 540;
-    	root.addChild(huang,3);
-    	huang.runAction(cc.sequence(cc.scaleTo(1,1.5,1.5),cc.delayTime(1),cc.fadeTo(0.5,0),cc.callFunc(function(){
-    		huang.removeFromParent(true);
-    	})));
+        var huangImg = "res/res_phz/huang.png";
+        var huang = new cc.Sprite(huangImg);
+        huang.x = 960;
+        huang.y = 540;
+        root.addChild(huang,3);
+        huang.runAction(cc.sequence(cc.scaleTo(1,1.5,1.5),cc.delayTime(1),cc.fadeTo(0.5,0),cc.callFunc(function(){
+            huang.removeFromParent(true);
+        })));
     },
 
     normalActionForYLC:function(prefix,root,direct,renshu){
@@ -349,7 +338,7 @@ var PHZRoomEffects = {
             actionAniRes = "zipaiqing";
         }
         ccs.armatureDataManager.addArmatureFileInfo("res/bjdani/YLCPHZActionAni/"+actionAniRes+"/"
-                        +actionAniRes+".ExportJson");
+            +actionAniRes+".ExportJson");
         var armature = new ccs.Armature(actionAniRes);
         armature.getAnimation().setMovementEventCallFunc(function (bone, evt) {
             if (evt == ccs.MovementEventType.complete) {
@@ -385,7 +374,7 @@ var PHZRoomEffects = {
     },
 
     normalAction:function(prefix,root,direct,renshu){
-    	var armature = new cc.Sprite("res/res_phz/"+prefix+"_1.png");
+        var armature = new cc.Sprite("res/res_phz/"+prefix+"_1.png");
         armature.scale = 1.5;
         if(direct==1){
             armature.x = 960;
@@ -399,21 +388,21 @@ var PHZRoomEffects = {
                 armature.y = 802;
             }
         }else if(direct==3){
-        	if(renshu==4){
-        		armature.x = 960;
-        		armature.y = 802;
-        	}else{
-        		armature.x = 412;
-        		armature.y = 802;
-        	}
+            if(renshu==4){
+                armature.x = 960;
+                armature.y = 802;
+            }else{
+                armature.x = 412;
+                armature.y = 802;
+            }
         }else if(direct==4){
-        	armature.x = 412;
-        	armature.y = 757;
+            armature.x = 412;
+            armature.y = 757;
         }
         root.addChild(armature,999);
 
         armature.runAction(cc.sequence(cc.scaleTo(0.2,2.25,2.25),cc.delayTime(0.2),cc.fadeTo(0.5,0),cc.callFunc(function(){
-        	armature.removeFromParent(true);
+            armature.removeFromParent(true);
         })));
     },
 
@@ -421,9 +410,9 @@ var PHZRoomEffects = {
         burCount = burCount || 0;
         var layout = PHZRoomModel.mineRoot.layouts[direct];
         if((PHZRoomModel.wanfa == GameTypeEunmZP.AHPHZ && action==PHZAction.WEI) || (PHZRoomModel.wanfa == GameTypeEunmZP.XTPHZ && PHZRoomModel.intParams[16] == 0 && action==PHZAction.WEI)
-            || (PHZRoomModel.wanfa == GameTypeEunmZP.HYSHK && PHZRoomModel.intParams[36] == 0 && action==PHZAction.WEI) 
+            || (PHZRoomModel.wanfa == GameTypeEunmZP.HYSHK && PHZRoomModel.intParams[36] == 0 && action==PHZAction.WEI)
             || (PHZRoomModel.wanfa == GameTypeEunmZP.HYLHQ && PHZRoomModel.intParams[13] == 0 && (action==PHZAction.WEI || action==PHZAction.TI))
-	        || (PHZRoomModel.wanfa == GameTypeEunmZP.WHZ && action == 18)
+            || (PHZRoomModel.wanfa == GameTypeEunmZP.WHZ && action == 18)
             || (PHZRoomModel.wanfa == GameTypeEunmZP.CDPHZ && action==PHZAction.WEI)
             || (PHZRoomModel.wanfa == GameTypeEunmZP.AXWMQ && action==PHZAction.WEI)
             || (PHZRoomModel.wanfa == GameTypeEunmZP.HHHGW && action==PHZAction.WEI)){
@@ -468,9 +457,9 @@ var PHZRoomEffects = {
 
         //if(PHZRoomModel.wanfa == GameTypeEunmZP.AHPHZ || PHZRoomModel.wanfa == GameTypeEunmZP.YJGHZ || PHZRoomModel.wanfa == GameTypeEunmZP.NXGHZ
         //    || PHZRoomModel.wanfa == GameTypeEunmZP.YYWHZ){
-            beginY1 = 472;beginY2 = beginY3 = 660;
-            coords = {1:{x:585,y:beginY1},2:{x:1470,y:beginY2},3:{x:585,y:beginY2}};
-            initStarX = [135,SyConfig.DESIGN_WIDTH,135];
+        beginY1 = 472;beginY2 = beginY3 = 660;
+        coords = {1:{x:585,y:beginY1},2:{x:1470,y:beginY2},3:{x:585,y:beginY2}};
+        initStarX = [135,SyConfig.DESIGN_WIDTH,135];
         //}
 
         //if(PHZRoomModel.wanfa == GameTypeEunmZP.YZCHZ){
@@ -584,15 +573,15 @@ var PHZRoomEffects = {
         }
 
         container.runAction(cc.sequence(
-        		//cc.delayTime(t1),
-        		cc.spawn(cc.moveTo(t2
-                    ,coords1[direct].x,coords1[direct].y)),
-        		cc.delayTime(t3),
-        		cc.callFunc(function(){
-        			container.removeFromParent(true);
-        			if(callback)
-        				callback(burCount);
-        		})
+            //cc.delayTime(t1),
+            cc.spawn(cc.moveTo(t2
+                ,coords1[direct].x,coords1[direct].y)),
+            cc.delayTime(t3),
+            cc.callFunc(function(){
+                container.removeFromParent(true);
+                if(callback)
+                    callback(burCount);
+            })
         ));
     },
 
@@ -710,7 +699,7 @@ var PHZRoomEffects = {
             bg.scale = ziScale;
             kuang.addChild(bg);
         }
-        return kuang; 
+        return kuang;
     },
 
     createGLZPCard:function(root,phzVo,isHui){

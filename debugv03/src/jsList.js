@@ -691,6 +691,10 @@ var jsList = [
     "src/src_phz/src_yzlc/YZLCRePlayLayout.js",
     "src/src_phz/src_yzlc/YZLCRePlay.js",
 
+    "src/src_phz/src_lyzp/LYZPRoom.js",
+    "src/src_phz/src_lyzp/LYZPLayout.js",
+    "src/src_phz/src_lyzp/LYZPRoomEffects.js",
+
     "src/src_phz/src_dybp/DYBPRoom.js",
     "src/src_phz/src_dybp/DYBPLayout.js",
     "src/src_phz/src_dybp/DYBPCard.js",

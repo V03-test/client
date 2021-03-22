@@ -11,7 +11,8 @@ var LayerFactory = {
     // DTZ_MONEY_ROOM:"res/dtzMoney3RenRoom.json",
     DTZ_3REN_ROOM:"res/dtz3RenRoom.json",
     PHZ_ROOM_MORE:"res/phzRoomMore.json",
-    PHZ_ROOM_LESS:"res/phzRoom2Ren_new.json",//phzRoom2Ren
+    PHZ_ROOM_LESS_LYZP:"res/phzRoom2Ren.json",
+    PHZ_ROOM_LESS:"res/phzRoom2Ren_new.json",
     PHZ_MONEY_ROOM:"res/phzMoneyRoom.json",
     PHZ_MONEY_ROOM_MORE:"res/phzMoneyRoomMore.json",
     PHZ_MONEY_ROOM_THREE:"res/phzMoneyRoomThree.json",
@@ -174,6 +175,9 @@ var LayerFactory = {
                 }else{
                     layer = new PHZRoom(name);
                 }
+                break;
+            case this.PHZ_ROOM_LESS_LYZP:
+                layer = new LYZPRoom(name);
                 break;
             case this.XPPHZ_ROOM:
             case this.XPPHZ_ROOM_LESS:
@@ -564,7 +568,7 @@ var LayerManager = {
         var layers = [LayerFactory.PHZ_ROOM , LayerFactory.PHZ_ROOM_MORE , LayerFactory.PHZ_MONEY_ROOM , LayerFactory.PHZ_MONEY_ROOM_MORE,LayerFactory.PHZ_ROOM_LESS,
             LayerFactory.YZCHZ_ROOM_LESS,LayerFactory.YZCHZ_ROOM,LayerFactory.AHPHZ_ROOM_LESS,LayerFactory.AHPHZ_ROOM,LayerFactory.YJGHZ_ROOM,LayerFactory.PHZ_MONEY_ROOM_THREE
             ,LayerFactory.YJGHZ_ROOM_LESS,LayerFactory.ZZPH_ROOM,LayerFactory.ZZPH_ROOM_LESS,LayerFactory.ZZPH_ROOM_MORE,LayerFactory.WCPHZ_ROOM_LESS,LayerFactory.WCPHZ_ROOM,
-            LayerFactory.ZHZ_ROOM_MORE,LayerFactory.ZHZ_ROOM_LESS,LayerFactory.ZHZ_ROOM];
+            LayerFactory.ZHZ_ROOM_MORE,LayerFactory.ZHZ_ROOM_LESS,LayerFactory.ZHZ_ROOM,LayerFactory.PHZ_ROOM_LESS_LYZP];
         return (ArrayUtil.indexOf(layers , this.getCurrentLayer())>=0);
     },
 
@@ -634,7 +638,7 @@ var LayerManager = {
             if(name==LayerFactory.ROOM || name == LayerFactory.BJD_HOME){
                 sy.scene.paomadeng.updatePosition(10,915);
             }else if(name==LayerFactory.PHZ_ROOM || name==LayerFactory.PHZ_ROOM_MORE  || name==LayerFactory.PHZ_MONEY_ROOM || LayerFactory.PHZ_MONEY_ROOM_MORE
-                || name == LayerFactory.PHZ_ROOM_LESS || name ==LayerFactory.YZCHZ_ROOM || name ==LayerFactory.YZCHZ_ROOM_LESS
+                || name == LayerFactory.PHZ_ROOM_LESS || name == LayerFactory.PHZ_ROOM_LESS_LYZP || name ==LayerFactory.YZCHZ_ROOM || name ==LayerFactory.YZCHZ_ROOM_LESS
                 || name ==LayerFactory.AHPHZ_ROOM || name ==LayerFactory.AHPHZ_ROOM_LESS|| name ==LayerFactory.WCPHZ_ROOM || name ==LayerFactory.WCPHZ_ROOM_LESS){
                 sy.scene.paomadeng.updatePosition(50,960);
             }else if(name == LayerFactory.DTZ_MONEY_ROOM){

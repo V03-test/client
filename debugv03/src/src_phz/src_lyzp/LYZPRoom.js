@@ -1,7 +1,7 @@
 /**
- * Created by zhoufan on 2016/11/7.
+ * Created by Administrator on 2021/3/22 0022.
  */
-var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
+var LYZPRoom = BaseLayer.extend({
     layouts:{},
     tag_btn_chi:601,
     tag_btn_liu:602,
@@ -22,7 +22,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
 
         this.layouts = {};
         this.temp_chi_data = {};
-        this.temp_chi_select_map = {}; 
+        this.temp_chi_select_map = {};
         this.lastLetOutMJ = 0;
         this.lastLetOutSeat = 0;
         this._dt = 0;
@@ -41,37 +41,8 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         this.guoChiVals = [];
 
         this.kehushizhong = false;
-
-        if(PHZRoomModel.wanfa == GameTypeEunmZP.GLZP){
-            //桂林字牌替换牌底的资源
-            var cardsFrameArr = ["big_face_1.png","big_face1.png","big_face2.png",
-                "big_face3.png","big_face4.png","big_half_face_1.png",
-                "big_half_face_2.png","big_half_face_3.png","big_half_face_4.png",
-                "big_half_face1_1.png","big_half_face1_2.png","big_half_face1_3.png",
-                "big_half_face1_4.png","big_half_face2_1.png","big_half_face2_2.png",
-                "big_half_face2_3.png","big_half_face2_4.png","small_half_back.png",
-                "small_half_face_1.png","small_half_face_2.png","small_half_face_3.png",
-                "small_half_face_4.png","small_half_face1_1.png","small_half_face1_2.png",
-                "small_half_face1_3.png","small_half_face1_4.png","small_half_face2_1.png",
-                "small_half_face2_2.png","small_half_face2_3.png","small_half_face2_4.png"
-            ];
-            for (var i = 0; i < cardsFrameArr.length; ++i) {
-                cc.spriteFrameCache.removeSpriteFrameByName(cardsFrameArr[i]);
-                var frame = new cc.Sprite("res/res_phz/glzpCard/" + cardsFrameArr[i]).getSpriteFrame();
-                cc.spriteFrameCache.addSpriteFrame(frame, cardsFrameArr[i]);
-            }
-        }else if(PHZRoomModel.wanfa == GameTypeEunmZP.LDS || PHZRoomModel.wanfa == GameTypeEunmZP.YZCHZ ||
-            PHZRoomModel.wanfa == GameTypeEunmZP.JHSWZ){//落地扫替换下王牌的资源
-            var replaceFrameArr = ["big_cards1_11b.png","big_cards3_11b.png",
-                "cards_listencard_81b.png","phz_cphua.png","small_cards1_11b.png","small_cards3_11b.png"];
-            for (var i = 0; i < replaceFrameArr.length; ++i) {
-                cc.spriteFrameCache.removeSpriteFrameByName(replaceFrameArr[i]);
-                var frame = new cc.Sprite("res/res_phz/ldswp/" + replaceFrameArr[i]).getSpriteFrame();
-                cc.spriteFrameCache.addSpriteFrame(frame, replaceFrameArr[i]);
-            }
-        }
     },
-    
+
     isForceRemove:function(){
         return true;
     },
@@ -191,18 +162,24 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
                 this.Button_52.x = this.Button_53.x - 130;
             }
             this.getWidget("Panel_left").x = (SyConfig.DESIGN_WIDTH - cc.winSize.width)/2 +this.getWidget("Panel_left").x;
+            this.getWidget("Panel_right").x = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2 +this.getWidget("Panel_right").x;
         }
         if (PHZRoomModel.renshu == 2){
-            this.getWidget("Panel_right").x = (SyConfig.DESIGN_WIDTH - cc.winSize.width)/2 +this.getWidget("Panel_right").x;
-            this.getWidget("oPanel1").x = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2 + SyConfig.DESIGN_WIDTH - disXForIphoneX - 20;
-            this.getWidget("oPanel2").x = this.getWidget("mPanel2").x = (SyConfig.DESIGN_WIDTH -cc.winSize.width)/2 + disXForIphoneX;
+            this.getWidget("oPanel1").x = this.getWidget("oPanel1").x + (SyConfig.DESIGN_WIDTH - cc.winSize.width)/2;
+            this.getWidget("oPanel2").x = this.getWidget("oPanel2").x + (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2;
+            this.getWidget("mPanel2").x = this.getWidget("mPanel2").x + (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2;
+            //this.getWidget("oPanel1").x = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2 + SyConfig.DESIGN_WIDTH - disXForIphoneX - 20;
+            //this.getWidget("oPanel2").x = this.getWidget("sPanel2").x = this.getWidget("mPanel2").x = (SyConfig.DESIGN_WIDTH -cc.winSize.width)/2 + disXForIphoneX;
+
+            //this.getWidget("Panel_right").x = (SyConfig.DESIGN_WIDTH - cc.winSize.width)/2 +this.getWidget("Panel_right").x;
+            //this.getWidget("oPanel1").x = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2 + SyConfig.DESIGN_WIDTH - disXForIphoneX - 20;
+            //this.getWidget("oPanel2").x = this.getWidget("mPanel2").x = (SyConfig.DESIGN_WIDTH -cc.winSize.width)/2 + disXForIphoneX;
         }else if (PHZRoomModel.renshu == 3){
             this.getWidget("Panel_right").x = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2 +this.getWidget("Panel_right").x;
             this.getWidget("oPanel1").x =  this.getWidget("oPanel2").x = this.getWidget("sPanel2").x
                 = this.getWidget("mPanel2").x = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2 + SyConfig.DESIGN_WIDTH - disXForIphoneX;
             this.getWidget("oPanel3").x = this.getWidget("sPanel3").x = this.getWidget("mPanel3").x = (SyConfig.DESIGN_WIDTH -cc.winSize.width)/2 + disXForIphoneX;
         }
-
 
         this.Panel_daniao = this.getWidget("Panel_daniao");//打鸟panel
         this.Panel_daniao.visible = false;
@@ -504,7 +481,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         var lastId = params[1];
         var lastVo = PHZAI.getPHZDef(lastId);
         var lastDirect = PHZRoomModel.getPlayerSeq(0, params[0]);
-        // if (params[0] != PHZRoomModel.nextSeat){ 
+        // if (params[0] != PHZRoomModel.nextSeat){
         this.showShizhongpai(this.getWidget("cp"+lastDirect),lastVo,lastId,PHZRoomModel.renshu,lastDirect)
         // }
         this.kehushizhong = true;
@@ -570,7 +547,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
             if(mjp){
                 mjp.startGame();
                 mjp.showDaNiaoType();
-            } 
+            }
         }
         this.showChuiPanel();
     },
@@ -582,7 +559,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         var p = PHZRoomModel.getPlayerVo(userId)
         this._players[p.seat].hideDaNiaoType();
         if (p.seat == PHZRoomModel.mySeat){
-            this.Panel_chui.visible = false;    
+            this.Panel_chui.visible = false;
         }
         this._players[p.seat].showChuiImg(params[1])
     },
@@ -600,14 +577,14 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
                 if(mjp){
                     mjp.startGame();
                     mjp.showDaNiaoType();
-                } 
+                }
             }
             if (PHZRoomModel.wanfa == GameTypeEunmZP.LSZP){
                 self.showPiaoFenPanel(PHZRoomModel.intParams[10]);
             }else {
                 self.showPiaoFenPanel(params[0]);
             }
-        },100); 
+        },100);
     },
     CZZP_FinishPiaoFen:function(event){
         if (this.tuichuBtn.visible){
@@ -626,7 +603,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         var p = PHZRoomModel.getPlayerVo(userId)
         this._players[p.seat].hideDaNiaoType();
         if (p.seat == PHZRoomModel.mySeat){
-            this.Panel_piaofen.visible = false;    
+            this.Panel_piaofen.visible = false;
         }
         this._players[p.seat].showPiaoFenImg(params[1])
     },
@@ -713,11 +690,11 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
                 if(mjp){
                     mjp.startGame();
                     // mjp.showDaNiaoType();
-                } 
+                }
             }
             self._players[PHZRoomModel.mySeat].showDaNiaoType();
             self.showDaNiaoPanel(params[0]);
-        },100); 
+        },100);
     },
     showDaNiaoPanel:function (type) {
         this.tuichuBtn.visible = false;
@@ -753,7 +730,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         var p = PHZRoomModel.getPlayerVo(userId)
         this._players[p.seat].hideDaNiaoType();
         if (p.seat == PHZRoomModel.mySeat){
-            this.Panel_daniao.visible = false;    
+            this.Panel_daniao.visible = false;
         }
         if(params[1]> 0)
             this._players[p.seat].showDaNiaoImg( )
@@ -775,8 +752,8 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
     // },
     sendQiHu:function() {
         PHZAlertPop.show("是否弃胡，弃胡后将不可胡牌",function(){
-                sySocket.sendComReqMsg(2014,[]);
-            });
+            sySocket.sendComReqMsg(2014,[]);
+        });
     },
     OnQiHu:function(event){
         var message = event.getUserData();
@@ -799,7 +776,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         // a 胡息打鸟 分数打鸟 0 不打 1打 b 局内打鸟分数
         var temp = obj.temp;
         // if (temp == 1 ){// 胡息打鸟 分数打鸟 选择打鸟
-            sySocket.sendComReqMsg(2032,[temp]);
+        sySocket.sendComReqMsg(2032,[temp]);
         // }else if (temp == 0 ){// 选择不打鸟 全部传0
         //     sySocket.sendComReqMsg(2032,[0,0]);
         // }else {// 局内打鸟 选择分数
@@ -1061,7 +1038,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
             needDui = this.layouts[1].isPaoTi();
         }
 
-        for(var i=0;i<_voArray.length;i++){ 
+        for(var i=0;i<_voArray.length;i++){
             this.isSelfMo = true;
             var isNeedDui = needDui;
             var tools = new PaohuziTool();
@@ -1117,7 +1094,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
             if (PHZRoomModel.wanfa == GameTypeEunmZP.CZZP){
                 qihuHuxi = PHZRoomModel.intParams[11] == 2?6:PHZRoomModel.intParams[11]==3?3:9;
                 isTingPaiNoHuxi = PHZRoomModel.intParams[16]==1;
-            } 
+            }
             if (PHZRoomModel.wanfa == GameTypeEunmZP.LYZP){
                 isTingPaiNoHuxi = PHZRoomModel.intParams[11]==0;
             }
@@ -1145,7 +1122,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
             if (PHZRoomModel.wanfa == GameTypeEunmZP.XXPHZ){
                 qihuHuxi = PHZRoomModel.intParams[30];
             }
-             if (PHZRoomModel.wanfa == GameTypeEunmZP.LSZP){
+            if (PHZRoomModel.wanfa == GameTypeEunmZP.LSZP){
                 qihuHuxi = 6;
             }
             if (PHZRoomModel.wanfa == GameTypeEunmZP.NXPHZ){
@@ -1211,7 +1188,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
 
     },
     //获得自己手牌和吃碰牌中红牌的数量
-    getRedCardsNum:function(){  
+    getRedCardsNum:function(){
         var redCardsNum = 0;
         //吃碰牌
         var arr = this.layouts[1].getPlace2Data();
@@ -1234,7 +1211,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
                 if (handCards[i].n == 2 || handCards[i].n == 7 ||handCards[i].n == 10){
                     redCardsNum++;
                 }
-                
+
             }
         }
         // cc.log("handCards =",JSON.stringify(handCards));
@@ -1300,7 +1277,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
 
     //显示听牌内容
     showTingPai:function(huList){
-         // cc.log("huList =",JSON.stringify(huList));
+        // cc.log("huList =",JSON.stringify(huList));
         if (huList && huList.length > 0 ){
             this.cleanTingPanel();
             this.Panel_tingPai.visible = true;
@@ -1636,7 +1613,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         if((PHZRoomModel.wanfa == GameTypeEunmZP.LDS || PHZRoomModel.wanfa == GameTypeEunmZP.YZCHZ || PHZRoomModel.wanfa == GameTypeEunmZP.JHSWZ)
             && PHZRoomModel.intParams[5] == 1){//翻醒效果
             var xingId = ClosingInfoModel.ext[9];
-            PHZRoomEffects.showZhuangLastCard(this.getWidget("cpZhuangLastCard"),PHZAI.getPHZDef(xingId));
+            LYZPRoomEffects.showZhuangLastCard(this.getWidget("cpZhuangLastCard"),PHZAI.getPHZDef(xingId));
         }
 
         var addTime = 0;
@@ -1660,23 +1637,23 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
                 var self = this;
                 this.schedule(function(){
                     var vo = PHZAI.getPHZDef(valArr[localIndex]);
-                    var kuang = PHZRoomEffects.createGLZPCard(self.getWidget("cpZhuangLastCard"),vo);
+                    var kuang = LYZPRoomEffects.createGLZPCard(self.getWidget("cpZhuangLastCard"),vo);
                     kuang.setPositionY(300);
                     if(PHZRoomModel.intParams[7] == 4){
                         kuang.setPositionX(-50);
                     }
                     var seq = cc.sequence(cc.spawn(cc.moveTo(0.2,kuang.x+20,400),
-                        cc.callFunc(function(){
-                            num += (numArr[localIndex] || 0);
-                            label.setString((num%10) + " 醒");
-                        })),
+                            cc.callFunc(function(){
+                                num += (numArr[localIndex] || 0);
+                                label.setString((num%10) + " 醒");
+                            })),
                         cc.delayTime(0.2),cc.fadeTo(0.1,255),cc.callFunc(function(){
-                        ++localIndex;
-                        if(localIndex == valArr.length){
-                            label.setString((num%10) + " 醒  共"+ num + "醒");
-                            self.showDipai(valArr);
-                        }
-                    }));
+                            ++localIndex;
+                            if(localIndex == valArr.length){
+                                label.setString((num%10) + " 醒  共"+ num + "醒");
+                                self.showDipai(valArr);
+                            }
+                        }));
                     kuang.runAction(seq);
                 },0.6 * valArr.length, valArr.length - 1,0.2);
             }
@@ -1685,30 +1662,30 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         for(var i=0;i<data.length;i++){
             if(PHZRoomModel.wanfa==GameTypeEunmZP.SYZP){
                 if(data[i].point == 0){
-                    PHZRoomEffects.huangzhuang(this.root);
+                    LYZPRoomEffects.huangzhuang(this.root);
                     PHZRoomSound.actionSound(PlayerModel.userId,"huang");
                     break;
                 }
             }else if(PHZRoomModel.wanfa==GameTypeEunmZP.SYBP){
                 if(data[i].point < 0){
-                    PHZRoomEffects.huangzhuang(this.root);
+                    LYZPRoomEffects.huangzhuang(this.root);
                     PHZRoomSound.actionSound(PlayerModel.userId,"huang");
                     break;
                 }
             }else if(PHZRoomModel.wanfa==34 && ClosingInfoModel.fanTypes.length==0){
                 if(data[i].point < 0){
-                    PHZRoomEffects.huangzhuang(this.root);
+                    LYZPRoomEffects.huangzhuang(this.root);
                     PHZRoomSound.actionSound(PlayerModel.userId,"huang");
                     break;
                 }
             }else if(PHZRoomModel.wanfa==36 && ClosingInfoModel.fanTypes.length==0){
                 if(data[i].point == 0){
-                    PHZRoomEffects.huangzhuang(this.root);
+                    LYZPRoomEffects.huangzhuang(this.root);
                     PHZRoomSound.actionSound(PlayerModel.userId,"huang");
                     break;
                 }
             }else if(PHZRoomModel.wanfa==38 && ClosingInfoModel.fanTypes.length==0 && PHZRoomModel.remain==0){
-                PHZRoomEffects.huangzhuang(this.root);
+                LYZPRoomEffects.huangzhuang(this.root);
                 PHZRoomSound.actionSound(PlayerModel.userId,"huang");
                 break;
             }
@@ -1734,8 +1711,8 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
             },t1);
         }
         if ((PHZRoomModel.wanfa == GameTypeEunmZP.HYLHQ || PHZRoomModel.wanfa == GameTypeEunmZP.HYSHK) && PHZRoomModel.intParams[10] == 2){
-            PHZRoomEffects.chuPai(this.getWidget("cp"+1),PHZAI.getPHZDef(ClosingInfoModel.ext[25]),ClosingInfoModel.ext[25],PHZRoomModel.renshu,1,this.getWidget("oPanel"+1));
-            // PHZRoomEffects.chuPai(this.getWidget("cp"+1),lastVo,p.outCardIds[0],PHZRoomModel.renshu,1,this.getWidget("oPanel"+1));
+            LYZPRoomEffects.chuPai(this.getWidget("cp"+1),PHZAI.getPHZDef(ClosingInfoModel.ext[25]),ClosingInfoModel.ext[25],PHZRoomModel.renshu,1,this.getWidget("oPanel"+1));
+            // LYZPRoomEffects.chuPai(this.getWidget("cp"+1),lastVo,p.outCardIds[0],PHZRoomModel.renshu,1,this.getWidget("oPanel"+1));
         }
         this.showResultTimeOutHandle = setTimeout(function(){//延迟弹出结算框
             self.isShowReadyBtn = true;
@@ -1779,7 +1756,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
             var vo = PHZAI.getPHZDef(valArr[localIndex]);
             var localX = (localIndex % 10 - 4.5) * 110;
             var localY = 200 - Math.floor(localIndex / 10) * 120;
-            var kuang = PHZRoomEffects.createGLZPCard(self.getWidget("cpZhuangLastCard"),vo,dipai.indexOf(valArr[localIndex]) === -1);
+            var kuang = LYZPRoomEffects.createGLZPCard(self.getWidget("cpZhuangLastCard"),vo,dipai.indexOf(valArr[localIndex]) === -1);
             if(localIndex < 5){
                 kuang.y = localY;
                 var seq = cc.moveTo(0.1,localX,localY);
@@ -1906,15 +1883,15 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         this.axwmqShowDlz(PHZRoomModel.ext[2]);
 
         this._players = {};
-        
+
         for(var i=1;i<=PHZRoomModel.renshu;i++){
             //if(this.isShowReadyBtn){
-                // this.getWidget("player"+i).visible = false;
-                this.getWidget("oPanel"+i).removeAllChildren(true);
-                this.getWidget("mPanel"+i).removeAllChildren(true);
-                var layout = this.layouts[i];
-                if(layout)//清理掉上一次的牌局数据
-                    layout.clean();
+            // this.getWidget("player"+i).visible = false;
+            this.getWidget("oPanel"+i).removeAllChildren(true);
+            this.getWidget("mPanel"+i).removeAllChildren(true);
+            var layout = this.layouts[i];
+            if(layout)//清理掉上一次的牌局数据
+                layout.clean();
             //}
         }
         if(GameTypeEunmZP.GLZP == PHZRoomModel.wanfa || GameTypeEunmZP.LSZP == PHZRoomModel.wanfa){
@@ -1979,7 +1956,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
                             this.tuichuBtn.visible = false;
                             this.Panel_piaofen.visible = false;
                         }
-                    } else if (PHZRoomModel.intParams[18] != 1 && p.ext[12] == -1) {    
+                    } else if (PHZRoomModel.intParams[18] != 1 && p.ext[12] == -1) {
                         cardPlayer.showDaNiaoType();
                         if (p.seat == PHZRoomModel.mySeat)
                             this.showPiaoFenPanel(PHZRoomModel.intParams[18]);
@@ -1998,7 +1975,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
                             this.tuichuBtn.visible = false;
                             this.Panel_piaofen.visible = false;
                         }
-                    } else{    
+                    } else{
                         // cardPlayer.showDaNiaoType();
                         // if (p.seat == PHZRoomModel.mySeat)
                         //     this.showPiaoFenPanel(PHZRoomModel.intParams[10]);
@@ -2034,7 +2011,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
                     if (p.seat == PHZRoomModel.mySeat){
                         this.showChuiPanel();
                     }
-                } 
+                }
             }
             if(!isContinue){
                 if(p.status && !p.ext[9]){
@@ -2054,7 +2031,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
                 }
 
                 this.tuichuBtn.visible = false;
-                
+
                 // cc.log("p.ext[11] =",p.ext[11]);
                 if (p.ext[11] && p.ext[11] == 1){//弃胡图片的显示
                     cardPlayer.showQiHuImg();
@@ -2089,7 +2066,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
                     this.lastLetOutSeat = p.seat;
                     //this.layouts[lastDirect].chuPai(lastVo);
                     if (p.seat != PHZRoomModel.nextSeat){
-                        PHZRoomEffects.chuPai(this.getWidget("cp"+lastDirect),lastVo,p.outCardIds[0],PHZRoomModel.renshu,lastDirect,this.getWidget("oPanel"+lastDirect));
+                        LYZPRoomEffects.chuPai(this.getWidget("cp"+lastDirect),lastVo,p.outCardIds[0],PHZRoomModel.renshu,lastDirect,this.getWidget("oPanel"+lastDirect));
                     }
                 }
                 // cc.log("p.shiZhongCard = ",p.shiZhongCard);
@@ -2098,7 +2075,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
                     var lastVo = PHZAI.getPHZDef(lastId);
                     var lastDirect = PHZRoomModel.getPlayerSeq(p.userId, p.seat);
                     if (p.seat != PHZRoomModel.nextSeat){
-                        PHZRoomEffects.chuPai(this.getWidget("cp"+lastDirect),lastVo,lastId,PHZRoomModel.renshu,lastDirect,this.getWidget("oPanel"+lastDirect));
+                        LYZPRoomEffects.chuPai(this.getWidget("cp"+lastDirect),lastVo,lastId,PHZRoomModel.renshu,lastDirect,this.getWidget("oPanel"+lastDirect));
                     }
                 }
 
@@ -2578,10 +2555,10 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
             this.btnPanel.removeChildByTag(curTag,true);
             if(this.btnPanel.getChildByTag(curTag+1))//删除当前比的下一层比框
                 this.btnPanel.removeChildByTag((curTag+1),true);
-                this.lastSelectChiBg[curTime] = null;
+            this.lastSelectChiBg[curTime] = null;
         }
 
-        bg.x = preData ? preData.x-bg.width/2 : this.btnPanel.getChildByTag(this.tag_btn_chi).x+82; 
+        bg.x = preData ? preData.x-bg.width/2 : this.btnPanel.getChildByTag(this.tag_btn_chi).x+82;
         bg.y = 360 + 40;
         this.temp_chi_data[curTime] = {x:bg.x-bg.width/2,tag:curTag,itemCount:result.length,itemObj:bg};
         this.btnPanel.addChild(bg,1,curTag);
@@ -2631,7 +2608,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
                         if (i == 1){
                             bg.x = data2.x - data.itemObj.width/2 -45;
                         }
-                        
+
                     }
                 }
             }
@@ -2902,8 +2879,8 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
             this.fapai.removeAllChildren();
             if (PHZRoomModel.wanfa == GameTypeEunmZP.LDFPF){
                 // cc.log("11111111111111111111111111111111======>")
-                    this.Button_qihu.visible = true
-                }
+                this.Button_qihu.visible = true
+            }
         }
         //this.startGameAni();
         PHZRoomModel.isStart = true;
@@ -2919,7 +2896,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
                 this._players[i].playerQuanAnimation(false);
                 this._players[i].hideQiHuImg();
                 this._players[i].hideDaNiaoType();
-            } 
+            }
             var layout = this.layouts[i];
             if(layout)//清理掉上一次的牌局数据
                 layout.clean();
@@ -2932,7 +2909,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         if(PHZRoomModel.renshu==4 && (PHZRoomModel.wanfa==GameTypeEunmZP.SYBP || PHZRoomModel.wanfa==GameTypeEunmZP.GLZP)){
             this._players[p.xiaohu[1]].isShuXing(true);
         }
-        
+
         //转化成牌的格式
         var voArray = [];
         for(var i=0;i<p.handCardIds.length;i++){
@@ -2944,11 +2921,11 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         var direct = PHZRoomModel.getPlayerSeq(PlayerModel.userId,PHZRoomModel.mySeat);
         this.initCards(direct,p.handCardIds,[],[],[]);
         /** 庄家摸牌 */
-        PHZRoomEffects.showZhuangLastCard(this.getWidget("cpZhuangLastCard"),PHZAI.getPHZDef(p.xiaohu[0]),p.banker);
+        LYZPRoomEffects.showZhuangLastCard(this.getWidget("cpZhuangLastCard"),PHZAI.getPHZDef(p.xiaohu[0]),p.banker);
         if((GameTypeEunmZP.XXGHZ == PHZRoomModel.wanfa || GameTypeEunmZP.XXPHZ == PHZRoomModel.wanfa
-        || GameTypeEunmZP.XTPHZ == PHZRoomModel.wanfa || GameTypeEunmZP.AHPHZ == PHZRoomModel.wanfa
-        || GameTypeEunmZP.GLZP == PHZRoomModel.wanfa || GameTypeEunmZP.NXPHZ == PHZRoomModel.wanfa || GameTypeEunmZP.HSPHZ == PHZRoomModel.wanfa)
-            ){//&& (PHZRoomModel.banker == PHZRoomModel.mySeat)
+            || GameTypeEunmZP.XTPHZ == PHZRoomModel.wanfa || GameTypeEunmZP.AHPHZ == PHZRoomModel.wanfa
+            || GameTypeEunmZP.GLZP == PHZRoomModel.wanfa || GameTypeEunmZP.NXPHZ == PHZRoomModel.wanfa || GameTypeEunmZP.HSPHZ == PHZRoomModel.wanfa)
+        ){//&& (PHZRoomModel.banker == PHZRoomModel.mySeat)
             PHZRoomSound.letOutSound(PlayerModel.userId,PHZAI.getPHZDef(p.xiaohu[0]));
         }
 
@@ -3018,7 +2995,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
                 layout.clean();
         }
         this.getWidget("minePanel").visible = false;
-		this.xipaiAni();
+        this.xipaiAni();
         this.addTipLabel();
     },
 
@@ -3071,10 +3048,10 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
             }
         }
     },
-    
+
     xipaiAni:function () {
-		this.actionnode = new cc.Node();
-		this.addChild(this.actionnode,10);
+        this.actionnode = new cc.Node();
+        this.addChild(this.actionnode,10);
         this.actionnode.setPosition(cc.winSize.width/2,cc.winSize.height/2 - 300);
         ccs.armatureDataManager.addArmatureFileInfo("res/bjdani/jnqp/jnqp.ExportJson");
         var ani = new ccs.Armature("jnqp");
@@ -3082,47 +3059,47 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         ani.setPosition(-50, 600);
         ani.getAnimation().play("Animation1", -1, 1);
         this.actionnode.addChild(ani);
-		for (var index = 0; index < 11; index++) {
-			var back_card = new cc.Sprite("res/res_phz/action_card.png");
-			back_card.scale = 0.8;
-			back_card.setPosition(-300,0);
-			this.actionnode.addChild(back_card);
-			back_card.setLocalZOrder(-index);
+        for (var index = 0; index < 11; index++) {
+            var back_card = new cc.Sprite("res/res_phz/action_card.png");
+            back_card.scale = 0.8;
+            back_card.setPosition(-300,0);
+            this.actionnode.addChild(back_card);
+            back_card.setLocalZOrder(-index);
 
-			var action = this.xipaiAction(index,1)
-			back_card.runAction(action);
-		}
+            var action = this.xipaiAction(index,1)
+            back_card.runAction(action);
+        }
 
-		for (var j = 0; j < 11; j++) {
-			var back_card2 = new cc.Sprite("res/res_phz/action_card.png");
-			back_card2.scale = 0.8;
-			back_card2.setPosition(300,0);
-			this.actionnode.addChild(back_card2);
-			back_card2.setLocalZOrder(-j);
+        for (var j = 0; j < 11; j++) {
+            var back_card2 = new cc.Sprite("res/res_phz/action_card.png");
+            back_card2.scale = 0.8;
+            back_card2.setPosition(300,0);
+            this.actionnode.addChild(back_card2);
+            back_card2.setLocalZOrder(-j);
 
-			var action = this.xipaiAction(j,2)
-			back_card2.runAction(action);
-		}
-	},
+            var action = this.xipaiAction(j,2)
+            back_card2.runAction(action);
+        }
+    },
 
-	xipaiAction:function(index,type){
-		var self = this;
-		var end_x = type == 2?300:-300;
+    xipaiAction:function(index,type){
+        var self = this;
+        var end_x = type == 2?300:-300;
         var action = cc.sequence(
-			cc.delayTime(0.1*index),
-			cc.moveTo(0.3,end_x,600-60*index),
-			cc.moveTo(0.2,end_x,200),
-			cc.moveTo(0.1,0,300),
-			cc.callFunc(function () {
+            cc.delayTime(0.1*index),
+            cc.moveTo(0.3,end_x,600-60*index),
+            cc.moveTo(0.2,end_x,200),
+            cc.moveTo(0.1,0,300),
+            cc.callFunc(function () {
                 if(index == 10){
-                    self.actionnode.removeAllChildren();  
+                    self.actionnode.removeAllChildren();
                     sySocket.sendComReqMsg(3);
                     self.clearXiPai();
                 }
             })
         );
         return action;
-	},
+    },
     // /**
     //  * 收到后台的消息，刷新自己的可操作按钮列表
     //  * @param selfAct {Array.<number>}
@@ -3376,7 +3353,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
      */
     onLetOutPai:function(message){
         this.lastLetOutMsg = message;
-         //cc.log("=============onLetOutPai=============",JSON.stringify(message));
+        //cc.log("=============onLetOutPai=============",JSON.stringify(message));
         // cc.log("=============this.kehushizhong=============",this.kehushizhong);0
         this._countDown = PHZRoomModel.getNewTuoguanTime();
         var userId = message.userId;
@@ -3401,7 +3378,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
             this.updateRemain();
         }
         if (seat==PHZRoomModel.mySeat){
-           PHZRoomModel.myOutHuxi = huxi;
+            PHZRoomModel.myOutHuxi = huxi;
         }
 
         var tempAction = action;
@@ -3430,11 +3407,11 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
                 this.lastLetOutSeat = seat;
                 var isTuoguan = PHZRoomModel.isAutoPlay();
                 if(actType==2 && (seat==PHZRoomModel.mySeat || (seat == PHZRoomModel.bankerSeat && PHZRoomModel.mySeat == PHZRoomModel.sxSeat))
-                || isTuoguan){
+                    || isTuoguan){
                     PHZMineLayout.delOne(cardTransData[0],true);
                 }
                 // cc.log("=============onLetOutPai=======1======",actType,action,direct,JSON.stringify(cardTransData));
-                PHZRoomEffects.chuPai(this.getWidget("cp"+direct),cardTransData[0],actType,PHZRoomModel.renshu,direct,
+                LYZPRoomEffects.chuPai(this.getWidget("cp"+direct),cardTransData[0],actType,PHZRoomModel.renshu,direct,
                     self.getWidget("oPanel"+direct),function(){
                         self.finishLetOut(seat,action,ids);
                     }
@@ -3467,7 +3444,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
                 this.onGetWangPai(message,PHZAI.getVoArray(ids));
             }else if(action==PHZAction.HU){//胡牌了
                 this.btnPanel.visible = false;
-                PHZRoomEffects.huPai(this.root,direct,PHZRoomModel.renshu);
+                LYZPRoomEffects.huPai(this.root,direct,PHZRoomModel.renshu);
                 var soundPrefix = "hu";
                 if(PHZRoomModel.wanfa == GameTypeEunmZP.GLZP){
                     if(tempAction == 16){
@@ -3484,43 +3461,43 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
             }else{//其他动作，如偎、跑、碰、吃等
                 //增加延迟播放
                 if(ids.length>0 && (action==4||!this.kehushizhong)){
-                     this.kehushizhong  = false;
-                        isFinish = true;
-                        var self = this;
-                        //这里需要把这2个值记下来，在动画播放完后，防止this上面的这2个值已经被后面的消息覆盖掉了
-                        var lastLetOutMJ = self.lastLetOutMJ;
-                        var lastLetOutSeat = self.lastLetOutSeat || seat;
-                        var nowBurCount = PHZRoomModel.nowBurCount;
-                        PHZRoomEffects.chiAnimate(ids,this.root,direct,function(){
-                            //只有局数是当前局的时候， 才更新最终显示
-                            if (nowBurCount == PHZRoomModel.nowBurCount) {
-                                if(ArrayUtil.indexOf(ids,lastLetOutMJ) >= 0){//需要把出牌人出的牌移除
-                                    // cc.log("lastLetOutSeat =",lastLetOutSeat);
-                                    var pSeat = PHZRoomModel.getPlayerSeq("",lastLetOutSeat);
-                                    self.layouts[pSeat].beiPengPai(lastLetOutMJ);
-                                }
-                                self.layouts[direct].chiPai(ids,action,direct,isZaiPao);
-                                if ((action==PHZAction.TI || (action==PHZAction.PAO && isChongPao)) && seat == PHZRoomModel.mySeat){
-                                    var sourceArray = ArrayUtil.clone(PHZMineLayout.getCurVoArray());
-                                    self.checkHu(sourceArray);
-                                }
-                                if(seat==PHZRoomModel.mySeat){
-                                    self.checkGrayCard();
-                                }
-                                self.checkTingTimeOutHandle = setTimeout(function(){
-                                    if (seat == PHZRoomModel.mySeat && PHZRoomModel.wanfa != GameTypeEunmZP.WHZ
-                                        && PHZRoomModel.wanfa != GameTypeEunmZP.LDS && PHZRoomModel.wanfa != GameTypeEunmZP.YZCHZ && PHZRoomModel.wanfa != GameTypeEunmZP.JHSWZ
-                                        && PHZRoomModel.wanfa != GameTypeEunmZP.GLZP && PHZRoomModel.wanfa != GameTypeEunmZP.HHHGW
-                                        && PHZRoomModel.wanfa != GameTypeEunmZP.AXWMQ) {
-                                        self.checkTingList();
-                                    }
-                                },0);
+                    this.kehushizhong  = false;
+                    isFinish = true;
+                    var self = this;
+                    //这里需要把这2个值记下来，在动画播放完后，防止this上面的这2个值已经被后面的消息覆盖掉了
+                    var lastLetOutMJ = self.lastLetOutMJ;
+                    var lastLetOutSeat = self.lastLetOutSeat || seat;
+                    var nowBurCount = PHZRoomModel.nowBurCount;
+                    LYZPRoomEffects.chiAnimate(ids,this.root,direct,function(){
+                        //只有局数是当前局的时候， 才更新最终显示
+                        if (nowBurCount == PHZRoomModel.nowBurCount) {
+                            if(ArrayUtil.indexOf(ids,lastLetOutMJ) >= 0){//需要把出牌人出的牌移除
+                                // cc.log("lastLetOutSeat =",lastLetOutSeat);
+                                var pSeat = PHZRoomModel.getPlayerSeq("",lastLetOutSeat);
+                                self.layouts[pSeat].beiPengPai(lastLetOutMJ);
                             }
-                            self.finishLetOut(seat,action,ids);
-                        },action,nowBurCount);
-                        for(var i=0;i<ids.length;i++) {
-                            PHZMineLayout.delOne(PHZAI.getPHZDef(ids[i]),(i==ids.length-1),isZaiPao);
+                            self.layouts[direct].chiPai(ids,action,direct,isZaiPao);
+                            if ((action==PHZAction.TI || (action==PHZAction.PAO && isChongPao)) && seat == PHZRoomModel.mySeat){
+                                var sourceArray = ArrayUtil.clone(PHZMineLayout.getCurVoArray());
+                                self.checkHu(sourceArray);
+                            }
+                            if(seat==PHZRoomModel.mySeat){
+                                self.checkGrayCard();
+                            }
+                            self.checkTingTimeOutHandle = setTimeout(function(){
+                                if (seat == PHZRoomModel.mySeat && PHZRoomModel.wanfa != GameTypeEunmZP.WHZ
+                                    && PHZRoomModel.wanfa != GameTypeEunmZP.LDS && PHZRoomModel.wanfa != GameTypeEunmZP.YZCHZ && PHZRoomModel.wanfa != GameTypeEunmZP.JHSWZ
+                                    && PHZRoomModel.wanfa != GameTypeEunmZP.GLZP && PHZRoomModel.wanfa != GameTypeEunmZP.HHHGW
+                                    && PHZRoomModel.wanfa != GameTypeEunmZP.AXWMQ) {
+                                    self.checkTingList();
+                                }
+                            },0);
                         }
+                        self.finishLetOut(seat,action,ids);
+                    },action,nowBurCount);
+                    for(var i=0;i<ids.length;i++) {
+                        PHZMineLayout.delOne(PHZAI.getPHZDef(ids[i]),(i==ids.length-1),isZaiPao);
+                    }
                 }
             }
             var prefixMap = {2:"peng",3:"wei",4:"ti",6:"chi",7:"pao",10:"chouwei"};
@@ -3536,7 +3513,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
             }
             var prefix = prefixMap[action];
             if(prefix){
-                PHZRoomEffects.normalAction(prefix,this.root,direct,PHZRoomModel.renshu);
+                LYZPRoomEffects.normalAction(prefix,this.root,direct,PHZRoomModel.renshu);
                 if(action==PHZAction.PAO && isChongPao)
                     prefix = "chongpao";
                 PHZRoomSound.actionSound(userId,prefix);
@@ -3577,7 +3554,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         var seat = message.seat;
         var direct = PHZRoomModel.getPlayerSeq(userId,seat);
         var vo = voArray.shift();
-        PHZRoomEffects.chuPai(this.getWidget("cp"+direct),vo,1,PHZRoomModel.renshu,direct,this.getWidget("oPanel"+direct));
+        LYZPRoomEffects.chuPai(this.getWidget("cp"+direct),vo,1,PHZRoomModel.renshu,direct,this.getWidget("oPanel"+direct));
         if(seat==PHZRoomModel.mySeat){
             PHZMineLayout.handleLongBuZi(vo);
         }
@@ -3640,7 +3617,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         var seat = message.seat;
         var direct = PHZRoomModel.getPlayerSeq(userId,seat);
         var vo = voArray.shift();
-        PHZRoomEffects.chuPai(this.getWidget("cp"+direct),vo,1,PHZRoomModel.renshu,direct,this.getWidget("oPanel"+direct));
+        LYZPRoomEffects.chuPai(this.getWidget("cp"+direct),vo,1,PHZRoomModel.renshu,direct,this.getWidget("oPanel"+direct));
         if(seat==PHZRoomModel.mySeat)
             PHZMineLayout.handleLongBuZi(vo);
         var self = this;
@@ -3828,7 +3805,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
             }
         }
     },
-    
+
     /*
      * 放招
      * */
@@ -3852,11 +3829,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         var layout = this.layouts[direct];
         if(layout)
             return layout;
-        if(PHZRoomModel.wanfa == GameTypeEunmZP.HYSHK){
-            layout = new HYSHKLayout();
-        }else{
-            layout = new PHZLayout();
-        }
+        layout = new LYZPLayout();
         this.layouts[direct] = layout;
         return layout;
     },
@@ -3884,7 +3857,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
             }else if(PHZRoomModel.renshu==3){
                 coords = {1:{x:200 + (SyConfig.DESIGN_WIDTH-cc.winSize.width)/2,y:190},2:{x:1600 + (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2,y:720},3:{x:200 + (SyConfig.DESIGN_WIDTH-cc.winSize.width)/2,y:720}};
             }else{
-                coords = {1:{x:200 + (SyConfig.DESIGN_WIDTH-cc.winSize.width)/2,y:190},2:{x:200 + (SyConfig.DESIGN_WIDTH-cc.winSize.width)/2,y:720}};
+                coords = {1:{x:200 + (SyConfig.DESIGN_WIDTH-cc.winSize.width)/2,y:190},2:{x:1600 + (cc.winSize.width - SyConfig.DESIGN_WIDTH)/2,y:720}};
             }
             var coord = coords[direct];
             this.Image_time.x = coord.x;
@@ -4120,8 +4093,8 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         if (PHZMineLayout){
             PHZMineLayout.changeHandCardTextrue();
         }
-        if (PHZRoomEffects){
-            PHZRoomEffects.refreshCardByOpenTex()
+        if (LYZPRoomEffects){
+            LYZPRoomEffects.refreshCardByOpenTex()
         }
         if (this.lastCard){
             this.lastCard.refreshCardByOpenTex();
@@ -4137,8 +4110,8 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         if (PHZMineLayout){
             PHZMineLayout.changeHandCardBg();
         }
-        if (PHZRoomEffects){
-            PHZRoomEffects.refreshCardBgByOpenTex()
+        if (LYZPRoomEffects){
+            LYZPRoomEffects.refreshCardBgByOpenTex()
         }
         if (this.lastCard){
             this.lastCard.refreshCardBgByOpenTex();

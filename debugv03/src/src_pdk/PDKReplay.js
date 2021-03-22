@@ -166,6 +166,10 @@ var PDKReplay = BaseLayer.extend({
 
 	},
 
+	isForceRemove:function(){
+		return true;
+	},
+
 	/**
 	 * 播放或者暂停
 	 */

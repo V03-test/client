@@ -100,7 +100,11 @@ var CreateTableResponder = BaseResponder.extend({
             if(message.renshu == 3) {
                 LayerName = LayerFactory.PHZ_ROOM;
             } else if(message.renshu == 2){
-                LayerName = LayerFactory.PHZ_ROOM_LESS;
+                if(wanfa == GameTypeEunmZP.LYZP){
+                    LayerName = LayerFactory.PHZ_ROOM_LESS_LYZP;
+                }else{
+                    LayerName = LayerFactory.PHZ_ROOM_LESS;
+                }
             }
             LayerManager.showLayer(LayerName);
             var layer = LayerManager.getLayer(LayerName);

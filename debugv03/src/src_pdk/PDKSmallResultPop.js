@@ -139,7 +139,7 @@ var PDKSmallResultPop = PKSmallResultPop.extend({
         }else{
             xipai_btn.visible = PDKRoomModel.creditConfig[10] == 1;
         }
-        var xpkf = PDKRoomModel.creditXpkf.toString() || 0; 
+        var xpkf = (PDKRoomModel.creditXpkf || 0).toString();
         this.getWidget("label_xpkf").setString(xpkf);
         
          if (this.isRePlay){

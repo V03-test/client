@@ -318,7 +318,7 @@ var DTZSmallResultPop = BasePopup.extend({
         }else{
             xipai_btn.visible = DTZRoomModel.creditConfig[10] == 1;
         }
-        var xpkf = DTZRoomModel.creditXpkf.toString() || 0;
+        var xpkf = (DTZRoomModel.creditXpkf || 0).toString();
         this.getWidget("label_xpkf").setString(xpkf);
 
         if (this.isRePlay){

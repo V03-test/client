@@ -23,7 +23,7 @@ var PyqPifuSetPop = cc.Layer.extend({
             }.bind(this)
         }),this);
 
-        this.bgType = ClickClubModel.bgType < 4 ? ClickClubModel.bgType : 0;
+        this.bgType = ClickClubModel.bgType < 7 ? ClickClubModel.bgType : 0;
         this.curOptWanfa = null;
 
         this.initLayer();
