@@ -124,7 +124,7 @@ var HSTHOptBtnLayer = cc.Layer.extend({
 
     initLayer:function(){
         this.contentNode = new cc.Node();
-        this.contentNode.setPosition(cc.winSize.width/2,480);
+        this.contentNode.setPosition(cc.winSize.width/2,640);
         this.addChild(this.contentNode);
         //this.contentNode.setVisible(false);
 
@@ -141,7 +141,7 @@ var HSTHOptBtnLayer = cc.Layer.extend({
         this.contentNode.addChild(this.btn_chupai,1);
 
         this.spr_clock = new cc.Sprite("res/res_erddz/naozhong.png");
-        this.spr_clock.setPosition(cc.winSize.width/2 - 525,480);
+        this.spr_clock.setPosition(cc.winSize.width/2 - 525,640);
         this.addChild(this.spr_clock,1);
 
         this.clock_num = UICtor.cLabel("60",56);

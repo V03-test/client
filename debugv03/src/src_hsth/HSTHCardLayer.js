@@ -359,7 +359,7 @@ var HSTHCardLayer = cc.Layer.extend({
         var tempCard = new HSTHCard(105);
 
         var cardWidth = (cc.winSize.width*0.7 - tempCard.width)/(cardData.length - 1);
-        cardWidth = Math.min(cardWidth,tempCard.width/3*2);
+        cardWidth = Math.min(cardWidth,tempCard.width/3*2) - 6;
         var allWidth = cardWidth*(cardData.length - 1) + tempCard.width;
         var startX = cc.winSize.width/2 -allWidth/2;
         var idxCol = 0;
@@ -368,12 +368,12 @@ var HSTHCardLayer = cc.Layer.extend({
         for(var k = 0;k<cardData.length;++k){
             var arr = cardData[k].ids;
 
-            var offSetY = 30;
+            var offSetY = 20;
 
             for(var i = 0;i<arr.length;++i){
                 var card = new HSTHCard(arr[i],false,2);
                 card.setAnchorPoint(0.5,0);
-                card.setScale(0.88);
+                card.setScaleY(1.1);
                 card.col = k;
                 card.row = arr.length-1-i;
 
