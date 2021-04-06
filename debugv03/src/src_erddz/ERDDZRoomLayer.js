@@ -675,6 +675,23 @@ var ERDDZRoomLayer = ERDDZBaseRoomLayer.extend({
             }
         }
 
+        if(!isTongHua && wangNum == 0 && !isEqual){//重新检测顺子
+            var shunziList = ["15,4,3","15,14,3"];//1,2,3是顺子   2,3,4是顺子
+            var notShunziList = ["15,14,13"];//K,A,2不算顺子
+            var localArr = [];
+            for(var i = 0;i<ids.length;++i){
+                var cfg = ERDDZCardID[ids[i]];
+                localArr.push(cfg.v);
+            }
+            var localArrStr = localArr.toString();
+            if(shunziList.indexOf(localArrStr) != -1){
+                isShunZi = true;
+            }
+            if(notShunziList.indexOf(localArrStr) != -1){
+                isShunZi = false;
+            }
+        }
+
         var str = "";
         if(wangNum == 1){
             str = "单王2倍";

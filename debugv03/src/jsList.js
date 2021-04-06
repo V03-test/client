@@ -218,6 +218,7 @@ var jsList = [
     "src/popup/bjdmj/DownLoadTipPop.js",
     "src/popup/HomeTipPop.js",
     "src/popup/KefunewPop.js",
+    "src/popup/xuanshangPop.js",
     "src/src_wzq/WZQCreateRoom.js",
 
     "src/MainScene.js",

@@ -42,7 +42,7 @@ var PyqSetHuChiLayer = cc.Layer.extend({
         btn_mutex.setPosition(bg.width - 350,105);
         btn_mutex.addTouchEventListener(this.onClickBtn,this);
         bg.addChild(btn_mutex);
-        btn_mutex.visible = ClickClubModel.isClubCreater();
+        btn_mutex.visible = false;//ClickClubModel.isClubCreater();
 
         var bg2 = new cc.Scale9Sprite("res/res_ui/qyq/common/commonKuang/xinxiTiao.png");
         //bg2.setContentSize(935,354);

@@ -193,6 +193,9 @@ var BjdHomeLayer = BaseLayer.extend({
         //     more_bg.visible = !more_bg.isVisible();
         // });
 
+         var btn_xssm = this.getWidget("btn_xssm");
+         UITools.addClickEvent(btn_xssm , this , this.showXuanShangPop);
+
         // this.ScrollView_hall = this.getWidget("ScrollView");
         // this.ScrollView_hall.setBounceEnabled(false);
         // this.ScrollView_hall.setScrollBarEnabled(false);
@@ -235,6 +238,27 @@ var BjdHomeLayer = BaseLayer.extend({
         this.addGoldenEggs();
 
         this.addHallAni();
+
+        this.checkXuanShang();
+    },
+
+    showXuanShangPop:function(){
+        var pop = new XuanshangPop(0);
+        PopupManager.addPopup(pop,5);
+    },
+
+    checkXuanShang:function(){
+        var time = new Date();
+        var year = time.getFullYear();
+        var month = time.getMonth() + 1;
+        var date = time.getDate();
+
+        var str = ""+year+month+date;
+
+        var item = cc.sys.localStorage.getItem("003_hall_showXuanShang_first");
+        if(!item || (item && str != item)){
+            cc.sys.localStorage.setItem("003_hall_showXuanShang_first",str);
+        }
     },
 
     addHallAni:function(){
