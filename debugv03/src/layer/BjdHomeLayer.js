@@ -258,6 +258,7 @@ var BjdHomeLayer = BaseLayer.extend({
         var item = cc.sys.localStorage.getItem("003_hall_showXuanShang_first");
         if(!item || (item && str != item)){
             cc.sys.localStorage.setItem("003_hall_showXuanShang_first",str);
+            this.showXuanShangPop();
         }
     },
 
