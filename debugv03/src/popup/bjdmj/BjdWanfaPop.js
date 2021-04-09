@@ -1824,7 +1824,7 @@ var BjdWanfaConfig = {
         "手中有王霸的玩家，只能自摸，不能接炮也不能打出。如果黄庄了，则手中有王霸的玩家需要赔付没有王霸的玩家（王多赔差值给王少的），" +
         "一张王霸赔付5倍基础分，两张则是10分，3张15，四张20.",
 
-        "落地扫闲家为14张、庄家15张",
+        "江永十五张闲家为14张、庄家15张",
 
         "5门子，满6胡息即可胡牌，每增加1醒加1胡息",
 
@@ -1853,14 +1853,14 @@ var BjdWanfaConfig = {
         "普通一句话：234、456这种，算牌型但无胡息\n" +
         "大小搭：大大小或者小小大,例如四四肆,肆肆四这种,无胡息",
 
-        "落地扫可设置2、3、4人玩",
+        "江永十五张可设置2、3、4人玩",
 
         "    天胡：庄家起手胡牌，2番(天胡按单个最大牌型计算，不可与王钓王闯王炸叠加)\n" +
         "    地胡： 庄家打第一张  闲家就胡牌了,2番\n" +
-        "    红胡：胡牌时，玩家手里红字为7-9张,2番\n" +
-        "    一点朱：胡牌时，玩家手里只有一个红字,3番\n" +
-        "    全红：胡牌时，玩家手里红牌大于9张,4番\n" +
-        "    黑胡：胡牌时，玩家手里没红字,4番\n" +
+        //"    红胡：胡牌时，玩家手里红字为7-9张,2番\n" +
+        //"    一点朱：胡牌时，玩家手里只有一个红字,3番\n" +
+        //"    全红：胡牌时，玩家手里红牌大于9张,4番\n" +
+        //"    黑胡：胡牌时，玩家手里没红字,4番\n" +
         "    自摸：胡牌时，胡的牌是自己从牌堆摸上来的,2番\n" +
         "    王钓：在手里有王霸的情况下，必须跑了一条龙或者除了一条龙的其它牌都组成了一处牌后，手里没成牌型的牌只剩一张王霸落单，才能王钓,4番\n" +
         "    王钓王：王钓的情况下，刚好又摸到一张王霸的情况下胡牌,8番\n" +
@@ -1873,8 +1873,8 @@ var BjdWanfaConfig = {
         "    600封顶：玩家自摸，输家最多输600.玩家放炮，放炮的玩家最多输600",
 
         "    翻醒：胡牌后，再摸一张。自己所有的牌里面有几张摸出来的牌就加几醒。胡海底是胡牌即为醒牌。\n" +
-        "    跟醒：胡牌后，自己所有的牌里面有几张胡的那张牌就多加几醒。\n" +
-        "    双醒：醒牌数量翻倍"
+        "    跟醒：胡牌后，自己所有的牌里面有几张胡的那张牌就多加几醒。\n"
+        //"    双醒：醒牌数量翻倍"
     ]},
     YZCHZ:{titleStrArr:["一、牌数","二、王霸","三、抓牌","四、胡牌","五、打牌名词","六、牌型","七、人数","八、基本玩法","九、醒"],infoStrArr:[
         "小一到十,大壹到拾各4张，共80张。另外还有王牌，王牌可以替代任何牌，王牌数量视具体勾选玩法而定。",
@@ -3955,13 +3955,13 @@ var BjdWanfaPop = BasePopup.extend({
 
         UITools.addClickEvent(btn_item,this,this.onClickItem);
 
-        var itemArr = ["HZMJ","ZZMJ","CSMJ","SYMJ","AHMJ","YJMJ","TJMJ","YYMJ","YZWDMJ","NYMJ","DZMJ","QZMJ",
+        var itemArr = ["HZMJ","ZZMJ","CSMJ","SYMJ","AHMJ","YJMJ","TJMJ","YYMJ","YZWDMJ","NYMJ","QZMJ",
 
-            "PDK","PDK11","ERDDZ","DTZ","XTSDH","DT","QF","YYBS","CDTLJ","HSTH","XTBP",
+            "PDK","PDK11","ERDDZ","DTZ","XTSDH","DT","YYBS","CDTLJ","HSTH","XTBP",
 
             "SYBP","SYZP","DYBP","AHPHZ","YJGHZ","NXGHZ","YYWHZ",
             "SMPHZ","CDPHZ","HSPHZ","HYLHQ","HYSHK","LYZP",
-            "CZZP","LDS","YZCHZ","LSZP","YZLC","JHSWZ","LDFPF","XTPHZ","ZZPH","GLZP","HHHGW"];
+            "CZZP","LDS","YZCHZ","YZLC","JHSWZ","LDFPF","XTPHZ","ZZPH","GLZP","HHHGW"];
 
         var defautSelect = null;
         var selectIdx = 0;
@@ -3976,11 +3976,11 @@ var BjdWanfaPop = BasePopup.extend({
                 item = btn_item.clone();
                 itemScroll.addChild(item);
             }
-            item.y = itemContentH - (btn_item.height + 10)*(i+0.5) - 5;
-            item.loadTextureNormal("res/res_ui/qyq/common/commonButton/anniu2.png",ccui.Widget.LOCAL_TEXTURE);
-            var btnStr = item.getChildByName("Label_type")
-            btnStr.setString(BjdWanfaNameConfig[itemArr[i]])
-            btnStr.setColor(cc.color("#6c492a"))
+            item.y = itemContentH - (btn_item.height)*(i+0.5) - 5;
+            item.loadTextureNormal("res/res_ui/common/cmanniu1.png",ccui.Widget.LOCAL_TEXTURE);
+            var btnStr = item.getChildByName("Label_type");
+            btnStr.setString(BjdWanfaNameConfig[itemArr[i]]);
+            btnStr.setColor(cc.color("#d2e6f6"));
             item.tempData = itemArr[i];
             this.btnArr.push(item);
 
@@ -4005,12 +4005,12 @@ var BjdWanfaPop = BasePopup.extend({
 
         if(this.curBtn == btn)return;
 
-        btn.loadTextureNormal("res/res_ui/qyq/common/commonButton/anniu1.png",ccui.Widget.LOCAL_TEXTURE);
-        btn.getChildByName("Label_type").setColor(cc.color("#ffffff"))
+        btn.loadTextureNormal("res/res_ui/common/cmanniu.png",ccui.Widget.LOCAL_TEXTURE);
+        btn.getChildByName("Label_type").setColor(cc.color("#ffffff"));
 
         if(this.curBtn){
-            this.curBtn.loadTextureNormal("res/res_ui/qyq/common/commonButton/anniu2.png",ccui.Widget.LOCAL_TEXTURE);
-            this.curBtn.getChildByName("Label_type").setColor(cc.color("#6c492a"))
+            this.curBtn.loadTextureNormal("res/res_ui/common/cmanniu1.png",ccui.Widget.LOCAL_TEXTURE);
+            this.curBtn.getChildByName("Label_type").setColor(cc.color("#d2e6f6"));
         }
 
         this.curBtn = btn;
