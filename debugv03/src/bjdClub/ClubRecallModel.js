@@ -2345,6 +2345,8 @@ var ClubRecallDetailModel = {
         if(wanfaList[5] == 1)infoArr.push("翻醒");
         else infoArr.push("跟醒");
 
+        if(wanfaList[17] == 1)infoArr.push("红黑点");
+
         if(wanfaList[8] == 2)infoArr.push("600封顶");
         else if(wanfaList[8] == 1)infoArr.push("300封顶");
         else infoArr.push("不封顶");

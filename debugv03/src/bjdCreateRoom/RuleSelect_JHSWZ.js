@@ -4,9 +4,9 @@
 var RuleSelect_JHSWZ = RuleSelectBase.extend({
     ctor:function(gametype,createlayer){
         this._super(gametype,createlayer);
-        this.createNumBox(7);
-        this.createChangeScoreBox(9);//创建低于xx分加xx分
-        this.getItemByIdx(9,0).itemBtn.setContentSize(80,40);
+        this.createNumBox(8);
+        this.createChangeScoreBox(10);//创建低于xx分加xx分
+        this.getItemByIdx(10,0).itemBtn.setContentSize(80,40);
         this.updateItemShow();
 
     },
@@ -18,14 +18,15 @@ var RuleSelect_JHSWZ = RuleSelectBase.extend({
             {title:"人数",type:1,content:["4人","3人","2人"]},//2
             {title:"封顶",type:1,content:["不封顶","300封顶","600封顶"]},//3
             {title:"醒",type:1,content:["跟醒","翻醒"],col:3},//4
-            {title:"托管",type:1,content:["不托管","1分钟","2分钟","3分钟","5分钟"],col:3},//5
-            {title:"托管",type:1,content:["单局托管","整局托管","三局托管"],col:3},//6
-            {title:"加倍",type:1,content:["不加倍","加倍"]},//7
-            {title:"倍数",type:1,content:["翻2倍","翻3倍","翻4倍"]},//8
-            {title:"加分",type:2,content:["低于"]},//9
+            {title:"玩法",type:2,content:["红黑点"],col:3},//5
+            {title:"托管",type:1,content:["不托管","1分钟","2分钟","3分钟","5分钟"],col:3},//6
+            {title:"托管",type:1,content:["单局托管","整局托管","三局托管"],col:3},//7
+            {title:"加倍",type:1,content:["不加倍","加倍"]},//8
+            {title:"倍数",type:1,content:["翻2倍","翻3倍","翻4倍"]},//9
+            {title:"加分",type:2,content:["低于"]},//10
         ];
 
-        this.defaultConfig = [[1],[1],[0],[0],[0],[0],[0],[0],[0],[]];
+        this.defaultConfig = [[1],[1],[0],[0],[0],[],[0],[0],[0],[0],[]];
         this.jhswzDScore = parseInt(cc.sys.localStorage.getItem("JHSWZ_diScore")) || 10;
         this.addScore = parseInt(cc.sys.localStorage.getItem("JHSWZ_addBoxScore")) || 10;/** 加xx分 **/
         this.allowScore = parseInt(cc.sys.localStorage.getItem("JHSWZ_allowBoxScore")) || 10;/** 低于xx分 **/
@@ -86,41 +87,41 @@ var RuleSelect_JHSWZ = RuleSelectBase.extend({
     },
 
     updateItemShow:function(){
-        this.getLayoutByIdx(7).visible = false;
         this.getLayoutByIdx(8).visible = false;
+        this.getLayoutByIdx(9).visible = false;
 
         var is2ren = false;
         if(this.getItemByIdx(2,2).isSelected()){
-            this.layoutArr[7].setVisible(true);
-            if(this.getItemByIdx(7,0).isSelected()){
-                this.layoutArr[8].setVisible(false);
+            this.layoutArr[8].setVisible(true);
+            if(this.getItemByIdx(8,0).isSelected()){
+                this.layoutArr[9].setVisible(false);
                 this.numBox.visible=false;
             }else{
-                this.layoutArr[8].setVisible(true);
+                this.layoutArr[9].setVisible(true);
                 this.numBox.visible=true;
 
             }
             is2ren = true;
-            this.layoutArr[9].setVisible(true);
+            this.layoutArr[10].setVisible(true);
             this.addNumBox.itemBox.visible = true;
             this.allowNumBox.itemBox.visible = true;
-            var isOpen = this.getItemByIdx(9,0).isSelected();
+            var isOpen = this.getItemByIdx(10,0).isSelected();
             this.addNumBox.setTouchEnable(isOpen);
             this.allowNumBox.setTouchEnable(isOpen);
         }else{
-            this.layoutArr[7].setVisible(false);
             this.layoutArr[8].setVisible(false);
-            this.numBox.visible=false;
             this.layoutArr[9].setVisible(false);
+            this.numBox.visible=false;
+            this.layoutArr[10].setVisible(false);
             this.addNumBox.itemBox.visible = false;
             this.allowNumBox.itemBox.visible = false;
         }
 
-        var istg = !this.getItemByIdx(5,0).isSelected();
-        this.layoutArr[6].setVisible(istg);
-        this.getItemByIdx(6,0).setItemState(istg);
-        this.getItemByIdx(6,1).setItemState(istg);
-        this.getItemByIdx(6,2).setItemState(istg);
+        var istg = !this.getItemByIdx(6,0).isSelected();
+        this.layoutArr[7].setVisible(istg);
+        this.getItemByIdx(7,0).setItemState(istg);
+        this.getItemByIdx(7,1).setItemState(istg);
+        this.getItemByIdx(7,2).setItemState(istg);
     },
 
     //row 第几列
@@ -285,39 +286,41 @@ var RuleSelect_JHSWZ = RuleSelectBase.extend({
             }
         }
 
+        var hongheidian = this.getItemByIdx(5,0).isSelected() ? 1 : 0;
+
         var autoPlay = 0;
         for(var i = 0;i<4;++i){
-            if(this.getItemByIdx(5,i).isSelected()){
+            if(this.getItemByIdx(6,i).isSelected()){
                 autoPlay = i*60;
                 break;
             }
         }
-        if(this.getItemByIdx(5,4).isSelected()){
+        if(this.getItemByIdx(6,4).isSelected()){
             autoPlay = 300;
         }
 
         var isDouble = 0;
-        if(this.getItemByIdx(7,1).isSelected())isDouble = 1;
+        if(this.getItemByIdx(8,1).isSelected())isDouble = 1;
 
         var dScore = this.jhswzDScore;
 
 
         var doubleNum = 2;
         for(var i = 0;i<3;++i){
-            if(this.getItemByIdx(8,i).isSelected()){
+            if(this.getItemByIdx(9,i).isSelected()){
                 doubleNum = 2 + i;
             }
         }
         var djtg = 2;
-        if (this.getItemByIdx(6,0).isSelected()){
+        if (this.getItemByIdx(7,0).isSelected()){
             djtg = 1;
-        }else if(this.getItemByIdx(6,2).isSelected()){
+        }else if(this.getItemByIdx(7,2).isSelected()){
             djtg = 3;
         }
 
         var morefen = 0;
         var allowScore= 0;
-        if(this.getItemByIdx(9,0).isSelected()){//如果勾选
+        if(this.getItemByIdx(10,0).isSelected()){//如果勾选
             morefen = this.addNumBox.localScore;
             allowScore = this.allowNumBox.localScore;
         }
@@ -342,6 +345,7 @@ var RuleSelect_JHSWZ = RuleSelectBase.extend({
             morefen,//14 "加xx分"
             allowScore,//15 "低于xx分"
             sjsjz,//16 首局随机庄
+            hongheidian//17 红黑点
         ];
 
         return data;
@@ -380,7 +384,7 @@ var RuleSelect_JHSWZ = RuleSelectBase.extend({
     //俱乐部创建玩法包厢,读取配置选项
     readSelectData:function(params){
         //cc.log("===========readSelectData============" + params);
-        var defaultConfig = [[1],[1],[0],[0],[0],[0],[0],[0],[0],[]];
+        var defaultConfig = [[1],[1],[0],[0],[0],[],[0],[0],[0],[0],[]];
 
         defaultConfig[0][0] = params[0] == 10?3:params[0] == 8?2:params[0]==6?1:0;//局数
         defaultConfig[1][0] = params[2] == 3||params[2] == 4?0:params[2] - 1;//支付方式
@@ -388,12 +392,15 @@ var RuleSelect_JHSWZ = RuleSelectBase.extend({
         defaultConfig[3][0] = params[8];//封顶
         defaultConfig[4][0] = params[5];//醒
 
-        defaultConfig[5][0] = params[9] == 300?4:params[9]/60;//托管
-        defaultConfig[6][0] = parseInt(params[10]) - 1 >= 0?parseInt(params[10])-1:1;//单局托管
-        defaultConfig[7][0] = params[11] == 1 ? 1 :0;//是否加倍
-        defaultConfig[8][0] = params[13] == 3 ? 1 :params[13]==4?2:0;//翻倍倍数
 
-        if(params[14] && parseInt(params[14]) > 0)defaultConfig[9].push(0);
+        defaultConfig[6][0] = params[9] == 300?4:params[9]/60;//托管
+        defaultConfig[7][0] = parseInt(params[10]) - 1 >= 0?parseInt(params[10])-1:1;//单局托管
+        defaultConfig[8][0] = params[11] == 1 ? 1 :0;//是否加倍
+        defaultConfig[9][0] = params[13] == 3 ? 1 :params[13]==4?2:0;//翻倍倍数
+
+        if(params[17] == 1)defaultConfig[5].push(0);//红黑点
+
+        if(params[14] && parseInt(params[14]) > 0)defaultConfig[10].push(0);
         this.jhswzDScore = params[9]?parseInt(params[9]):10;//翻倍分
 
         this.addScore = parseInt(params[14])||10;
