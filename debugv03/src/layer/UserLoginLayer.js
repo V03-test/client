@@ -32,6 +32,7 @@ var UserLoginLayer = BasePopup.extend({
 		// login_btn.x = this.loginMc.width/2;
 		var btnRegister= ccui.helper.seekWidgetByName(this.root, "Button_register");
 		UITools.addClickEvent(btnRegister,this,this.regisger);
+		btnRegister.visible = !!SyConfig.DEBUG;
 		var btnServer= ccui.helper.seekWidgetByName(this.root, "Button_server");
 		UITools.addClickEvent(btnServer,this,this.server);
 		var u=cc.sys.localStorage.getItem("login_u");
