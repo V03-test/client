@@ -453,7 +453,9 @@ var AHMahjong = ccui.Widget.extend({
             this.mjTouchMoved = false;
         }else if(type == ccui.Widget.TOUCH_MOVED){
             var touchPoint = this.getTouchMovePosition();
-            var targetX = touchPoint.x-this.width/2 - (cc.winSize.width-SyConfig.DESIGN_WIDTH)/2;
+            var size = cc.director.getWinSize();
+            var tempSize = (size.width - SyConfig.DESIGN_WIDTH)/2;
+            var targetX = touchPoint.x-this.width/2 - (cc.winSize.width-SyConfig.DESIGN_WIDTH)/2 - tempSize;
             var targetY = touchPoint.y-this.height/2;
             if(this.mjTouchMoved || Math.abs(targetX-this.initX)>=40 || (targetY-this.initY)>=40){
                 this.mjTouchMoved = true;
