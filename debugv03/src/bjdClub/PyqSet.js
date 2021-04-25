@@ -193,7 +193,7 @@ var PyqSet = BasePopup.extend({
         if(ClickClubModel.isClubCreaterOrLeader()){
             btn.visible = true;
         }else{
-            btn.visible = true;
+            btn.visible = false;
         }
 
         this.updateBtnState(0);
