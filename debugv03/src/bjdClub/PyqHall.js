@@ -168,7 +168,188 @@ var PyqHall = BasePopup.extend({
         this.room_bag_scroll.scrollToPercentVertical(percent,0.3,false);
     },
 
+    showLXClick:function(){/***显示类型**/
+        var isBool = this.Image_selectType.visible;
+        this.Image_selectType.visible = !isBool;
+        isBool = this.Image_selectType.visible;
+        if(isBool){
+            this.showWanfaName();
+        }
+    },
+
+    saveLXClick:function(){/***保存类型**/
+        if(!this.isShowLX){
+            this.filtModeId = 0;
+            this.updateRoomsData();
+            this.setLXSelectPng(true);
+            this.scheduleOnce(function(){
+                this.showLXClick();
+                this.Image_selectType.visible = true;
+            }.bind(this),0.1)
+        }
+        if(this.localWanfaID == 0){
+            this.updateTableList(this.tablesData);
+        }else{
+            this.lxArrObject = this.lxArrObject || {};
+            var arr = this.lxArrObject[this.localWanfaID] || [];
+            this.updateTableList(arr);
+        }
+        this.isShowLX = true;
+    },
+
+    setLXSelectPng:function(isBool){
+        if(isBool){
+            this.Button_showLX.loadTextureNormal("res/res_ui/qyq/hall/selectType/2.png");
+            this.Button_showLX.loadTexturePressed("res/res_ui/qyq/hall/selectType/2.png");
+            this.btn_show_all_table.loadTextureNormal("res/res_ui/qyq/hall/selectType/22.png");
+            this.btn_show_all_table.loadTexturePressed("res/res_ui/qyq/hall/selectType/22.png");
+        }else{
+            this.Button_showLX.loadTextureNormal("res/res_ui/qyq/hall/selectType/1.png");
+            this.Button_showLX.loadTexturePressed("res/res_ui/qyq/hall/selectType/1.png");
+            this.btn_show_all_table.loadTextureNormal("res/res_ui/qyq/hall/selectType/11.png");
+            this.btn_show_all_table.loadTexturePressed("res/res_ui/qyq/hall/selectType/11.png");
+        }
+    },
+
+    saveWFClick:function(){
+        if(this.isShowLX){
+            this.Image_selectType.visible = false;
+            this.setLXSelectPng(false);
+            this.updateTableList(this.tablesData);
+        }
+        this.isShowLX = false;
+    },
+
+    wfItemClick:function(btn){
+        if(this.lastLXBtn == btn){
+            return;
+        }
+        this.localWanfaID = btn.temp;
+        btn.opacity = 255;
+
+        var widget = btn.parent;
+        if(widget){
+            ccui.helper.seekWidgetByName(widget,"Label_name").color = cc.color(84,27,1);
+        }
+
+        if(this.lastLXBtn){
+            this.lastLXBtn.opacity = 0;
+            widget = this.lastLXBtn.parent;
+            if(widget){
+                ccui.helper.seekWidgetByName(widget,"Label_name").color = cc.color(255,255,255);
+            }
+        }
+
+        this.lastLXBtn = btn;
+
+        //cc.sys.localStorage.setItem("Button_selectLX_localWanfaID",this.localWanfaID);
+
+        if(this.isShowLX){
+            this.saveLXClick();
+        }
+    },
+
+    showWanfaName:function(){
+        var localData = this.tablesData || [];
+        var lxArrObject = {};
+        var nameArr = {};
+
+        for(var i = 0;i < localData.length;++i){
+            var itemData = localData[i];
+            if(itemData){
+                var localType = itemData.playType;
+                if(ClubRecallDetailModel.isPDKWanfa(localType)){
+                    localType = 15;
+                }else if(ClubRecallDetailModel.isDTZWanfa(localType)){
+                    localType = 113;
+                }
+
+                if(!lxArrObject[localType]){
+                    lxArrObject[localType] = [];
+                    lxArrObject[localType].push(itemData);
+                }else{
+                    lxArrObject[localType].push(itemData);
+                }
+
+                if(!nameArr[localType]){
+                    var localName = ClubRecallDetailModel.getGameStr(localType);
+                    nameArr[localType] = [];
+                    nameArr[localType] = localName;
+                }
+            }
+        }
+
+        if(this.nameArr && this.nameArr.toString() == nameArr.toString()){
+            //cc.log(" 相同的nameStr 不刷新！！！ ");
+        }else{
+            this.nameArr = nameArr;
+            this.initListView_list(nameArr);
+        }
+        this.lxArrObject = lxArrObject;
+    },
+
+    initListView_list:function(nameArr){
+        this.ListView_list.removeAllChildren();
+        nameArr = nameArr || {};
+
+        nameArr[0] = "全部";
+
+        var itemNode = this.Image_itemLX;
+
+        var i = 0;
+        var maxLength = Object.keys(nameArr).length;
+        for(var index in nameArr){
+            var item = itemNode.clone();
+            this.initItemData(item,nameArr[index],index,i < maxLength - 1);
+            this.ListView_list.pushBackCustomItem(item);
+            item.visible = true;
+            ++i;
+        }
+    },
+
+    initItemData:function(widget,name,index,notShow){
+        var clickNode = ccui.helper.seekWidgetByName(widget,"Button_click");
+        clickNode.temp = index;
+        UITools.addClickEvent(clickNode,this,this.wfItemClick);
+
+        var Label_name = ccui.helper.seekWidgetByName(widget,"Label_name");
+        Label_name.setString(""+name);
+
+        var Image_jg = ccui.helper.seekWidgetByName(widget,"Image_jg");
+        Image_jg.visible = !!notShow;
+
+        clickNode.opacity = index == this.localWanfaID ? 255 : 0;
+        Label_name.color = index == this.localWanfaID ? cc.color(84,27,1) : cc.color(255,255,255);
+
+        if(this.localWanfaID == index){
+            this.lastLXBtn = clickNode;
+        }
+    },
+
     selfRender:function(){
+        /** 新增玩法类型 **/
+        this.Image_selectType = this.getWidget("Image_selectType");
+        this.Image_selectType.visible = false;
+
+        this.ListView_list = ccui.helper.seekWidgetByName(this.Image_selectType,"ListView_list");
+        this.Image_itemLX = ccui.helper.seekWidgetByName(this.Image_selectType,"Image_item");
+
+        var localWanfaID = 0;//cc.sys.localStorage.getItem("Button_selectLX_localWanfaID") || 0;
+        this.localWanfaID = parseInt(localWanfaID);//0表示所有，玩法id
+        this.isShowLX = false;
+
+        this.Button_selectLX = this.getWidget("Button_selectLX");
+        UITools.addClickEvent(this.Button_selectLX,this,this.saveLXClick);
+
+        this.Button_showLX = this.getWidget("Button_showLX");
+        UITools.addClickEvent(this.Button_showLX,this,this.showLXClick);
+
+        var btn_show_all_table = this.getWidget("btn_show_all_table");
+        var tempWFClick = ccui.helper.seekWidgetByName(btn_show_all_table,"Button_selectWf");
+        UITools.addClickEvent(tempWFClick,this,this.saveWFClick);
+
+
+
         this.tableScroll = this.getWidget("table_scroll");
         this.tableScroll.setClippingType(ccui.Layout.CLIPPING_SCISSOR);
         //this.tableScroll.setInertiaScrollEnabled(false);
@@ -320,10 +501,10 @@ var PyqHall = BasePopup.extend({
 
         this.roomsNumLabel = ccui.helper.seekWidgetByName(this.btn_show_all_table,"num_label");
 
-        this.paomadeng = new PaoMaDeng();
+        this.paomadeng = new PaoMaDeng("res/res_ui/qyq/hall/selectType/gonggaoDi.png");
         this.root.addChild(this.paomadeng,10);
         this.paomadeng.anchorX=this.paomadeng.anchorY=0;
-        this.paomadeng.updatePosition(10,900);
+        this.paomadeng.updatePosition(-600,905);
 
         this.addEventListener();
 
@@ -968,7 +1149,14 @@ var PyqHall = BasePopup.extend({
         //}
         this.tablesData = msg.tables || [];
 
-        this.updateTableList(this.tablesData);
+        if(this.isShowLX && this.localWanfaID != 0){
+            this.showWanfaName();
+            this.lxArrObject = this.lxArrObject || {};
+            var arr = this.lxArrObject[this.localWanfaID] || [];
+            this.updateTableList(arr);
+        }else{
+            this.updateTableList(this.tablesData);
+        }
 
         this.isGetTableData = true;
 
@@ -1488,7 +1676,10 @@ var PyqHall = BasePopup.extend({
         if(sender.filterData == this.filtModeId){
             return;
         }
-        this.filtModeId = sender.filterData;
+
+        if(!this.isShowLX){
+            this.filtModeId = sender.filterData;
+        }
 
         var txt_label = this.btn_show_all_table.getChildByName("txt_label");
         var num_label = this.btn_show_all_table.getChildByName("num_label");
@@ -1497,7 +1688,7 @@ var PyqHall = BasePopup.extend({
         num_label.setString("(" + ccui.helper.seekWidgetByName(sender,"label_room_num").getString() + ")");
 
         for(var i = 0;i<this.filterItemArr.length;++i){
-            if(this.filtModeId == this.filterItemArr[i].filterData){
+            if(sender.filterData == this.filterItemArr[i].filterData){
                 this.filterItemArr[i].setColor(cc.color(255,181,94));
             }else{
                 this.filterItemArr[i].setColor(cc.color.WHITE);
@@ -1515,6 +1706,10 @@ var PyqHall = BasePopup.extend({
         }
         item.isHide = !item.isHide;
         item.loadTextures(img,img,"");
+
+        if(this.isShowLX){
+            return;
+        }
 
         ClickClubModel.setBagHideData(item.filterData,item.isHide);
 
@@ -1708,10 +1903,10 @@ var PyqHall = BasePopup.extend({
         var showData = [];
         for(var i = 0;i<data.length;++i){
             var isShow = true;
-            if(this.isHideStartTable){//是否隐藏开始桌
+            if(!this.isShowLX && this.isHideStartTable){//是否隐藏开始桌
                 isShow = data[i].notStart;
             }
-            if(ClickClubModel.getBagIsHide(data[i].configId)){
+            if(!this.isShowLX && ClickClubModel.getBagIsHide(data[i].configId)){
                 isShow = false;
             }
             if(isShow){
