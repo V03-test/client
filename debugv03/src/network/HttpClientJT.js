@@ -40,7 +40,7 @@ var HttpUrlRequestJT = cc.Class.extend({
                 this.tempBody += "&"+paramTempStr;
             }
         }
-        var pingKyeBody = this._body+"&key="+"xw2qRjtbesoMPcd8";
+        var pingKyeBody = this._body+"&key="+SdkUtil.ENCRYP_KEY_HTTP;
         var sign = md5(pingKyeBody);
         sign = sign.toUpperCase();
         var signParms = "sign="+sign;
@@ -141,7 +141,7 @@ var HttpUrlRequestJT = cc.Class.extend({
         var tempBodyAes = AESUtil.encryptHttp(this.tempBodyAes);
         var tempBodyAes1 = AESUtil.decryptHttp(tempBodyAes);
         cc.log("tempBodyAes==",tempBodyAes,JSON.stringify(tempBodyAes1));
-        tempBodyAes = encodeURIComponent(tempBodyAes + "KbzG2kNBuQe8RrMW");
+        tempBodyAes = encodeURIComponent(tempBodyAes + SdkUtil.ENCRYP_KEY_URL);
         // cc.log("tempBodyAes==",tempBodyAes,JSON.stringify(tempBodyAes1));
         var self = this;
         var onerror = function(){

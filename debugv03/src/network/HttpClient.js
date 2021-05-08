@@ -26,7 +26,7 @@ var HttpUrlRequest = cc.Class.extend({
             data.userId = PlayerModel.userId;
             data.sessCode = PlayerModel.sessCode;
             data.sytime = new Date().getTime();
-            var sign = data.sytime+"xw2qRjtbesoMPcd8";
+            var sign = data.sytime + SdkUtil.ENCRYP_KEY_HTTP;
             var md5str = md5(sign);
             data.sysign = md5str;
         }
@@ -116,7 +116,7 @@ var HttpUrlRequest = cc.Class.extend({
 
         var tempBodyAes = AESUtil.encryptHttp(this.tempBodyAes);
         // var tempBodyAes1 = AESUtil.decryptHttp(tempBodyAes);
-        tempBodyAes = encodeURIComponent(tempBodyAes + "KbzG2kNBuQe8RrMW");
+        tempBodyAes = encodeURIComponent(tempBodyAes + SdkUtil.ENCRYP_KEY_URL);
         var self = this;
         var onerror = function(){
             xhr.abort();
@@ -250,7 +250,7 @@ var Network = {
         // var url = csvhelper.strFormat(ServerUtil.defaultLoginUrl,"user","load");
         var userId = PlayerModel.userId;
         var now = new Date().getTime();
-        var sign = userId+""+now+"xw2qRjtbesoMPcd8";
+        var sign = userId+""+now + SdkUtil.ENCRYP_KEY_HTTP;
         var self = this;
         this.ipReqTimes += 1;
         Network.sypost(url,165,{userId:userId, t:now, sign:sign},function(data){
@@ -373,9 +373,8 @@ var Network = {
             }
         }
 
-        var _sign = md5(paramFinalStr + "&key=dKPVJ60PJS8mlONb");
+        var _sign = md5(paramFinalStr + "&key=" + SdkUtil.ENCRYP_KEY_AES);
 
-        cc.log("paramFinalStr==",paramFinalStr + "&key=dKPVJ60PJS8mlONb",_sign)
 
         data.sign = _sign;
         var _data = encodeURIComponent(AESUtil.encryptHttp(JSON.stringify(data)));

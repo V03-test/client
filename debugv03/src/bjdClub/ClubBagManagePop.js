@@ -147,8 +147,16 @@ var ClubBagCell = ccui.Widget.extend({
             groupState = 0;
             desc = "关闭入口，确定关闭吗？";
         }
+        if(this.root.closeTime){
+            var offTime = Date.now() - this.root.closeTime;
+            if(offTime < 3000){
+                FloatLabelUtil.comText("请不要点击过快！！！");
+               return;
+            }
+        }
         var self = this;
         AlertPop.show(desc,function() {
+            self.root.closeTime = Date.now();
             NetworkJT.loginReqNew(309, {
                 groupName: self.data.groupName, groupMode: 0,
                 keyId: self.keyID, groupId: ClickClubModel.clickClubId, groupState: groupState,

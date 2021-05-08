@@ -55,13 +55,13 @@ var AESUtil = {
     },
 
     encryptHttp:function(text) {
-        var  _text  = this.encryptCBC(text,"dKPVJ60PJS8mlONb");
+        var  _text  = this.encryptCBC(text,SdkUtil.ENCRYP_KEY_AES);
         return _text;
     },
 
 
     decryptHttp:function(cipherText) {
-        var  _text  = this.decryptCBC(cipherText,"dKPVJ60PJS8mlONb");
+        var  _text  = this.decryptCBC(cipherText,SdkUtil.ENCRYP_KEY_AES);
         return _text;
     }
 }

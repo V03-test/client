@@ -173,7 +173,8 @@ var PyqHall = BasePopup.extend({
         this.Image_selectType.visible = !isBool;
         isBool = this.Image_selectType.visible;
         if(isBool){
-            this.showWanfaName();
+            //this.showWanfaName(this.allBagsData);
+            this.showWanfaList();
         }
     },
 
@@ -182,10 +183,11 @@ var PyqHall = BasePopup.extend({
             this.filtModeId = 0;
             this.updateRoomsData();
             this.setLXSelectPng(true);
-            this.scheduleOnce(function(){
-                this.showLXClick();
+            //this.scheduleOnce(function(){
+            //    this.showLXClick();
                 this.Image_selectType.visible = true;
-            }.bind(this),0.1)
+                //this.showWanfaName(this.allBagsData);
+            //}.bind(this),0.1)
         }
         if(this.localWanfaID == 0){
             this.updateTableList(this.tablesData);
@@ -212,8 +214,8 @@ var PyqHall = BasePopup.extend({
     },
 
     saveWFClick:function(){
+        this.Image_selectType.visible = false;
         if(this.isShowLX){
-            this.Image_selectType.visible = false;
             this.setLXSelectPng(false);
             this.updateTableList(this.tablesData);
         }
@@ -249,10 +251,45 @@ var PyqHall = BasePopup.extend({
         }
     },
 
-    showWanfaName:function(){
+    showWanfaName:function(localData){
+        var localData = localData || [];
+        var nameArr = [];
+
+        for(var i = 0;i < localData.length;++i) {
+            if (localData[i]) {
+                var itemData = localData[i].config;
+                if(localData[i].groupState != 1){
+                    continue;
+                }
+                var msg = itemData.modeMsg.split(",");
+                var localType = msg[1];
+                if(ClubRecallDetailModel.isPDKWanfa(localType)){
+                    localType = 15;
+                }else if(ClubRecallDetailModel.isDTZWanfa(localType)){
+                    localType = 113;
+                }
+
+                var localName = ClubRecallDetailModel.getGameStr(localType);
+                var tempData = {};
+                tempData[localType] = localName;
+
+                if(nameArr.indexOf(tempData) == -1){
+                    nameArr.push(tempData);
+                }
+            }
+        }
+
+        if(this.nameArr && JSON.stringify(this.nameArr) == JSON.stringify(nameArr)){
+            //cc.log(" 相同的nameStr 不刷新！！！ ");
+        }else{
+            this.nameArr = nameArr;
+            this.initListView_list(nameArr);
+        }
+    },
+
+    showWanfaList:function(){
         var localData = this.tablesData || [];
         var lxArrObject = {};
-        var nameArr = {};
 
         for(var i = 0;i < localData.length;++i){
             var itemData = localData[i];
@@ -270,40 +307,25 @@ var PyqHall = BasePopup.extend({
                 }else{
                     lxArrObject[localType].push(itemData);
                 }
-
-                if(!nameArr[localType]){
-                    var localName = ClubRecallDetailModel.getGameStr(localType);
-                    nameArr[localType] = [];
-                    nameArr[localType] = localName;
-                }
             }
-        }
-
-        if(this.nameArr && this.nameArr.toString() == nameArr.toString()){
-            //cc.log(" 相同的nameStr 不刷新！！！ ");
-        }else{
-            this.nameArr = nameArr;
-            this.initListView_list(nameArr);
         }
         this.lxArrObject = lxArrObject;
     },
 
     initListView_list:function(nameArr){
         this.ListView_list.removeAllChildren();
-        nameArr = nameArr || {};
+        nameArr = nameArr || [];
 
-        nameArr[0] = "全部";
+        nameArr.unshift({0:"全部"});
 
         var itemNode = this.Image_itemLX;
 
-        var i = 0;
-        var maxLength = Object.keys(nameArr).length;
-        for(var index in nameArr){
+        for(var index = 0;index < nameArr.length;++index){
             var item = itemNode.clone();
-            this.initItemData(item,nameArr[index],index,i < maxLength - 1);
+            var objIndex = Object.keys(nameArr[index])[0];
+            this.initItemData(item,nameArr[index][objIndex],objIndex,i < nameArr.length - 1);
             this.ListView_list.pushBackCustomItem(item);
             item.visible = true;
-            ++i;
         }
     },
 
@@ -501,10 +523,10 @@ var PyqHall = BasePopup.extend({
 
         this.roomsNumLabel = ccui.helper.seekWidgetByName(this.btn_show_all_table,"num_label");
 
-        this.paomadeng = new PaoMaDeng("res/res_ui/qyq/hall/selectType/gonggaoDi.png");
+        this.paomadeng = new newPyqPaoMaDeng();
         this.root.addChild(this.paomadeng,10);
-        this.paomadeng.anchorX=this.paomadeng.anchorY=0;
-        this.paomadeng.updatePosition(-600,905);
+        //this.paomadeng.anchorX=this.paomadeng.anchorY=0;
+        //this.paomadeng.updatePosition(-600,905);
 
         this.addEventListener();
 
@@ -1150,7 +1172,7 @@ var PyqHall = BasePopup.extend({
         this.tablesData = msg.tables || [];
 
         if(this.isShowLX && this.localWanfaID != 0){
-            this.showWanfaName();
+            this.showWanfaList();
             this.lxArrObject = this.lxArrObject || {};
             var arr = this.lxArrObject[this.localWanfaID] || [];
             this.updateTableList(arr);
@@ -1235,6 +1257,10 @@ var PyqHall = BasePopup.extend({
                     this.zhuoBuCfgData[bag.config.keyId] = JSON.parse(bag.extMsg);
                 }
             }
+
+            //if(this.Image_selectType.visible){
+                this.showWanfaName(this.allBagsData);
+            //}
 
             this.updateRoomDelay = 0;
 
