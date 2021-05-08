@@ -273,7 +273,10 @@ var PyqHall = BasePopup.extend({
                 var tempData = {};
                 tempData[localType] = localName;
 
-                if(nameArr.indexOf(tempData) == -1){
+                //if(nameArr.indexOf(tempData) == -1){
+                //    nameArr.push(tempData);
+                //}
+                if(!this.checkSame(nameArr,tempData)){
                     nameArr.push(tempData);
                 }
             }
@@ -285,6 +288,18 @@ var PyqHall = BasePopup.extend({
             this.nameArr = nameArr;
             this.initListView_list(nameArr);
         }
+    },
+
+    checkSame:function(arr,temp){
+        arr = arr || [];
+        var isHas = false;
+        for(var i = 0;i < arr.length;++i){
+           if(arr[i] && temp && JSON.stringify(temp) == JSON.stringify(arr[i])){
+               isHas = true;
+               break;
+           }
+        }
+        return isHas;
     },
 
     showWanfaList:function(){
