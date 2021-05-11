@@ -294,7 +294,7 @@ var MjCreateRoom = BasePopup.extend({
                     goldMsg.push(credit);
                 }
             }
-        // cc.log("this.creditParms =",JSON.stringify(this.creditParms));
+         //cc.log("this.creditParms =",JSON.stringify(this.creditParms));
 
             //增加保留小数点两位
             if (this.creditParms){
@@ -304,8 +304,11 @@ var MjCreateRoom = BasePopup.extend({
                     if(this.clickCreditParms && i <= 3){
                         goldMsg.push(credit);
                     }
-                    if ((i >= 1 && i <= 4) || i == 7 || i == 9 || i == 12 || i == 13){
+                    if ((i >= 1 && i <= 4) || i == 7 || i == 9 || i == 12){
                         credit = Math.round(credit * 100);
+                    }
+                    if(i == 13){
+                        credit = credit == 0 ? 0 : 100;
                     }
                     creditParams.push(credit);
                 }
