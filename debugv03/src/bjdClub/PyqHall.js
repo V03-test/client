@@ -548,7 +548,7 @@ var PyqHall = BasePopup.extend({
         this.addTableNumSetItem();
 
         var Button_hbyfl = this.getWidget("Button_hbyfl");
-        Button_hbyfl.visible = false;
+        Button_hbyfl.visible = true;
         UITools.addClickEvent(Button_hbyfl,this,this.onClickHBYFL);
         this.Button_hbyfl = Button_hbyfl;
 
@@ -1543,7 +1543,7 @@ var PyqHall = BasePopup.extend({
         }
         this.btn_bufang.setVisible(ClickClubModel.isClubCreaterOrLeader());
 
-        this.Button_hbyfl.setVisible(ClickClubModel.isHasOpenHBY());//红包雨福利按钮
+        // this.Button_hbyfl.setVisible(ClickClubModel.isHasOpenHBY());//红包雨福利按钮
     },
 
     onUpdateCredit:function(event){

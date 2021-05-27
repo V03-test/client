@@ -15,6 +15,9 @@ var HBYFlytfPop = BasePopup.extend({
         var Button_xz = this.getWidget("Button_xz");//新增投放
         UITools.addClickEvent(Button_xz,this,this.onAdd);
 
+        Button_xz.setEnabled(ClickClubModel.isHasOpenHBY());
+        Button_xz.setBright(ClickClubModel.isHasOpenHBY());
+
         var Button_lsjl = this.getWidget("Button_lsjl");//历史记录
         UITools.addClickEvent(Button_lsjl,this,this.onShowHistory);
 
