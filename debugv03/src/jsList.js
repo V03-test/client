@@ -855,4 +855,12 @@ var jsList = [
 
     "src/zszs/ZszsLayer.js",
     "src/zszs/ZsjlLayer.js",
+
+    "src/hongbaoyu/hbyJlxqPop.js",
+    "src/hongbaoyu/hbyLsjlPop.js",
+    "src/hongbaoyu/hbyFlytfPop.js",
+    "src/hongbaoyu/hbyGetRedBagPop.js",
+    "src/hongbaoyu/hbyFljlPop.js",
+    "src/hongbaoyu/hbyTfbzPop.js",
+    "src/hongbaoyu/hbySelectTimePop.js",
 ]

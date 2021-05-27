@@ -86,6 +86,9 @@ var ClubStatisticsPop = BasePopup.extend({
         this.item_role = this.getWidget("Button_role");
         this.item_role.visible = false;
 
+        this.label_tfcScore = this.getWidget("label_tfcScore");
+        this.label_wtqScore = this.getWidget("label_wtqScore");
+
         ////排序
         var widgetSort = {
             "txt_sort1": 1, "txt_sort2": 2, "txt_sort3": 3, "txt_sort4": 4, "txt_sort5": 5,
@@ -138,6 +141,39 @@ var ClubStatisticsPop = BasePopup.extend({
         this.label_ffhj = this.getWidget("label_ffhj");
 
         this.getWidget("lbwinner").visible = ClickClubModel.isClubCreaterOrLeader();
+
+
+        this.label_tfcScore.visible = ClickClubModel.isClubCreater();
+        this.label_wtqScore.visible = ClickClubModel.isClubCreater();
+
+        this.getWidget("label_tfc").visible = ClickClubModel.isClubCreater();
+        this.getWidget("label_wtq").visible = ClickClubModel.isClubCreater();
+
+        if(ClickClubModel.isClubCreater()){
+            this.getFLYTongjiData();
+        }
+    },
+
+    getFLYTongjiData: function (){
+        var self = this;
+        var parma = {
+            groupId:ClickClubModel.clickClubId,
+            userId:PlayerModel.userId,
+        };
+        NetworkJT.loginReqNew(457,parma, function(data){
+            if(data && data.code == 0){
+                if(data.message){
+                    var resultData = JSON.parse(data.message).results;
+                    cc.log(" resultData = ",JSON.stringify(resultData));
+                    self.label_tfcScore.setString(""+(parseInt(resultData.totalPoint || "0")/100));
+                    self.label_wtqScore.setString(""+(parseInt(resultData.unTakePoint || "0")/100));
+                }
+            }
+        }.bind(this),function(data){
+            FloatLabelUtil.comText(data.message);
+        });
+
+
     },
 
 

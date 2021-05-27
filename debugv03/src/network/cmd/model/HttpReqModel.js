@@ -69,6 +69,16 @@ HttpReqList[446] = "d446.do";//""/pdklogin/groupActionNew!responseInvite.guajilo
 HttpReqList[447] = "d447.do";//""/pdklogin/groupActionNew!loadInactiveUserList.pdklogin";
 HttpReqList[448] = "d448.do";//""/pdklogin/groupActionNew!updateGroupInfo.guajilogin";
 
+HttpReqList[449] = "rbr01.do";//""/pdklogin/groupActionNew!updateGroupInfo.guajilogin"; //addRedBagConfig 新增投放池
+HttpReqList[450] = "rbr02.do";//""/pdklogin/groupActionNew!updateGroupInfo.guajilogin"; //loadRedBagConfig 红包雨福利配置
+HttpReqList[451] = "rbr03.do";//""/pdklogin/groupActionNew!updateGroupInfo.guajilogin"; //loadRedBagRainResult 红包雨福利结果
+HttpReqList[452] = "rbr04.do";//""/pdklogin/groupActionNew!updateGroupInfo.guajilogin"; //deleteRedBagConfig 删除投放池
+HttpReqList[453] = "rbr05.do";//""/pdklogin/groupActionNew!updateGroupInfo.guajilogin"; //loadRedBagConfigHistoryInfo 群主看红包雨投放记录
+HttpReqList[454] = "rbr06.do";//""/pdklogin/groupActionNew!updateGroupInfo.guajilogin"; //loadGroupRedBagResultInfo 群主看红包雨情况
+HttpReqList[455] = "rbr07.do";//""/pdklogin/groupActionNew!updateGroupInfo.guajilogin"; //loadUserRedBagResultInfo 玩家红包雨结果查询
+HttpReqList[456] = "rbr08.do";//""/pdklogin/groupActionNew!updateGroupInfo.guajilogin"; //userTakeRedBag 用户领取红包
+HttpReqList[457] = "rbr09.do";//""/pdklogin/groupActionNew!updateGroupInfo.guajilogin"; //redBagRainStatistics 群主红包雨投放池统计
+
 HttpReqList[500] = "d500.do";//""/pdklogin/qipai!bindInviteId.action";
 HttpReqList[501] = "d501.do";//""/pdklogin/qipai!getBackStageManagement.action";
 HttpReqList[502] = "d502.do";//""/pdklogin/qipai!getBindOneMsg.action";

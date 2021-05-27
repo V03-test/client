@@ -45,6 +45,7 @@ var ClickClubModel = {
     privateRoom:0,//是否开启私密房，0：关闭，1：开启
     cdtlj_kjzs:0,//配置的常德拖拉机开局桌数
     fzb_hide:0,//防作弊显示屏蔽
+    hbyStateVal:0,//是否开启红包雨
 
     clearClubData:function(){
         this.clickClubObj = null;
@@ -94,6 +95,7 @@ var ClickClubModel = {
         this.privateRoom = 0;
         this.cdtlj_kjzs = 0;
         this.fzb_hide = 0;
+        this.hbyStateVal = 0;
     },
 
     init:function(data){
@@ -212,6 +214,13 @@ var ClickClubModel = {
 
         this.initClubBagModeId();
 
+        if(data.redBagRainConfig){
+            this.hbyStateVal = data.redBagRainConfig;
+        }
+    },
+
+    isHasOpenHBY:function (){
+        return this.hbyStateVal == 1;
     },
 
     /**

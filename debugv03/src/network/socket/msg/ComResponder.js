@@ -1560,6 +1560,20 @@ var ComResponder = BaseResponder.extend({
 			case 1141://钻石奖赏功能推送
 				SyEventManager.dispatchEvent("Zszs_Back",message);
 				break;
+			case 4523:/**亲友圈红包雨 推送开始抢红包消息*/
+				//cc.log(" 收到推送！！！！ ",JSON.stringify(message));
+				if(PopupManager.hasClassByPopup(HBYGetRedBagPop)){
+
+				}else{
+					var mc = new HBYGetRedBagPop();
+					PopupManager.addPopup(mc,999);
+				}
+				SyEventManager.dispatchEvent("hby_start_data",message);
+				break;
+			case 4524:/**亲友圈红包雨 推送抢到红包消息*/
+				//cc.log(" 收到抢红包结果！！！！ ",JSON.stringify(message));
+				SyEventManager.dispatchEvent("hby_end_data",message);
+				break;
 		}
 	}
 })

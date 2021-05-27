@@ -547,6 +547,11 @@ var PyqHall = BasePopup.extend({
 
         this.addTableNumSetItem();
 
+        var Button_hbyfl = this.getWidget("Button_hbyfl");
+        Button_hbyfl.visible = false;
+        UITools.addClickEvent(Button_hbyfl,this,this.onClickHBYFL);
+        this.Button_hbyfl = Button_hbyfl;
+
         //防止长时间在后台回到前台牌桌刷新异常
         var self = this;
         this.showLisener = cc.eventManager.addCustomListener(cc.game.EVENT_SHOW, function(){
@@ -563,6 +568,16 @@ var PyqHall = BasePopup.extend({
             cc.log("=======PyqHall=======EVENT_HIDE=======");
             self.isBackForward = false;
         });
+    },
+
+    onClickHBYFL:function (){
+        if(ClickClubModel.isClubCreater()){
+            var mc = new HBYFlytfPop();
+            PopupManager.addPopup(mc);
+        }else{
+            var mc = new HBYFljlPop();
+            PopupManager.addPopup(mc);
+        }
     },
 
     addTableNumSetItem:function(){
@@ -1527,6 +1542,8 @@ var PyqHall = BasePopup.extend({
             startX+= spaceX;
         }
         this.btn_bufang.setVisible(ClickClubModel.isClubCreaterOrLeader());
+
+        this.Button_hbyfl.setVisible(ClickClubModel.isHasOpenHBY());//红包雨福利按钮
     },
 
     onUpdateCredit:function(event){
