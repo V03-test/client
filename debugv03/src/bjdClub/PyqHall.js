@@ -1543,7 +1543,7 @@ var PyqHall = BasePopup.extend({
         }
         this.btn_bufang.setVisible(ClickClubModel.isClubCreaterOrLeader());
 
-        // this.Button_hbyfl.setVisible(ClickClubModel.isHasOpenHBY());//红包雨福利按钮
+        this.Button_hbyfl.setVisible(ClickClubModel.isHasOpenHBY());//红包雨福利按钮
     },
 
     onUpdateCredit:function(event){
