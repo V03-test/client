@@ -85,6 +85,7 @@ var HBYGetRedBagPop = BasePopup.extend({
             this.Image_win.visible = true;
             this.Image_lose.visible = false;
             this.label_score.string = ""+parseInt(endScore)/100;
+            AudioManager.play("res/res_ui/hongbaoyu/sound/coin.mp3");
         }
         this.initOpenRedBagAni();
     },
