@@ -1655,6 +1655,9 @@ var ClubRecallDetailModel = {
         if(wanfaList[17] == 1){
             infoArr.push("反中庄");
         }
+        if(wanfaList[6] == 2 && wanfaList[21] == 1){
+            infoArr.push("五福不翻倍");
+        }
         if(wanfaList[18] == 1){
             if(wanfaList[19]==1){
                 infoArr.push("有庄有鸟");

@@ -23,7 +23,7 @@ var RuleSelect_ZZPH = RuleSelectBase.extend({
             {title:"胡牌",type:1,content:["强制胡牌","不强制"]},//4
             {title:"坐庄",type:1,content:["先进房坐庄","随机坐庄"]},//5
             {title:"中庄",type:1,content:["连庄","中庄*2","不连庄不中庄"],col:3},//6
-            {title:"高级",type:2,content:["开始后打乱位置","无对","反中庄","打鸟玩法"],col:3},//7
+            {title:"高级",type:2,content:["开始后打乱位置","无对","反中庄","打鸟玩法","五福不翻倍"],col:3},//7
             {title:"打鸟",type:1,content:["有庄有鸟(3/6分)","围鸟(3/6分)","围鸟加鸟(8/16分)","自由压鸟(3/5/6/10分)"],col:2},//8
             {title:"小七",type:1,content:["小七对带坎","小七对不带坎"],col:3},//9
             {title:"托管",type:1,content:["不托管","1分钟","2分钟","3分钟","5分钟"],col:3},//10
@@ -178,6 +178,9 @@ var RuleSelect_ZZPH = RuleSelectBase.extend({
         }else{
             this.layoutArr[8].setVisible(false);
         }
+
+        var isHasZZ = this.getItemByIdx(6,1).isSelected();
+        this.getItemByIdx(7,4).setItemState(isHasZZ);
     },
 
     updateZsNum:function(){
@@ -287,6 +290,10 @@ var RuleSelect_ZZPH = RuleSelectBase.extend({
                 break;
             }
         }
+        var wfbfb = 0;
+        if(zhongzhuang == 2){
+            if(this.getItemByIdx(7,4).isSelected()) wfbfb=1;
+        }
 
         var xqd = 1;
         if(this.getItemByIdx(9,1).isSelected()) xqd=2;
@@ -355,7 +362,8 @@ var RuleSelect_ZZPH = RuleSelectBase.extend({
             fanZhongZhuang,//17 反中庄
             isdaNiao,//18 0不勾选 1勾选
             daNiaoWF,//19 1有庄有鸟  2围鸟 3围鸟加鸟 4自由压鸟 打鸟玩法
-            xqd,//20 小七对 1带坎 2不带坎 
+            xqd,//20 小七对 1带坎 2不带坎
+            wfbfb,//21 五福不翻倍
         ];
         return data;
     },
@@ -419,6 +427,8 @@ var RuleSelect_ZZPH = RuleSelectBase.extend({
             defaultConfig[7].push(2);
         if(params[18] == 1)
             defaultConfig[7].push(3);
+        if(params[6] == 2 && params[21] == 1)
+            defaultConfig[7].push(4);
 
         if(params[13] && params[13] != 0 && params[14] && params[14] != 0){
             defaultConfig[14].push(0);
