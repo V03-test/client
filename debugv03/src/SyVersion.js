@@ -2,7 +2,7 @@
  * Created by zhoufan on 2020/8/21
  */
 var SyVersion = {
-    v:"v1.0.50",
+    v:"v1.0.51",
 
 
     getVersion:function(){
