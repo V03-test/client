@@ -8,6 +8,6 @@ var KefunewPop = BasePopup.extend({
 	},
 
 	onCopy:function(){
-		SdkUtil.sdkPaste("399812524");
+		SdkUtil.sdkPaste("2209683166");
 	},
 });
