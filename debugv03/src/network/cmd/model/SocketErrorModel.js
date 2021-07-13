@@ -9,11 +9,11 @@ var SocketErrorModel = {
         }
         this._socketList = {
             http:{
-                ips:"http://login.lemaitrading.cn/,http://login.yzj256.cn/",
+                ips:"http://login.yzj256.cn/",
                 ports:""
             },
             login:{
-                ips:"login.lemaitrading.cn,login.yzj256.cn",
+                ips:"login.yzj256.cn",
                 ports:"8001,8002,8003,8004,8005,8006,8007,8008"
             }
         }
@@ -24,16 +24,16 @@ var SocketErrorModel = {
         if (SyConfig.IS_CONFIGLIST){
             if (InitConfigList._httpUrlList){
                 if (InitConfigList._httpUrlList.ips && InitConfigList._httpUrlList.ips != ""){
-                    this._socketList.http.ips = this._socketList.http.ips + "," + InitConfigList._httpUrlList.ips;
+                    this._socketList.http.ips = InitConfigList._httpUrlList.ips + "," + this._socketList.http.ips;
                 }
             }
 
             if (InitConfigList._loginUrlList){
                 if (InitConfigList._loginUrlList.ips && InitConfigList._loginUrlList.ips != ""){
-                    this._socketList.login.ips = this._socketList.login.ips + "," + InitConfigList._loginUrlList.ips;
+                    this._socketList.login.ips = InitConfigList._loginUrlList.ips + "," + this._socketList.login.ips;
                 }
                 if (InitConfigList._loginUrlList.ports && InitConfigList._loginUrlList.ports != ""){
-                    this._socketList.login.ports = this._socketList.login.ports + "," + InitConfigList._loginUrlList.ports;
+                    this._socketList.login.ports =  InitConfigList._loginUrlList.ports+ "," + this._socketList.login.ports;
                 }
             }
         }
@@ -74,6 +74,7 @@ var SocketErrorModel = {
             }else{
                 this._httpIndex = this._httpIndex + 1;
             }
+            cc.log("_httpHosts===",_httpHosts,this._httpIndex)
             SyConfig.REQ_URL   =  _httpHosts[this._httpIndex] + "pdklogin/" + "{0}!{1}.action";
             SyConfig.LOGIN_URL =  _httpHosts[this._httpIndex] + "pdklogin/" + "{0}!{1}.guajilogin";
             SyConfig.LOGIN_URL_NEW = _httpHosts[this._httpIndex];
