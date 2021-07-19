@@ -159,6 +159,7 @@ var BaseRoom = BaseLayer.extend({
         this.addCustomEvent(SyEvent.USER_AUDIO_PLAY_START,this,this.onStartSpeak);
         this.addCustomEvent(SyEvent.USER_AUDIO_PLAY_FINISH,this,this.onStopSpeak);
         this.addCustomEvent("UPDATA_SHOUPAI",this,this.updateHands);
+    
 
         //实时语音初始化
         if(!SdkUtil.isReview()){
@@ -579,4 +580,5 @@ var BaseRoom = BaseLayer.extend({
             }
         }
     }
+
 });

@@ -925,7 +925,7 @@
               "capInsetsY": 0,
               "fileName": null,
               "fileNameData": {
-                "path": "F:\\cocosStudio\\EditorDefaultRes\\GUI/image.png",
+                "path": "D:\\Program Files (x86)\\Cocos Studio\\EditorDefaultRes\\GUI/image.png",
                 "plistFile": "",
                 "resourceType": 2
               },
@@ -979,7 +979,7 @@
               "capInsetsY": 0,
               "fileName": null,
               "fileNameData": {
-                "path": "F:\\cocosStudio\\EditorDefaultRes\\GUI/image.png",
+                "path": "D:\\Program Files (x86)\\Cocos Studio\\EditorDefaultRes\\GUI/image.png",
                 "plistFile": "",
                 "resourceType": 2
               },
@@ -1033,7 +1033,7 @@
               "capInsetsY": 0,
               "fileName": null,
               "fileNameData": {
-                "path": "F:\\cocosStudio\\EditorDefaultRes\\GUI/image.png",
+                "path": "D:\\Program Files (x86)\\Cocos Studio\\EditorDefaultRes\\GUI/image.png",
                 "plistFile": "",
                 "resourceType": 2
               },
@@ -2439,7 +2439,7 @@
           "capInsetsY": 30,
           "fileName": null,
           "fileNameData": {
-            "path": "F:\\cocosStudio\\EditorDefaultRes\\GUI/image.png",
+            "path": "D:\\Program Files (x86)\\Cocos Studio\\EditorDefaultRes\\GUI/image.png",
             "plistFile": "",
             "resourceType": 2
           },
@@ -5702,7 +5702,7 @@
           "sizePercentY": 0.055555556,
           "sizeType": 0,
           "tag": 10529,
-          "touchAble": false,
+          "touchAble": true,
           "useMergedTexture": false,
           "visible": true,
           "width": 216,

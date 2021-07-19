@@ -1574,6 +1574,12 @@ var ComResponder = BaseResponder.extend({
 				//cc.log(" 收到抢红包结果！！！！ ",JSON.stringify(message));
 				SyEventManager.dispatchEvent("hby_end_data",message);
 				break;
+			case 6007:/**可否调牌权限请求*/
+				SyEventManager.dispatchEvent("shazhu_show",message);
+				break;
+			case 6009:/**获取剩余桌牌*/
+				SyEventManager.dispatchEvent("shazhu_data",message);
+				break;
 		}
 	}
 })

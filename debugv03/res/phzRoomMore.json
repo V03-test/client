@@ -899,24 +899,24 @@
               "customProperty": "",
               "flipX": false,
               "flipY": false,
-              "height": 59,
+              "height": 80,
               "ignoreSize": true,
               "layoutParameter": null,
               "opacity": 255,
               "positionPercentX": 0,
-              "positionPercentY": -1.35294116,
+              "positionPercentY": -1.23214281,
               "positionType": 0,
               "rotation": 0,
               "scaleX": 1,
               "scaleY": 1,
-              "sizePercentX": 1.95167291,
-              "sizePercentY": 1.15686274,
+              "sizePercentX": 1.7045455,
+              "sizePercentY": 1.05357146,
               "sizeType": 0,
               "tag": 366988,
               "touchAble": false,
               "useMergedTexture": false,
               "visible": false,
-              "width": 525,
+              "width": 80,
               "x": 0,
               "y": -69,
               "capInsetsHeight": 1,
@@ -925,13 +925,13 @@
               "capInsetsY": 0,
               "fileName": null,
               "fileNameData": {
-                "path": "res_phz/wanfaImg/wanfa1_1.png",
+                "path": "D:\\Program Files (x86)\\Cocos Studio\\EditorDefaultRes\\GUI/image.png",
                 "plistFile": "",
-                "resourceType": 0
+                "resourceType": 2
               },
               "scale9Enable": false,
-              "scale9Height": 59,
-              "scale9Width": 525
+              "scale9Height": 80,
+              "scale9Width": 80
             }
           },
           {
@@ -953,24 +953,24 @@
               "customProperty": "",
               "flipX": false,
               "flipY": false,
-              "height": 59,
+              "height": 80,
               "ignoreSize": true,
               "layoutParameter": null,
               "opacity": 255,
-              "positionPercentX": 0.977695167,
-              "positionPercentY": -1.2352941,
+              "positionPercentX": 0.8538961,
+              "positionPercentY": -1.125,
               "positionType": 0,
               "rotation": 0,
               "scaleX": 1,
               "scaleY": 1,
-              "sizePercentX": 0.81040895,
-              "sizePercentY": 1.15686274,
+              "sizePercentX": 0.7077922,
+              "sizePercentY": 1.05357146,
               "sizeType": 0,
               "tag": 1000554883,
               "touchAble": false,
               "useMergedTexture": false,
               "visible": false,
-              "width": 218,
+              "width": 80,
               "x": 263,
               "y": -63,
               "capInsetsHeight": 1,
@@ -979,13 +979,13 @@
               "capInsetsY": 0,
               "fileName": null,
               "fileNameData": {
-                "path": "res_phz/wanfaImg/mbjs_3.png",
+                "path": "D:\\Program Files (x86)\\Cocos Studio\\EditorDefaultRes\\GUI/image.png",
                 "plistFile": "",
-                "resourceType": 0
+                "resourceType": 2
               },
               "scale9Enable": false,
-              "scale9Height": 59,
-              "scale9Width": 218
+              "scale9Height": 80,
+              "scale9Width": 80
             }
           },
           {
@@ -1007,24 +1007,24 @@
               "customProperty": "",
               "flipX": false,
               "flipY": false,
-              "height": 58,
+              "height": 80,
               "ignoreSize": true,
               "layoutParameter": null,
               "opacity": 255,
-              "positionPercentX": -0.0111524165,
-              "positionPercentY": -1.2352941,
+              "positionPercentX": -0.0097402595,
+              "positionPercentY": -1.125,
               "positionType": 0,
               "rotation": 0,
               "scaleX": 1,
               "scaleY": 1,
-              "sizePercentX": 0.7657993,
-              "sizePercentY": 1.137255,
+              "sizePercentX": 0.66883117,
+              "sizePercentY": 1.03571427,
               "sizeType": 0,
               "tag": 1000554884,
               "touchAble": false,
               "useMergedTexture": false,
               "visible": true,
-              "width": 206,
+              "width": 80,
               "x": -3,
               "y": -63,
               "capInsetsHeight": 1,
@@ -1033,13 +1033,13 @@
               "capInsetsY": 0,
               "fileName": null,
               "fileNameData": {
-                "path": "res_phz/wanfaImg/6hqh_3.png",
+                "path": "D:\\Program Files (x86)\\Cocos Studio\\EditorDefaultRes\\GUI/image.png",
                 "plistFile": "",
-                "resourceType": 0
+                "resourceType": 2
               },
               "scale9Enable": false,
-              "scale9Height": 58,
-              "scale9Width": 206
+              "scale9Height": 80,
+              "scale9Width": 80
             }
           }
         ],
@@ -1058,7 +1058,7 @@
           "customProperty": "",
           "flipX": false,
           "flipY": false,
-          "height": 51,
+          "height": 56,
           "ignoreSize": true,
           "layoutParameter": null,
           "opacity": 75,
@@ -1075,7 +1075,7 @@
           "touchAble": false,
           "useMergedTexture": false,
           "visible": true,
-          "width": 269,
+          "width": 308,
           "x": 960,
           "y": 750,
           "capInsetsHeight": 1,
@@ -1089,8 +1089,8 @@
             "resourceType": 0
           },
           "scale9Enable": false,
-          "scale9Height": 51,
-          "scale9Width": 269
+          "scale9Height": 56,
+          "scale9Width": 308
         }
       },
       {
@@ -1192,7 +1192,7 @@
           "capInsetsY": 30,
           "fileName": null,
           "fileNameData": {
-            "path": "F:\\cocosStudio\\EditorDefaultRes\\GUI/image.png",
+            "path": "D:\\Program Files (x86)\\Cocos Studio\\EditorDefaultRes\\GUI/image.png",
             "plistFile": "",
             "resourceType": 2
           },
@@ -7034,7 +7034,7 @@
           "sizePercentY": 0.055555556,
           "sizeType": 0,
           "tag": 10529,
-          "touchAble": false,
+          "touchAble": true,
           "useMergedTexture": false,
           "visible": true,
           "width": 216,

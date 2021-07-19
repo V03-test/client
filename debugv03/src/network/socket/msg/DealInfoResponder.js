@@ -28,5 +28,7 @@ var DealInfoResponder = BaseResponder.extend({
 
         //亲友圈豆子结算房间统一显示房费
         UITools.showTiketInRoom();
+
+        sySocket.sendComReqMsg(1111,[7,0]);
     }
 })

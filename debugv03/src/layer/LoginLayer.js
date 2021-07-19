@@ -192,9 +192,8 @@ var LoginLayer = BaseLayer.extend({
 
     setSelectServer:function(){
         var configArr = [
-            {name:"测试环境",url:"http://8.131.239.9:9091",host:"8.131.239.9",port:"8001"},
-            {name:"肖攀本地服",url:"http://192.168.1.112:8381",host:"192.168.1.112",port:"8309"},
-            {name:"卜涛本地服",url:"http://192.168.1.110:8081",host:"192.168.1.110",port:"8109"}
+            {name:"test环境",url:"http://8.131.239.9:9091",host:"8.131.239.9",port:"8001"},
+            {name:"本地服",url:"http://192.168.2.3:8081",host:"192.168.2.3",port:"8109"},
         ]
         this.selectBtnArr = [];
         for(var i = 0;i<configArr.length;++i){
@@ -209,7 +208,7 @@ var LoginLayer = BaseLayer.extend({
             this.selectBtnArr[i] = btn;
         }
 
-        this.onClickServerBtn(this.selectBtnArr[0]);
+        this.onClickServerBtn(this.selectBtnArr[1]);
     },
 
     onClickServerBtn:function(sender){

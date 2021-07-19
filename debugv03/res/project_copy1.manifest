@@ -1,7 +1,7 @@
 {
-    "packageUrl":"http://hotcdn.tiaoguoshi.cn/debugv05/",
-    "remoteManifestUrl":"http://hotcdn.tiaoguoshi.cn/debugv05/project.manifest",
-    "remoteVersionUrl":"http://hotcdn.tiaoguoshi.cn/debugv05/version.manifest",
+    "packageUrl":"http://hotcdn.tiaoguoshi.cn/v03/",
+    "remoteManifestUrl":"http://hotcdn.tiaoguoshi.cn/v03/project.manifest",
+    "remoteVersionUrl":"http://hotcdn.tiaoguoshi.cn/v03/version.manifest",
     "version":"1.0.0",
     "groupVersions":{
         "1":"1.0.1"

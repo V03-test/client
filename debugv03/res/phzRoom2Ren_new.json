@@ -925,7 +925,7 @@
               "capInsetsY": 0,
               "fileName": null,
               "fileNameData": {
-                "path": "F:\\cocosStudio\\EditorDefaultRes\\GUI/image.png",
+                "path": "D:\\Program Files (x86)\\Cocos Studio\\EditorDefaultRes\\GUI/image.png",
                 "plistFile": "",
                 "resourceType": 2
               },
@@ -979,7 +979,7 @@
               "capInsetsY": 0,
               "fileName": null,
               "fileNameData": {
-                "path": "F:\\cocosStudio\\EditorDefaultRes\\GUI/image.png",
+                "path": "D:\\Program Files (x86)\\Cocos Studio\\EditorDefaultRes\\GUI/image.png",
                 "plistFile": "",
                 "resourceType": 2
               },
@@ -1033,7 +1033,7 @@
               "capInsetsY": 0,
               "fileName": null,
               "fileNameData": {
-                "path": "F:\\cocosStudio\\EditorDefaultRes\\GUI/image.png",
+                "path": "D:\\Program Files (x86)\\Cocos Studio\\EditorDefaultRes\\GUI/image.png",
                 "plistFile": "",
                 "resourceType": 2
               },
@@ -2439,7 +2439,7 @@
           "capInsetsY": 30,
           "fileName": null,
           "fileNameData": {
-            "path": "F:\\cocosStudio\\EditorDefaultRes\\GUI/image.png",
+            "path": "D:\\Program Files (x86)\\Cocos Studio\\EditorDefaultRes\\GUI/image.png",
             "plistFile": "",
             "resourceType": 2
           },
@@ -4456,7 +4456,7 @@
           "sizePercentY": 0.055555556,
           "sizeType": 0,
           "tag": 10529,
-          "touchAble": false,
+          "touchAble": true,
           "useMergedTexture": false,
           "visible": true,
           "width": 216,
@@ -4820,8 +4820,8 @@
           "ignoreSize": false,
           "layoutParameter": null,
           "opacity": 255,
-          "positionPercentX": 0.178645715,
-          "positionPercentY": 0.7115741,
+          "positionPercentX": 0.178125,
+          "positionPercentY": 0.7111111,
           "positionType": 0,
           "rotation": 0,
           "scaleX": 1,

@@ -514,7 +514,7 @@ var CreateTableResponder = BaseResponder.extend({
                     break;
             }
         }
-
+        SyEventManager.dispatchEvent("shazhu_get");
         IMSdkUtil.sdkApplyMessageKey("");
 
 
