@@ -7029,7 +7029,7 @@
               "touchAble": false,
               "useMergedTexture": false,
               "visible": true,
-              "width": 78,
+              "width": 52,
               "x": 24,
               "y": 15,
               "areaHeight": 0,
@@ -7038,7 +7038,7 @@
               "fontName": "font/bjdmj/fznt.ttf",
               "fontSize": 26,
               "hAlignment": 1,
-              "text": "剩余20",
+              "text": "剩余",
               "touchScaleEnable": false,
               "vAlignment": 0
             }
