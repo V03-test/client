@@ -221,6 +221,7 @@ var DTRoomLayer = DTBaseRoomLayer.extend({
         this.btn_bao = new ccui.Button(img,img);
         this.btn_bao.setPosition(this.btn_chat.x - 120,this.btn_chat.y);
         this.addChild(this.btn_bao);
+        this.btn_bao.visible = false;
 
         img = "res/res_diantuo/show_baoFen.png";
         this.btn_show_baofen = new ccui.Button(img,img);

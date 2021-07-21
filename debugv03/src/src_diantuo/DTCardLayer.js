@@ -633,7 +633,7 @@ var DTCardLayer = cc.Layer.extend({
                 this.tgSpr.setPosition(cc.winSize.width/2,75);
                 this.addChild(this.tgSpr,200);
 
-                this.btn_qxtg = new ccui.Button("res/res_diantuo/btn_quxiaotg.png","res/res_diantuo/btn_quxiaotg.png");
+                this.btn_qxtg = new ccui.Button("res/res_gameCom/cancelTuoguan.png","res/res_gameCom/cancelTuoguan.png");
                 this.btn_qxtg.setPosition(this.tgSpr.width/2,150);
                 this.tgSpr.addChild(this.btn_qxtg);
                 this.btn_qxtg.addTouchEventListener(this.onClickBtn,this);
